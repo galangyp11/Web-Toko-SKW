@@ -1,72 +1,25 @@
 import './items.css'
 
-const items = () => {
+const items = ({dataItem, dataLength}) => {
+    
     return ( 
-        <div className="items mt-5 d-flex justify-content-center align-items-center">
-            <div className="item p-3 mx-3">
+        <div className="items p-4 mb-5 d-flex justify-content-center align-items-center">
+            <div className="row gy-5 row-cols-5">
+                <div className="col">
+                    <div className="item mx-3">
                         <div className="img-thumbnail-item">
 
                         </div>
-                        <div className="item-name">
-                            <h4>Selang Kompor</h4>
+                        <div className="item-name py-1 px-2">
+                            <p>{dataItem.nama_barang}</p>
                         </div>
-                        <div className="item-price">
-                            <p>Rp. 50.000</p>
-                        </div>
-
-                    </div>
-
-                    <div className="item p-3 mx-3">
-                        <div className="img-thumbnail-item">
-
-                        </div>
-                        <div className="item-name">
-                            <h4>Selang Kompor</h4>
-                        </div>
-                        <div className="item-price">
-                            <p>Rp. 50.000</p>
+                        <div className="item-price px-2">
+                            <h5>{dataItem.harga}</h5>
                         </div>
 
                     </div>
-
-                    <div className="item p-3 mx-3">
-                        <div className="img-thumbnail-item">
-
-                        </div>
-                        <div className="item-name">
-                            <h4>Selang Kompor</h4>
-                        </div>
-                        <div className="item-price">
-                            <p>Rp. 50.000</p>
-                        </div>
-
-                    </div>
-
-                    <div className="item p-3 mx-3">
-                        <div className="img-thumbnail-item">
-
-                        </div>
-                        <div className="item-name">
-                            <h4>Selang Kompor</h4>
-                        </div>
-                        <div className="item-price">
-                            <p>Rp. 50.000</p>
-                        </div>
-
-                    </div>
-
-                    <div className="item p-3 mx-3">
-                        <div className="img-thumbnail-item">
-
-                        </div>
-                        <div className="item-name">
-                            <h4>Selang Kompor</h4>
-                        </div>
-                        <div className="item-price">
-                            <p>Rp. 50.000</p>
-                        </div>
-
-                    </div>
+                </div>
+            </div>
         </div>
      );
 }

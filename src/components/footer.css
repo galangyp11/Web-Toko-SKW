@@ -1,0 +1,15 @@
+.footer{
+    max-width: 99vw;
+    height: 400px;
+
+    background-color: #0A2647;
+}
+
+.footer-text{
+    color: white;
+}
+
+.sponsor{
+    width: 100px;
+    border-radius: 50%;
+}

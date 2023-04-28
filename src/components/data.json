@@ -1,0 +1,70 @@
+{
+    "items":[
+        {
+            "id":"01",
+            "nama_barang":"Topi",
+            "harga":"25000",
+            "kategor1":"Aksesoris"
+        },
+        {
+            "id":"02",
+            "nama_barang":"Martabak",
+            "harga":"10000",
+            "kategor1":"Makanan"
+        },
+        {
+            "id":"03",
+            "nama_barang":"Totebag",
+            "harga":"20000",
+            "kategor1":"Kerajinan"
+        },
+        {
+            "id":"04",
+            "nama_barang":"Keripik Pedas",
+            "harga":"5000",
+            "kategor1":"Makanan"
+        },
+        {
+            "id":"05",
+            "nama_barang":"Es Cappuchino",
+            "harga":"8000",
+            "kategor1":"Minuman"
+        },
+        {
+            "id":"06",
+            "nama_barang":"Susu Kuda Liar",
+            "harga":"50000",
+            "kategor1":"Minuman"
+        },
+        {
+            "id":"07",
+            "nama_barang":"Basreng",
+            "harga":"15000",
+            "kategor1":"Makanan"
+        },
+        {
+            "id":"08",
+            "nama_barang":"Vest",
+            "harga":"19000",
+            "kategor1":"Kerajinan"
+        },
+        {
+            "id":"09",
+            "nama_barang":"Kemeja",
+            "harga":"75000",
+            "kategor1":"Pakaian"
+        },
+        {
+            "id":"10",
+            "nama_barang":"Kaos Band",
+            "harga":"150000",
+            "kategor1":"Pakaian"
+        },
+        {
+            "id":"11",
+            "nama_barang":"Roti",
+            "harga":"2000",
+            "kategor1":"Makanan"
+        }
+    ]
+}

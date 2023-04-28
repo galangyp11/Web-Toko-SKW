@@ -12,12 +12,8 @@
 
     width: auto;
     height: 100%;
-    min-height: 90dvh;
+    min-height: 100dvh;
+
+    overflow-x: hidden;
     
 }
-
-.navbar-home{
-    margin: 0;
-    padding: 0;
-}
-

@@ -8,47 +8,74 @@ import Pakaian from './image/kaos.jpg'
 
 const Recomendation = () => {
     return ( 
-        <div className="recomendation d-flex justify-content-center align-items-center">
-            <div className="item-recomend mx-4 d-flex justify-content-center align-items-center">
-                <div className="recomend-thumbnail ">
-                    <h2 className='text-thumbnail'>Makanan</h2>
-                    <img className='img-thumbnail' src={Makanan} alt="">
-                        
-                    </img>
+        <div className="recomendation d-flex justify-content-center">
+            <div className="row d-flex justify-content-center align-items-center" style={{ width:"60dvw"}}>
+                <div className="item-recomend m-4">
+                    <div className="row">
+                        <div className="recomend-thumbnail ">
+                            <img className='img-thumbnail' src={Makanan} alt=""/>
+                        </div>
+                    </div>
+                    <div className="row">
+                        <h2 className='text-thumbnail text-center'>Makanan</h2>
+                    </div>
+                </div>
+
+                <div className="item-recomend m-4">
+                    <div className="row">
+                        <div className="recomend-thumbnail ">
+                            <img className='img-thumbnail' src={Minuman} alt=""/>
+                        </div>
+                    </div>
+                    <div className="row">
+                        <h2 className='text-thumbnail text-center'>Minuman</h2>
+                    </div>
+                </div>
+
+                <div className="item-recomend m-4">
+                    <div className="row">
+                        <div className="recomend-thumbnail ">
+                            <img className='img-thumbnail' src={Jasa} alt=""/>
+                        </div>
+                    </div>
+                    <div className="row">
+                        <h2 className='text-thumbnail text-center'>Jasa</h2>
+                    </div>
+                </div>
+
+                <div className="item-recomend m-4">
+                    <div className="row">
+                        <div className="recomend-thumbnail ">
+                            <img className='img-thumbnail' src={Kerajinan} alt=""/>
+                        </div>
+                    </div>
+                    <div className="row">
+                        <h2 className='text-thumbnail text-center'>Kerajinan</h2>
+                    </div>
+                </div>
+
+                <div className="item-recomend m-4">
+                    <div className="row">
+                        <div className="recomend-thumbnail ">
+                            <img className='img-thumbnail' src={Aksesoris} alt=""/>
+                        </div>
+                    </div>
+                    <div className="row">
+                        <h2 className='text-thumbnail text-center'>Aksesoris</h2>
+                    </div>
+                </div>
+
+                <div className="item-recomend m-4">
+                    <div className="row">
+                        <div className="recomend-thumbnail ">
+                            <img className='img-thumbnail' src={Pakaian} alt=""/>
+                        </div>
+                    </div>
+                    <div className="row">
+                        <h2 className='text-thumbnail text-center'>Pakaian</h2>
+                    </div>
                 </div>
             </div>
-
-            <div className="item-recomend mx-4 d-flex justify-content-center align-items-center">
-                <div className="recomend-thumbnail ">
-                    <h2 className='text-thumbnail'>Minuman</h2>
-                    <img className='img-thumbnail' src={Minuman} alt="" />
-                </div>
-            </div>
-
-            <div className="item-recomend mx-4 d-flex justify-content-center align-items-center">
-                <div className="recomend-thumbnail ">
-                    <h2 className='text-thumbnail'>Jasa</h2>
-                    <img className='img-thumbnail' src={Jasa} alt="" />
-                </div>
-            </div>
-
-            {/* <div className="item-recomend">
-                <div className="recomend-thumbnail">
-                    <img className='img-thumbnail' src={Kerajinan} alt="" />
-                </div>
-            </div>
-
-            <div className="item-recomend">
-                <div className="recomend-thumbnail">
-                    <img className='img-thumbnail' src={Aksesoris} alt="" />
-                </div>
-            </div>
-
-            <div className="item-recomend">
-                <div className="recomend-thumbnail">
-                    <img className='img-thumbnail' src={Pakaian} alt="" />
-                </div>
-            </div> */}
         </div>
      );
 }
