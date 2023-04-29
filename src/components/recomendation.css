@@ -1,6 +1,6 @@
 .recomendation{
     width: 100%;
-    height: 90dvh;
+    max-height: 90dvh;
 }
 
 .item-recomend{

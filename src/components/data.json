@@ -65,6 +65,12 @@
             "nama_barang":"Roti",
             "harga":"2000",
             "kategor1":"Makanan"
+        },
+        {
+            "id":"12",
+            "nama_barang":"Martabak",
+            "harga":"25000",
+            "kategor1":"Makanan"
         }
     ]
 }
