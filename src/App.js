@@ -9,7 +9,6 @@ import DescItem from './components/DescItem';
 
 function App() {
 
-  const { id } = useParams();
   // const [datum, setDatum] = useState([])
 
   // useEffect(()=>{
