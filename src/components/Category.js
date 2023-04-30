@@ -1,4 +1,4 @@
-import './recomendation.css'
+import './category.css'
 import Makanan from './image/makanan.jpg';
 import Minuman from './image/minuman.jpg';
 import Jasa from './image/jasa.png';
@@ -6,19 +6,23 @@ import Kerajinan from './image/kerajinan.jpg';
 import Aksesoris from './image/aksesoris.jpg';
 import Pakaian from './image/kaos.jpg'
 
-const Recomendation = () => {
+import { Link } from 'react-router-dom';
+
+const Category = () => {
     return ( 
-        <div className="recomendation d-flex justify-content-center">
+        <div className="category d-flex justify-content-center">
             <div className="row d-flex justify-content-center align-items-center" style={{ width:"60dvw"}}>
                 <div className="item-recomend m-4">
-                    <div className="row">
-                        <div className="recomend-thumbnail ">
-                            <img className='img-thumbnail' src={Makanan} alt=""/>
+                    <Link to={`/category`} style={{ textDecoration:"none", color:"black"}}>
+                        <div className="row">
+                            <div className="recomend-thumbnail ">
+                                <img className='img-thumbnail' src={Makanan} alt=""/>
+                            </div>
                         </div>
-                    </div>
-                    <div className="row">
-                        <h2 className='text-thumbnail text-center'>Makanan</h2>
-                    </div>
+                        <div className="row">
+                            <h2 className='text-thumbnail text-center'>Makanan</h2>
+                        </div>
+                    </Link>
                 </div>
 
                 <div className="item-recomend m-4">
@@ -80,4 +84,4 @@ const Recomendation = () => {
      );
 }
  
-export default Recomendation;
+export default Category;

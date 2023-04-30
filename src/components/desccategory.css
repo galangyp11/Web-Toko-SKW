@@ -1,0 +1,29 @@
+.desccategory{
+    max-width: 100dvw;
+    height: 100%;
+    min-height: 100dvh;
+
+    background-color: white;
+    margin: 0;
+}
+
+.select{
+    border: none;
+    border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+    width: 150px;
+    height: 30px;
+}
+
+.desc-category-con{
+    background-color: white;
+    width: auto;
+    height: 100%;
+    min-height: 100dvh;
+
+    overflow-x: hidden;
+
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+
+    border-radius: 10px;
+}

@@ -1,22 +1,18 @@
 import { useEffect, useState } from 'react';
 import './items.css'
-import { Link, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 const Items = () => {
 
-    const url = useParams()    
     const [datum, setDatum] = useState([])
 
     useEffect(()=>{
-
         const dataDB = async () => {
-            const response = await axios.get(`http://localhost:3311/`)
+            const response = await axios.get(`http://localhost:3311/item`)
             setDatum(response.data)
             console.log(response)
-            
         }
-
         dataDB()
     },[]) 
 
@@ -34,18 +30,19 @@ const Items = () => {
             <div className="row gap-4 d-flex justify-content-center align-items-center row-cols-5">
                
                     { datum.map((item) => {
+                        const foto = btoa(String.fromCharCode(...new Uint8Array(item.foto_item.data)));
                         return(
-                  
+                        
                         <div className="item m-3" key={item.id_item} style={{cursor:"pointer", padding:'0px'}}>
-                              <Link to={`/  ${item.id_item}`} style={{ textDecoration:"none", color:"black"}}>
+                              <Link to={`/item/${item.id_item}`} style={{ textDecoration:"none", color:"black"}}>
                             <div className="img-thumbnail-item " >
-                                <img src="" alt="" />
+                                <img className='item-image' src={`data:image/png;base64,${foto}`} alt="" />
                             </div>
                             <div className="item-name py-1 px-2">
                                 <p>{item.nama_item}</p>
                             </div>
                             <div className="item-price px-2">
-                                <h5>{formatUang(item.harga_item)}</h5>
+                                <h5>{formatUang(item.harga_item).replace(/\,00/g, '')}</h5>
                             </div>
                             </Link>
                         </div>

@@ -6,18 +6,19 @@ import axios from 'axios';
 import Navbar from './Navbar';
 
 const DescItem = () => {
-    const [ itemById, setItemById] = useState({})
+    const [itemById, setItemById] = useState({})
+    const [foto, setFoto] = useState()
     const {id} = useParams()
 
     useEffect(() => {
         const getItemById = async () => {
-            const response = await axios.get(`http://localhost:3311/${id}`);
+            const response = await axios.get(`http://localhost:3311/item/${id}`);
             setItemById(response.data);
             console.log(response.data);
         }
         getItemById();
+                
     }, []);
-    
     
 
     const formatUang = (number) =>{
@@ -27,16 +28,27 @@ const DescItem = () => {
         }).format(number);
     }
 
+    setTimeout(()=>{
+        try {
+            setFoto(btoa(String.fromCharCode(...new Uint8Array(itemById.foto_item.data))))
+        } catch (error) {
+            console.log('sabar bang fotonya lagi loading')
+        }
+    }, 100)
+
+    console.log(itemById.foto_item)
+
     return ( 
         <div className="descitem">
             <div className="sticky-top">
                 <Navbar/>
             </div>
-            <div className="container">
+            <div className="desc-item-con container ">
                 <div className="row pt-4" style={{ overflow:"hidden"}}>
                     <div className="col d-flex justify-content-center">
                         <div className="desc-kiri">
                             
+                            <img className='item-desc-image' src={`data:image/png;base64,${foto}`} alt=""/>
                         </div>
                     </div>
 
@@ -46,7 +58,7 @@ const DescItem = () => {
                                 <h2>{itemById.nama_item}</h2>
                             </div>
                             <div className="row">
-                                <h4>{formatUang(itemById.harga_item)}</h4>
+                                <h4>{formatUang(itemById.harga_item).replace(/\,00/g, '')}</h4>
                             </div>
                             <div className="row">
                                 <p>{itemById.deskripsi_item}</p>

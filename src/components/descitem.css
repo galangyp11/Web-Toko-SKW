@@ -1,13 +1,13 @@
 .descitem{
     max-width: 100dvw;
+    height: 100%;
     min-height: 100dvh;
 
     background-color: white;
     margin: 0;
-
 }
 
-.container{
+.desc-item-con{
     background-color: white;
 
     width: auto;
@@ -15,7 +15,6 @@
     min-height: 90dvh;
 
     overflow-x: hidden;
-    
 }
 
 .desc-kiri{
@@ -23,6 +22,12 @@
     height: 400px;
     border-radius: 5px;
     background-color: whitesmoke;
+}
+
+.item-desc-image{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 .desc-kanan{

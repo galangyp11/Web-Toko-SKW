@@ -1,0 +1,13 @@
+.login{
+    width: 100dvw;
+    height: 100dvh;
+    background-color: #C9EEFF;
+}
+
+.test-form{
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    background-color: white;
+    width: 500px;
+    height: 300px;
+  }
+  

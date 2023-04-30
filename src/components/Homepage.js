@@ -1,28 +1,26 @@
 import './homepage.css'
 import Items from './Items';
-import Recomendation from './Recomendation';
+import Category from './Category';
 import Navbar from './Navbar';
 import Footer from './Footer';
 
-import { useEffect, useState } from 'react';
-
-const Homepage = ({datum}) => {
+const Homepage = () => {
 
     return ( 
         <div className="homepage">
             <div className="sticky-top">
                 <Navbar/>
             </div>
-            <div className="container">
+            <div className="homepage-con container">
                 <div className='row'>
                     <div className="col">
-                    <Recomendation/>
+                    <Category/>
                     </div> 
                 </div>
 
                 <div className="row">
                     <div className="col">
-                        <Items datum={datum}/>    
+                        <Items/>    
                     </div>
                 </div>
 

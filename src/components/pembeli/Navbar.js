@@ -24,9 +24,7 @@ const Navbar = () => {
                 <div className="col d-flex justify-content-end align-items-center" style={{ height:'100%'}}>
                     <div className="row" style={{height:"100%"}}>
                         <div className="col d-flex justify-content-center align-items-center">
-                            <div className="but-daftar " id='button' >
-                                <p className='text-daftar'>Daftar</p>
-                            </div>
+                            
                         </div>
                         <div className="col d-flex justify-content-center align-items-center">
                             <div className="but-login" id='button' onClick={()=>navigate('/login')}>
