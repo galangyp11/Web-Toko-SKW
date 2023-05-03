@@ -5,7 +5,7 @@ import Navbar from './Navbar';
 import Footer from './Footer';
 
 const Homepage = () => {
-
+    
     return ( 
         <div className="homepage">
             <div className="sticky-top">

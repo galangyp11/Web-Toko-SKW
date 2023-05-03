@@ -1,66 +1,80 @@
-.login{
+.daftar-pembeli{
     width: 100dvw;
     height: 100dvh;
     background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='100%25' width='100%25'%3E%3Cdefs%3E%3Cpattern id='doodad' width='26' height='26' viewBox='0 0 40 40' patternUnits='userSpaceOnUse' patternTransform='rotate(141)'%3E%3Crect width='100%25' height='100%25' fill='rgba(247, 250, 252,1)'/%3E%3Ccircle cx='20' cy='20' r='1' fill='%231a202c'/%3E%3Cpath d='M20 20aNaNNaN 0 0 0NaNNaNaNaNNaN 0 0 0NaNNaN' fill='%23ecc94b'/%3E%3C/pattern%3E%3C/defs%3E%3Crect fill='url(%23doodad)' height='200%25' width='200%25'/%3E%3C/svg%3E ")
 }
 
-.text-skw{
-    font-size: 7rem;
-    font-weight: bold;
-    color: #2C74B3;
-
-    text-shadow: 7px 7px 1px rgba(100, 100, 111, 0.2) ;
-}
-
-.text-tagline{
-    font-size: 2rem;
-    font-weight: 500;
-    color: #2C74B3;
-
-    text-shadow: 1px 1px 5px rgba(100, 100, 111, 0.2) ;
-}
-
-.test-form{
-    border-radius: 10px;
-    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-    background-color: white;
-    width: 400px;
-    height: 450px;
-}
-
-.content-form{
-    width: 100%;
+.daftar-pembeli-con{
     height: 100%;
 }
 
-.input-text{
+.form-daftar-pembeli{
+    width: 500px;
+    height: 500px;
+
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+.form-head-pembeli{
+    width: 100%;
+    height: 80px;
+}
+
+.form-body-pembeli{
+    width: 100%;
+    height: auto;
+}
+
+#label-input{
+    width: 100%;
+    text-align: start;
+    padding-left: 75px;
+}
+
+.text-registrasi{
+    font-weight: bold;
+    color: #2C74B3;
+}
+
+.input-text-area{
+    resize: none;
+    width: 300px;
+    height: 100px;
     border: none;
     border-radius: 5px;
-    width: 300px;
-    height: 35px;
 
     box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
     transition: .2s ease;
 }
 
-.text-daftar-login{
-    color: grey;
-    height: 100%;
+.form-footer-pembeli{
     width: 100%;
+    height: 80px;
 }
 
-.but-daftar-login{
-    color: #2C74B3;
-    margin-left: -30px;
-    font-weight: bold;
+.but-beranda-daftar{
+    width: 140px;
+    height: 35px;
+    border-radius: 5px;
+    background-color: white;
     cursor: pointer;
-    height: 100%;
-    width: 100%;
+
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+    transition: .2s ease;
 }
 
-.but-back{
-    width: 200px;
-    height: 40px;
+.text-but-beranda-daftar{
+    color: grey;
+    width: 100%;
+    height: 100%;
+    font-weight: 600;
+}
+
+.but-next-daftar{
+    width: 140px;
+    height: 35px;
     border-radius: 5px;
     background-color: #2C74B3;
     cursor: pointer;
@@ -69,14 +83,17 @@
     transition: .2s ease;
 }
 
-.text-but-back{
+.text-but-next-daftar{
     color: white;
-    text-align: center;
-    margin-top: 6px;
-    cursor: pointer;
+    width: 100%;
+    height: 100%;
+    font-weight: 600;
 }
 
-.but-back:hover{
+.but-next-daftar:hover{
     background-color: #256195;
 }
-  
+
+.but-beranda-daftar:hover{
+    background-color: rgb(234, 234, 234);
+}

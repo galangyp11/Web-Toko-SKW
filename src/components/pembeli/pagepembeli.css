@@ -1,8 +1,10 @@
 .page-pembeli{
     max-width: 100dvw;
-    height: 100dvh;
+    height: 100%;
+    min-height: 100dvh;
 
-    background-color: #98d8aa;
+    background-color: white;
+    margin: 0;
 }
 
 .uwoh{

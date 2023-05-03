@@ -7,6 +7,7 @@ import Login from './components/Login';
 import PageAdmin from './components/admin/PageAdmin';
 import PagePembeli from './components/pembeli/PagePembeli';
 import PagePenjual from './components/penjual/PagePenjual';
+import DaftarPembeli from './components/pembeli/DaftarPembeli';
 
 function App() {
   
@@ -14,17 +15,20 @@ function App() {
    <Routes>
       <Route path='/' element={<Homepage />}/>
 
-      <Route path='/category' element={<DescCategory/>}/>
+      <Route path='/category/:id' element={<DescCategory/>}/>
 
       <Route path='/item/:id' element={<DescItem/>}/>
 
-      <Route path='/Login' element={<Login/>}/>
+      <Route path='/login' element={<Login/>}/>
 
-      <Route path='/Admin/:id' element={<PageAdmin/>}/>
+      <Route path='/admin/:id' element={<PageAdmin/>}/>
 
-      <Route path='/Pembeli/:id' element={<PagePembeli/>}/>
+      <Route path='/pembeli/:id' element={<PagePembeli/>}/>
 
-      <Route path='/Penjual/:id' element={<PagePenjual/>}/>
+      <Route path='/penjual/:id' element={<PagePenjual/>}/>
+
+      <Route path='/daftar-pembeli' element={<DaftarPembeli/>}/>
+
    </Routes>
   );
 }

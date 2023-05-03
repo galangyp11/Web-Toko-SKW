@@ -5,7 +5,8 @@ import axios from 'axios';
 
 import Navbar from './Navbar';
 
-const DescItem = () => {
+const DescItem = ({pembeliById}) => {
+
     const [itemById, setItemById] = useState({})
     const [foto, setFoto] = useState()
     const {id} = useParams()
@@ -36,7 +37,7 @@ const DescItem = () => {
         }
     }, 100)
 
-    console.log(itemById.foto_item)
+    console.log(pembeliById)
 
     return ( 
         <div className="descitem">

@@ -1,7 +1,7 @@
 import './login.css'
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate ,Link } from 'react-router-dom';
 
 const Login = () => {
 
@@ -10,12 +10,10 @@ const Login = () => {
         passwordInput : ""
       });
 
-    const navigate = useNavigate()
-
     const [dataLoginAdmin, setDataLoginAdmin] = useState([]);
     const [dataLoginPembeli, setDataLoginPembeli] = useState([]);
     const [dataLoginPenjual, setDataLoginPenjual] = useState([]);
-
+    const navigate = useNavigate()
     const [getUrl, setGetUrl] = useState('');
 
     useEffect(() => {
@@ -60,10 +58,7 @@ const Login = () => {
 
     const handleInput = (e) => {
         e.preventDefault();
-        setInputUser((data) => ({
-            ...data,
-            [e.target.id]: e.target.value
-        }));
+        setInputUser((data) => ({...data, [e.target.id]: e.target.value}));
     };
 
     const handleLogin = () =>{
@@ -73,41 +68,85 @@ const Login = () => {
 
  
     return ( 
-        <div className="login">
-            <div className="test-form ">
-          <div className="row ">
-            <div className="col-2 mx-5 my-1 d-flex justify-content-center">
-                <label htmlFor="emailInput">Username</label>
-            </div>
-            <div className="col my-1">
-                <input 
-                    type="text" 
-                    id="emailInput"
-                    value={inputUser.emailInput}
-                    onChange={handleInput}
-                />
-            </div>
+        <div className="login d-flex justify-content-center align-items-center">
+            <div className="container">
+                <div className="row ">
+                    <div className="col ">
+                        <p className='text-skw '>SKW</p>
+                        <br/>
+                        <p className='text-tagline'>Mempermudah Transaksi Jual Beli Secara Aman dan Nyaman</p>
+                        
+                        <Link to={'/'} style={{ textDecoration:"none"}}>
+                            <div className="but-back border mt-5">
+                                <p className='text-but-back'>← Kembali ke Beranda</p>
+                            </div>
+                        </Link>
+                    </div>
+                    
+                    <div className="col d-flex justify-content-end">
+                        <div className="test-form d-flex align-items-center">
+                            <div className="content-form pt-5 ">
+                                <div className="row mb-5 ">
+                                    <h3 className='text-center'>Login</h3>
+                                </div>
 
-            <div className="col-2 mx-5 my-1 d-flex justify-content-center">
-                <label htmlFor="passwordInput">Password</label>
-            </div>
-            <div className="col my-1 ">
-                <input 
-                    type="password" 
-                    id="passwordInput"
-                    value={inputUser.passwordInput}
-                    onChange={handleInput}
-                />  
-            </div>
+                             
+                                <div className="row mt-3 d-flex justify-content-center">
+                                    <input
+                                        className='input-text'
+                                        type="text"
+                                        placeholder='Email'
+                                        id="emailInput"
+                                         value={inputUser.emailInput}
+                                         onChange={handleInput}
+                                     />
+                                </div>
 
-           
-          </div>     
-          <div className="row  mt-5">
-            <div className="col d-flex justify-content-center">
-            <button type='button' className='btn btn-primary ' onClick={handleLogin}>Login</button>
+                                <div className="row mt-3 d-flex justify-content-center">
+                                    <input 
+                                        className='input-text'
+                                        type="password" 
+                                        placeholder='Password'
+                                        id="passwordInput"
+                                        value={inputUser.passwordInput}
+                                        onChange={handleInput}
+                                    />  
+                               </div>
+                            
+                                <div className="row  mt-3">
+                                    <div className="col d-flex justify-content-center">
+                                        <button type='button' className='btn btn-primary' style={{width:"300px"}} onClick={handleLogin}>Login</button>
+                                    </div>
+                                </div>
+
+                                <div className="row mt-5 px-4 d-flex justify-content-center">
+                                    <div className="row" style={{height:"30px"}}>
+                                        <div className="col d-flex justify-content-start align-items-center" >
+                                            <p className='text-daftar-login d-flex justify-content-start align-items-center'>Belum punya akun?</p>
+                                        </div>
+                                        <div className="col p-0 d-flex justify-content-start align-items-center">
+                                            <Link to={'/daftar-pembeli'} style={{ textDecoration:"none"}}>
+                                            <p className='but-daftar-login d-flex justify-content-start align-items-center'>Daftar</p>
+                                            </Link>
+                                        </div>
+                                    </div>
+
+                                    <div className="row" style={{height:"30px"}}>
+                                        <div className="col d-flex justify-content-center align-items-center">
+                                            <p className='text-daftar-login d-flex justify-content-start align-items-center'>Ingin bergabung sebagai penjual?</p>
+                                        </div>
+                                        <div className="col-2 p-0 d-flex justify-content-start align-items-center">
+                                            <Link to={'/daftar-pembeli'} style={{ textDecoration:"none"}}>
+                                                <p className='but-daftar-login d-flex justify-content-start align-items-center' >Gabung!</p>
+                                            </Link>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            </div>
-        </div>
         </div>
      );
 }
