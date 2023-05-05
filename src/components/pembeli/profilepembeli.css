@@ -1,0 +1,18 @@
+.profilepembeli{
+    max-width: 100dvw;
+    height: 100%;
+    min-height: 100dvh;
+
+    background-color: white;
+    margin: 0;
+}
+
+.profilepembeli-con{
+    background-color: white;
+
+    width: auto;
+    height: 100%;
+    min-height: 100dvh;
+
+    overflow-x: hidden;
+}

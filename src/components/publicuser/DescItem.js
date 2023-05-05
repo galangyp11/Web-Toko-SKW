@@ -1,15 +1,13 @@
 import './descitem.css'
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useOutletContext } from 'react-router-dom';
 import axios from 'axios';
-
-import Navbar from './Navbar';
 
 const DescItem = ({pembeliById}) => {
 
     const [itemById, setItemById] = useState({})
     const [foto, setFoto] = useState()
-    const {id} = useParams()
+    const {id} = useOutletContext();
 
     useEffect(() => {
         const getItemById = async () => {
@@ -20,7 +18,6 @@ const DescItem = ({pembeliById}) => {
         getItemById();
                 
     }, []);
-    
 
     const formatUang = (number) =>{
         return new Intl.NumberFormat("id-ID", {
@@ -41,9 +38,6 @@ const DescItem = ({pembeliById}) => {
 
     return ( 
         <div className="descitem">
-            <div className="sticky-top">
-                <Navbar/>
-            </div>
             <div className="desc-item-con container ">
                 <div className="row pt-4" style={{ overflow:"hidden"}}>
                     <div className="col d-flex justify-content-center">

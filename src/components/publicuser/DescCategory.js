@@ -1,5 +1,4 @@
 import './desccategory.css'
-import Navbar from './Navbar'
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useParams } from 'react-router-dom'
@@ -47,10 +46,6 @@ const DescCategory = () => {
 
     return ( 
         <div className="desc-category">
-            <div className="fixed-top">
-                <Navbar/>
-            </div>
-
             <div className="desc-category-con container d-flex justify-content-center py-5">
                 <div className="row mt-4" style={{width:"100%"}}>
                     <div className="desc-kategory-kiri col-2 py-2">
@@ -61,7 +56,7 @@ const DescCategory = () => {
                             <ul className='list-menu-kategori'>
                                 { kategori.map((kategori)=>{
                                     return(
-                                        <Link key={kategori.id_kategori} to={`/category/${kategori.id_kategori}`} onClick={()=>{window.location.href('#')}} style={{ textDecoration:"none", color:"black"}}>
+                                        <Link key={kategori.id_kategori} to={`/kategori/${kategori.id_kategori}`} onClick={()=>{window.location.href('#')}} style={{ textDecoration:"none", color:"black"}}>
                                             <li className='list-kategori d-flex align-items-center'>{kategori.nama_kategori}</li>
                                         </Link>
                                     )
@@ -82,7 +77,7 @@ const DescCategory = () => {
                                         return(
                                     
                                         <div className="item m-3" key={item.id_item} style={{cursor:"pointer", padding:'0px'}}>
-                                            <Link to={`/item/${item.id_item}`} style={{ textDecoration:"none", color:"black"}}>
+                                            <Link to={`/${item.id_item}`} style={{ textDecoration:"none", color:"black"}}>
                                             <div className="img-thumbnail-item " >
                                                 <img className='item-image' src={`data:image/png;base64,${foto}`} alt="" />
                                             </div>

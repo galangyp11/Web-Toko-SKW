@@ -1,5 +1,5 @@
-import logo from './image/logo-skw.png'
-import search from './image/search.png'
+import logo from '../image/logo-skw.png'
+import search from '../image/search.png'
 import './navbar.css'
 import { useNavigate } from 'react-router-dom'
 

@@ -1,6 +1,6 @@
 import './footer.css'
-import kucing from './image/kucinglowpixel.jpg'
-import kura from './image/kuraplongo.jpg'
+import kucing from '../image/kucinglowpixel.jpg'
+import kura from '../image/kuraplongo.jpg'
 
 const Footer = () => {
     return ( 

@@ -11,7 +11,7 @@ const Items = () => {
         const dataDB = async () => {
             const response = await axios.get(`http://localhost:3311/item`)
             setDatum(response.data)
-            console.log(response)
+            // console.log(response)
         }
         dataDB()
     },[]) 
@@ -23,7 +23,7 @@ const Items = () => {
         }).format(number);
     }
     
-    console.log(datum)
+    // console.log(datum)
 
     return ( 
         <div className="items m-5 p-4">
@@ -42,7 +42,7 @@ const Items = () => {
                                 <p>{item.nama_item}</p>
                             </div>
                             <div className="item-price px-2">
-                                <h5>{formatUang(item.harga_item).replace(/\,00/g, '')}</h5>
+                                <h5>{formatUang(item.harga_item).replace(/,00/g, '')}</h5>
                             </div>
                             </Link>
                         </div>

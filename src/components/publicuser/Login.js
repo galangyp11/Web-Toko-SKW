@@ -2,6 +2,7 @@ import './login.css'
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate ,Link } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
 const Login = () => {
 
@@ -13,6 +14,7 @@ const Login = () => {
     const [dataLoginAdmin, setDataLoginAdmin] = useState([]);
     const [dataLoginPembeli, setDataLoginPembeli] = useState([]);
     const [dataLoginPenjual, setDataLoginPenjual] = useState([]);
+    
     const navigate = useNavigate()
     const [getUrl, setGetUrl] = useState('');
 
@@ -42,11 +44,12 @@ const Login = () => {
 
     useEffect(()=>{
         dataLoginPembeli.map((data)=>{
-            if(data.email === inputUser.emailInput && data.password === inputUser.passwordInput && data.level == "Pembeli"){
-                setGetUrl(`/Pembeli/${data.id_pembeli}`)
+            if(data.email === inputUser.emailInput && data.password === inputUser.passwordInput && data.level === "Pembeli"){
+                Cookies.set('id', `${data.id_pembeli}`)
+                setGetUrl(`/`)
             }else{
                 dataLoginAdmin.map((data)=>{
-                    if(data.email === inputUser.emailInput && data.password === inputUser.passwordInput && data.level == "Admin"){
+                    if(data.email === inputUser.emailInput && data.password === inputUser.passwordInput && data.level === "Admin"){
                         setGetUrl(`/Admin/${data.id_admin}`)
                     }else{
                         console.log('modar')
@@ -63,7 +66,7 @@ const Login = () => {
 
     const handleLogin = () =>{
         navigate(getUrl)
-        console.log(getUrl)
+        // console.log(getUrl)
     };
 
  

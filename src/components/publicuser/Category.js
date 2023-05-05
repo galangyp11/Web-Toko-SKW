@@ -11,7 +11,7 @@ const Category = () => {
         const dataDB = async () => {
             const response = await axios.get(`http://localhost:3311/kategori`)
             setDatum(response.data)
-            console.log(response)
+            // console.log(response)
         }
         dataDB()
     },[])
@@ -23,7 +23,7 @@ const Category = () => {
                     const foto = btoa(String.fromCharCode(...new Uint8Array(kategori.foto_kategori.data)));
                     return(
                         <div className="item-recomend m-4 " key={kategori.id_kategori}>
-                            <Link to={`/category/${kategori.id_kategori}`} style={{ textDecoration:"none", color:"black"}}>
+                            <Link to={`/kategori/${kategori.id_kategori}`} style={{ textDecoration:"none", color:"black"}}>
                                 <div className="row">
                                     <div className="recomend-thumbnail ">
                                         <img className='img-thumbnail' src={`data:image/png;base64,${foto}`} alt=""/>

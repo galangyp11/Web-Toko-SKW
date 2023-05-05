@@ -1,34 +1,38 @@
 import { Route, Routes } from 'react-router-dom';
 
-import Homepage from './components/Homepage';
-import DescItem from './components/DescItem';
-import DescCategory from './components/DescCategory';
-import Login from './components/Login';
+import Homepage from './components/publicuser/Homepage';
+import DescItem from './components/publicuser/DescItem';
+import DescCategory from './components/publicuser/DescCategory';
+import Login from './components/publicuser/Login';
+import PublicRoutes from './components/PublicRoutes';
+
+import ProtectedRoutes from './components/ProtectedRoutes';
 import PageAdmin from './components/admin/PageAdmin';
-import PagePembeli from './components/pembeli/PagePembeli';
-import PagePenjual from './components/penjual/PagePenjual';
+
+import ProfilePembeli from './components/pembeli/ProfilePembeli';
 import DaftarPembeli from './components/pembeli/DaftarPembeli';
+
+import PagePenjual from './components/penjual/PagePenjual';
+
 
 function App() {
   
   return (
    <Routes>
-      <Route path='/' element={<Homepage />}/>
+      <Route element={<PublicRoutes/>}>
+        <Route path='/' element={<Homepage />}/>
+        <Route path='/kategori/:id' element={<DescCategory/>}/>
+        <Route path='/item/:id' element={<DescItem/>}/>
+      </Route>
 
-      <Route path='/category/:id' element={<DescCategory/>}/>
-
-      <Route path='/item/:id' element={<DescItem/>}/>
+      <Route element={<ProtectedRoutes />}>
+        <Route path='/admin/:id' element={<PageAdmin/>}/>
+        <Route path='/pembeli/profile' element={<ProfilePembeli/>}/>
+        <Route path='/penjual/:id' element={<PagePenjual/>}/>
+      </Route>
 
       <Route path='/login' element={<Login/>}/>
-
-      <Route path='/admin/:id' element={<PageAdmin/>}/>
-
-      <Route path='/pembeli/:id' element={<PagePembeli/>}/>
-
-      <Route path='/penjual/:id' element={<PagePenjual/>}/>
-
       <Route path='/daftar-pembeli' element={<DaftarPembeli/>}/>
-
    </Routes>
   );
 }
