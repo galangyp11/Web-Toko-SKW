@@ -77,7 +77,7 @@ const DescCategory = () => {
                                         return(
                                     
                                         <div className="item m-3" key={item.id_item} style={{cursor:"pointer", padding:'0px'}}>
-                                            <Link to={`/${item.id_item}`} style={{ textDecoration:"none", color:"black"}}>
+                                            <Link to={`/item/${item.id_item}`} style={{ textDecoration:"none", color:"black"}}>
                                             <div className="img-thumbnail-item " >
                                                 <img className='item-image' src={`data:image/png;base64,${foto}`} alt="" />
                                             </div>

@@ -30,7 +30,7 @@ function App() {
 
       <Route element={<ProtectedRoutes />}>
         <Route path='/profile' element={<ProfilePembeli/>}/>
-        <Route path='/admin' element={<PageAdmin/>}/>
+        
         <Route element={<PagePenjual/>}>
           <Route path='/profile-toko' element={<ProfileToko/>}/>
           <Route path='/item-toko' element={<ItemToko/>}/>
@@ -40,6 +40,8 @@ function App() {
       <Route path='/login' element={<Login/>}/>
       <Route path='/daftar-pembeli' element={<DaftarPembeli/>}/>
       <Route path='/daftar-penjual' element={<DaftarPenjual/>}/>
+
+      <Route path='/admin' element={<PageAdmin/>}/>
    </Routes>
   );
 }

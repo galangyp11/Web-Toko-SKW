@@ -25,7 +25,7 @@ const PublicRoutes = () => {
                 {checkCookie ? <NavbarPembeli/> : <Navbar/>}
             </div>
             
-            <div className="homepage-con container">
+            <div className="homepage-con container-md">
                 <Outlet Context={checkCookie}/>
             </div>
 

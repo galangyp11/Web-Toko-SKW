@@ -13,8 +13,8 @@ const PagePenjual = () => {
                 <NavabarPenjual/>
             </div>
 
-            <div className="row" style={{width:"100%", height:"100%"}}>
-                <div className="col-2 p-0 " style={{height:"100%", minHeight:"92dvh", }}>
+            <div className="row border" style={{width:"100%", height:"100%"}}>
+                <div className="col-2 p-0 border" style={{height:"100%", minHeight:"92dvh", }}>
                     <SidebarPenjual/>
                 </div>
 

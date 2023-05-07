@@ -8,7 +8,7 @@ const Navbar = () => {
     const navigate = useNavigate()
 
     return ( 
-        <div className="navbar d-flex align-items-center justify-content-center">
+        <div className="navbar-public d-flex align-items-center justify-content-center">
             <div className="row " style={{ width:'90dvw', height:'100%'}}>
                 <div className="col d-flex align-items-center" style={{ height:'100%'}}>
                     <img className='logo' src={logo} alt="logo bang" onClick={()=>navigate("/")}/>

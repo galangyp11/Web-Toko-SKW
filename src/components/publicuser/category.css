@@ -1,32 +1,42 @@
 .category{
-    width: 100%;
+    width: 90%;
     max-height: 90dvh;
-}
-
-.item-recomend{
-    width: 250px;
-    height: 250px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
     
+    border-radius: 10px;
+}
+.text-category{
+    font-family: "Poppins";
+    font-size: 30px;
+    font-weight: 600;
+
+}
+.item-recomend{
+    width: 180px;
+    height: 180px;
+    transition: .2s ease;
 }
 
 .img-thumbnail{
-    width: 250px;
-    height: 250px;
+    width: 180px;
+    height: 180px;
     opacity: 1;
-    transition: .3s ease;
+    transition: .2s ease;
 
     object-fit: cover;
 }
 
 .text-thumbnail {
-    opacity: 0;
-    transition: .3s ease;
+    opacity: 1;
+    transition: .2s ease;
+    font-size: 20px;
+    font-weight: 400;
 }
 
-.item-recomend:hover .img-thumbnail{
+.item-recomend:hover{
     transform: translateY(-10px);
 }
 
-.item-recomend:hover .text-thumbnail{
+/* .item-recomend:hover .text-thumbnail{
     opacity: 1;
-}
+} */

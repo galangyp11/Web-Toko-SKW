@@ -17,12 +17,13 @@ const Category = () => {
     },[])
     
     return ( 
-        <div className="category d-flex justify-content-center">
-            <div className="row d-flex justify-content-center align-items-center" style={{ width:"60dvw"}}>
+        <div className="d-flex justify-content-center" style={{width:"100%"}}>
+            <div className="category row d-flex justify-content-center align-items-center">
+                <p className='text-category px-4 pt-2'>Kategori</p>
                 {datum.map((kategori)=>{
                     const foto = btoa(String.fromCharCode(...new Uint8Array(kategori.foto_kategori.data)));
                     return(
-                        <div className="item-recomend m-4 " key={kategori.id_kategori}>
+                        <div className="item-recomend mx-1 mb-5" key={kategori.id_kategori}>
                             <Link to={`/kategori/${kategori.id_kategori}`} style={{ textDecoration:"none", color:"black"}}>
                                 <div className="row">
                                     <div className="recomend-thumbnail ">
@@ -30,7 +31,7 @@ const Category = () => {
                                     </div>
                                 </div>
                                 <div className="row">
-                                    <h2 className='text-thumbnail text-center'>{kategori.nama_kategori}</h2>
+                                    <p className='text-thumbnail text-center'>{kategori.nama_kategori}</p>
                                 </div>
                             </Link>
                         </div>

@@ -126,7 +126,9 @@ const Login = () => {
                             
                                 <div className="row  mt-3">
                                     <div className="col d-flex justify-content-center">
-                                        <button type='button' className='btn btn-primary' style={{width:"300px"}} onClick={handleLogin}>Login</button>
+                                        <div className="but-login-login " onClick={handleLogin}>
+                                            <p className="text-login-login d-flex justify-content-center align-items-center">Login</p>
+                                        </div>
                                     </div>
                                 </div>
 

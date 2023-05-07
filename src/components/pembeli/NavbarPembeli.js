@@ -36,8 +36,8 @@ const Navbar = () => {
     }, 100)
 
     const handleLogout = () => {
+        navigate('/')
         Cookies.remove('id')
-       navigate('/')
     }
 
     console.log(pembeliById)
