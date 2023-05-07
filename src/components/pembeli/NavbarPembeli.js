@@ -5,7 +5,7 @@ import search from '../image/search.png';
 import './navbarpembeli.css';
 
 import { useState, useEffect } from 'react';
-import { useNavigate, useOutletContext, useParams } from 'react-router-dom';
+import { Link, useNavigate, useOutletContext, useParams } from 'react-router-dom';
 import axios from 'axios';
 
 const Navbar = () => {
@@ -35,9 +35,16 @@ const Navbar = () => {
         }
     }, 100)
 
+    
+
     const handleLogout = () => {
-        navigate('/')
         Cookies.remove('id')
+        
+
+        setTimeout(()=>{
+            navigate('/')
+            window.location.reload(true)
+        }, 100)
     }
 
     console.log(pembeliById)

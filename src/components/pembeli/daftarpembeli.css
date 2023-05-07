@@ -33,9 +33,9 @@
     padding-left: 75px;
 }
 
-.text-registrasi{
+.text-registrasi-pembeli{
     font-weight: bold;
-    color: #2C74B3;
+    color: #0E8388;
 }
 
 .input-text-area{
@@ -54,7 +54,7 @@
     height: 80px;
 }
 
-.but-beranda-daftar{
+.but-beranda-daftar-pembeli{
     width: 140px;
     height: 35px;
     border-radius: 5px;
@@ -65,35 +65,35 @@
     transition: .2s ease;
 }
 
-.text-but-beranda-daftar{
+.text-but-beranda-daftar-pembeli{
     color: grey;
     width: 100%;
     height: 100%;
     font-weight: 600;
 }
 
-.but-next-daftar{
+.but-next-daftar-pembeli{
     width: 140px;
     height: 35px;
     border-radius: 5px;
-    background-color: #2C74B3;
+    background-color: #0E8388;
     cursor: pointer;
 
     box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
     transition: .2s ease;
 }
 
-.text-but-next-daftar{
+.text-but-next-daftar-pembeli{
     color: white;
     width: 100%;
     height: 100%;
     font-weight: 600;
 }
 
-.but-next-daftar:hover{
-    background-color: #256195;
+.but-next-daftar-pembeli:hover{
+    background-color:#08595c;
 }
 
-.but-beranda-daftar:hover{
+.but-beranda-daftar-pembeli:hover{
     background-color: rgb(234, 234, 234);
 }

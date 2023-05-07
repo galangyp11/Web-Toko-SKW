@@ -3,19 +3,19 @@ import './daftarpenjual.css'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-const DaftarPembeli1 = () => {
+const Daftarpenjual1 = () => {
 
     const navigate = useNavigate()
     const [dataInput, setDataInput] = useState({
+        level: "Penjual",
         email: "",
         nama_toko: "",
         logo_toko: "",
         password: "",
-        id_item: null,
         alamat: "",
         whatsapp: "",
-        no_rek_penjual: "",
-        level: "Penjual"
+        no_rek_penjual: ""
+       
     })
 
     const handleInput = (e) =>{
@@ -24,12 +24,12 @@ const DaftarPembeli1 = () => {
         }))
     }
     
-    const handleDaftarPenjual = async e =>{
+    const handleDaftarPenjual = async (e) =>{
         e.preventDefault()
         try {   
             await axios.post(`http://localhost:3311/penjual`, dataInput);
-            // alert('udh berhasil daftar bang');
-            // navigate('/login');
+            alert('udh berhasil daftar bang');
+            navigate('/login');
         } catch (error) {
             console.log('eror bang gabisa input')
         }
@@ -37,15 +37,15 @@ const DaftarPembeli1 = () => {
 
     console.log(dataInput)
     return ( 
-        <div className="daftar-pembeli">
-            <div className="daftar-pembeli-con container d-flex justify-content-center align-items-center">
-                <div className="form-daftar-pembeli d-grid row d-flex justify-content-center">
+        <div className="daftar-penjual">
+            <div className="daftar-penjual-con container d-flex justify-content-center align-items-center">
+                <div className="form-daftar-penjual d-grid row d-flex justify-content-center">
 
-                    <div className="form-head-pembeli my-0 d-flex justify-content-center row ">
-                        <h2 className='text-registrasi d-flex justify-content-center align-items-center'>Registrasi <br /> Penjual</h2>
+                    <div className="form-head-penjual my-0 d-flex justify-content-center row ">
+                        <h2 className='text-registrasi d-flex justify-content-center align-items-center'>Registrasi Penjual</h2>
                     </div>
 
-                    <div className="form-body-pembeli mb-2 d-flex justify-content-center row">
+                    <div className="form-body-penjual mb-2 d-flex justify-content-center row">
                         <div className="row d-flex justify-content-center">
                             <label htmlFor="email"  id='label-input'>Email</label>
                             <input
@@ -84,15 +84,15 @@ const DaftarPembeli1 = () => {
 
                     </div>
 
-                    <div className="form-footer-pembeli my-2 row d-flex justify-content-center align-items-end">
+                    <div className="form-footer-penjual my-2 row d-flex justify-content-center align-items-end">
                         <div className="col d-flex justify-content-start">
-                            <div className="but-beranda-daftar">
-                                <p className='text-but-beranda-daftar d-flex justify-content-center align-items-center' onClick={()=>navigate('/')}>Beranda</p>
+                            <div className="but-beranda-daftar" onClick={()=>navigate('/')}>
+                                <p className='text-but-beranda-daftar d-flex justify-content-center align-items-center' >Beranda</p>
                             </div>
                         </div>
                         <div className="col d-flex justify-content-end">
-                            <div className="but-next-daftar">
-                                <p className='text-but-next-daftar d-flex justify-content-center align-items-center' onClick={handleDaftarPenjual}>Daftar</p>
+                            <div className="but-next-daftar" onClick={handleDaftarPenjual}>
+                                <p className='text-but-next-daftar d-flex justify-content-center align-items-center' >Daftar</p>
                             </div>
                         </div>
                     </div>
@@ -102,4 +102,4 @@ const DaftarPembeli1 = () => {
      );
 }
  
-export default DaftarPembeli1;
+export default Daftarpenjual1;
