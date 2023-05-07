@@ -1,13 +1,15 @@
 import './descitem.css'
 import { useState, useEffect } from 'react';
-import { useOutletContext } from 'react-router-dom';
+import { useOutletContext, useParams } from 'react-router-dom';
 import axios from 'axios';
+import Cookies from 'js-cookie';
 
 const DescItem = ({pembeliById}) => {
 
     const [itemById, setItemById] = useState({})
     const [foto, setFoto] = useState()
-    const {id} = useOutletContext();
+    const {id} = useParams();
+    const isLogin = Cookies.get('id');
 
     useEffect(() => {
         const getItemById = async () => {
@@ -16,6 +18,8 @@ const DescItem = ({pembeliById}) => {
             console.log(response.data);
         }
         getItemById();
+
+        window.scrollTo(0, 0);
                 
     }, []);
 
@@ -34,6 +38,13 @@ const DescItem = ({pembeliById}) => {
         }
     }, 100)
 
+    const handleKeranjang = () => {
+        if(isLogin){
+            alert('nanti item tambah ke keranjang');
+        }else{
+            alert('login dulu bang');
+        }
+    }
     console.log(pembeliById)
 
     return ( 
@@ -59,8 +70,8 @@ const DescItem = ({pembeliById}) => {
                                 <p>{itemById.deskripsi_item}</p>
                             </div>
                             <div className="row d-flex justify-content-end align-items-end" style={{height:"80%"}}>
-                                <div className="but-cart d-flex justify-content-center align-items-center">
-                                    <h6 className='text-but-cart text-center'>Tambahkan ke Keranjang</h6>
+                                <div className="but-cart" onClick={handleKeranjang}>
+                                    <h6 className='text-but-cart d-flex justify-content-center align-items-center'>Tambahkan ke Keranjang</h6>
                                 </div>
                             </div>
                             

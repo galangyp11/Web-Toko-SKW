@@ -1,7 +1,7 @@
 .profilepembeli{
     max-width: 100dvw;
     height: 100%;
-    min-height: 100dvh;
+    max-height: 100dvh;
 
     background-color: white;
     margin: 0;
@@ -11,8 +11,46 @@
     background-color: white;
 
     width: auto;
-    height: 100%;
-    min-height: 100dvh;
+    height: 90dvh;
 
     overflow-x: hidden;
+}
+
+.bg-foto-profile{
+    width: 310px;
+    height: 310px;
+    border: 1px solid grey;
+    border-radius: 50%;
+}
+
+.foto-profile{
+    height: 100%;
+    object-fit: cover;
+}
+
+.text-profile-bio{
+    height: 100%;
+}
+
+.but-simpan-profile{
+    width: 110px;
+    height: 35px;
+    border-radius: 5px;
+    background-color: #2C74B3;
+    cursor: pointer;
+
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+    transition: .2s ease;
+}
+
+.text-simpan-profile{
+    width: 100%;
+    height: 100%;
+    color: white;
+    text-align: center;
+    cursor: pointer;
+}
+
+.but-simpan-profile:hover{
+    background-color: #256195;
 }

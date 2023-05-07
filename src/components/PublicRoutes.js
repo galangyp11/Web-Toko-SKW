@@ -1,4 +1,5 @@
-import { Navigate, Outlet } from "react-router-dom";
+import './routes.css'
+import { Outlet } from "react-router-dom";
 import Cookies from "js-cookie";
 import { useEffect, useState } from "react";
 
@@ -16,10 +17,10 @@ const PublicRoutes = () => {
             console.log(Cookies.get('id'))
         }
         getCookies()
-    })
+    },[])
 
     return ( 
-       <div className="public-routes">
+       <div className="routes">
              <div className="sticky-top">
                 {checkCookie ? <NavbarPembeli/> : <Navbar/>}
             </div>

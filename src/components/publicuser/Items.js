@@ -34,16 +34,16 @@ const Items = () => {
                         return(
                         
                         <div className="item m-3" key={item.id_item} style={{cursor:"pointer", padding:'0px'}}>
-                              <Link to={`/item/${item.id_item}`} style={{ textDecoration:"none", color:"black"}}>
-                            <div className="img-thumbnail-item " >
-                                <img className='item-image' src={`data:image/png;base64,${foto}`} alt="" />
-                            </div>
-                            <div className="item-name py-1 px-2">
-                                <p>{item.nama_item}</p>
-                            </div>
-                            <div className="item-price px-2">
-                                <h5>{formatUang(item.harga_item).replace(/,00/g, '')}</h5>
-                            </div>
+                            <Link to={`/item/${item.id_item}`} style={{ textDecoration:"none", color:"black"}}>
+                                <div className="img-thumbnail-item " >
+                                    <img className='item-image' src={`data:image/png;base64,${foto}`} alt="" />
+                                </div>
+                                <div className="item-name py-1 px-2">
+                                    <p>{item.nama_item}</p>
+                                </div>
+                                <div className="item-price px-2">
+                                    <h5>{formatUang(item.harga_item).replace(/,00/g, '')}</h5>
+                                </div>
                             </Link>
                         </div>
                    

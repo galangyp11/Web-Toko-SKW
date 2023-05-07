@@ -1,17 +1,25 @@
-import './udhlogin.css'
+import './pagepenjual.css'
 import { useNavigate } from 'react-router-dom';
-
+import NavabarPenjual from './NavbarPenjual';
+import SidebarPenjual from './SidebarPenjual';
 
 const PagePenjual = () => {
 
     const navigate = useNavigate();
 
     return ( 
-        <div className="page-penjual d-flex justify-content-center align-items-center" style={{ height:"100dvh", width:"100dvw", backgroundColor:"#ff6d60"}}>
-            <div className="uwoh p-5">
-               
-                <div className="butlogout d-flex justify-content-end align-items-end">
-                    <button className='btn btn-danger ' onClick={()=>{navigate('/')}}>Logout</button>
+        <div className="page-penjual">
+            <div className="sticky-top">
+                <NavabarPenjual/>
+            </div>
+
+            <div className="row" style={{width:"100%", height:"100%"}}>
+                <div className="col-2 p-0 " style={{height:"100%", minHeight:"92dvh", }}>
+                    <SidebarPenjual/>
+                </div>
+
+                <div className="col container-fluid border">
+                      
                 </div>
             </div>
         </div>

@@ -26,19 +26,19 @@ const Login = () => {
         }
         getAdminById();
 
+        const getPenjualById = async () => {
+            const response = await axios.get(`http://localhost:3311/penjual`);
+            setDataLoginPenjual(response.data);
+            console.log(response.data);
+        }
+        getPenjualById();
+
         const getPembeliById = async () => {
             const response = await axios.get(`http://localhost:3311/pembeli`);
             setDataLoginPembeli(response.data);
             console.log(response.data);
         }
-        getPembeliById();
-
-        // const getPenjualById = async () => {
-        //     const response = await axios.get(`http://localhost:3311/penjual/${id}`);
-        //     setDataLoginPenjual(response.data);
-        //     console.log(response.data);
-        // }
-        // getPenjualById();
+        getPembeliById();       
                 
     }, []);
 
@@ -48,11 +48,19 @@ const Login = () => {
                 Cookies.set('id', `${data.id_pembeli}`)
                 setGetUrl(`/`)
             }else{
-                dataLoginAdmin.map((data)=>{
-                    if(data.email === inputUser.emailInput && data.password === inputUser.passwordInput && data.level === "Admin"){
-                        setGetUrl(`/Admin/${data.id_admin}`)
+                dataLoginPenjual.map((data)=>{
+                    if(data.email === inputUser.emailInput && data.password === inputUser.passwordInput && data.level === "Penjual"){
+                        Cookies.set('id', `${data.id_penjual}`)
+                        setGetUrl(`/profile-toko`)
                     }else{
-                        console.log('modar')
+                        dataLoginAdmin.map((data)=>{
+                            if(data.email === inputUser.emailInput && data.password === inputUser.passwordInput && data.level === "Admin"){
+                                Cookies.set('id', `${data.id_admin}`)
+                                setGetUrl(`/Admin`)
+                            }else{
+                                console.log('modar')
+                            }
+                        })
                     }
                 })
             }
@@ -81,11 +89,11 @@ const Login = () => {
                         
                         <Link to={'/'} style={{ textDecoration:"none"}}>
                             <div className="but-back border mt-5">
-                                <p className='text-but-back'>← Kembali ke Beranda</p>
+                                <p className='text-but-back d-flex justify-content-center align-items-center'>← Kembali ke Beranda</p>
                             </div>
                         </Link>
                     </div>
-                    
+                     
                     <div className="col d-flex justify-content-end">
                         <div className="test-form d-flex align-items-center">
                             <div className="content-form pt-5 ">
@@ -139,7 +147,7 @@ const Login = () => {
                                             <p className='text-daftar-login d-flex justify-content-start align-items-center'>Ingin bergabung sebagai penjual?</p>
                                         </div>
                                         <div className="col-2 p-0 d-flex justify-content-start align-items-center">
-                                            <Link to={'/daftar-pembeli'} style={{ textDecoration:"none"}}>
+                                            <Link to={'/daftar-penjual'} style={{ textDecoration:"none"}}>
                                                 <p className='but-daftar-login d-flex justify-content-start align-items-center' >Gabung!</p>
                                             </Link>
                                         </div>

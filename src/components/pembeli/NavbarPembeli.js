@@ -5,7 +5,7 @@ import search from '../image/search.png';
 import './navbarpembeli.css';
 
 import { useState, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useOutletContext, useParams } from 'react-router-dom';
 import axios from 'axios';
 
 const Navbar = () => {
@@ -14,7 +14,7 @@ const Navbar = () => {
     const navigate = useNavigate()
     const [foto, setFoto] = useState()
     const [isDropdown, setIsDropdown] = useState(false)
-    const {id} = useParams();
+    const id = Cookies.get('id')
 
     useEffect(() => {
         const getItemById = async () => {
@@ -37,9 +37,7 @@ const Navbar = () => {
 
     const handleLogout = () => {
         Cookies.remove('id')
-        setTimeout(()=>{
-            navigate('/login')
-        }, 100)
+       navigate('/')
     }
 
     console.log(pembeliById)
@@ -76,7 +74,7 @@ const Navbar = () => {
 
                             <div className="row">
                                 <ul className={`dropdown-profile ${isDropdown? 'active' : 'inactive'}`}>
-                                    <li className='dropdown-list' onClick={()=>navigate('/pembeli/:id/profile')}>Profile</li>
+                                    <li className='dropdown-list' onClick={()=>navigate('/profile')}>Profile</li>
                                     <li className='dropdown-list' id='but-logout' onClick={handleLogout} >Logout</li>
                                 </ul>
                             </div>  

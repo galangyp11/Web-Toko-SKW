@@ -1,6 +1,9 @@
-import { Navigate, Outlet, useOutletContext } from "react-router-dom";
+import './routes.css';
+import { Navigate, Outlet } from "react-router-dom";
 import Cookies from "js-cookie";
 import { useEffect, useState } from "react";
+import Homepage from './publicuser/Homepage';
+import PublicRoutes from './PublicRoutes';
 
 const ProtectedRoutes = () => {
 
@@ -12,10 +15,12 @@ const ProtectedRoutes = () => {
             console.log(Cookies.get('id'))
         }
         getCookies()
-    })
+    },[])
 
-    return ( 
-        checkCookie ? <Outlet Context={checkCookie}/> : <Navigate to="/login"/>
+    return (
+        <div className="protected-routes">
+            {checkCookie ? <Outlet/> : <Homepage/>}
+        </div>
      );
 }
  

@@ -1,5 +1,5 @@
 import axios from 'axios'
-import './daftarpembeli.css'
+import './daftarpenjual.css'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
@@ -8,23 +8,28 @@ const DaftarPembeli1 = () => {
     const navigate = useNavigate()
     const [dataInput, setDataInput] = useState({
         email: "",
-        username: "",
+        nama_toko: "",
+        logo_toko: "",
         password: "",
+        id_item: null,
         alamat: "",
-        foto_profil: null,
-        level: "Pembeli"
+        whatsapp: "",
+        no_rek_penjual: "",
+        level: "Penjual"
     })
 
     const handleInput = (e) =>{
-        setDataInput((data) => ({...data, [e.target.id] : e.target.value}))
+        setDataInput((data) => ({...data, 
+            [e.target.id] : e.target.value
+        }))
     }
     
-    const handleDaftar = async e =>{
+    const handleDaftarPenjual = async e =>{
         e.preventDefault()
         try {   
-            await axios.post(`http://localhost:3311/pembeli`, dataInput);
-            alert('udh berhasil daftar bang');
-            navigate('/login');
+            await axios.post(`http://localhost:3311/penjual`, dataInput);
+            // alert('udh berhasil daftar bang');
+            // navigate('/login');
         } catch (error) {
             console.log('eror bang gabisa input')
         }
@@ -37,7 +42,7 @@ const DaftarPembeli1 = () => {
                 <div className="form-daftar-pembeli d-grid row d-flex justify-content-center">
 
                     <div className="form-head-pembeli my-0 d-flex justify-content-center row ">
-                        <h2 className='text-registrasi d-flex justify-content-center align-items-center'>Registrasi</h2>
+                        <h2 className='text-registrasi d-flex justify-content-center align-items-center'>Registrasi <br /> Penjual</h2>
                     </div>
 
                     <div className="form-body-pembeli mb-2 d-flex justify-content-center row">
@@ -66,25 +71,13 @@ const DaftarPembeli1 = () => {
                         </div>
 
                         <div className="row d-flex justify-content-center">
-                            <label htmlFor="username"  id='label-input'>Username</label>
+                            <label htmlFor="nama_toko"  id='label-input'>Nama Toko</label>
                             <input
                                 className='input-text'
                                 type="text"
-                                placeholder='Masukan username anda...'
-                                id="username"
-                                value={dataInput.username}
-                                onChange={handleInput}
-                            />
-                        </div>
-
-                        <div className="row d-flex justify-content-center">
-                            <label htmlFor="alamat"  id='label-input'>Alamat</label>
-                            <textarea
-                                className='input-text-area'
-                                type="textarea"
-                                placeholder='Masukan alamat anda...'
-                                id="alamat"
-                                value={dataInput.alamat}
+                                placeholder='Toko...'
+                                id="nama_toko"
+                                value={dataInput.nama_toko}
                                 onChange={handleInput}
                             />
                         </div>
@@ -99,7 +92,7 @@ const DaftarPembeli1 = () => {
                         </div>
                         <div className="col d-flex justify-content-end">
                             <div className="but-next-daftar">
-                                <p className='text-but-next-daftar d-flex justify-content-center align-items-center' onClick={handleDaftar}>Daftar</p>
+                                <p className='text-but-next-daftar d-flex justify-content-center align-items-center' onClick={handleDaftarPenjual}>Daftar</p>
                             </div>
                         </div>
                     </div>

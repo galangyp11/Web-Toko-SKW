@@ -13,6 +13,9 @@ import ProfilePembeli from './components/pembeli/ProfilePembeli';
 import DaftarPembeli from './components/pembeli/DaftarPembeli';
 
 import PagePenjual from './components/penjual/PagePenjual';
+import DaftarPenjual from './components/penjual/DaftarPenjual';
+import ProfileToko from './components/penjual/ProfileToko';
+import ItemToko from './components/penjual/ItemToko';
 
 
 function App() {
@@ -26,13 +29,17 @@ function App() {
       </Route>
 
       <Route element={<ProtectedRoutes />}>
-        <Route path='/admin/:id' element={<PageAdmin/>}/>
-        <Route path='/pembeli/profile' element={<ProfilePembeli/>}/>
-        <Route path='/penjual/:id' element={<PagePenjual/>}/>
+        <Route path='/profile' element={<ProfilePembeli/>}/>
+        <Route path='/admin' element={<PageAdmin/>}/>
+        <Route element={<PagePenjual/>}>
+          <Route path='/profile-toko' element={<ProfileToko/>}/>
+          <Route path='/item-toko' element={<ItemToko/>}/>
+        </Route>
       </Route>
 
       <Route path='/login' element={<Login/>}/>
       <Route path='/daftar-pembeli' element={<DaftarPembeli/>}/>
+      <Route path='/daftar-penjual' element={<DaftarPenjual/>}/>
    </Routes>
   );
 }

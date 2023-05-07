@@ -16,18 +16,31 @@ const DaftarPembeli1 = () => {
     })
 
     const handleInput = (e) =>{
-        setDataInput((data) => ({...data, [e.target.id] : e.target.value}))
+        setDataInput((data) => ({...data, 
+            [e.target.id] : e.target.value
+        }))
     }
     
-    const handleDaftar = async e =>{
+    const handleDaftarPembeli = async e =>{
         e.preventDefault()
-        try {   
-            await axios.post(`http://localhost:3311/pembeli`, dataInput);
-            alert('udh berhasil daftar bang');
-            navigate('/login');
-        } catch (error) {
-            console.log('eror bang gabisa input')
+        if(!dataInput.email){
+            alert('di isi emailnya dulu bang')
+            if(!dataInput.username){
+                alert('di isi usernamenya dulu bang')
+                if(!dataInput.password){
+                    alert('bang passwordnya g boleh kosong')
+                }else{
+                    try {
+                        await axios.post(`http://localhost:3311/pembeli`, dataInput);
+                        alert('udh berhasil daftar bang');
+                        navigate('/login');
+                    } catch (error) {
+                        console.log('eror bang gabisa input')
+                    }
+                }
+            }
         }
+        
     }
 
     console.log(dataInput)
@@ -46,6 +59,7 @@ const DaftarPembeli1 = () => {
                             <input
                                 className='input-text'
                                 type="text"
+                                required
                                 placeholder='Masukan email anda...'
                                 id="email"
                                 value={dataInput.email}
@@ -58,6 +72,7 @@ const DaftarPembeli1 = () => {
                             <input 
                                 className='input-text'
                                 type="password" 
+                                required
                                 placeholder='Masukan password anda...'
                                 id="password"
                                 value={dataInput.password}
@@ -70,21 +85,10 @@ const DaftarPembeli1 = () => {
                             <input
                                 className='input-text'
                                 type="text"
+                                required
                                 placeholder='Masukan username anda...'
                                 id="username"
                                 value={dataInput.username}
-                                onChange={handleInput}
-                            />
-                        </div>
-
-                        <div className="row d-flex justify-content-center">
-                            <label htmlFor="alamat"  id='label-input'>Alamat</label>
-                            <textarea
-                                className='input-text-area'
-                                type="textarea"
-                                placeholder='Masukan alamat anda...'
-                                id="alamat"
-                                value={dataInput.alamat}
                                 onChange={handleInput}
                             />
                         </div>
@@ -99,7 +103,7 @@ const DaftarPembeli1 = () => {
                         </div>
                         <div className="col d-flex justify-content-end">
                             <div className="but-next-daftar">
-                                <p className='text-but-next-daftar d-flex justify-content-center align-items-center' onClick={handleDaftar}>Daftar</p>
+                                <p className='text-but-next-daftar d-flex justify-content-center align-items-center' onClick={handleDaftarPembeli}>Daftar</p>
                             </div>
                         </div>
                     </div>
