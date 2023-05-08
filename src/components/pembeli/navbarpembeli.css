@@ -11,63 +11,69 @@
     cursor: pointer;
 }
 
+.text-logo-skw{
+    font-family: 'Bebas Neue';
+    font-size: 45px;
+    color: #0E8388;
+    height: 100%;
+    cursor: pointer;
+    transition: .2s ease;
+}
+
+.text-logo-skw:hover{
+    transform: scale(1.1);
+}
+
 .search{
     border: none;
-    border-radius: 20px;
+    border-radius: 20px 0px 0px 20px;
+    background-color: #E7F6F2;
     height: 35px;
     width: 400px;
-
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
     transition: .2s ease;
 }
 
 .logo-search{
-    border: none;
-    border-radius: 20px;
-    height: 35px;
-    width: 60px;
+    padding: 7px;
+    border-radius: 0px 20px 20px 0px; 
+    background-color: #E7F6F2;
     cursor: pointer;
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
     transition: .2s ease;
+    height: 35px;
+    width: 35px;
+}
+
+.bg-search{
+    border-radius: 20px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 }
 
 .search:hover{
-    border: 1px solid grey;
+   background-color: #9fd8c9;
 }
 
 .logo-search:hover{
-    border: 1px solid grey;
+   background-color: #9fd8c9;
 }
 
-/* #button{
-    border: none;
+.bg-keranjang-pembeli{
     border-radius: 10px;
-    height: 35px;
-    width: 80px;
-    cursor: pointer;
+    height: 40px;
+    width: 40px;
+    background-color: #E7F6F2;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-
+    cursor: pointer;
+    
 }
 
-#button:hover{
-    border: 1px solid grey;
-} */
-
-.bg-profile{
-    background-color: white;
-    border: 1px solid transparent;
-    border-radius: 5px;
-    height: 45px;
-    width: auto;
-    transition: .2s ease;
-
-    cursor: pointer;
+.bg-keranjang-pembeli:hover{
+    background-color: #9fd8c9;
 }
 
 .bg-photo-profile{
-    border: 1px solid grey;
-    background-color: white;
-    border-radius: 50%;
+    background-color: #E7F6F2;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    border-radius: 10px;
     height: 40px;
     width: 40px;
 
@@ -79,55 +85,23 @@
     object-fit: cover;
 }
 
-.bg-profile-pembeli{
-  
-    height: 40px;
-    width: auto;
- 
-}
-
-.profile-pembeli{
-    margin-top: 6px;
-    color: black;
+.dd-profile-pembeli{
+    border-radius: 10px;
+    border: none;
+    height: 35px;
+    background-color: #0E8388;
+    
+    color: #E7F6F2;
     font-weight: 600;
 }
 
-.bg-profile:hover{
-    border: 1px solid grey;
-    border-radius: 20px;
-}
-
-.dropdown-profile.active{
-    width: 100%;
-    height: auto;
-
-    list-style: none;
-    opacity: 1;
-    visibility: visible;
+.dd-pembeli{
+    background-color: #E7F6F2;
     cursor: pointer;
-    transition: .2s ease;
 }
 
-.dropdown-profile.inactive{
-    opacity: 0;
-    visibility: hidden;
-    list-style: none;
-    transition: .2s ease;
-}
-
-.dropdown-list{
-    width: 100%;
-    height: 35px;
-    padding-top: 5px;
-    border-bottom: 1px solid grey ;
-    text-align: center;
-
-    background-color: white;
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-}
-
-.dropdown-list:hover{
-    background-color: gainsboro;
+.dd-pembeli:hover{
+    background-color: #9fd8c9;
 }
 
 #but-logout:hover{

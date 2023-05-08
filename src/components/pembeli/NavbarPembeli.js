@@ -5,8 +5,11 @@ import search from '../image/search.png';
 import './navbarpembeli.css';
 
 import { useState, useEffect } from 'react';
-import { Link, useNavigate, useOutletContext, useParams } from 'react-router-dom';
+import { Link, useNavigate, } from 'react-router-dom';
 import axios from 'axios';
+import { BsFillCartFill } from "react-icons/bs";
+import { BsSearch } from "react-icons/bs";
+
 
 const Navbar = () => {
 
@@ -53,41 +56,37 @@ const Navbar = () => {
         <div className="navbar d-flex align-items-center justify-content-center">
             <div className="row " style={{ width:'90dvw', height:'100%'}}>
                 <div className="col d-flex align-items-center" style={{ height:'100%'}}>
-                    <img className='logo' src={logo} alt="logo bang" onClick={()=>navigate("/")}/>
+                    <p className='text-logo-skw' onClick={()=>navigate("/")}>SKW</p>
                 </div>
 
-                <div className="col-3 d-flex justify-content-center align-items-center" style={{ height:'100%'}}>
-                    <input className='search p-2 text-center' type="text" placeholder='Search' />                 
+                <div className="col-4 d-flex justify-content-center align-items-center" style={{ height:'100%'}}>
+                    <div className="bg-search d-flex justify-content-center align-items-center">
+                        <input className='search p-2 text-center' type="text" placeholder='Search' />
+                        <BsSearch color='#0E8388' size="20px"  className='logo-search'/>
+                    </div>           
                 </div>
 
-                <div className="col-1 d-flex justify-content-center align-items-center" style={{ height:'100%'}}>
-                    <div className="logo-search d-flex justify-content-center">
-                        <img className='p-1' src={search} alt=""/>
+                <div className="col-2 d-flex justify-content-end align-items-center" style={{ height:'100%'}}>
+                    <div className="bg-keranjang-pembeli mx-3 d-flex justify-content-center align-items-center">
+                        <BsFillCartFill color='#0E8388' size="25px"/>
+                    </div>
+                    <div className="bg-photo-profile d-flex justify-content-center align-items-center">
+                        <img className='photo-profile' src={ `data:image/png;base64,${foto}`} alt="Photo-profile" />
                     </div>
                 </div>
-                
-                <div className="col d-flex justify-content-end align-items-center" style={{ height:'100%'}}>
-                    <div className="row" style={{height:"100%"}}>
-                        <div className="col">
-                            <div className="row bg-profile d-flex justify-content-center align-items-center" onClick={()=>{setIsDropdown(!isDropdown)}}>
-                                <div className="bg-photo-profile d-flex justify-content-center align-items-center">
-                                    <img className='photo-profile' src={ `data:image/png;base64,${foto}`} alt="Photo-profile" />
-                                </div>
 
-                                <div className="bg-profile-pembeli px-3 d-flex justify-content-center" >
-                                    <p className='profile-pembeli'>{pembeliById.username}</p>
-                                </div>
-                            </div>
-
-                            <div className="row">
-                                <ul className={`dropdown-profile ${isDropdown? 'active' : 'inactive'}`}>
-                                    <li className='dropdown-list' onClick={()=>navigate('/profile')}>Profile</li>
-                                    <li className='dropdown-list' id='but-logout' onClick={handleLogout} >Logout</li>
-                                </ul>
-                            </div>  
-                        </div>
+                <div className="col-2 d-flex justify-content-center align-items-center" style={{ height:'100%'}}>
+                    <div class="dropdown-center">
+                        <button class="dd-profile-pembeli px-3" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            {pembeliById.username}
+                        </button>
+                        <ul class="dropdown-menu" style={{backgroundColor:"#E7F6F2"}}>
+                            <li class="dropdown-item dd-pembeli"> Profile</li>
+                            <li class="dropdown-item dd-pembeli" onClick={handleLogout}> Logout</li>
+                        </ul>
                     </div>
                 </div>
+                 
             </div>
         </div>
      );

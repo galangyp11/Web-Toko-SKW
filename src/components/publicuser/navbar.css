@@ -1,7 +1,7 @@
 .navbar-public{
     width: 100%;
     height: 60px;
-    background-color: #E7F6F2;
+    background-color: white;
     box-shadow: rgba(0, 0, 0, 0.09) 0px 3px 12px;
 }
 
@@ -11,33 +11,50 @@
     cursor: pointer;
 }
 
+.text-logo-skw{
+    font-family: 'Bebas Neue';
+    font-size: 45px;
+    color: #0E8388;
+    height: 100%;
+    width: 60px;
+    cursor: pointer;
+    transition: .2s ease;
+}
+
+.text-logo-skw:hover{
+    transform: scale(1.1);
+}
+
 .search{
     border: none;
-    border-radius: 20px;
+    border-radius: 20px 0px 0px 20px;
     height: 35px;
     width: 400px;
-    background-color: #E7F6F2;
-
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
     transition: .2s ease;
+    background-color: #E7F6F2;
 }
 
 .logo-search{
-    border: none;
-    border-radius: 20px;
-    height: 35px;
-    width: 60px;
+    padding: 7px;
+    border-radius: 0px 20px 20px 0px; 
+    background-color: #E7F6F2;
     cursor: pointer;
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
     transition: .2s ease;
+    height: 35px;
+    width: 35px;
+}
+
+.bg-search{
+    border-radius: 20px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 }
 
 .search:hover{
-   border: 1px solid grey;
+    background-color: #9fd8c9;
 }
 
 .logo-search:hover{
-   border: 1px solid grey;
+    background-color: #9fd8c9;
 }
 
 #button{
@@ -49,11 +66,8 @@
 
 }
 
-#button:hover{
-   border: 1px solid grey;
-}
 .but-daftar{
-    background-color: #A5C9CA;
+    background-color: #E7F6F2;
     transition: .2s ease;
 }
 
@@ -62,6 +76,7 @@
     width: 100%;
     height: 100%;
     font-weight: 600;
+    color: #0E8388;
 }
 
 .text-daftar:hover{
@@ -70,7 +85,7 @@
 }
 
 .but-daftar:hover{
-    background-color: #77a4a7;
+    background-color: #9fd8c9;
 }
 
 .but-login{
@@ -82,7 +97,7 @@
     font-family: 'Poppins';
     width: 100%;
     height: 100%;
-    color: white;
+    color: #E7F6F2;
 }
 
 .but-login:hover{

@@ -73,6 +73,7 @@ const Login = () => {
     };
 
     const handleLogin = () =>{
+        
         navigate(getUrl)
         // console.log(getUrl)
     };
