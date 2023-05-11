@@ -1,6 +1,6 @@
 .sidebar-penjual{
     width: 100%;
-    height: 93vh;
+    height: 100%;
     background-color: #2C3333;
 }
 
@@ -28,7 +28,7 @@
 .dd-profile-penjual{
     border-radius: 10px;
     border: none;
-    width: 220px;
+    width: 100%;
     height: 40px;
     background-color: #2C3333;
     

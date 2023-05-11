@@ -16,7 +16,6 @@ const Navbar = () => {
     const [pembeliById, setPembeliById] = useState({});
     const navigate = useNavigate()
     const [foto, setFoto] = useState()
-    const [isDropdown, setIsDropdown] = useState(false)
     const id = Cookies.get('id')
 
     useEffect(() => {
@@ -67,21 +66,27 @@ const Navbar = () => {
                 </div>
 
                 <div className="col-2 d-flex justify-content-end align-items-center" style={{ height:'100%'}}>
-                    <div className="bg-keranjang-pembeli mx-3 d-flex justify-content-center align-items-center">
+                    <div className="bg-keranjang-pembeli mx-3 d-flex justify-content-center align-items-center" onClick={()=>{navigate('/keranjang')}}>
                         <BsFillCartFill color='#0E8388' size="25px"/>
-                    </div>
-                    <div className="bg-photo-profile d-flex justify-content-center align-items-center">
-                        <img className='photo-profile' src={ `data:image/png;base64,${foto}`} alt="Photo-profile" />
                     </div>
                 </div>
 
                 <div className="col-2 d-flex justify-content-center align-items-center" style={{ height:'100%'}}>
                     <div class="dropdown-center">
-                        <button class="dd-profile-pembeli px-3" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            {pembeliById.username}
+                        <button class="dd-profile-pembeli row d-flex justify-content-center align-items-center p-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <div className="col-1">
+                                <div className="bg-photo-profile d-flex justify-content-center align-items-center">
+                                    <img className='photo-profile' src={ `data:image/png;base64,${foto}`} alt="Photo-profile" />
+                                </div>
+                            </div>
+                            <div className="col">
+                                {pembeliById.username}
+                            </div>
+                           
                         </button>
+                        
                         <ul class="dropdown-menu" style={{backgroundColor:"#E7F6F2"}}>
-                            <li class="dropdown-item dd-pembeli"> Profile</li>
+                            <li class="dropdown-item dd-pembeli" onClick={()=>{navigate('/profile')}}> Profile</li>
                             <li class="dropdown-item dd-pembeli" onClick={handleLogout}> Logout</li>
                         </ul>
                     </div>

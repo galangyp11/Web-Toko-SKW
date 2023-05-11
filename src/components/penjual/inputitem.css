@@ -1,0 +1,11 @@
+.input-item{
+    background-color: #E7F6F2;
+}
+
+.input-gambar-item{
+    border-radius: 5px;
+    background-color: grey;
+    width: 100px;
+    height: 100px;
+    margin-left: 75px;
+}

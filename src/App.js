@@ -11,12 +11,12 @@ import PageAdmin from './components/admin/PageAdmin';
 
 import ProfilePembeli from './components/pembeli/ProfilePembeli';
 import DaftarPembeli from './components/pembeli/DaftarPembeli';
+import Keranjang from './components/pembeli/keranjang/Keranjang';
 
 import PagePenjual from './components/penjual/PagePenjual';
 import DaftarPenjual from './components/penjual/DaftarPenjual';
 import ProfileToko from './components/penjual/ProfileToko';
 import ItemToko from './components/penjual/ItemToko';
-
 
 function App() {
   
@@ -30,6 +30,7 @@ function App() {
 
       <Route element={<ProtectedRoutes />}>
         <Route path='/profile' element={<ProfilePembeli/>}/>
+        <Route path='/keranjang' element={<Keranjang/>}/>
         
         <Route element={<PagePenjual/>}>
           <Route path='/profile-toko' element={<ProfileToko/>}/>

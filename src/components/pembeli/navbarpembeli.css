@@ -57,7 +57,7 @@
 }
 
 .bg-keranjang-pembeli{
-    border-radius: 10px;
+    border-radius: 20px;
     height: 40px;
     width: 40px;
     background-color: #E7F6F2;
@@ -73,9 +73,9 @@
 .bg-photo-profile{
     background-color: #E7F6F2;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-    border-radius: 10px;
-    height: 40px;
-    width: 40px;
+    border-radius: 50%;
+    height: 35px;
+    width: 35px;
 
     padding: 2px;
 }
@@ -86,13 +86,24 @@
 }
 
 .dd-profile-pembeli{
-    border-radius: 10px;
+    border-radius: 20px;
     border: none;
-    height: 35px;
-    background-color: #0E8388;
+    height: 40px;
+    background-color: transparent;
     
+    color:  #0E8388;
+    font-weight: 700;
+    transition: .2s ease;
+}
+
+.dd-profile-pembeli .active{
+    background-color: #0E8388;
     color: #E7F6F2;
-    font-weight: 600;
+}
+
+.dd-profile-pembeli:hover{
+    background-color: #0E8388;
+    color: #E7F6F2;
 }
 
 .dd-pembeli{

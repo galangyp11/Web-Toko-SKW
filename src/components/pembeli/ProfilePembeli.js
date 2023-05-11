@@ -1,16 +1,21 @@
 import './profilepembeli.css'
 import { useState, useEffect } from 'react';
-import NavabarProfile from './NavbarProfile';
+import NavbarProfile from './NavbarProfile';
 import Cookies from 'js-cookie';
 import axios from 'axios';
 
 import fotoKosing from '../image/kuraplongo.jpg';
+import InfoPembeli from './InfoPembeli';
+import HalamanEdit from './edit/HalamanEdit';
 
 const ProfilePembeli = () => {
 
     const [pembeliById, setPembeliById] = useState({});
-    const [foto, setFoto] = useState()
-    const id = Cookies.get('id')
+    const [foto, setFoto] = useState();
+    const id = Cookies.get('id');
+
+    const [isEdit, setIsEdit] = useState(false);
+    const [idPageEdit, setIdPageEdit] = useState();
 
     useEffect(() => {
         const getItemById = async () => {
@@ -19,7 +24,6 @@ const ProfilePembeli = () => {
             console.log(response.data);
         }
         getItemById();
-                
     }, []);
 
     setTimeout(()=>{
@@ -31,85 +35,17 @@ const ProfilePembeli = () => {
         }
     }, 100)
 
+    console.log(isEdit)
+
     return ( 
         <div className="profilepembeli">
             <div className="sticky-top">
-                <NavabarProfile/>
+                <NavbarProfile/>
             </div>
 
             <div className="profilepembeli-con container border">
-                <div className="row my-3 border">
-                    <div className="col-4 border d-flex justify-content-center">
-                        <div className="bg-foto-profile">
-                            <img className='foto-profile' src={ `data:image/png;base64,${foto}`} alt="" />
-                        </div>
-                    </div>
-
-                    <div className="col p-5 border" >
-                        <div className="row border">
-                            <div className="col-2 border">
-                                <p className='text-profile-bio d-flex align-items-center'>Username</p>
-                            </div>
-
-                            <div className="col-1 border">
-                                <p className='text-profile-bio d-flex justify-content-center align-items-center'>:</p>
-                            </div>
-
-                            <div className="col border">
-                                <p className='text-profile-bio d-flex align-items-center'>{pembeliById.username}</p>
-                            </div>
-                        </div>
-
-                        <div className="row border">
-                            <div className="col-2 border">
-                                <p className='text-profile-bio d-flex align-items-center'>Email</p>
-                            </div>
-
-                            <div className="col-1 border">
-                                <p className='text-profile-bio d-flex justify-content-center align-items-center'>:</p>
-                            </div>
-
-                            <div className="col border">
-                                <p className='text-profile-bio d-flex align-items-center'>{pembeliById.email}</p>
-                            </div>
-                        </div>
-
-                        <div className="row border">
-                            <div className="col-2 border">
-                                <p className='text-profile-bio d-flex align-items-center'>Password</p>
-                            </div>
-
-                            <div className="col-1 border">
-                                <p className='text-profile-bio d-flex justify-content-center align-items-center'>:</p>
-                            </div>
-
-                            <div className="col border">
-                                <p className='text-profile-bio d-flex align-items-center'>{pembeliById.password}</p>
-                            </div>
-                        </div>
-
-                        <div className="row border">
-                            <div className="col-2 border">
-                                <p className='text-profile-bio d-flex align-items-center'>Alamat</p>
-                            </div>
-
-                            <div className="col-1 border">
-                                <p className='text-profile-bio d-flex justify-content-center align-items-center'>:</p>
-                            </div>
-
-                            <div className="col border">
-                                <p className='text-profile-bio d-flex align-items-center'>{pembeliById.alamat}</p>
-                            </div>
-                        </div>
-
-                        <div className="row border d-flex justify-content-end align-items-end">
-                            <div className="but-simpan-profile ">
-                                <p className="text-simpan-profile d-flex justify-content-center align-items-center">Simpan</p>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
+                {!isEdit? <InfoPembeli pembeliById={pembeliById} foto={foto} isEdit={isEdit} setIsEdit={setIsEdit} setIdPageEdit={setIdPageEdit}/> : 
+                <HalamanEdit pembeliById={pembeliById} foto={foto} setIsEdit={setIsEdit} idPageEdit={idPageEdit}/>}
             </div>
         </div>
      );

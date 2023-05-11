@@ -1,0 +1,29 @@
+#text-footer-keranjang{
+    height: 100%;
+}
+
+.text-total-harga-keranjang{
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.text-total-harga-nominal-keranjang{
+    font-size: 20px;
+    font-weight: bold;
+    color: #0E8388;
+}
+
+.but-checkout-footer{
+    border: none;
+    border-radius: 5px;
+    background-color: #0E8388;
+    color: #E7F6F2;
+
+    height: 40px;
+    width: 120px;
+    font-weight: 600;
+}
+
+.but-checkout-footer:hover{
+    background-color: #08595c;
+}

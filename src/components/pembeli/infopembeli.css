@@ -1,0 +1,12 @@
+.icon-ubah{
+    cursor: pointer;
+    transition: .2s ease;
+}
+
+.icon-ubah:hover{
+    transform: rotate(180deg);
+}
+
+.text-profile-bio-info{
+    width: 300px;
+}
