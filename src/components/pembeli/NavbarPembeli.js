@@ -22,7 +22,7 @@ const Navbar = () => {
         const getItemById = async () => {
             const response = await axios.get(`http://localhost:3311/pembeli/${id}`);
             setPembeliById(response.data);
-            console.log(response.data);
+            // console.log(response.data);
         }
         getItemById();
                 
@@ -49,7 +49,7 @@ const Navbar = () => {
         }, 100)
     }
 
-    console.log(pembeliById)
+    // console.log(pembeliById)
 
     return ( 
         <div className="navbar d-flex align-items-center justify-content-center">

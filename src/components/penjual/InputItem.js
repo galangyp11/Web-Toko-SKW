@@ -10,15 +10,15 @@ const InputItem = () => {
     const id = Cookies.get('id')
     const [dataInput, setDataInput] = useState({
         id_penjual: '',
-        nama_item: " ",
-        harga_item: " ",
-        foto_item: " ",
-        deksripsi_item: " ",
-        id_kategori: " ",
-        stok_item: " ",
-        warna_item: " ",
-        ukuran_item: " ",
-        biaya_operasional: " "
+        nama_item: "",
+        harga_item: "",
+        foto_item: "",
+        deksripsi_item: "",
+        id_kategori: "",
+        stok_item: "",
+        warna_item: "",
+        ukuran_item: "",
+        biaya_operasional: ""
     });
 
     const handleInput = (e) =>{
@@ -37,7 +37,7 @@ const InputItem = () => {
         e.preventDefault()
         try {   
             await axios.post(`http://localhost:3311/item`, dataInput);
-            // alert('udh berhasil daftar bang');
+            alert('udh berhasil daftar bang');
             // navigate('/login');
         } catch (error) {
             console.log('eror bang gabisa input')
@@ -103,6 +103,7 @@ const InputItem = () => {
                             value={dataInput.id_kategori}
                             onChange={handleInput}
                         >
+                            <option value="null" >-Pilih Kategori-</option>
                             <option value="1">Makanan</option>
                             <option value="2">Minuman</option>
                             <option value="3">Pakaian</option>

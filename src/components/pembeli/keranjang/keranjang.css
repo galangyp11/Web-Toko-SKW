@@ -3,3 +3,11 @@
     min-height: 90dvh;
 }
 
+.text-keranjang-kosong{
+    height: 100%;
+    width: 100%;
+
+    font-size: 1.5em;
+    font-weight: 600;
+    color: grey;
+}

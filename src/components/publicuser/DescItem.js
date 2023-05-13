@@ -4,22 +4,28 @@ import { useOutletContext, useParams } from 'react-router-dom';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 
-const DescItem = ({pembeliById}) => {
+const DescItem = () => {
 
     const [itemById, setItemById] = useState({})
     const [foto, setFoto] = useState()
     const {id} = useParams();
-    const isLogin = Cookies.get('id');
+    const [dataItem, setDataItem] = useState({
+        id: '',
+        jumlah: '1'
+    })
 
     useEffect(() => {
         const getItemById = async () => {
             const response = await axios.get(`http://localhost:3311/item/${id}`);
             setItemById(response.data);
-            console.log(response.data);
         }
         getItemById();
 
         window.scrollTo(0, 0);
+
+        setDataItem((data) => ({...data, 
+            id : id
+        }))
                 
     }, []);
 
@@ -38,14 +44,17 @@ const DescItem = ({pembeliById}) => {
         }
     }, 100)
 
-    const handleKeranjang = () => {
-        if(isLogin){
-            alert('nanti item tambah ke keranjang');
-        }else{
-            alert('login dulu bang');
+    const handleKeranjang = async (e) => {
+        e.preventDefault()
+        try {
+            await axios.post(`http://localhost:3311/keranjang`, dataItem);
+            alert('udh di keranjang bng');
+            console.log('bisa kog')
+        } catch (error) {
+            console.log('eror bang gabisa input')
         }
     }
-    console.log(pembeliById)
+    console.log(dataItem)
 
     return ( 
         <div className="descitem">
@@ -71,7 +80,7 @@ const DescItem = ({pembeliById}) => {
                             </div>
                             <div className="row d-flex justify-content-end align-items-end" style={{height:"80%"}}>
                                 <div className="but-cart" onClick={handleKeranjang}>
-                                    <h6 className='text-but-cart d-flex justify-content-center align-items-center'>Tambahkan ke Keranjang</h6>
+                                    <h6 className='text-but-cart d-flex justify-content-center align-items-center' >Tambahkan ke Keranjang</h6>
                                 </div>
                             </div>
                             
