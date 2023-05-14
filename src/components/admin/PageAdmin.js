@@ -1,5 +1,8 @@
 import './pageadmin.css'
 import { useNavigate } from 'react-router-dom';
+import { IoArrowForwardCircleOutline } from "react-icons/io5";
+import { AiFillApple } from "react-icons/ai";
+import { useState } from 'react';
 
 import NavbarAdmin from './NavbarAdmin';
 import SidebarAdmin from './SidebarAdmin';
@@ -7,6 +10,8 @@ import SidebarAdmin from './SidebarAdmin';
 const PageAdmin = ({dataLogin}) => {
 
     const navigate = useNavigate();
+    const [page, setPage] = useState();
+
 
     return ( 
         <div className="page-admin">
@@ -14,13 +19,15 @@ const PageAdmin = ({dataLogin}) => {
                 <NavbarAdmin/>
             </div>
 
-            <div className="row border" style={{width:"100%", height:"100%"}}>
-                <div className="col-2 p-0 border" style={{height:"100%", minHeight:"92dvh", }}>
-                    <SidebarAdmin/>
+            <div className="row container-fluid" style={{width:"100%", height:"100%"}}>
+                <div className="col-2 p-0">
+                    <SidebarAdmin setPage={setPage}/>
                 </div>
 
-                <div className="col container-fluid border">
-                      
+                <div className="col container-fluid">
+                      <div className="page-menu">
+                        {page}
+                      </div>
                 </div>
             </div>
         </div>

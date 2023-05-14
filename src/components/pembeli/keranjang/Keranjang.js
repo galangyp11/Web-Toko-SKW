@@ -5,16 +5,19 @@ import axios from 'axios';
 import FooterKeranjang from './FooterKeranjang';
 import ItemsKeranjang from './ItemsKeranjang';
 import NavbarKeranjang from './NavbarKeranjang'
+import Cookies from 'js-cookie';
+import { useParams } from 'react-router-dom';
 
 
 const Keranjang = () => {
 
     const [datum, setDatum] = useState([])
     const [isKosong, setIsKosong] = useState(true)
+    const id = Cookies.get('id')
 
     useEffect(()=>{
         const dataDB = async () => {
-            const response = await axios.get(`http://localhost:3311/keranjang`)
+            const response = await axios.get(`http://localhost:3311/keranjang/${id}`)
             setDatum(response.data)
             console.log(response)
         }
@@ -27,15 +30,11 @@ const Keranjang = () => {
       }  else {
         setIsKosong(true)
       }
+
     })
 
-    const formatUang = (number) =>{
-        return new Intl.NumberFormat("id-ID", {
-            style: "currency",
-            currency: "IDR"
-        }).format(number);
-    }
 
+    console.log(isKosong)
     console.log(datum)
     return ( 
         <div className="keranjang">

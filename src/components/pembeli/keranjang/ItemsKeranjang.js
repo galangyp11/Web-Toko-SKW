@@ -22,10 +22,11 @@ const ItemsKeranjang = ({datum}) => {
     const handleDelete = async (e) => {
         e.preventDefault()
         try {
-           await datum.map((data)=>{
-                 axios.delete(`http://localhost:3311/keranjang/${data.id_keranjang}`)
-                 window.location.reload()
-             })
+           await datum.forEach(item => {
+                axios.delete(`http://localhost:3311/keranjang/${item.id_keranjang}`)
+           });
+                    
+                //  window.location.reload()
              console.log('udh keapus bang')
         } catch (error) {
             console.log(error)
@@ -42,7 +43,6 @@ const ItemsKeranjang = ({datum}) => {
 
     return (
         datum.map((item)=>{
-            
             return(
                 <div className="items-keranjang my-3" key={item.id_keranjang}>
                     <div className="row d-flex justify-content-center align-items-center px-3" style={{height:"100%", width:"100%"}}>
@@ -67,11 +67,11 @@ const ItemsKeranjang = ({datum}) => {
                             <div className="row ">   
                                 <div className="col  d-flex justify-content-center align-items-center">
                                     <button className='but-jumlah-keranjang '>-</button>
-                                        <input 
+                                        <p 
                                             className='text-jumlah-keranjang px-3 py-2' 
-                                            placeholder={item.jumlah}
+                                            // placeholder={item.jumlah}
                                             // value={}
-                                        ></input>
+                                        >{item.jumlah}</p>
                                     <button className='but-jumlah-keranjang'>+</button>
                                 </div>
                             </div>

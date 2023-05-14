@@ -87,6 +87,7 @@ const Navbar = () => {
                         
                         <ul class="dropdown-menu" style={{backgroundColor:"#E7F6F2"}}>
                             <li class="dropdown-item dd-pembeli" onClick={()=>{navigate('/profile')}}> Profile</li>
+                            <li class="dropdown-item dd-pembeli" onClick={()=>{navigate('/profile')}}> Pesanan Ku</li>
                             <li class="dropdown-item dd-pembeli" onClick={handleLogout}> Logout</li>
                         </ul>
                     </div>

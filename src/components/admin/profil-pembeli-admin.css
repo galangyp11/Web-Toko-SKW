@@ -1,0 +1,29 @@
+.search{
+    border: none;
+    border-radius: 20px;
+    height: 35px;
+    width: 400px;
+    background-color: #E7F6F2;
+
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    transition: .2s ease;
+}
+
+.logo-search{
+    margin-left: 100%;
+    border: none;
+    border-radius: 20px;
+    height: 35px;
+    width: 60px;
+    cursor: pointer;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    transition: .2s ease;
+}
+
+.search:hover{
+   border: 1px solid grey;
+}
+
+.logo-search:hover{
+   border: 1px solid grey;
+}

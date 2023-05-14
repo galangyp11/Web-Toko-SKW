@@ -6,11 +6,13 @@ import Cookies from 'js-cookie';
 
 const DescItem = () => {
 
-    const [itemById, setItemById] = useState({})
-    const [foto, setFoto] = useState()
+    const [itemById, setItemById] = useState({});
+    const [foto, setFoto] = useState();
+    const id_pembeli = Cookies.get('id')
     const {id} = useParams();
     const [dataItem, setDataItem] = useState({
-        id: '',
+        id_pembeli:'',
+        id_item: '',
         jumlah: '1'
     })
 
@@ -23,8 +25,9 @@ const DescItem = () => {
 
         window.scrollTo(0, 0);
 
-        setDataItem((data) => ({...data, 
-            id : id
+        setDataItem((data) => ({...data,
+            id_pembeli : id_pembeli,
+            id_item : id
         }))
                 
     }, []);
