@@ -1,56 +1,24 @@
 import { useEffect, useState } from 'react';
 import './footerkeranjang.css'
-import { useNavigate } from 'react-router-dom';
 
-const FooterKeranjang = ({datum, isKosong}) => {
+const FooterKeranjang = ({datum, handleCheckout}) => {
 
-    const [harga, setHarga] = useState('')
+    const [totalHarga, setTotalHarga] = useState('')
     const [totalItem, setTotalItem] = useState('')
-    const navigate = useNavigate()
-    const [dataInput, setDataInput] = useState({
-        id_admin: '',
-        id_item: '',
-        id_keranjang: '',
-        total_harga: '',
-        total_jumlah: ''
-    });
 
     useEffect(()=>{
         try {
             let sum = 0
             datum.forEach(element => {
                 sum += element.harga_item
-                setHarga(sum)
+                setTotalHarga(sum)
             });
     
             setTotalItem(datum.length)
         } catch (error) {
             console.log(error)
         }
-       
-        
-    },[])
-
-    const handleCheckout = (e) =>{
-        if(isKosong === true){
-            alert('Keranjang Kamu Kosong')
-        } else {
-        //     datum.map((keranjang)=>({
-        //         return(
-        
-        //     setDataInput((data) => ({...data,
-        //         id_admin : e.target.id,
-        //         id_item : e.target.value,
-        //         id_keranjang : e.target.value,
-        //         total_harga : e.target.value,
-        //         total_jumlah : e.target.value
-        //     }))
-                        
-        //     )
-        // }))
-            navigate('/checkout')
-        }
-    }
+    })
 
     const formatUang = (number) =>{
         return new Intl.NumberFormat("id-ID", {
@@ -58,8 +26,6 @@ const FooterKeranjang = ({datum, isKosong}) => {
             currency: "IDR"
         }).format(number);
     }
-
-    console.log(dataInput)
     return ( 
         <div className="footer-keranjang">
            <div className="row px-1 d-flex justify-content-center align-items-start " style={{height:"100%"}}>
@@ -73,7 +39,7 @@ const FooterKeranjang = ({datum, isKosong}) => {
                     </div>
 
                     <div className="col">
-                        <p className="text-total-harga-nominal-keranjang d-flex justify-content-start align-items-center" id='text-footer-keranjang'>{formatUang(harga).replace(/\,00/g, '')}</p>
+                        <p className="text-total-harga-nominal-keranjang d-flex justify-content-start align-items-center" id='text-footer-keranjang'>{formatUang(totalHarga).replace(/\,00/g, '')}</p>
                     </div>
 
                     <div className="row d-flex align-items-center justify-content-start mt-3">
@@ -94,7 +60,7 @@ const FooterKeranjang = ({datum, isKosong}) => {
                             <p className='text-rincian-isi'>Total item ({totalItem})</p>
                         </div>
                         <div className="col">
-                            <p>{harga}</p>
+                            <p>{totalHarga}</p>
                         </div>
                     
                     </div>
