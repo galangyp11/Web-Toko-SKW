@@ -4,9 +4,9 @@ import NavbarProfile from './NavbarProfile';
 import Cookies from 'js-cookie';
 import axios from 'axios';
 
-import fotoKosing from '../image/kuraplongo.jpg';
+import fotoKosing from '../../image/kuraplongo.jpg';
 import InfoPembeli from './InfoPembeli';
-import HalamanEdit from './edit/HalamanEdit';
+import HalamanEdit from '../edit/HalamanEdit';
 
 const ProfilePembeli = () => {
 

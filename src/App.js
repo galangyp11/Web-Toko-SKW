@@ -9,7 +9,7 @@ import PublicRoutes from './components/PublicRoutes';
 import ProtectedRoutes from './components/ProtectedRoutes';
 import PageAdmin from './components/admin/PageAdmin';
 
-import ProfilePembeli from './components/pembeli/ProfilePembeli';
+import ProfilePembeli from './components/pembeli/profile/ProfilePembeli';
 import DaftarPembeli from './components/pembeli/DaftarPembeli';
 import Keranjang from './components/pembeli/keranjang/Keranjang';
 import CheckPembeli from './components/pembeli/checkout/CheckPembeli';

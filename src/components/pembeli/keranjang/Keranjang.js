@@ -34,8 +34,8 @@ const Keranjang = () => {
     })
 
 
-    console.log(isKosong)
-    console.log(datum)
+    // console.log(isKosong)
+    // console.log(datum)
     return ( 
         <div className="keranjang">
             <div className="sticky-top">

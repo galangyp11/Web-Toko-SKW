@@ -7,6 +7,13 @@ const FooterKeranjang = ({datum, isKosong}) => {
     const [harga, setHarga] = useState('')
     const [totalItem, setTotalItem] = useState('')
     const navigate = useNavigate()
+    const [dataInput, setDataInput] = useState({
+        id_admin: '',
+        id_item: '',
+        id_keranjang: '',
+        total_harga: '',
+        total_jumlah: ''
+    });
 
     useEffect(()=>{
         try {
@@ -22,12 +29,25 @@ const FooterKeranjang = ({datum, isKosong}) => {
         }
        
         
-    })
+    },[])
 
-    const handleCheckout = () =>{
+    const handleCheckout = (e) =>{
         if(isKosong === true){
             alert('Keranjang Kamu Kosong')
         } else {
+        //     datum.map((keranjang)=>({
+        //         return(
+        
+        //     setDataInput((data) => ({...data,
+        //         id_admin : e.target.id,
+        //         id_item : e.target.value,
+        //         id_keranjang : e.target.value,
+        //         total_harga : e.target.value,
+        //         total_jumlah : e.target.value
+        //     }))
+                        
+        //     )
+        // }))
             navigate('/checkout')
         }
     }
@@ -38,6 +58,8 @@ const FooterKeranjang = ({datum, isKosong}) => {
             currency: "IDR"
         }).format(number);
     }
+
+    console.log(dataInput)
     return ( 
         <div className="footer-keranjang">
            <div className="row px-1 d-flex justify-content-center align-items-start " style={{height:"100%"}}>

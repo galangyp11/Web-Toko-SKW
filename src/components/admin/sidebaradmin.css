@@ -5,12 +5,10 @@
 }
 
 
-.text-sidebar-admin{
+#text-sidebar-admin{
     color: white;
-    font-size: 20px;
     font-weight: 400;
     width: 100%;
-    height: 14px;
 }
 
 .sidebar-item{
@@ -29,6 +27,7 @@
     display: flex;
     font-size: 1.2em;
     justify-content: space-between;
+    
   }
 
   .icon-title{
@@ -64,8 +63,9 @@
   .text-sidebar-admin-title{
     font-size: 23px;
     transition: .2s ease;
-    border-radius: 5px;
     cursor: pointer;
+    
+    height: 100%;
   }
 
   .text-sidebar-admin-content{
