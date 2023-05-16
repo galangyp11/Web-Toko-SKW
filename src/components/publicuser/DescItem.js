@@ -42,6 +42,7 @@ const DescItem = () => {
     setTimeout(()=>{
         try {
             setFoto(btoa(String.fromCharCode(...new Uint8Array(itemById.foto_item.data))))
+            console.log(itemById.foto_item)
         } catch (error) {
             console.log('sabar bang fotonya lagi loading')
         }
@@ -49,13 +50,18 @@ const DescItem = () => {
 
     const handleKeranjang = async (e) => {
         e.preventDefault()
-        try {
-            await axios.post(`http://localhost:3311/keranjang`, dataItem);
-            alert('udh di keranjang bng');
-            console.log('bisa kog')
-        } catch (error) {
-            console.log('eror bang gabisa input')
+        if(id_pembeli === undefined){
+            alert('Login dulu bre')
+        } else {
+            try {
+                await axios.post(`http://localhost:3311/keranjang`, dataItem);
+                alert('udh di keranjang bng');
+                console.log('bisa kog')
+            } catch (error) {
+                console.log('eror bang gabisa input')
+            }
         }
+        
     }
     console.log(dataItem)
 

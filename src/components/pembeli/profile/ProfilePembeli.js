@@ -40,10 +40,10 @@ const ProfilePembeli = () => {
     return ( 
         <div className="profilepembeli">
             <div className="sticky-top">
-                <NavbarProfile/>
+                <NavbarProfile isEdit={isEdit}/>
             </div>
 
-            <div className="profilepembeli-con container border">
+            <div className="profilepembeli-con container">
                 {!isEdit? <InfoPembeli pembeliById={pembeliById} foto={foto} isEdit={isEdit} setIsEdit={setIsEdit} setIdPageEdit={setIdPageEdit}/> : 
                 <HalamanEdit pembeliById={pembeliById} foto={foto} setIsEdit={setIsEdit} idPageEdit={idPageEdit}/>}
             </div>

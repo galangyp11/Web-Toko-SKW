@@ -1,4 +1,4 @@
-import './editpembeli.css'
+import './halamanedit.css'
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";

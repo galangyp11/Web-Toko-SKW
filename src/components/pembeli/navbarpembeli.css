@@ -107,15 +107,23 @@
 }
 
 .dd-pembeli{
-    background-color: #E7F6F2;
+    background-color: white;
     cursor: pointer;
+    font-weight: 600;
+    color: #0E8388;
 }
 
 .dd-pembeli:hover{
     background-color: #9fd8c9;
+    color: #0E8388;
 }
 
-#but-logout:hover{
-    color: red;
+.but-logout-navbar-pembeli{
+    color: #ED2B2A;
+}
+
+.but-logout-navbar-pembeli:hover{
+    background-color: #ED2B2A;
+    color: white;
 }
 

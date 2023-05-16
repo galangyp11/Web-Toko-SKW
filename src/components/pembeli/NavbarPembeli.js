@@ -60,7 +60,7 @@ const Navbar = () => {
 
                 <div className="col-4 d-flex justify-content-center align-items-center" style={{ height:'100%'}}>
                     <div className="bg-search d-flex justify-content-center align-items-center">
-                        <input className='search p-2 text-center' type="text" placeholder='Search' />
+                        <input className='search p-2' type="text" placeholder='Search' />
                         <BsSearch color='#0E8388' size="20px"  className='logo-search'/>
                     </div>           
                 </div>
@@ -85,10 +85,11 @@ const Navbar = () => {
                            
                         </button>
                         
-                        <ul class="dropdown-menu" style={{backgroundColor:"#E7F6F2"}}>
+                        <ul class="dropdown-menu">
                             <li class="dropdown-item dd-pembeli" onClick={()=>{navigate('/profile')}}> Profile</li>
                             <li class="dropdown-item dd-pembeli" onClick={()=>{navigate('/profile')}}> Pesanan Ku</li>
-                            <li class="dropdown-item dd-pembeli" onClick={handleLogout}> Logout</li>
+                            <hr/>
+                            <li class="dropdown-item dd-pembeli but-logout-navbar-pembeli" onClick={handleLogout}> Logout</li>
                         </ul>
                     </div>
                 </div>

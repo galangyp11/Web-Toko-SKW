@@ -1,4 +1,4 @@
-import './editpembeli.css'
+import './halamanedit.css'
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
@@ -42,53 +42,43 @@ const EditPembeli = ({foto, setIsEdit, pembeliById}) => {
 
     return ( 
         <div className="edit-pembeli">
-            <div className="row my-3 border">
-                <div className="col-4 border d-flex justify-content-center">
-                        <div className="bg-foto-profile">
-                            <img className='foto-profile' src={ `data:image/png;base128,${foto}`} alt="" />
+            <div className="row my-3">
+                <div className="col p-5" >
+                <p className="text-edit-pembeli">Edit Username</p>
+                <hr />
+                    <div className="row">
+                        <div className="col-2">
+                            <p className='text-profile-bio d-flex align-items-center'>Username</p>
                         </div>
+                        <div className="col-1">
+                            <p className='text-profile-bio d-flex justify-content-center align-items-center'>:</p>
+                        </div>
+                        <div className="col d-flex align-items-center">
+                            <input 
+                                className='text-profile-edit d-flex align-items-center' 
+                                id="username"
+                                placeholder={pembeliById.username}
+                                value={dataInput.dataRecord} 
+                                onChange={handleInput}>
+                            </input>
+                        </div>
+                    </div>                   
+
+                    
+                    <div className="row mt-5">
+                        <div className="col d-flex justify-content-start">
+                            <button className="but-batal-profile" onClick={()=>{setIsEdit(false)}}>Batal</button>
+                        </div>
+                        <div className="col d-flex justify-content-end">
+                            <button className="but-simpan-profile" onClick={handleSimpan}>Simpan</button>
+                        </div>            
                     </div>
-
-                    <div className="col p-5 border" >
-                        <div className="row border">
-                            <div className="col-2 border">
-                                <p className='text-profile-bio d-flex align-items-center'>Username</p>
-                            </div>
-                            <div className="col-1 border">
-                                <p className='text-profile-bio d-flex justify-content-center align-items-center'>:</p>
-                            </div>
-                            <div className="col border d-flex align-items-center">
-                                <input 
-                                    className='text-profile-edit d-flex align-items-center' 
-                                    id="username"
-                                    placeholder={pembeliById.username}
-                                    value={dataInput.dataRecord} 
-                                    onChange={handleInput}>
-                                </input>
-                            </div>
-                            {/* <div className="col-1 border d-flex justify-content-center align-items-center">
-                                <BsArrowRepeat className="icon-ubah" size="1.5em" id='username' onClick={handleUbah}/>
-                            </div> */}
-                        </div>                   
-
-                    <div className="col-2 border d-flex justify-content-start align-items-center">
-                        <div className="row border d-flex justify-content-end align-items-end g-3">
-                            <div className="col">
-                                <div className="but-simpan-profile ">
-                                    <p className="text-simpan-profile d-flex justify-content-center align-items-center" onClick={()=>{setIsEdit(false)}}>Batal</p>
-                                </div>
-                            </div>
-                            <div className="col">
-                                <div className="but-simpan-profile ">
-                                    <p className="text-simpan-profile d-flex justify-content-center align-items-center" onClick={handleSimpan}>Simpan</p>
-                                </div>
-                            </div>            
-                        </div>
-                    </div>                          
+                                  
               </div>
             </div>
         </div>
      );
+     
 }
  
 export default EditPembeli;

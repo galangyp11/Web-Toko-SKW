@@ -1,0 +1,50 @@
+.text-profile-edit{
+    width: 300px;
+    height: 30px;
+    border: 1px solid grey;
+    border-radius: 5px;
+}
+.text-edit-pembeli{
+    font-size: 1.5em;
+    font-weight: 600;
+}
+
+.edit-pembeli{
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+}
+
+.but-simpan-profile{
+    border: none;
+    width: 110px;
+    height: 35px;
+    border-radius: 5px;
+    background-color: #0E8388;
+    color: white;
+    font-weight: 600;
+
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+    transition: .2s ease;
+}
+
+.but-simpan-profile:hover{
+    background-color: #0c686b;
+}
+
+.but-batal-profile{
+    border: none;
+    width: 110px;
+    height: 35px;
+    border-radius: 5px;
+    background-color: white;
+    color: #ED2B2A;
+    font-weight: 600;
+
+    box-shadow: rgba(237, 43, 42, 0.1) 0px 2px 3px 0px, rgba(237, 43, 42, 0.15) 0px 0px 0px 1px;
+    transition: .2s ease;
+}
+
+.but-batal-profile:hover{
+    background-color: #ED2B2A;
+    color: white;
+}

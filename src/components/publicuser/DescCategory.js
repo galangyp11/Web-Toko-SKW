@@ -18,6 +18,8 @@ const DescCategory = () => {
             console.log(response)
         }
         kategoriDB()
+
+        window.scrollTo(0, 0);
     },[]) 
 
     useEffect(()=>{
@@ -46,7 +48,7 @@ const DescCategory = () => {
 
     return ( 
         <div className="desc-category">
-            <div className="desc-category-con container d-flex justify-content-center py-5">
+            <div className="desc-category-con container d-flex justify-content-center py-2">
                 <div className="row mt-4" style={{width:"100%"}}>
                     <div className="desc-kategory-kiri col-2 py-2">
                         <div className="row">

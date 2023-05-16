@@ -65,7 +65,6 @@ const Keranjang = () => {
         } else {
    
             await axios.post(`http://localhost:3311/checkout`, datumObj);
-            alert('udh bang')
             navigate('/checkout')
         }
     }

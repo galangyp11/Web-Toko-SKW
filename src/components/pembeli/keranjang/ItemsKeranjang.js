@@ -3,21 +3,8 @@ import kura from '../../image/kuraplongo.jpg'
 import axios from 'axios';
 
 import { MdOutlineCancel } from "react-icons/md";
-import { useEffect, useState } from 'react';
 
 const ItemsKeranjang = ({datum}) => {
-
-    // const [dataInput, setDataInput] = useState({
-    //     total_harga: '',
-    //     total_jumlah: '1'
-    // })
-
-    // const handleTambah = (e) => {
-    //     setDataInput((data)=>({...data,
-    //         [e.target.id]: e.target.value
-            
-    //     }))
-    // }
 
     const handleDelete = async (e) => {
         e.preventDefault()
@@ -26,7 +13,7 @@ const ItemsKeranjang = ({datum}) => {
                 axios.delete(`http://localhost:3311/keranjang/${item.id_keranjang}`)
            });
                     
-                //  window.location.reload()
+                 window.location.reload()
              console.log('udh keapus bang')
         } catch (error) {
             console.log(error)

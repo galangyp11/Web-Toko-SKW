@@ -21,17 +21,17 @@ const Items = () => {
             style: "currency",
             currency: "IDR"
         }).format(number);
-    }
-    
-    // console.log(datum)
+    }       
 
     return ( 
         <div className="bg-items my-5 d-flex justify-content-center" style={{width:"100%"}}>
             <div className="items p-4 d-flex justify-content-center">
                 <div className="row gap-4 d-flex justify-content-center align-items-center row-cols-5">
                 
-                        { datum.map((item) => {
-                            const foto = btoa(String.fromCharCode(...new Uint8Array(item.foto_item.data)));
+                        { datum.map((item) => {                  
+                          
+                            const foto = btoa(String.fromCharCode(...new Uint8Array(item.foto_item.data)))
+                         
                             return(
                             
                             <div className="item m-3" key={item.id_item} style={{cursor:"pointer", padding:'0px'}}>

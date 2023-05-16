@@ -1,5 +1,6 @@
 import './checkout.css'
 import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 
 import NavbarCheck from './NavbarCheck'
@@ -7,6 +8,7 @@ import ItemsCheck from './ItemsCheck'
 
 const CheckPembeli = () => {
 
+    const navigate = useNavigate()
     const [datum, setDatum] = useState([]);
     const [dataAdmin, setDataAdmin] = useState({});
 
@@ -29,6 +31,10 @@ const CheckPembeli = () => {
     },[datum]);
 
     console.log(dataAdmin)
+
+    const handleBatal = () =>{
+        navigate('/')
+    }
 
     return ( 
         <div className="check-pembeli">
@@ -113,7 +119,7 @@ const CheckPembeli = () => {
                 <div className="row my-3 d-flex justify-content-center">
                     <div className="row ">
                         <div className="col-2">
-                            <button className='but-batal-checkout'>Batal</button>
+                            <button className='but-batal-checkout' onClick={handleBatal}>Batal</button>
                         </div>
 
                         <div className="col">
