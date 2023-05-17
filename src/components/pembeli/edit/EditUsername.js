@@ -2,9 +2,8 @@ import './halamanedit.css'
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
-import { useNavigate } from "react-router-dom";
 
-const EditPembeli = ({foto, setIsEdit, pembeliById}) => {
+const EditPembeli = ({setIsEdit, pembeliById}) => {
 
     const id = Cookies.get('id')
     const [dataInput, setDataInput] = useState({

@@ -2,8 +2,7 @@ import './navbarprofile.css'
 import { Link } from 'react-router-dom';
 
 const NavabarProfile = ({isEdit}) => {
-    
-    
+            
     return (
         <div className="navbar-profile d-flex align-items-center justify-content-center">
             <div className="row " style={{ width:'95dvw', height:'100%'}}>

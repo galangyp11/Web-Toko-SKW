@@ -10,15 +10,15 @@ const HalamanEdit = ({pembeliById, foto, setIsEdit, idPageEdit}) => {
     const [page, setPage] = useState();
 
     useEffect(()=>{
-        if(idPageEdit === 'username'){
-           setPage(<EditUsername pembeliById={pembeliById} foto={foto} setIsEdit={setIsEdit}/>) 
-        } else  if(idPageEdit === 'email'){
-            setPage(<EditEmail pembeliById={pembeliById} foto={foto} setIsEdit={setIsEdit}/>) 
-         } else  if(idPageEdit === 'password'){
-            setPage(<EditPassword pembeliById={pembeliById} foto={foto} setIsEdit={setIsEdit}/>) 
-         } else  if(idPageEdit === 'alamat'){
-            setPage(<EditAlamat pembeliById={pembeliById} foto={foto} setIsEdit={setIsEdit}/>) 
-         } else  if(idPageEdit === 'foto_pembeli'){
+        if(idPageEdit == 'username'){
+           setPage(<EditUsername pembeliById={pembeliById} setIsEdit={setIsEdit}/>) 
+        } else  if(idPageEdit == 'email'){
+            setPage(<EditEmail pembeliById={pembeliById} setIsEdit={setIsEdit}/>) 
+         } else  if(idPageEdit == 'password'){
+            setPage(<EditPassword pembeliById={pembeliById} setIsEdit={setIsEdit}/>) 
+         } else  if(idPageEdit == 'alamat'){
+            setPage(<EditAlamat pembeliById={pembeliById} setIsEdit={setIsEdit}/>) 
+         } else  if(idPageEdit == 'foto_pembeli'){
             setPage(<EditFotoPembeli pembeliById={pembeliById} foto={foto} setIsEdit={setIsEdit}/>) 
          }else {
             setPage(null)

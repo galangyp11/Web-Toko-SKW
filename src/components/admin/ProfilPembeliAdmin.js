@@ -33,14 +33,14 @@ const ProfilPenjualAdmin = () => {
             </div>
 
             <div className="row">
-            <div className="col-3 d-flex justify-content-center align-items-center" style={{ height:'100%'}}>
-                <input className='search-admin p-2 ' type="text" placeholder='Search' />    
-                    <div className="col-1 d-flex justify-content-center align-items-center" style={{ height:'100%'}}>
-                        <div className="logo-search-admin d-flex justify-content-center">
-                            <img className='p-1' src={search} alt=""/>
-                        </div>
-                    </div>                     
-            </div>
+                <div className="col-3 d-flex justify-content-center align-items-center" style={{ height:'100%'}}>
+                    <input className='search-admin p-2 ' type="text" placeholder='Search' />    
+                        <div className="col-1 d-flex justify-content-center align-items-center" style={{ height:'100%'}}>
+                            <div className="logo-search-admin d-flex justify-content-center">
+                                <img className='p-1' src={search} alt=""/>
+                            </div>
+                        </div>                     
+                </div>
             </div>
 
            <table class="table my-5 table-bordered">

@@ -9,6 +9,7 @@
 .img-items-keranjang{
     object-fit: cover;
     height: 90%;
+    width: 180px;
 }
 
 .text-nama-item-keranjang{

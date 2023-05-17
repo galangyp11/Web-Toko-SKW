@@ -1,7 +1,5 @@
 import './pageadmin.css'
 import { useNavigate } from 'react-router-dom';
-import { IoArrowForwardCircleOutline } from "react-icons/io5";
-import { AiFillApple } from "react-icons/ai";
 import { useState } from 'react';
 
 import NavbarAdmin from './NavbarAdmin';

@@ -18,13 +18,6 @@ const Keranjang = () => {
     const [isKosong, setIsKosong] = useState(true)
     const id = Cookies.get('id')
     const navigate = useNavigate()
-    // const [dataInput, setDataInput] = useState({
-    //     id_admin: '',
-    //     id_item: '',
-    //     id_keranjang: '',
-    //     total_harga: '',
-    //     total_jumlah: ''
-    // });
 
     useEffect(()=>{
         const dataDB = async () => {
@@ -38,12 +31,10 @@ const Keranjang = () => {
     useEffect(()=>{
         const dataObj = () => {
             datum.map((data)=>{
-            
-                    setDatumObj((item) => ({...item,
-                        id_item : data.id_item,
-                        id_keranjang : data.id_keranjang
-                    }))
-                
+                setDatumObj((item) => ({...item,
+                    id_item : data.id_item,
+                    id_keranjang : data.id_keranjang
+                }))
             })
         }
 

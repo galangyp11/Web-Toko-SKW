@@ -9,7 +9,7 @@ const InfoPembeli = ({pembeliById, foto, isEdit, setIsEdit, setIdPageEdit}) => {
     }
 
     return ( 
-        <div className="info-pembeli py-5 px-3">
+        <div className="info-pembeli py-5 px-3 my-3">
             <div className="row my-3">
                     <div className="col-5 d-flex justify-content-center">
                         <div className="bg-foto-profile-pembeli">

@@ -1,20 +1,22 @@
 import './descitem.css'
 import { useState, useEffect } from 'react';
-import { useOutletContext, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 
 const DescItem = () => {
 
     const [itemById, setItemById] = useState({});
+    const [cekItemKeranjang, setCekItemKeranjang] = useState([]);
+    const [idItemKeranjang, setIdItemKeranjang] = useState();
     const [foto, setFoto] = useState();
-    const id_pembeli = Cookies.get('id')
+    const id_pembeli = Cookies.get('id');
     const {id} = useParams();
     const [dataItem, setDataItem] = useState({
         id_pembeli:'',
         id_item: '',
         jumlah: '1'
-    })
+    });
 
     useEffect(() => {
         const getItemById = async () => {
@@ -22,6 +24,13 @@ const DescItem = () => {
             setItemById(response.data);
         }
         getItemById();
+
+        const getKeranjang = async () => {
+            const response = await axios.get('http://localhost:3311/keranjang');
+            setCekItemKeranjang(response.data)
+            console.log(response)
+        }
+        getKeranjang()
 
         window.scrollTo(0, 0);
 
@@ -31,6 +40,13 @@ const DescItem = () => {
         }))
                 
     }, []);
+
+    useEffect(()=>{
+        cekItemKeranjang.map((data)=>{
+            setIdItemKeranjang(data.id_item)
+            console.log(data.id_item)
+        })
+    })
 
     const formatUang = (number) =>{
         return new Intl.NumberFormat("id-ID", {
@@ -50,20 +66,26 @@ const DescItem = () => {
 
     const handleKeranjang = async (e) => {
         e.preventDefault()
-        if(id_pembeli === undefined){
-            alert('Login dulu bre')
-        } else {
-            try {
-                await axios.post(`http://localhost:3311/keranjang`, dataItem);
-                alert('udh di keranjang bng');
-                console.log('bisa kog')
-            } catch (error) {
-                console.log('eror bang gabisa input')
+        
+            if(id_pembeli === undefined){
+                alert('Login dulu bre')
+            } else if(idItemKeranjang === itemById.id_item){   
+                alert('Item sudah ada di Keranjang !')
+            } else {
+                try {
+                    await axios.post(`http://localhost:3311/keranjang`, dataItem);
+                    alert('Item Masuk ke keranjang :)');
+                    console.log('bisa kog')
+                } catch (error) {
+                    console.log('eror bang gabisa input')
+                }
             }
-        }
+
+            window.location.reload()
         
     }
-    console.log(dataItem)
+    console.log(idItemKeranjang)
+    console.log(itemById.id_item)
 
     return ( 
         <div className="descitem">

@@ -17,6 +17,7 @@
     transition: background-color .15s;
     border-radius: 5px;
     width: 100%;
+    
   }
   .sidebar-item:hover{
     background-color: rgba(255, 255, 255, .1);
@@ -26,8 +27,7 @@
   .sidebar-title{
     display: flex;
     font-size: 1.2em;
-    justify-content: space-between;
-    
+    height: 100%;
   }
 
   .icon-title{
@@ -55,17 +55,12 @@
     height: auto;
   }
 
-  #text-sidebar-admin{
-    color: white;
-    font-weight: 400;
-  }
-
   .text-sidebar-admin-title{
     font-size: 23px;
     transition: .2s ease;
     cursor: pointer;
-    
-    height: 100%;
+
+    height: 10%;
   }
 
   .text-sidebar-admin-content{
@@ -79,5 +74,17 @@
 
   .text-sidebar-admin-content:hover{
     background-color: grey;
+  }
+
+  .bg-text-notif-pesanan{
+    border-radius: 50%;
+    height: 23px;
+    width: 23px;
+    background-color: white;
+  }
+
+  .text-notif-pesanan{
+    font-size: 0.7em;
+    font-weight: 600;
   }
 

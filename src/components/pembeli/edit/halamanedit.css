@@ -23,7 +23,7 @@
     color: white;
     font-weight: 600;
 
-    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+    box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
     transition: .2s ease;
 }
 
@@ -37,14 +37,15 @@
     height: 35px;
     border-radius: 5px;
     background-color: white;
-    color: #ED2B2A;
+    
     font-weight: 600;
+    color: grey;
 
-    box-shadow: rgba(237, 43, 42, 0.1) 0px 2px 3px 0px, rgba(237, 43, 42, 0.15) 0px 0px 0px 1px;
+    box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
     transition: .2s ease;
 }
 
 .but-batal-profile:hover{
-    background-color: #ED2B2A;
-    color: white;
+    box-shadow: rgba(255, 0, 0, 0.02) 0px 1px 3px 0px, rgba(255, 0, 0, 0.15) 0px 0px 0px 1px;
+    color: red;
 }
