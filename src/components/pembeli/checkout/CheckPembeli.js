@@ -6,41 +6,105 @@ import axios from 'axios'
 import NavbarCheck from './NavbarCheck'
 import ItemsCheck from './ItemsCheck'
 import ModalCheck from './ModalCheck'
+import Cookies from 'js-cookie'
 
 const CheckPembeli = () => {
 
+    const id = Cookies.get('id')
     const navigate = useNavigate()
-    const [datum, setDatum] = useState([]);
-    const [dataAdmin, setDataAdmin] = useState({});
+
+    const [dataCheckout, setDataCheckout] = useState([]);
+    const [cekIdKonfirmasi, setCekIdKonfirmasi] = useState();
+    const [dataKonfirmasi, setDataKonfirmasi] = useState([]);
+    const [dataPembeli, setDataPembeli] = useState({});
     const [dataInput, setDataInput] = useState({
-        id_checkout: '',
-        pembayaran: '',
-        waktu_pesan:''
+        id_pembeli:'',
+        id_item:'',
+        id_mp:'null',
+        waktu_pesan:'gini'
+    });
+    const [mpModal, setMpModal] = useState('')
+    const [show, setShow] = useState(false)
+    const [totalHarga, setTotalHarga] = useState('')
+
+    useEffect(()=>{
+        const dataDB = async () => {
+            const response = await axios.get(`http://localhost:3311/keranjang/${id}`)
+            setDataCheckout(response.data)
+        }
+        dataDB()    
+        
+        const getPembeliById = async () => {
+            const response = await axios.get(`http://localhost:3311/pembeli/${id}`);
+            setDataPembeli(response.data);
+        }
+        getPembeliById();
+
+        const getDataKonfirmasi = async () => {
+            const response = await axios.get(`http://localhost:3311/konfirmasi`);
+            setDataPembeli(response.data);
+        }
+        getDataKonfirmasi();
+    },[]);
+
+    useEffect(()=>{
+        if(dataInput.id_mp == 1){
+            setMpModal('Bank')
+        } else if(dataInput.id_mp == 2){
+            setMpModal('DANA')
+        } else if(dataInput.id_mp == 3){
+            setMpModal('GoPay')
+        } else if(dataInput.id_mp == 4){
+            setMpModal('ShopeePay')
+        } else if(dataInput.id_mp == 5){
+            setMpModal('OVO')
+        } else {
+            setMpModal('-')
+        }
+    },[dataInput.id_mp])
+
+    useEffect(()=>{
+        const dataObj = () => {
+            dataCheckout.map((data)=>{
+                setDataInput((item) => ({...item,
+                    id_checkout : data.id_checkout,
+                    id_pembeli : data.id_pembeli,
+                    id_item : data.id_item,
+                    id_mp : data.id_mp,
+                    waktu_pesan: new Date()
+                }))
+            })
+        }
+
+        dataObj()
+    },[dataCheckout])
+
+    useEffect(()=>{
+        try {
+            let sum = 0
+            dataCheckout.forEach(element => {
+                console.log(element)
+                sum += element.harga_item
+                setTotalHarga(sum)
+            });
+    
+        } catch (error) {
+            console.log(error)
+        }
     })
-    const [isShow, setIsShow] = useState(false)
-
-    useEffect(()=>{
-        const dataDB = async () => {
-            const response = await axios.get(`http://localhost:3311/checkout`)
-            setDatum(response.data)
-            // console.log(response)
-        }
-        dataDB()
-    },[]);
-
-    useEffect(()=>{
-        const dataDB = async () => {
-            const response = await axios.get(`http://localhost:3311/admin`)
-            setDataAdmin(response.data)
-        }
-        dataDB()
-    },[]);
-
-    const handleMP = () =>{
-
+    
+    const formatUang = (number) =>{
+        return new Intl.NumberFormat("id-ID", {
+            style: "currency",
+            currency: "IDR"
+        }).format(number);
     }
 
-    console.log(dataAdmin)
+    const handleInput = (e) =>{
+        setDataInput((data) => ({...data, 
+            [e.target.id] : e.target.value
+        }))
+    }
 
     const handleBatal = async() =>{
         await axios.delete('http://localhost:3311/checkout')
@@ -49,10 +113,15 @@ const CheckPembeli = () => {
 
     const handleBayar = async(e) =>{
         e.preventDefault()
-        await axios.post()
-
-
+        if(dataInput.id_mp == 'null'){
+            alert('pilih pembayaran dlu blok')
+        }else{
+            await axios.post(`http://localhost:3311/konfirmasi`, dataInput);
+            setShow(true)
+        }
     }
+
+    console.log(dataInput)
 
     return ( 
         <div className="check-pembeli">
@@ -62,13 +131,13 @@ const CheckPembeli = () => {
 
             <div className="check-con container py-1 px-5">
                 <div className="row">
-                    <ItemsCheck datum={datum}/>
+                    <ItemsCheck dataCheckout={dataCheckout}/>
                 </div>
 
                 <div className="row">
                     <p className='text-sub-checkout'>Alamat :</p>
                     <div className="col">
-                        <textarea className="alamat-checkout" ></textarea>
+                        <textarea className="alamat-checkout" placeholder={dataPembeli.alamat}></textarea>
                     </div>
                     <div className="col">
                         <p className='text-info-checkout'>*Pastikan alamat sudah benar dan jelas agar memudahkan proses.</p>
@@ -79,14 +148,14 @@ const CheckPembeli = () => {
                     <p className='text-sub-checkout'>Pilih Metode Pembayaran :</p>
                     <div className="col">
                         <select 
-                            name="kategori" 
-                            id="id_kategori" 
+                            name="mp" 
+                            id="id_mp" 
                             className='input-text'
-                            // value={dataInput.id_kategori}
-                            // onChange={handleInput}
+                            value={dataInput.id_mp}
+                            onChange={handleInput}
                         >
                             <option value="null" >-Pilih Metode Pembayaran-</option>
-                            <option value="1" onChange={handleMP}>BCA</option>
+                            <option value="1">Bank</option>
                             <option value="2">DANA</option>
                             <option value="3">GoPay</option>
                             <option value="4">ShopeePay</option>
@@ -110,7 +179,9 @@ const CheckPembeli = () => {
                         </div>
                         <div className="col-1">:</div>
                         <div className="col">
-                            <p>Rp.69.000</p>
+                        
+                                    <p>{formatUang(totalHarga).replace(/\,00/g, '')}</p>
+                            
                         </div>
                     </div>
                     <div className="row" style={{width:'50dvw'}}>
@@ -119,7 +190,7 @@ const CheckPembeli = () => {
                         </div>
                         <div className="col-1">:</div>
                         <div className="col">
-                            <p>3</p>
+                            <p>{dataCheckout.length}</p>
                         </div>
                     </div>
                     <div className="row" style={{width:'50dvw'}}>
@@ -128,7 +199,7 @@ const CheckPembeli = () => {
                         </div>
                         <div className="col-1">:</div>
                         <div className="col">
-                            <p>DANA</p>
+                            <p>{mpModal}</p>
                         </div>
                     </div>
                     <p className='text-info-checkout'>Dimohon untuk cek kembali sebelum membayar</p>
@@ -141,69 +212,13 @@ const CheckPembeli = () => {
                         </div>
 
                         <div className="col">
-                           <button className='but-bayar-checkout' data-bs-toggle="modal" data-bs-target="#modal-bayar" onClick={handleBayar}>Bayar</button>
+                           <button className='but-bayar-checkout' onClick={handleBayar}>Bayar</button>
                         </div>
                     </div>
-                </div> 
-
-                <div class="modal fade" id="modal-bayar" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                    <div class="modal-dialog  modal-dialog-centered modal-lg">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <p class="modal-title" id="staticBackdropLabel">Pembayaran</p>
-                            </div>
-                        <div class="modal-body d-flex justify-content-center" style={{height:"50dvh"}}>
-                            <div className="row container d-flex justify-content-center">
-                                <div className="d-flex justify-content-center">
-                                    <p className='text-mp-modal'>DANA 081211139102</p>
-                                </div>
-                                <div className="d-flex justify-content-center">
-                                    <p className="text-mp-nama-modal">A/N ADMIN SUPRI</p>
-                                </div>
-
-                                <div className="row mt-5">
-                                    <div className="col-3">
-                                        <p className='text-info-modal'>Total Harga</p>
-                                    </div>
-                                    <div className="col-1">
-                                        <p className='text-info-modal'>:</p>
-                                    </div>
-                                    <div className="col">
-                                        <p className='text-info-modal'>Rp. 69.000</p>
-                                    </div>
-                                </div>
-
-                                <div className="row">
-                                    <div className="col-3">
-                                        <p className='text-info-modal'>Metode Pembayaran</p>
-                                    </div>
-                                    <div className="col-1">
-                                        <p className='text-info-modal'>:</p>
-                                    </div>
-                                    <div className="col">
-                                        <p className='text-info-modal'>DANA</p>
-                                    </div>
-                                </div>
-
-                                <div className="row d-flex align-items-end">
-                                    <p className='text-info-modal'>Lakukan pembayaran transfer dengan ke nomor diatas. Pastikan kembali sebelum transfer. <br />Halaman akan otomatis tertutup dalam 10 menit</p>
-                                </div>
-                            </div>
-
-                        </div>
-                            <div class="modal-footer d-flex justify-content-center">
-                                <div className="row">
-                                    <p>10:00</p>
-                                </div>
-                                <div className="row ">
-                                    <p data-bs-dismiss="modal">Close</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            
-                {/* <ModalCheck isShow={isShow} setIsShow={setIsShow}/> */}
+                </div>  
+                <div>
+                    <ModalCheck show={show} setShow={setShow} dataInput={dataInput}/>
+                </div>           
             </div>
         </div>
      );

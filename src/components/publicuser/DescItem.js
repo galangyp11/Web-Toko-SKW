@@ -44,7 +44,6 @@ const DescItem = () => {
     useEffect(()=>{
         cekItemKeranjang.map((data)=>{
             setIdItemKeranjang(data.id_item)
-            console.log(data.id_item)
         })
     })
 

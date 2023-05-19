@@ -16,7 +16,7 @@ import NotifPesanan from './NotifPesanan';
 
 import { useState } from 'react'
 
-const Sidebaradmin = ({setPage}) => {
+const Sidebaradmin = ({setPage, dataKonfirmasi}) => {
     const [openPembeli, setOpenPembeli] = useState(false);
     const [openPenjual, setOpenPenjual] = useState(false);
     const [openItem, setOpenItem] = useState(false);
@@ -81,7 +81,7 @@ const Sidebaradmin = ({setPage}) => {
                 <div className="sidebar-title d-flex align-items-center">
                     <p className="text-sidebar-admin-title pt-3" id='text-sidebar-admin' onClick={()=> setPage(<NotifPesanan/>)}>Pesanan Masuk</p>
                     <div className="bg-text-notif-pesanan d-flex justify-content-center">
-                        <p className="text-notif-pesanan">10</p>
+                        <p className="text-notif-pesanan">{dataKonfirmasi.length}</p>
                     </div>
                 </div>
             </div>

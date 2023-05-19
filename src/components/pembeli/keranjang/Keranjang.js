@@ -11,9 +11,11 @@ import { useNavigate } from 'react-router-dom';
 const Keranjang = () => {
 
     const [datum, setDatum] = useState([])
+    const [arrObj, setArrObj] = useState([])
     const [datumObj, setDatumObj] = useState({
         id_item:'',
-        id_keranjang:''
+        id_keranjang:'',
+        id_pembeli: ''
     })
     const [isKosong, setIsKosong] = useState(true)
     const id = Cookies.get('id')
@@ -23,23 +25,23 @@ const Keranjang = () => {
         const dataDB = async () => {
             const response = await axios.get(`http://localhost:3311/keranjang/${id}`)
             setDatum(response.data)
-            console.log(response)
         }
         dataDB()     
     },[]) 
 
-    useEffect(()=>{
-        const dataObj = () => {
-            datum.map((data)=>{
-                setDatumObj((item) => ({...item,
-                    id_item : data.id_item,
-                    id_keranjang : data.id_keranjang
-                }))
-            })
-        }
+    // useEffect(()=>{
+    //     const dataObj = () => {
+    //         datum.map((data)=>{
+    //                 setDatumObj((item) => ({...item,
+    //                     id_item: data.id_item ,
+    //                     id_keranjang : data.id_keranjang ,
+    //                     id_pembeli : data.id_pembeli 
+    //                 }))
+    //         })
+    //     }
 
-        dataObj()
-    },[datum])
+    //     dataObj()
+    // },[datum])
 
     useEffect(()=>{
       if(datum.length != 0){
@@ -54,8 +56,7 @@ const Keranjang = () => {
         if(isKosong === true){
             alert('Keranjang Kamu Kosong')
         } else {
-   
-            await axios.post(`http://localhost:3311/checkout`, datumObj);
+            // await axios.post(`http://localhost:3311/checkout`, datumObj);
             navigate('/checkout')
         }
     }
@@ -63,7 +64,7 @@ const Keranjang = () => {
 
     // console.log(isKosong)
     // console.log(datum)
-    // console.log(datumObj)
+    console.log(datumObj)
     return ( 
         <div className="keranjang">
             <div className="sticky-top">

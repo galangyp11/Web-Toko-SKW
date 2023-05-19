@@ -1,4 +1,4 @@
-const ItemsCheck = ({datum}) => {
+const ItemsCheck = ({dataCheckout}) => {
 
     const formatUang = (number) =>{
         return new Intl.NumberFormat("id-ID", {
@@ -7,9 +7,8 @@ const ItemsCheck = ({datum}) => {
         }).format(number);
     }
 
-
     return (
-        datum.map((item)=>{
+        dataCheckout.map((item)=>{
 
             const foto = btoa(String.fromCharCode(...new Uint8Array(item.foto_item.data)))
 
