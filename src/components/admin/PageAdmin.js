@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import NavbarAdmin from './NavbarAdmin';
 import SidebarAdmin from './SidebarAdmin';
 import axios from 'axios';
+import HomeAdmin from './HomeAdmin';
 
 const PageAdmin = ({dataLogin}) => {
 
@@ -23,13 +24,17 @@ const PageAdmin = ({dataLogin}) => {
 
     useEffect(()=>{
         const getNotif = async () => {
-            const response = await axios.get('http://localhost:3311/konfirmasi')
+            const response = await axios.get('http://localhost:3311/transaksi')
             setDataKonfirmasi(response.data)
         }
         getNotif()
-    })
+    },[setDataKonfirmasi])
 
-    console.log(dataKonfirmasi)
+    useEffect(()=>{
+        setPage(<HomeAdmin dataAdmin={dataAdmin}/>)
+    },[])
+
+    console.log(page)
     return ( 
         <div className="page-admin">
              <div className="sticky-top">

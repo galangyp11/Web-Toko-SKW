@@ -30,12 +30,14 @@ const Items = () => {
                 
                         { datum.map((item) => {                  
                           
-                            const foto = btoa(String.fromCharCode(...new Uint8Array(item.foto_item.data)))
+                            const foto = ''
                          
+                            console.log(item.gambar)
                             return(
                             
                             <div className="item m-3" key={item.id_item} style={{cursor:"pointer", padding:'0px'}}>
                                 <Link to={`/item/${item.id_item}`} style={{ textDecoration:"none", color:"black"}}>
+                                    {console.log(item.id_item)}
                                     <div className="img-thumbnail-item " >
                                         <img className='item-image' src={`data:image/png;base64,${foto}`} alt="" />
                                     </div>

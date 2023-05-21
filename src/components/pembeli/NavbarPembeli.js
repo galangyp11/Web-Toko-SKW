@@ -87,7 +87,7 @@ const Navbar = () => {
                         
                         <ul class="dropdown-menu">
                             <li class="dropdown-item dd-pembeli" onClick={()=>{navigate('/profile')}}> Profile</li>
-                            <li class="dropdown-item dd-pembeli" onClick={()=>{navigate('/profile')}}> Pesanan Ku</li>
+                            <li class="dropdown-item dd-pembeli" onClick={()=>{navigate('/pesanan')}}> Pesanan Ku</li>
                             <hr/>
                             <li class="dropdown-item dd-pembeli but-logout-navbar-pembeli" onClick={handleLogout}> Logout</li>
                         </ul>

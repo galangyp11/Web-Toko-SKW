@@ -26,9 +26,8 @@ const DescItem = () => {
         getItemById();
 
         const getKeranjang = async () => {
-            const response = await axios.get('http://localhost:3311/keranjang');
+            const response = await axios.get(`http://localhost:3311/keranjang/${id_pembeli}`);
             setCekItemKeranjang(response.data)
-            console.log(response)
         }
         getKeranjang()
 
@@ -45,7 +44,7 @@ const DescItem = () => {
         cekItemKeranjang.map((data)=>{
             setIdItemKeranjang(data.id_item)
         })
-    })
+    },[])
 
     const formatUang = (number) =>{
         return new Intl.NumberFormat("id-ID", {
@@ -57,7 +56,6 @@ const DescItem = () => {
     setTimeout(()=>{
         try {
             setFoto(btoa(String.fromCharCode(...new Uint8Array(itemById.foto_item.data))))
-            console.log(itemById.foto_item)
         } catch (error) {
             console.log('sabar bang fotonya lagi loading')
         }
@@ -78,10 +76,7 @@ const DescItem = () => {
                 } catch (error) {
                     console.log('eror bang gabisa input')
                 }
-            }
-
-            window.location.reload()
-        
+            }        
     }
     console.log(idItemKeranjang)
     console.log(itemById.id_item)

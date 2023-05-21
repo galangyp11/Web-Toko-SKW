@@ -1,5 +1,5 @@
 import './routes.css';
-import { Navigate, Outlet } from "react-router-dom";
+import { useNavigate, Outlet } from "react-router-dom";
 import Cookies from "js-cookie";
 import { useEffect, useState } from "react";
 import Homepage from './publicuser/Homepage';
@@ -8,6 +8,7 @@ import PublicRoutes from './PublicRoutes';
 const ProtectedRoutes = () => {
 
     const [checkCookie, setCheckCookie] = useState();
+    const navigate = useNavigate()
 
     useEffect(() => {
         const getCookies = () => {

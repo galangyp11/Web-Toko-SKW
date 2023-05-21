@@ -12,7 +12,7 @@ const InputItem = () => {
         id_penjual: '',
         nama_item: "",
         harga_item: "",
-        foto_item: "",
+        foto_item: [],
         deksripsi_item: "",
         id_kategori: "",
         stok_item: "",
@@ -36,12 +36,39 @@ const InputItem = () => {
     const handleDaftarPenjual = async (e) =>{
         e.preventDefault()
         try {   
-            await axios.post(`http://localhost:3311/item`, dataInput);
+            let formData = new FormData();
+            
+            for (const [key, value] of Object.entries(dataInput)) {
+                if (key !== 'foto_item') {
+                    formData.append(key, value)
+                }
+            }
+            
+            for (let i = 0; i < dataInput.foto_item.length; i++) {
+                formData.append('foto_item', dataInput.foto_item[i])
+
+            }
+            
+            await axios.post(`http://localhost:3311/item`, formData);
             alert('udh berhasil daftar bang');
             // navigate('/login');
         } catch (error) {
-            console.log('eror bang gabisa input')
+            console.log('eror bang gabisa input', error)
         }
+    }
+
+    const onChangeFile = (evt) => {
+        if (evt.target.files.length > 4 ) {
+            alert('maksimum upload 4     file')
+            document.getElementById('imageFile').value = ""
+            setDataInput((data)=> ({...data,
+                foto_item : []
+            }))
+            return false
+        }
+        setDataInput((data)=> ({...data,
+            foto_item : evt.target.files    
+        }))
     }
 
     console.log(dataInput)
@@ -56,7 +83,7 @@ const InputItem = () => {
                         </div>
                     </div>
                     <div className="col">
-                        <input type="file"/>
+                        <input id="imageFile" type="file" multiple onChange={onChangeFile} accept='image/png' />
                     </div>
                 </div>
 

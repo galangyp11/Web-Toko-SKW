@@ -59,7 +59,7 @@ const Sidebaradmin = ({setPage, dataKonfirmasi}) => {
                 </div>
                 <div className="sidebar-content ">
                     <p className='text-sidebar-admin-content px-3 d-flex align-items-center' id='text-sidebar-admin' onClick={()=> setPage(<ProfilPembeliAdmin/>)}>Profil Pembeli</p>
-                    <p className='text-sidebar-admin-content px-3 d-flex align-items-center' id='text-sidebar-admin' onClick={()=> setPage(<TransaksiPembeliAdmin/>)}>Transaksi Pembeli</p>                
+                    <p className='text-sidebar-admin-content px-3 d-flex align-items-center' id='text-sidebar-admin' onClick={()=> setPage(<TransaksiPembeliAdmin/>)}>Riwayat Transaksi</p>                
                 </div>
             </div>
 

@@ -1,9 +1,12 @@
 import React from 'react'
-import { useState } from 'react';
-import './profil-pembeli-admin.css'
+import { useState, useEffect } from 'react';
+import './profilpembeliadmin.css'
 import search from '../image/search.png'
+import axios from 'axios';
 
 const ProfilPenjualAdmin = () => {
+
+    const [datum, setDatum] = useState([])
     const [currentPage,setCurrentPage] = useState (1)
     const recordsPerPage = 10;
     const lastIndex = currentPage * recordsPerPage;
@@ -11,6 +14,15 @@ const ProfilPenjualAdmin = () => {
     // const records = Data.slice(firstIndex, lastIndex);
     // const npage = Math.ceil(Data.length / recordsPerPage)
     // const numbers = [...Array(npage + 1).keys()].slice(1)
+
+    useEffect(()=>{
+        const getDatumItem = async() => {
+            const response = await axios.get('http://localhost:3311/pembeli')
+            setDatum(response.data)
+        }
+
+        getDatumItem()
+    },[])
 
     function prePage (){
         if(currentPage !== firstIndex){
@@ -29,7 +41,7 @@ const ProfilPenjualAdmin = () => {
     return ( 
         <div className="profil-pembeli-admin container-fluid border">
             <div className="row">
-            <p className='text-title-halaman'>Profil Pembeli</p>
+                <p className='text-title-halaman'>Profil Pembeli</p>
             </div>
 
             <div className="row">
@@ -46,23 +58,29 @@ const ProfilPenjualAdmin = () => {
            <table class="table my-5 table-bordered">
                 <thead className="table-dark">
                     <tr>
-                        <th scope="col">ID</th>
+                        <th scope='col'>No</th>
+                        <th scope="col">Id</th>
                         <th scope="col">Email</th>
                         <th scope="col">Username</th>
-                        <th scope="col">Password</th>
                         <th scope="col">Alamat</th>
-                        <th scope="col">Aksi</th>
+                        <th className='text-center' scope="col">Aksi</th>
                     </tr>
                 </thead>
             <tbody>
-                    <tr>
-                        <td>01</td>
-                        <td>ujang@gmIL.COM</td>
-                        <td>UAJNG</td>
-                        <td>AWDADWAS</td>
-                        <td>tambun</td>
-                        <td>hapus</td>
+                {datum.map((data, index)=>{
+                    return(
+                    <tr key={data.id_pembeli}>
+                        <td>{index+1}</td>
+                        <td>{data.id_pembeli}</td>
+                        <td>{data.email}}</td>
+                        <td>{data.username}</td>
+                        <td>{data.alamat}</td>
+                        <td style={{textAlign:"center"}}>
+                            <button className="btn btn-danger but-tolak-pesanan">Hapus</button>    
+                        </td>
                     </tr>
+                    )
+                })}
             </tbody>
             </table>
             

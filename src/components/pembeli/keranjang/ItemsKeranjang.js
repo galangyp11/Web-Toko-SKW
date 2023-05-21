@@ -3,22 +3,35 @@ import kura from '../../image/kuraplongo.jpg'
 import axios from 'axios';
 
 import { MdOutlineCancel } from "react-icons/md";
+import { useEffect, useState } from 'react';
+import Cookies from 'js-cookie';
 
-const ItemsKeranjang = ({datum}) => {
+const ItemsKeranjang = ({datum, setDatum}) => {
 
-    const handleDelete = async (e) => {
+    const [totalItem, setTotalItem] = useState()
+    const id_pembeli = Cookies.get('id')
+
+    useEffect(()=>{
+        datum.forEach((item) =>{
+            setTotalItem(item.jumlah)
+        })
+    },[])
+
+    const handleDelete = async(id, e) => {
         e.preventDefault()
         try {
-           await datum.forEach(item => {
-                axios.delete(`http://localhost:3311/keranjang/${item.id_keranjang}`)
-           });
-                    
-                 window.location.reload()
-             console.log('udh keapus bang')
+            await axios.delete(`http://localhost:3311/keranjang/${id}`)
+            // window.location.reload()
+            console.log(id)
+            console.log('udh keapus bang', datum)  
+            
+            const dataFillter = datum.filter(item => item.id_keranjang !== id)
+            setDatum(dataFillter)
+            
         } catch (error) {
             console.log(error)
         }
-       
+    
     }
 
     const formatUang = (number) =>{
@@ -30,11 +43,12 @@ const ItemsKeranjang = ({datum}) => {
 
     return (
         datum.map((item)=>{
+            const foto = btoa(String.fromCharCode(...new Uint8Array(item.foto_item.data)))
             return(
                 <div className="items-keranjang my-3" key={item.id_keranjang}>
                     <div className="row d-flex justify-content-center align-items-center px-3" style={{height:"100%", width:"100%"}}>
-                        <div className="col-2  d-flex justify-content-center align-items-center" style={{height:"100%"}}>
-                            <img className='img-items-keranjang' src={kura} />
+                        <div className="col-3  d-flex justify-content-center align-items-center" style={{height:"100%"}}>
+                            <img className='img-items-keranjang' src={`data:image/png;base64,${foto}`} />
                         </div>
                         <div className="col  py-2" style={{height:"100%"}}>
                             <div className="row">
@@ -53,29 +67,28 @@ const ItemsKeranjang = ({datum}) => {
                             </div>
                             <div className="row ">   
                                 <div className="col  d-flex justify-content-center align-items-center">
-                                    <button className='but-jumlah-keranjang '>-</button>
+                                    <button className='but-jumlah-keranjang ' onClick={()=>{setTotalItem(totalItem - 1)}}>-</button>
                                         <p 
                                             className='text-jumlah-keranjang px-3 py-2' 
                                             // placeholder={item.jumlah}
                                             // value={}
-                                        >{item.jumlah}</p>
-                                    <button className='but-jumlah-keranjang'>+</button>
+                                        >{totalItem}</p>
+                                    <button className='but-jumlah-keranjang' onClick={()=>{setTotalItem(totalItem + 1)}}>+</button>
                                 </div>
                             </div>
                             
                             
                         </div>
                         <div className="col-1  d-flex justify-content-center align-items-center" style={{height:"100%"}}>
-                            <div onClick={handleDelete}>
-                            <MdOutlineCancel size="30px" color='grey' className='but-delete-keranjang' />
+                            <div onClick={(e)=> handleDelete(item.id_keranjang, e)}>
+                                <MdOutlineCancel size="30px" color='grey' className='but-delete-keranjang' />
                             </div>
                         </div>
                     </div>
             
                 </div>
-        )
-    })
+            )
+        })
      );
 }
- 
 export default ItemsKeranjang;

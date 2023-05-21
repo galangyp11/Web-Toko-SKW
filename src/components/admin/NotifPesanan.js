@@ -1,14 +1,39 @@
 import './notifpesanan.css'
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 
 const NotifPesanan = () => {
+
+    const [dataKonfirmasi, setDataKonfirmasi] = useState([]);
+    const [dataInput , setDataInput] = useState({   
+        status_transaksi:'Pesanan sedang di proses'
+    })
+
+    useEffect(()=>{
+        const getNotif = async () => {
+            const response = await axios.get('http://localhost:3311/transaksi')
+            setDataKonfirmasi(response.data)
+        }
+        getNotif()
+    },[dataKonfirmasi])
 
     const handleTolak = () => {
         alert('nanti status pesanannya ditolak')
     }
 
-    const handleKonfirmasi = () => {
-        alert('nanti status pesanannya diterima')
+    const handleKonfirmasi = async(id, e) => {
+        
+        e.preventDefault()
+        try {
+            await axios.put(`http://localhost:3311/transaksi/${id}`, dataInput);
+            alert('Berhasil di KOnfirmasi');
+        } catch (error) {
+            console.log('eror bang gabisa input')
+        }
     }
+    
+    console.log(dataInput)
+    
     return ( 
         <div className="notif-pesanan container-fluid border">
             <p className='text-title-halaman'>Konfirmasi Pembayaran Pesanan</p>
@@ -31,18 +56,23 @@ const NotifPesanan = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>UAJNG</td>
-                            <td>DANA</td>
+                    {dataKonfirmasi.map((data) =>{
+                        
+                        return(
+                        <tr key={data.id_transaksi}>
+                            <td>{data.username}</td>
+                            <td>{data.nama_mp}</td>
                             <td>Rp. 69.000</td>
                             <td>12:04 17/5/23 </td>
                             <td style={{textAlign:"center"}}>
                                 <button className="btn btn-danger but-tolak-pesanan" onClick={handleTolak}>Tolak</button>    
                             </td>
                             <td style={{textAlign:"center"}}>
-                                <button className="btn btn-primary but-konfirmasi-pesanan" onClick={handleKonfirmasi}>Konfirmasi</button>
+                                <button className="btn btn-primary but-konfirmasi-pesanan" onClick={(e)=> handleKonfirmasi(data.id_transaksi, e)}>Konfirmasi</button>
                             </td>
                         </tr>
+                        )
+                    })}
                     </tbody>
                 </table>
             </div>

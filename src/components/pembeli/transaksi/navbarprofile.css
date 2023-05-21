@@ -1,0 +1,37 @@
+.navbar-profile{
+    width: 100%;
+    height: 60px;
+    background-color: white;
+    border-bottom: 2px solid whitesmoke;
+}
+
+.but-kembali-profile{
+    width: 110px;
+    height: 35px;
+    border-radius: 5px;
+    background-color: #0E8388;
+    cursor: pointer;
+
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+    transition: .2s ease;
+}
+
+.text-kembali-profile{
+    width: 100%;
+    height: 100%;
+    color: white;
+    font-weight: 700;
+    text-align: center;
+    cursor: pointer;
+}
+
+.but-kembali-profile:hover{
+    background-color: #0c686b;
+}
+
+.text-profile{
+    width: 100%;
+    height: 100%;
+    font-size: large;
+    font-weight: bold;
+}

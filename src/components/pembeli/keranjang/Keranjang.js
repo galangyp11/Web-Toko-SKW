@@ -63,8 +63,8 @@ const Keranjang = () => {
 
 
     // console.log(isKosong)
-    // console.log(datum)
-    console.log(datumObj)
+    console.log(datum)
+    // console.log(datumObj)
     return ( 
         <div className="keranjang">
             <div className="sticky-top">
@@ -74,7 +74,7 @@ const Keranjang = () => {
             <div className="keranjang-con container mt-2">
                 <div className="row">
                     <div className="col">
-                        {isKosong? <p className='text-keranjang-kosong d-flex justify-content-center align-items-center'>Keranjang Kosong</p> : <ItemsKeranjang datum={datum}/>}
+                        {isKosong? <p className='text-keranjang-kosong d-flex justify-content-center align-items-center'>Keranjang Kosong</p> : <ItemsKeranjang datum={datum} setDatum={setDatum} />}
                     </div>
 
                     <div className="col-4 sticky-top">

@@ -13,6 +13,7 @@ import ProfilePembeli from './components/pembeli/profile/ProfilePembeli';
 import DaftarPembeli from './components/pembeli/DaftarPembeli';
 import Keranjang from './components/pembeli/keranjang/Keranjang';
 import CheckPembeli from './components/pembeli/checkout/CheckPembeli';
+import TransaksiPembeli from './components/pembeli/transaksi/TransaksiPembeli';
 
 import PagePenjual from './components/penjual/PagePenjual';
 import DaftarPenjual from './components/penjual/DaftarPenjual';
@@ -33,6 +34,7 @@ function App() {
         <Route path='/profile' element={<ProfilePembeli/>}/>
         <Route path='/keranjang' element={<Keranjang/>}/>
         <Route path='/checkout' element={<CheckPembeli/>}/>
+        <Route path='/pesanan' element={<TransaksiPembeli/>}/>
         
         <Route element={<PagePenjual/>}>
           <Route path='/profile-toko' element={<ProfileToko/>}/>

@@ -14,14 +14,16 @@ const CheckPembeli = () => {
     const navigate = useNavigate()
 
     const [dataCheckout, setDataCheckout] = useState([]);
-    const [cekIdKonfirmasi, setCekIdKonfirmasi] = useState();
-    const [dataKonfirmasi, setDataKonfirmasi] = useState([]);
+    // const [cekIdKonfirmasi, setCekIdKonfirmasi] = useState();
+    // const [dataKonfirmasi, setDataKonfirmasi] = useState([]);
     const [dataPembeli, setDataPembeli] = useState({});
     const [dataInput, setDataInput] = useState({
         id_pembeli:'',
         id_item:'',
-        id_mp:'null',
-        waktu_pesan:'gini'
+        id_keranjang:'',
+        id_mp: undefined,
+        waktu_pesan:'',
+        status_transaksi:'Menunggu Konfirmasi'
     });
     const [mpModal, setMpModal] = useState('')
     const [show, setShow] = useState(false)
@@ -36,7 +38,7 @@ const CheckPembeli = () => {
         
         const getPembeliById = async () => {
             const response = await axios.get(`http://localhost:3311/pembeli/${id}`);
-            setDataPembeli(response.data);
+            setDataPembeli(response);
         }
         getPembeliById();
 
@@ -67,9 +69,9 @@ const CheckPembeli = () => {
         const dataObj = () => {
             dataCheckout.map((data)=>{
                 setDataInput((item) => ({...item,
-                    id_checkout : data.id_checkout,
                     id_pembeli : data.id_pembeli,
                     id_item : data.id_item,
+                    id_keranjang: data.id_keranjang,
                     id_mp : data.id_mp,
                     waktu_pesan: new Date()
                 }))
@@ -113,15 +115,15 @@ const CheckPembeli = () => {
 
     const handleBayar = async(e) =>{
         e.preventDefault()
-        if(dataInput.id_mp == 'null'){
+        if(dataInput.id_mp == undefined){
             alert('pilih pembayaran dlu blok')
         }else{
-            await axios.post(`http://localhost:3311/konfirmasi`, dataInput);
+            await axios.post(`http://localhost:3311/transaksi`, dataInput);
             setShow(true)
         }
     }
 
-    console.log(dataInput)
+    console.log(dataPembeli)
 
     return ( 
         <div className="check-pembeli">
@@ -154,7 +156,7 @@ const CheckPembeli = () => {
                             value={dataInput.id_mp}
                             onChange={handleInput}
                         >
-                            <option value="null" >-Pilih Metode Pembayaran-</option>
+                            <option value="undefined" >-Pilih Metode Pembayaran-</option>
                             <option value="1">Bank</option>
                             <option value="2">DANA</option>
                             <option value="3">GoPay</option>
@@ -179,9 +181,7 @@ const CheckPembeli = () => {
                         </div>
                         <div className="col-1">:</div>
                         <div className="col">
-                        
-                                    <p>{formatUang(totalHarga).replace(/\,00/g, '')}</p>
-                            
+                            <p>{formatUang(totalHarga).replace(/\,00/g, '')}</p>
                         </div>
                     </div>
                     <div className="row" style={{width:'50dvw'}}>
@@ -217,7 +217,7 @@ const CheckPembeli = () => {
                     </div>
                 </div>  
                 <div>
-                    <ModalCheck show={show} setShow={setShow} dataInput={dataInput}/>
+                    <ModalCheck show={show} setShow={setShow} dataInput={dataInput} totalHarga={totalHarga}/>
                 </div>           
             </div>
         </div>
