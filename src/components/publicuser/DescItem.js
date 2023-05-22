@@ -5,6 +5,8 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 import apiHost from '../../constants/apiHost';
 
+import KuraPlongo from '../image/kuraplongo.jpg'
+
 const DescItem = () => {
 
     const [itemById, setItemById] = useState({});
@@ -87,14 +89,60 @@ const DescItem = () => {
             <div className="desc-item-con container ">
                 <div className="row pt-4" style={{ overflow:"hidden"}}>
                     <div className="col d-flex justify-content-center">
-                        <div className="desc-kiri">
+                        <div className="">
+                     
+                            <div id="carouselExampleIndicators" className="carousel slide" data-mdb-ride="carousel">
+                                <div class="carousel-inner">
+                                    <div class="carousel-item active">
+                                        <img src={KuraPlongo} class="d-block w-100"/>
+                                    </div>
+                                    <div class="carousel-item">
+                                        <img src={KuraPlongo} class="d-block w-100"/>
+                                    </div>
+                                    <div class="carousel-item">
+                                        <img src={KuraPlongo} class="d-block w-100"/>
+                                    </div>
+                                    <div class="carousel-item">
+                                        <img src={KuraPlongo} class="d-block w-100"/>
+                                    </div>
+                                </div>
+
+
+
+                                <button className="carousel-control-prev" type="button" data-mdb-target="#carouselExampleIndicators"
+                                    data-mdb-slide="prev">
+                                    <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span className="visually-hidden">Previous</span>
+                                </button>
+                                <button className="carousel-control-next" type="button" data-mdb-target="#carouselExampleIndicators"
+                                    data-mdb-slide="next">
+                                    <span className="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span className="visually-hidden">Next</span>
+                                </button>
+
+                                <div class="carousel-indicators-desc d-flex justify-content-center">
+                                    <button className='thumbnail-carousel-desc active' data-target="#carouselExampleIndicators" data-slide-to="0">
+                                        <img src={KuraPlongo} class="d-block w-100"/>
+                                    </button>
+                                    <button className='thumbnail-carousel-desc' data-target="#carouselExampleIndicators" data-slide-to="1">
+                                        <img src={KuraPlongo} class="d-block w-100"/>
+                                    </button>
+                                    <button className='thumbnail-carousel-desc' data-target="#carouselExampleIndicators" data-slide-to="2">
+                                        <img src={KuraPlongo} class="d-block w-100"/>
+                                    </button>
+                                    <button className='thumbnail-carousel-desc' data-target="#carouselExampleIndicators" data-slide-to="3">
+                                        <img src={KuraPlongo} class="d-block w-100"/>
+                                    </button>
+                                </div>
                             
-                            <img className='item-desc-image' src={`${itemById.gambar}`} alt=""/>
+                            </div>
+
+                           
                         </div>
                     </div>
 
-                    <div className="col border">
-                        <div className="desc-kanan py-2 px-3 border">
+                    <div className="col ">
+                        <div className="desc-kanan py-2 px-3 ">
                             <div className="">
                                 <p className='text-item-name-desc'>{itemById.nama_item}</p>
                             </div>
@@ -103,18 +151,26 @@ const DescItem = () => {
                             </div>
 
                             <hr />
-                            <div className="desc-item border">
+                            <div className="desc-item ">
                                 <p className='text-desc-item-desc'>{itemById.deskripsi_item}</p>
                             </div>
-                            <div className="row desc-item-toko border">
-                                <div className="col-2 border">
-                                    <img src="" />
-                                </div>
-                                <div className="col border">
 
+                            <hr />
+                            <div className="row desc-item-toko ">
+                                <div className="col-2  d-flex justify-content-end">
+                                    <div className='desc-foto-toko-item'> 
+                                        <img className='' src="" />
+                                    </div>
+                                </div>
+                                <div className="col ">
+                                    <p className="text-name-toko-item">
+                                        {itemById.nama_toko}
+                                    </p>
                                 </div>
                             </div>
-                            <div className="d-flex justify-content-end border align-items-end" >
+                            <hr />
+
+                            <div className="d-flex justify-content-end align-items-end" style={{height:"130px"}} >
                                 <button className='but-cart' onClick={handleKeranjang}>Tambah ke Keranjang</button>
                             </div>
                         </div>

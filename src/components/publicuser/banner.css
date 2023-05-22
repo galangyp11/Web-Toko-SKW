@@ -1,4 +1,4 @@
-.carousel{
+.carousel-banner{
     width: 90%;
     min-height: 300px;
     max-height: 100%;
@@ -7,6 +7,6 @@
     border-radius: 10px;
 }
 
-.img-carousel{
+.img-carousel-banner{
     border-radius: 10px;
 }

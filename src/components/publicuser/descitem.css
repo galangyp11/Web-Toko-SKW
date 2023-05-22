@@ -7,6 +7,29 @@
     margin: 0;
 }
 
+.carousel-indicators-desc {
+    position: static;
+  }
+
+.thumbnail-carousel-desc{
+    border: none;
+}
+
+.thumbnail-carousel-desc.active {
+    width: 100px;
+    height: 100px;
+  }
+
+.thumbnail-carousel-desc:not(.active) {
+    width: 100px;
+    height: 100px;
+    opacity: 0.7;
+  }
+
+hr{
+    color: gray;
+}
+
 .desc-item-con{
     background-color: white;
 
@@ -54,7 +77,24 @@
 }
 
 .text-desc-item-desc{
-    
+
+}
+
+.desc-item-toko{
+    height: 50px;
+}
+
+.desc-foto-toko-item{
+    border-radius: 50%;
+    border: 1px;
+    background-color: black;
+    height: 50px;
+    width: 50px;
+}
+
+.text-name-toko-item{
+    font-size: 1em;
+    font-weight: 600;
 }
 
 .but-cart{
