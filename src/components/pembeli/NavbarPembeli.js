@@ -72,8 +72,8 @@ const Navbar = () => {
                 </div>
 
                 <div className="col-2 d-flex justify-content-center align-items-center" style={{ height:'100%'}}>
-                    <div class="dropdown-center">
-                        <button class="dd-profile-pembeli row d-flex justify-content-center align-items-center p-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <div className="dropdown-center">
+                        <button className="dd-profile-pembeli row d-flex justify-content-center align-items-center p-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <div className="col-1">
                                 <div className="bg-photo-profile d-flex justify-content-center align-items-center">
                                     <img className='photo-profile' src={ `data:image/png;base64,${foto}`} alt="Photo-profile" />
@@ -85,11 +85,11 @@ const Navbar = () => {
                            
                         </button>
                         
-                        <ul class="dropdown-menu">
-                            <li class="dropdown-item dd-pembeli" onClick={()=>{navigate('/profile')}}> Profile</li>
-                            <li class="dropdown-item dd-pembeli" onClick={()=>{navigate('/pesanan')}}> Pesanan Ku</li>
+                        <ul className="dropdown-menu">
+                            <li className="dropdown-item dd-pembeli" onClick={()=>{navigate('/profile')}}> Profile</li>
+                            <li className="dropdown-item dd-pembeli" onClick={()=>{navigate('/pesanan')}}> Pesanan Ku</li>
                             <hr/>
-                            <li class="dropdown-item dd-pembeli but-logout-navbar-pembeli" onClick={handleLogout}> Logout</li>
+                            <li className="dropdown-item dd-pembeli but-logout-navbar-pembeli" onClick={handleLogout}> Logout</li>
                         </ul>
                     </div>
                 </div>

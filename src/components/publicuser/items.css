@@ -31,3 +31,25 @@
 .item:hover{
     transform: scale(1.05);
 }
+
+.item-thumb-desc{
+    height: 30px;
+}
+
+.text-item-name{
+    color: black;
+    font-weight: 400;
+}
+
+.text-item-price{
+    color: #0E8388;
+    font-weight: bold;
+    font-size: 1em;
+    padding: 0;
+}
+
+.text-item-toko{
+    color: grey;
+    font-size: .8em;
+    height: 100%;
+}

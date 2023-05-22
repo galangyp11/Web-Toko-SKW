@@ -21,19 +21,18 @@ const DescItem = () => {
 
     useEffect(() => {
         const getItemById = async () => {
-            const response = await axios.get(`${apiHost}/item/${id}`);
+            const response = await axios.get(`${apiHost}item/${id}`);
             setItemById(response.data);
         }
         getItemById();
 
         const getKeranjang = async () => {
-            const response = await axios.get(`${apiHost}/keranjang/${id_pembeli}`);
+            const response = await axios.get(`${apiHost}keranjang/${id_pembeli}`);
             setCekItemKeranjang(response.data)
         }
         getKeranjang()
 
         window.scrollTo(0, 0);
-
         setDataItem((data) => ({...data,
             id_pembeli : id_pembeli,
             id_item : id
@@ -51,6 +50,7 @@ const DescItem = () => {
                 try {
                     await axios.post(`http://localhost:3311/keranjang`, dataItem);
                     alert('Item Masuk ke keranjang :)');
+                    window.location.reload()
                     console.log('bisa kog')
                 } catch (error) {
                     console.log('eror bang gabisa input')
@@ -71,17 +71,16 @@ const DescItem = () => {
         }).format(number);
     }
 
-    setTimeout(()=>{
-        try {
-            setFoto(btoa(String.fromCharCode(...new Uint8Array(itemById.foto_item.data))))
-        } catch (error) {
-            console.log('sabar bang fotonya lagi loading')
-        }
-    }, 100)
-
-    
-    console.log(idItemKeranjang)
-    console.log(itemById.id_item)
+    // setTimeout(()=>{
+    //     try {
+    //         setFoto(btoa(String.fromCharCode(...new Uint8Array(itemById.foto_item.data))))
+    //     } catch (error) {
+    //         console.log('sabar bang fotonya lagi loading')
+    //     }
+    // }, 100)    
+    // console.log(idItemKeranjang)
+    // console.log(cekItemKeranjang)
+    console.log(itemById)
 
     return ( 
         <div className="descitem">
@@ -90,29 +89,36 @@ const DescItem = () => {
                     <div className="col d-flex justify-content-center">
                         <div className="desc-kiri">
                             
-                            <img className='item-desc-image' src={`data:image/png;base64,${foto}`} alt=""/>
+                            <img className='item-desc-image' src={`${itemById.gambar}`} alt=""/>
                         </div>
                     </div>
 
-                    <div className="col">
-                        <div className="desc-kanan p-4">
-                            <div className="row">
-                                <h2>{itemById.nama_item}</h2>
+                    <div className="col border">
+                        <div className="desc-kanan py-2 px-3 border">
+                            <div className="">
+                                <p className='text-item-name-desc'>{itemById.nama_item}</p>
                             </div>
-                            <div className="row">
-                                <h4>{formatUang(itemById.harga_item).replace(/\,00/g, '')}</h4>
+                            <div className="">
+                                <p className='text-item-price-desc'>{formatUang(itemById.harga_item).replace(/\,00/g, '')}</p>
                             </div>
-                            <div className="row">
-                                <p>{itemById.deskripsi_item}</p>
+
+                            <hr />
+                            <div className="desc-item border">
+                                <p className='text-desc-item-desc'>{itemById.deskripsi_item}</p>
                             </div>
-                            <div className="row d-flex justify-content-end align-items-end" style={{height:"80%"}}>
-                                <div className="but-cart" onClick={handleKeranjang}>
-                                    <h6 className='text-but-cart d-flex justify-content-center align-items-center' >Tambahkan ke Keranjang</h6>
+                            <div className="row desc-item-toko border">
+                                <div className="col-2 border">
+                                    <img src="" />
+                                </div>
+                                <div className="col border">
+
                                 </div>
                             </div>
-                            
-                            
+                            <div className="d-flex justify-content-end border align-items-end" style={{height:'50dvh'}}>
+                                <button className='but-cart' onClick={handleKeranjang}>Tambah ke Keranjang</button>
+                            </div>
                         </div>
+                        
                     </div>
                 </div>
             </div>

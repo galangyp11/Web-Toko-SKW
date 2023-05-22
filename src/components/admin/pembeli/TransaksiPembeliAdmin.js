@@ -4,20 +4,19 @@ import axios from 'axios';
 import apiHost from '../../../constants/apiHost'
 
 const ProfilPenjualAdmin = () => {
-    const [datumItem, setDatumItem] = useState([])
-
+    const [dataKonfirmasi, setDataKonfirmasi] = useState([]);
     const [currentPage,setCurrentPage] = useState (1)
     const recordsPerPage = 10;
     const lastIndex = currentPage * recordsPerPage;
     const firstIndex = currentPage - recordsPerPage;
 
     useEffect(()=>{
-        const getDatumItem = async() => {
-            const response = await axios.get(`http//localhost:3311/transaksi`)
-            setDatumItem(response.data)
+        const getNotif = async () => {
+            const response = await axios.get(`${apiHost}transaksi/pembeli`)
+            setDataKonfirmasi(response.data)
+            console.log(response.data)
         }
-
-        getDatumItem()
+        getNotif()
     },[])
 
     const formatUang = (number) =>{
@@ -26,8 +25,6 @@ const ProfilPenjualAdmin = () => {
             currency: "IDR"
         }).format(number);
     }
-
-    console.log(datumItem)
 
     function prePage (){
         if(currentPage !== firstIndex){
@@ -42,6 +39,8 @@ const ProfilPenjualAdmin = () => {
             setCurrentPage(currentPage +1)
         }
      }
+
+     console.log(dataKonfirmasi)
 
     return ( 
         <div className="container-fluid ">
@@ -60,37 +59,30 @@ const ProfilPenjualAdmin = () => {
                 </div>
             </div>
 
-           <table class="table my-5 table-bordered">
-                <thead className="table-dark">
-                    <tr>
-                        <th className='col-1 text-center' scope="col">No</th>
-                        <th className='col-3' scope="col">Nama Item</th>
-                        <th className='col-1' scope="col">Kategori</th>
-                        <th className='col-1' scope="col">Harga</th>
-                        <th className='col-2' scope="col">Toko</th>
-                        <th className='col-1' scope="col">Stok</th>
-                        <th className='col-1' scope="col">Aksi</th>
-                    </tr>
-                </thead>
-            <tbody>
-                {datumItem.map((item, index)=>{
-                    return(
-                    <tr key={item.id_item}>
-                        <td className='text-center'>{index+1}</td>
-                        <td>{item.nama_item}</td>
-                        <td>{item.nama_kategori}</td>
-                        <td>{formatUang(item.harga_item).replace(/\,00/g, '')}</td>
-                        <td>{item.nama_toko}</td>
-                        <td>{item.stok_item}</td>
-                        <td style={{textAlign:"center"}}>
-                                <button className="btn btn-danger but-tolak-pesanan">Hapus</button>    
-                            </td>
-                    </tr>
-                    )
-                })}
-                    
-            </tbody>
-            </table>
+            <table class="table my-5 table-bordered">
+                        <thead className="table-dark table-striped">
+                            <tr>
+                                <th scope="col">Username</th>
+                                <th scope="col">Pembayaran</th>
+                                <th scope="col">Nominal Harga</th>
+                                <th scope="col">Waktu</th>
+                                <th scope="col">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {dataKonfirmasi.map((data) =>{
+                            return(
+                            <tr key={data.id_konfirmasi}>
+                                <td>{data.username}</td>
+                                <td>{data.nama_mp}</td>
+                                <td>Rp. 69.000</td>
+                                <td>{data.waktu_pesan}</td>
+                                <td>{data.status_transaksi}</td>
+                            </tr>
+                            )
+                        })}
+                        </tbody>
+                    </table>
             
                 <ul className='pagination d-flex align-items-end'>
                     <li className='page-item'>

@@ -24,6 +24,7 @@ const Items = () => {
         }).format(number);
     }       
 
+    console.log(datum)
     return ( 
         <div className="bg-items my-5 d-flex justify-content-center" style={{width:"100%"}}>
             <div className="items p-4 d-flex justify-content-center">
@@ -36,17 +37,20 @@ const Items = () => {
                             console.log(item.gambar)
                             return(
                             
-                            <div className="item m-3" key={item.id_item} style={{cursor:"pointer", padding:'0px'}}>
+                            <div className="item m-2" key={item.id_item} style={{cursor:"pointer", padding:'0px'}}>
                                 <Link to={`/item/${item.id_item}`} style={{ textDecoration:"none", color:"black"}}>
                                     {console.log(item.id_item)}
-                                    <div className="img-thumbnail-item " >
+                                    <div className="img-thumbnail-item" >
                                         <img className='item-image' src={`data:image/png;base64,${foto}`} alt="" />
                                     </div>
-                                    <div className="item-name py-1 px-2">
-                                        <p>{item.nama_item}</p>
+                                    <div className="item-thumb-desc item-name mt-1 mx-2">
+                                        <p className='text-item-name'>{item.nama_item}</p>
                                     </div>
-                                    <div className="item-price px-2">
-                                        <h5>{formatUang(item.harga_item).replace(/,00/g, '')}</h5>
+                                    <div className="item-thumb-desc item-price mx-2">
+                                        <p className='text-item-price'>{formatUang(item.harga_item).replace(/,00/g, '')}</p>
+                                    </div>
+                                    <div className="item-thumb-desc item-toko mx-2 ">
+                                        <p className='text-item-toko d-flex align-items-end'>{item.nama_toko}</p>
                                     </div>
                                 </Link>
                             </div>

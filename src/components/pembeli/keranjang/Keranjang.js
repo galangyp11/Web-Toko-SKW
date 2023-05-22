@@ -11,12 +11,12 @@ import { useNavigate } from 'react-router-dom';
 const Keranjang = () => {
 
     const [datum, setDatum] = useState([])
-    const [arrObj, setArrObj] = useState([])
-    const [datumObj, setDatumObj] = useState({
-        id_item:'',
-        id_keranjang:'',
-        id_pembeli: ''
-    })
+    // const [arrObj, setArrObj] = useState([])
+    // const [datumObj, setDatumObj] = useState({
+    //     id_item:'',
+    //     id_keranjang:'',
+    //     id_pembeli: ''
+    // })
     const [isKosong, setIsKosong] = useState(true)
     const id = Cookies.get('id')
     const navigate = useNavigate()
