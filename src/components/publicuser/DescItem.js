@@ -114,7 +114,7 @@ const DescItem = () => {
 
                                 </div>
                             </div>
-                            <div className="d-flex justify-content-end border align-items-end" style={{height:'50dvh'}}>
+                            <div className="d-flex justify-content-end border align-items-end" >
                                 <button className='but-cart' onClick={handleKeranjang}>Tambah ke Keranjang</button>
                             </div>
                         </div>
