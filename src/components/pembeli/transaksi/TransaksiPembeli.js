@@ -1,6 +1,6 @@
 import NavbarTransaksi from './NavbarTransaksi'
 
-import apiHost from '../../../constants/apiHost'
+import apiHost from '../../../constants/apiHost';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Cookies from 'js-cookie';
@@ -11,11 +11,14 @@ const TransaksiPembeli = () => {
 
     useEffect(()=>{
         const getNotif = async () => {
-            const response = await axios.get(`${apiHost}/transaksi/pembeli/${id}`)
+            const response = await axios.get(`${apiHost}transaksi/pembeli/${id}`)
             setDataKonfirmasi(response.data)
         }
         getNotif()
-    },[dataKonfirmasi])
+    },[])
+
+    console.log(dataKonfirmasi)
+
     return ( 
         <div className="transaksi-pembeli">
             <div className="sticky-top">

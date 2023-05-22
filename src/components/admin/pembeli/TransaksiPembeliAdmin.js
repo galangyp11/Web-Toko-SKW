@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import search from '../image/search.png'
+import search from '../../image/search.png'
 import axios from 'axios';
-import apiHost from '../../constants/apiHost'
+import apiHost from '../../../constants/apiHost'
 
 const ProfilPenjualAdmin = () => {
     const [datumItem, setDatumItem] = useState([])
@@ -13,7 +13,7 @@ const ProfilPenjualAdmin = () => {
 
     useEffect(()=>{
         const getDatumItem = async() => {
-            const response = await axios.get(`${apiHost}/item`)
+            const response = await axios.get(`http//localhost:3311/transaksi`)
             setDatumItem(response.data)
         }
 

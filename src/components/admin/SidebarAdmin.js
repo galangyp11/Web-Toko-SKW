@@ -6,12 +6,12 @@ import { BsExclamationCircleFill } from "react-icons/bs";
 import { BsPersonFill } from "react-icons/bs";
 import { AiFillApple } from "react-icons/ai";
 
-import ProfilPenjualAdmin from './ProfilPenjualAdmin';
-import ProfilPembeliAdmin from './ProfilPembeliAdmin';
-import TransaksiPembeliAdmin from './TransaksiPembeliAdmin';
-import SemuaItemAdmin from './SemuaItemAdmin';
-import PemasukanItemAdmin from './PemasukanItemAdmin';
-import PengeluaranItemAdmin from './PengeluaranItemAdmin';
+import ProfilPenjualAdmin from './penjual/ProfilPenjualAdmin';
+import ProfilPembeliAdmin from './pembeli/ProfilPembeliAdmin';
+import TransaksiPembeliAdmin from './pembeli/TransaksiPembeliAdmin';
+import SemuaItemAdmin from './item/SemuaItemAdmin';
+import PemasukanItemAdmin from './item/PemasukanItemAdmin';
+import PengeluaranItemAdmin from './item/PengeluaranItemAdmin';
 import NotifPesanan from './NotifPesanan';
 
 import { useState } from 'react'
@@ -58,7 +58,7 @@ const Sidebaradmin = ({setPage, dataKonfirmasi}) => {
                     <BsFillCaretRightFill size="25px" color='white' className='toggle-btn d-flex justify-content-end ' />
                 </div>
                 <div className="sidebar-content ">
-                    <p className='text-sidebar-admin-content px-3 d-flex align-items-center' id='text-sidebar-admin' onClick={()=> setPage(<ProfilPembeliAdmin/>)}>Profil Pembeli</p>
+                    <p className='text-sidebar-admin-content px-3 d-flex align-items-center' id='text-sidebar-admin' onClick={()=> setPage(<ProfilPembeliAdmin/>)}>Profile</p>
                     <p className='text-sidebar-admin-content px-3 d-flex align-items-center' id='text-sidebar-admin' onClick={()=> setPage(<TransaksiPembeliAdmin/>)}>Riwayat Transaksi</p>                
                 </div>
             </div>

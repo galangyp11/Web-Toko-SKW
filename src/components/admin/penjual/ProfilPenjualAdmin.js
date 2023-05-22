@@ -1,11 +1,11 @@
 import React from 'react'
 import { useState, useEffect } from 'react';
 import './profilpembeliadmin.css'
-import search from '../image/search.png'
+import search from '../../image/search.png'
 import axios from 'axios';
+import apiHost from '../../../constants/apiHost'
 
 const ProfilPenjualAdmin = () => {
-
     const [datum, setDatum] = useState([])
     const [currentPage,setCurrentPage] = useState (1)
     const recordsPerPage = 10;
@@ -17,7 +17,7 @@ const ProfilPenjualAdmin = () => {
 
     useEffect(()=>{
         const getDatumItem = async() => {
-            const response = await axios.get('http://localhost:3311/pembeli')
+            const response = await axios.get(`http://localhost:3311/penjual`)
             setDatum(response.data)
         }
 
@@ -37,11 +37,10 @@ const ProfilPenjualAdmin = () => {
             setCurrentPage(currentPage +1)
         }
      }
-
     return ( 
-        <div className="profil-pembeli-admin container-fluid border">
+        <div className="container-fluid">
             <div className="row">
-                <p className='text-title-halaman'>Profil Pembeli</p>
+                <p className='text-title-halaman'>Profile Penjual</p>
             </div>
 
             <div className="row">
@@ -61,7 +60,7 @@ const ProfilPenjualAdmin = () => {
                         <th scope='col'>No</th>
                         <th scope="col">Id</th>
                         <th scope="col">Email</th>
-                        <th scope="col">Username</th>
+                        <th scope="col">Toko</th>
                         <th scope="col">Alamat</th>
                         <th className='text-center' scope="col">Aksi</th>
                     </tr>
@@ -69,11 +68,11 @@ const ProfilPenjualAdmin = () => {
             <tbody>
                 {datum.map((data, index)=>{
                     return(
-                    <tr key={data.id_pembeli}>
+                    <tr key={data.id_penjual}>
                         <td>{index+1}</td>
-                        <td>{data.id_pembeli}</td>
-                        <td>{data.email}}</td>
-                        <td>{data.username}</td>
+                        <td>{data.id_penjual}</td>
+                        <td>{data.email}</td>
+                        <td>{data.nama_toko}</td>
                         <td>{data.alamat}</td>
                         <td style={{textAlign:"center"}}>
                             <button className="btn btn-danger but-tolak-pesanan">Hapus</button>    
@@ -100,4 +99,5 @@ const ProfilPenjualAdmin = () => {
         </div>
      );
 }
+ 
 export default ProfilPenjualAdmin;

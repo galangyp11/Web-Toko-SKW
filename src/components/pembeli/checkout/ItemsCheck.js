@@ -10,13 +10,13 @@ const ItemsCheck = ({dataCheckout}) => {
     return (
         dataCheckout.map((item)=>{
 
-            const foto = btoa(String.fromCharCode(...new Uint8Array(item.foto_item.data)))
+            // const foto = btoa(String.fromCharCode(...new Uint8Array(item.foto_item.data)))
 
             return(
                 <div className="items-keranjang my-3" key={item.id_checkout}>
                     <div className="row d-flex justify-content-center align-items-center px-3" style={{height:"100%", width:"100%"}}>
                         <div className="col-2  d-flex justify-content-center align-items-center" style={{height:"100%"}}>
-                            <img className='img-items-keranjang' src={`data:image/png;base64,${foto}`}/>
+                            <img className='img-items-keranjang' src={`data:image/png;base64,`}/>
                         </div>
                         <div className="col  py-2" style={{height:"100%"}}>
                             <div className="row">

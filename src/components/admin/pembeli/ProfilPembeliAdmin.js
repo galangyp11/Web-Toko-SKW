@@ -1,35 +1,28 @@
+import React from 'react'
 import { useState, useEffect } from 'react';
 import './profilpembeliadmin.css'
-import search from '../image/search.png'
+import search from '../../image/search.png'
 import axios from 'axios';
-import apiHost from '../../constants/apiHost'
+import apiHost from '../../../constants/apiHost'
 
-const SemuaItemAdmin = () => {
+const ProfilPenjualAdmin = () => {
 
-    const [datumItem, setDatumItem] = useState([])
-
+    const [datum, setDatum] = useState([])
     const [currentPage,setCurrentPage] = useState (1)
     const recordsPerPage = 10;
     const lastIndex = currentPage * recordsPerPage;
     const firstIndex = currentPage - recordsPerPage;
+    // const records = Data.slice(firstIndex, lastIndex);
+    // const npage = Math.ceil(Data.length / recordsPerPage)
+    // const numbers = [...Array(npage + 1).keys()].slice(1)
 
     useEffect(()=>{
-        const getDatumItem = async() => {
-            const response = await axios.get(`${apiHost}/item`)
-            setDatumItem(response.data)
+        const getDatumItem = async() =>{
+            const response = await axios.get(`http://localhost:3311/pembeli`)
+            setDatum(response.data)
         }
-
         getDatumItem()
     },[])
-
-    const formatUang = (number) =>{
-        return new Intl.NumberFormat("id-ID", {
-            style: "currency",
-            currency: "IDR"
-        }).format(number);
-    }
-
-    console.log(datumItem)
 
     function prePage (){
         if(currentPage !== firstIndex){
@@ -45,11 +38,10 @@ const SemuaItemAdmin = () => {
         }
      }
 
-    console.log(datumItem)
     return ( 
-        <div className="semua-item-admin container-fluid border">
+        <div className="profil-pembeli-admin container-fluid border">
             <div className="row">
-                <p className='text-title-halaman'>Item SKW</p>
+                <p className='text-title-halaman'>Profil Pembeli</p>
             </div>
 
             <div className="row">
@@ -66,36 +58,33 @@ const SemuaItemAdmin = () => {
            <table class="table my-5 table-bordered">
                 <thead className="table-dark">
                     <tr>
-                        <th className='col-1 text-center' scope="col">No</th>
-                        <th className='col-3' scope="col">Nama Item</th>
-                        <th className='col-1' scope="col">Kategori</th>
-                        <th className='col-1' scope="col">Harga</th>
-                        <th className='col-2' scope="col">Toko</th>
-                        <th className='col-1' scope="col">Stok</th>
-                        <th className='col-1' scope="col">Aksi</th>
+                        <th scope='col'>No</th>
+                        <th scope="col">Id</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Username</th>
+                        <th scope="col">Alamat</th>
+                        <th className='text-center' scope="col">Aksi</th>
                     </tr>
                 </thead>
             <tbody>
-                {datumItem.map((item, index)=>{
+                {datum.map((data, index)=>{
                     return(
-                    <tr key={item.id_item}>
-                        <td className='text-center'>{index+1}</td>
-                        <td>{item.nama_item}</td>
-                        <td>{item.nama_kategori}</td>
-                        <td>{formatUang(item.harga_item).replace(/\,00/g, '')}</td>
-                        <td>{item.nama_toko}</td>
-                        <td>{item.stok_item}</td>
+                    <tr key={data.id_pembeli}>
+                        <td>{index+1}</td>
+                        <td>{data.id_pembeli}</td>
+                        <td>{data.email}</td>
+                        <td>{data.username}</td>
+                        <td>{data.alamat}</td>
                         <td style={{textAlign:"center"}}>
-                                <button className="btn btn-danger but-tolak-pesanan">Hapus</button>    
-                            </td>
+                            <button className="btn btn-danger but-tolak-pesanan">Hapus</button>    
+                        </td>
                     </tr>
                     )
                 })}
-                    
             </tbody>
             </table>
             
-                <ul className='pagination d-flex align-items-end'>
+                <ul className='pagination border d-flex align-items-end'>
                     <li className='page-item'>
                         <a href="#" className='page-link' onClick={prePage}>Prev</a>
                     </li>
@@ -107,8 +96,8 @@ const SemuaItemAdmin = () => {
                         <a href="#" className='page-link' onClick={nextPage}>Next</a>
                     </li>
                 </ul>
+            
         </div>
      );
 }
- 
-export default SemuaItemAdmin;
+export default ProfilPenjualAdmin;

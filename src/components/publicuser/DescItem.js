@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import Cookies from 'js-cookie';
+import apiHost from '../../constants/apiHost';
 
 const DescItem = () => {
 
@@ -20,13 +21,13 @@ const DescItem = () => {
 
     useEffect(() => {
         const getItemById = async () => {
-            const response = await axios.get(`http://localhost:3311/item/${id}`);
+            const response = await axios.get(`${apiHost}/item/${id}`);
             setItemById(response.data);
         }
         getItemById();
 
         const getKeranjang = async () => {
-            const response = await axios.get(`http://localhost:3311/keranjang/${id_pembeli}`);
+            const response = await axios.get(`${apiHost}/keranjang/${id_pembeli}`);
             setCekItemKeranjang(response.data)
         }
         getKeranjang()
@@ -36,30 +37,8 @@ const DescItem = () => {
         setDataItem((data) => ({...data,
             id_pembeli : id_pembeli,
             id_item : id
-        }))
-                
+        }))                
     }, []);
-
-    useEffect(()=>{
-        cekItemKeranjang.map((data)=>{
-            setIdItemKeranjang(data.id_item)
-        })
-    },[])
-
-    const formatUang = (number) =>{
-        return new Intl.NumberFormat("id-ID", {
-            style: "currency",
-            currency: "IDR"
-        }).format(number);
-    }
-
-    setTimeout(()=>{
-        try {
-            setFoto(btoa(String.fromCharCode(...new Uint8Array(itemById.foto_item.data))))
-        } catch (error) {
-            console.log('sabar bang fotonya lagi loading')
-        }
-    }, 100)
 
     const handleKeranjang = async (e) => {
         e.preventDefault()
@@ -78,6 +57,29 @@ const DescItem = () => {
                 }
             }        
     }
+
+    useEffect(()=>{
+        cekItemKeranjang.map((data)=>{
+            setIdItemKeranjang(data.id_item)
+        })
+    },[handleKeranjang])
+
+    const formatUang = (number) =>{
+        return new Intl.NumberFormat("id-ID", {
+            style: "currency",
+            currency: "IDR"
+        }).format(number);
+    }
+
+    setTimeout(()=>{
+        try {
+            setFoto(btoa(String.fromCharCode(...new Uint8Array(itemById.foto_item.data))))
+        } catch (error) {
+            console.log('sabar bang fotonya lagi loading')
+        }
+    }, 100)
+
+    
     console.log(idItemKeranjang)
     console.log(itemById.id_item)
 

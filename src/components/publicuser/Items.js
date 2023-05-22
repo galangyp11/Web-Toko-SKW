@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import './items.css'
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import apiHost from '../../constants/apiHost'
 
 const Items = () => {
 
