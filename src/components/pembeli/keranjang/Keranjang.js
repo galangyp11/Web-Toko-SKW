@@ -1,5 +1,6 @@
 import './keranjang.css'
 import { useState, useEffect, useRef } from 'react';
+import apiHost from '../../../constants/apiHost'
 import axios from 'axios';
 
 import FooterKeranjang from './FooterKeranjang';
@@ -11,22 +12,21 @@ import { useNavigate } from 'react-router-dom';
 const Keranjang = () => {
 
     const [datum, setDatum] = useState([])
-    // const [arrObj, setArrObj] = useState([])
-    // const [datumObj, setDatumObj] = useState({
-    //     id_item:'',
-    //     id_keranjang:'',
-    //     id_pembeli: ''
-    // })
+    const totalItem = useRef(1)
+    const [totalHarga, setTotalHarga] = useState({
+        harga_item:''
+    })
     const [isKosong, setIsKosong] = useState(true)
     const id = Cookies.get('id')
     const navigate = useNavigate()
 
     useEffect(()=>{
         const dataDB = async () => {
-            const response = await axios.get(`http://localhost:3311/keranjang/${id}`)
+            const response = await axios.get(`${apiHost}keranjang/${id}`)
             setDatum(response.data)
         }
-        dataDB()     
+        dataDB()
+        
     },[]) 
 
     // useEffect(()=>{
@@ -43,15 +43,24 @@ const Keranjang = () => {
     //     dataObj()
     // },[datum])
 
-
     useEffect(()=>{
-      if(datum.length != 0){
-        setIsKosong(false)
-      }  else {
-        setIsKosong(true)
-      }
+        datum.forEach((item) =>{
+            setTotalHarga((data)=>({...data,
+                harga_item: item.harga_item * totalItem.current
+            }))
 
-    })
+
+        })
+        
+        if(datum.length != 0){
+            setIsKosong(false)
+          }  else {
+            setIsKosong(true)
+          }
+
+          
+      
+    },[datum])
 
     const handleCheckout = async (e) =>{
         if(isKosong === true){
@@ -75,11 +84,11 @@ const Keranjang = () => {
             <div className="keranjang-con container mt-2">
                 <div className="row">
                     <div className="col">
-                        {isKosong? <p className='text-keranjang-kosong d-flex justify-content-center align-items-center'>Keranjang Kosong</p> : <ItemsKeranjang datum={datum} setDatum={setDatum} />}
+                        {isKosong? <p className='text-keranjang-kosong d-flex justify-content-center align-items-center'>Keranjang Kosong</p> : <ItemsKeranjang datum={datum} setDatum={setDatum} totalItem={totalItem} totalHarga={totalHarga} setTotalHarga={setTotalHarga} />}
                     </div>
 
                     <div className="col-4 sticky-top">
-                        <FooterKeranjang datum={datum} isKosong={isKosong} handleCheckout={handleCheckout}/>
+                        <FooterKeranjang datum={datum} isKosong={isKosong} handleCheckout={handleCheckout} totalItem={totalItem} totalHarga={totalHarga}/>
                     </div>
                 </div> 
             </div>

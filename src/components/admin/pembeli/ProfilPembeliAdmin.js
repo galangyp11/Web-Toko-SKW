@@ -39,11 +39,10 @@ const ProfilPenjualAdmin = () => {
      }
 
     return ( 
-        <div className="profil-pembeli-admin container-fluid border">
+        <div className="profil-pembeli-admin container-fluid py-2">
             <div className="row">
                 <p className='text-title-halaman'>Profil Pembeli</p>
             </div>
-
             <div className="row">
                 <div className="col-3 d-flex justify-content-center align-items-center" style={{ height:'100%'}}>
                     <input className='search-admin p-2 ' type="text" placeholder='Search' />    

@@ -27,6 +27,7 @@ const CheckPembeli = () => {
     });
     const [mpModal, setMpModal] = useState('')
     const [show, setShow] = useState(false)
+    const [alamatToko, setAlamatToko] = useState('')
     const [totalHarga, setTotalHarga] = useState('')
 
     useEffect(()=>{
@@ -75,10 +76,12 @@ const CheckPembeli = () => {
                     id_mp : data.id_mp,
                     waktu_pesan: new Date()
                 }))
+
+                setAlamatToko(data.alamat)
             })
         }
-
         dataObj()
+
     },[dataCheckout])
 
     useEffect(()=>{
@@ -139,7 +142,7 @@ const CheckPembeli = () => {
                 <div className="row">
                     <p className='text-sub-checkout'>Alamat :</p>
                     <div className="col">
-                        <textarea className="alamat-checkout" placeholder={dataCheckout[0].alamat}></textarea>
+                        <textarea className="alamat-checkout" placeholder={alamatToko}></textarea>
                     </div>
                     <div className="col">
                         <p className='text-info-checkout'>*Pastikan alamat sudah benar dan jelas agar memudahkan proses.</p>

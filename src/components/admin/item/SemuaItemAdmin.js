@@ -15,7 +15,7 @@ const SemuaItemAdmin = () => {
 
     useEffect(()=>{
         const getDatumItem = async() => {
-            const response = await axios.get(`http://localhost:3311/item`)
+            const response = await axios.get(`${apiHost}item`)
             setDatumItem(response.data)
         }
         getDatumItem()
@@ -46,7 +46,7 @@ const SemuaItemAdmin = () => {
 
     console.log(datumItem)
     return ( 
-        <div className="semua-item-admin container-fluid border">
+        <div className="semua-item-admin container-fluid">
             <div className="row">
                 <p className='text-title-halaman'>Item SKW</p>
             </div>

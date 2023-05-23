@@ -4,8 +4,9 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 
 import { GoFileMedia } from "react-icons/go";
+import apiHost from '../../../constants/apiHost';
 
-const InputItem = () => {
+const InputItem = ({setIsInput}) => {
 
     const id = Cookies.get('id')
     const [dataInput, setDataInput] = useState({
@@ -20,8 +21,9 @@ const InputItem = () => {
         ukuran_item: "",
         biaya_operasional: ""
     });
-
+ 
     const handleInput = (e) =>{
+        e.preventDefault()
         setDataInput((data) => ({...data, 
             [e.target.id] : e.target.value
         }))
@@ -32,7 +34,7 @@ const InputItem = () => {
             id_penjual : id
         }))
     }, [])
-    
+
     const handleDaftarPenjual = async (e) =>{
         e.preventDefault()
         try {   
@@ -49,9 +51,9 @@ const InputItem = () => {
 
             }
             
-            await axios.post(`http://localhost:3311/item`, formData);
+            await axios.post(`${apiHost}item`, formData);
             alert('udh berhasil daftar bang');
-            // navigate('/login');
+            setIsInput(false)
         } catch (error) {
             console.log('eror bang gabisa input', error)
         }
@@ -71,11 +73,15 @@ const InputItem = () => {
         }))
     }
 
-    console.log(dataInput)
+    console.log(dataInput.id_kategori)
 
     return ( 
-        <div className="input-item container-fluid">
-            <div className="form-body-penjual gap-2 d-flex justify-content-center row border">
+        <div className="input-item">
+            <div>
+                <p className='text-title-halaman'>Input Item</p>
+            </div>
+            <hr />
+            <div className="form-body-penjual gap-1 d-flex justify-content-center row">
                 <div className="row d-flex align-items-center">
                     <div className="col-3">
                         <div className="input-gambar-item d-flex align-items-center justify-content-center">
@@ -111,7 +117,7 @@ const InputItem = () => {
                             className='input-text' 
                             name="deksripsi" 
                             id="deksripsi_item"
-                            style={{resize:"none", height:"200px"}}
+                            style={{resize:"none", height:"100px"}}
                             value={dataInput.deksripsi_item}
                             onChange={handleInput}
                         ></textarea>
@@ -130,13 +136,12 @@ const InputItem = () => {
                             value={dataInput.id_kategori}
                             onChange={handleInput}
                         >
-                            <option value="null" >-Pilih Kategori-</option>
                             <option value="1">Makanan</option>
                             <option value="2">Minuman</option>
                             <option value="3">Pakaian</option>
                             <option value="4">Aksesoris</option>
                             <option value="5">kerajinan</option>
-                            <option value="6">jasa</option>
+                            <option value="6">Jasa</option>
                         </select>
                     </div>
                 </div>
@@ -152,6 +157,7 @@ const InputItem = () => {
                             id="harga_item"
                             value={dataInput.harga_item}
                             onChange={handleInput}
+                            disabled={dataInput.id_kategori !== "6" ? false : true}
                         />
                     </div>
                 </div>
@@ -182,6 +188,7 @@ const InputItem = () => {
                             id="warna_item"
                             value={dataInput.warna_item}
                             onChange={handleInput}
+                            disabled={dataInput.id_kategori === "3" || dataInput.id_kategori === "4" ? false : true}
                         />
                     </div>
                 </div>
@@ -197,6 +204,7 @@ const InputItem = () => {
                             id="ukuran_item"
                             value={dataInput.ukuran_item}
                             onChange={handleInput}
+                            disabled={dataInput.id_kategori === "3" || dataInput.id_kategori === "4" ? false : true}
                         />
                     </div>
                 </div>
@@ -212,16 +220,22 @@ const InputItem = () => {
                             id="biaya_operasional"
                             value={dataInput.biaya_operasional}
                             onChange={handleInput}
+                            disabled={dataInput.id_kategori === "6" ? false : true}
                         />
                     </div>
                 </div>
             </div>
 
-                    <div className="col d-flex justify-content-end">
-                            <div className="but-next-daftar" onClick={handleDaftarPenjual}>
-                                <p className='text-but-next-daftar d-flex justify-content-center align-items-center' >Masukkan Item</p>
-                            </div>
-                        </div>
+            <hr />
+
+            <div className="row my-2">
+                <div className="col d-flex justify-content-end">
+                    <button className='btn btn-outline-danger but-tolak-pesanan' onClick={()=>setIsInput(false)}>Batal</button>
+                </div>
+                <div className="col-2 d-flex justify-content-start">
+                    <button className='but-input-item-penjual' onClick={handleDaftarPenjual}>Input</button>
+                </div>
+            </div>
         </div>
      );
 }

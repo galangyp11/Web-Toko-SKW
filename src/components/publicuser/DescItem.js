@@ -28,18 +28,20 @@ const DescItem = () => {
         }
         getItemById();
 
-        const getKeranjang = async () => {
-            const response = await axios.get(`${apiHost}keranjang/${id_pembeli}`);
-            setCekItemKeranjang(response.data)
-        }
-        getKeranjang()
-
         window.scrollTo(0, 0);
         setDataItem((data) => ({...data,
             id_pembeli : id_pembeli,
             id_item : id
         }))                
     }, []);
+
+    useEffect(() => {
+        const getKeranjang = async () => {
+            const response = await axios.get(`${apiHost}keranjang/${id_pembeli}`);
+            setCekItemKeranjang(response.data)
+        }
+        getKeranjang()
+    },[id_pembeli])
 
     const handleKeranjang = async (e) => {
         e.preventDefault()
@@ -64,7 +66,7 @@ const DescItem = () => {
         cekItemKeranjang.map((data)=>{
             setIdItemKeranjang(data.id_item)
         })
-    },[handleKeranjang])
+    },[id_pembeli])
 
     const formatUang = (number) =>{
         return new Intl.NumberFormat("id-ID", {
@@ -81,8 +83,8 @@ const DescItem = () => {
     //     }
     // }, 100)    
     // console.log(idItemKeranjang)
-    // console.log(cekItemKeranjang)
-    console.log(itemById)
+    console.log(cekItemKeranjang)
+    // console.log(itemById)
 
     return ( 
         <div className="descitem">
@@ -92,18 +94,18 @@ const DescItem = () => {
                         <div className="">
                      
                             <div id="carouselExampleIndicators" className="carousel slide" data-mdb-ride="carousel">
-                                <div class="carousel-inner">
-                                    <div class="carousel-item active">
-                                        <img src={KuraPlongo} class="d-block w-100"/>
+                                <div className="carousel-inner">
+                                    <div className="carousel-item active">
+                                        <img src={KuraPlongo} className="carousel-foto-item d-block"/>
                                     </div>
-                                    <div class="carousel-item">
-                                        <img src={KuraPlongo} class="d-block w-100"/>
+                                    <div className="carousel-item">
+                                        <img src={KuraPlongo} className="carousel-foto-item d-block"/>
                                     </div>
-                                    <div class="carousel-item">
-                                        <img src={KuraPlongo} class="d-block w-100"/>
+                                    <div className="carousel-item">
+                                        <img src={KuraPlongo} className="carousel-foto-item d-block"/>
                                     </div>
-                                    <div class="carousel-item">
-                                        <img src={KuraPlongo} class="d-block w-100"/>
+                                    <div className="carousel-item">
+                                        <img src={KuraPlongo} className="carousel-foto-item d-block"/>
                                     </div>
                                 </div>
 
@@ -120,18 +122,18 @@ const DescItem = () => {
                                     <span className="visually-hidden">Next</span>
                                 </button>
 
-                                <div class="carousel-indicators-desc d-flex justify-content-center">
+                                <div className="carousel-indicators-desc d-flex justify-content-center">
                                     <button className='thumbnail-carousel-desc active' data-target="#carouselExampleIndicators" data-slide-to="0">
-                                        <img src={KuraPlongo} class="d-block w-100"/>
+                                        <img src={KuraPlongo} className="d-block w-100"/>
                                     </button>
                                     <button className='thumbnail-carousel-desc' data-target="#carouselExampleIndicators" data-slide-to="1">
-                                        <img src={KuraPlongo} class="d-block w-100"/>
+                                        <img src={KuraPlongo} className="d-block w-100"/>
                                     </button>
                                     <button className='thumbnail-carousel-desc' data-target="#carouselExampleIndicators" data-slide-to="2">
-                                        <img src={KuraPlongo} class="d-block w-100"/>
+                                        <img src={KuraPlongo} className="d-block w-100"/>
                                     </button>
                                     <button className='thumbnail-carousel-desc' data-target="#carouselExampleIndicators" data-slide-to="3">
-                                        <img src={KuraPlongo} class="d-block w-100"/>
+                                        <img src={KuraPlongo} className="d-block w-100"/>
                                     </button>
                                 </div>
                             

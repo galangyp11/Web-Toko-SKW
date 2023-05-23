@@ -21,9 +21,9 @@ const Homepage = () => {
                 <Items />                    
             </div>
 
-            <div className="row d-flex justify-content-center">
+            {/* <div className="row d-flex justify-content-center">
                 <Loading />    
-            </div>
+            </div> */}
         </div>
      );
 }

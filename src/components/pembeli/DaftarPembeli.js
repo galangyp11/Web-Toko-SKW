@@ -1,7 +1,8 @@
 import axios from 'axios';
+import apiHost from '../../constants/apiHost'
 import './daftarpembeli.css';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 const DaftarPembeli = () => {
 
@@ -33,7 +34,7 @@ const DaftarPembeli = () => {
         //             alert('bang passwordnya g boleh kosong')
         //         }else{
                     try {
-                        await axios.post(`http://localhost:3311/pembeli`, dataInput);
+                        await axios.post(`${apiHost}pembeli`, dataInput);
                         alert('udh berhasil daftar bang');
                         navigate('/login');
                         console.log('bisa kog')
@@ -109,6 +110,16 @@ const DaftarPembeli = () => {
                                 <p className='text-but-next-daftar-pembeli d-flex justify-content-center align-items-center' >Daftar</p>
                             </div>
                         </div>
+                        <div className="row d-flex align-items-end" style={{height:"30px"}}>
+                                        <div className="col d-flex justify-content-center align-items-center">
+                                            <p className='text-daftar-login d-flex justify-content-start align-items-center'>Ingin bergabung sebagai penjual?</p>
+                                        </div>
+                                        <div className="col-2 p-0 d-flex justify-content-start align-items-center">
+                                            <Link to={'/daftar-penjual'} style={{ textDecoration:"none"}}>
+                                                <p className='but-daftar-login d-flex justify-content-start align-items-center' >Gabung!</p>
+                                            </Link>
+                                        </div>
+                                    </div>
                     </div>
                </div>
             </div>

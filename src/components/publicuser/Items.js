@@ -39,18 +39,18 @@ const Items = () => {
                             
                             <div className="item m-2" key={item.id_item} style={{cursor:"pointer", padding:'0px'}}>
                                 <Link to={`/item/${item.id_item}`} style={{ textDecoration:"none", color:"black"}}>
-                                    {console.log(item.id_item)}
                                     <div className="img-thumbnail-item" >
                                         <img className='item-image' src={`data:image/png;base64,${foto}`} alt="" />
                                     </div>
                                     <div className="item-thumb-desc item-name mt-1 mx-2">
                                         <p className='text-item-name'>{item.nama_item}</p>
                                     </div>
+                                    <br />
                                     <div className="item-thumb-desc item-price mx-2">
                                         <p className='text-item-price'>{formatUang(item.harga_item).replace(/,00/g, '')}</p>
                                     </div>
-                                    <div className="item-thumb-desc item-toko mx-2 ">
-                                        <p className='text-item-toko d-flex align-items-end'>{item.nama_toko}</p>
+                                    <div className="item-thumb-desc mx-2 ">
+                                        <p className='text-item-toko d-flex align-items-end pb-1'>{item.nama_toko}</p>
                                     </div>
                                 </Link>
                             </div>

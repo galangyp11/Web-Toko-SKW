@@ -1,4 +1,3 @@
-import fotoKosing from '../image/kuraplongo.jpg'
 import { useState, useEffect } from 'react';
 import Cookies from 'js-cookie';
 import axios from 'axios';
@@ -23,7 +22,6 @@ const ProfileToko = () => {
         try {
             setFoto(btoa(String.fromCharCode(...new Uint8Array(penjualById.foto_profil.data))))
         } catch (error) {
-            setFoto(fotoKosing)
             console.log('sabar bang fotonya lagi loading')
         }
     }, 100)

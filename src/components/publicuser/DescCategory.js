@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useParams } from 'react-router-dom'
 import axios from 'axios'
+import apiHost from '../../constants/apiHost'
 
 const DescCategory = () => {
 
@@ -13,23 +14,20 @@ const DescCategory = () => {
 
     useEffect(()=>{
         const kategoriDB = async () => {
-            const response = await axios.get(`http://localhost:3311/kategori`)
+            const response = await axios.get(`${apiHost}kategori`)
             setKategori(response.data)
-            console.log(response)
         }
         kategoriDB()
 
-        window.scrollTo(0, 0);
-    },[]) 
-
-    useEffect(()=>{
         const getKategoriById = async () => {
-            const response = await axios.get(`http://localhost:3311/kategori/${id}`)
+            const response = await axios.get(`${apiHost}kategori/${id}`)
             setKategoriById(response.data)
             console.log(response.data)
         }
         getKategoriById()
-    },[])
+
+        window.scrollTo(0, 0);
+    },[]) 
 
     const formatUang = (number) =>{
         return new Intl.NumberFormat("id-ID", {
@@ -75,13 +73,13 @@ const DescCategory = () => {
                             <div className="row gap-4 d-flex justify-content-center align-items-center row-cols-5">
                             
                                     { kategoriById.map((item) => {
-                                        const foto = btoa(String.fromCharCode(...new Uint8Array(item.foto_item.data)));
+                                        // const foto = btoa(String.fromCharCode(...new Uint8Array(item.foto_item.data)));
                                         return(
                                     
                                         <div className="item m-3" key={item.id_item} style={{cursor:"pointer", padding:'0px'}}>
                                             <Link to={`/item/${item.id_item}`} style={{ textDecoration:"none", color:"black"}}>
                                             <div className="img-thumbnail-item " >
-                                                <img className='item-image' src={`data:image/png;base64,${foto}`} alt="" />
+                                                <img className='item-image' src='' alt="" />
                                             </div>
                                             <div className="item-name py-1 px-2">
                                                 <p>{item.nama_item}</p>
@@ -92,7 +90,7 @@ const DescCategory = () => {
                                             </Link>
                                         </div>
                                 
-                                    )
+                                        )
                                     })}
                             
                             </div>

@@ -17,8 +17,8 @@ import TransaksiPembeli from './components/pembeli/transaksi/TransaksiPembeli';
 
 import PagePenjual from './components/penjual/PagePenjual';
 import DaftarPenjual from './components/penjual/DaftarPenjual';
-import ProfileToko from './components/penjual/ProfileToko';
-import ItemToko from './components/penjual/ItemToko';
+import ProfileToko from './components/penjual/page/ProfileToko';
+import ItemToko from './components/penjual/page/ItemToko';
 
 function App() {
   

@@ -6,6 +6,7 @@ import NavbarAdmin from './NavbarAdmin';
 import SidebarAdmin from './SidebarAdmin';
 import axios from 'axios';
 import HomeAdmin from './HomeAdmin';
+import apiHost from '../../constants/apiHost';
 
 const PageAdmin = ({dataLogin}) => {
 
@@ -16,7 +17,7 @@ const PageAdmin = ({dataLogin}) => {
 
     useEffect(()=>{
         const getAdmin = async () => {
-            const response = await axios.get('http://localhost:3311/admin')
+            const response = await axios.get(`${apiHost}admin`)
             setDataAdmin(response.data)
         }
         getAdmin()
@@ -24,7 +25,7 @@ const PageAdmin = ({dataLogin}) => {
 
     useEffect(()=>{
         const getNotif = async () => {
-            const response = await axios.get('http://localhost:3311/transaksi')
+            const response = await axios.get(`${apiHost}transaksi`)
             setDataKonfirmasi(response.data)
         }
         getNotif()
@@ -37,7 +38,7 @@ const PageAdmin = ({dataLogin}) => {
     console.log(page)
     return ( 
         <div className="page-admin">
-             <div className="sticky-top">
+            <div className="sticky-top">
                 <NavbarAdmin/>
             </div>
 

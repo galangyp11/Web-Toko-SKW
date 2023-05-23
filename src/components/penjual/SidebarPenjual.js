@@ -1,11 +1,13 @@
-import './sidebarpenjual.css'
-import { IoStorefront } from 'react-icons/io5'
-import { BiCollection } from 'react-icons/bi'
+import './sidebarpenjual.css';
+import { IoStorefront } from 'react-icons/io5';
+import { BiCollection } from 'react-icons/bi';
 
-import Cookies from 'js-cookie'
-import { useNavigate } from 'react-router-dom'
+import Cookies from 'js-cookie';
+import { useNavigate } from 'react-router-dom';
+import ProfileToko from './page/ProfileToko';
+import ItemToko from './page/ItemToko';
 
-const SidebarPenjual = () => {
+const SidebarPenjual = ({setPage}) => {
 
     let navigate = useNavigate();
 
@@ -17,36 +19,30 @@ const SidebarPenjual = () => {
     };
 
     return ( 
-        <div className="sidebar-penjual py-4 d-flex justify-content-center">
-            <div className="d-grid ">
-    
-               
-                    <div class="dropdown-center">
-                        <button class="dd-profile-penjual" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <p className='text-sidebar-penjual d-flex justify-content-center align-items-center'><IoStorefront color='white' size="20px" className='mx-3'/>Profile Toko</p>
-                        </button>
-                        <ul class="dropdown-menu">
-                            <li class="dropdown-item dd-pembeli">Profile</li>
-                            <li class="dropdown-item dd-pembeli"> Logout</li>
-                        </ul>
-                    </div>
+        <div className="sidebar-penjual pt-4 px-3">
+            <div className="logo-skw-sidebar pt-1 px-2 mx-3 d-flex">
+                <p className='text-logo-skw-admin d-flex align-items-center'>SKW</p>
+                <p className='text-skw-penjual d-flex align-items-center'>Penjual</p>
+            </div>
 
-                <div class="dropdown-center">
-                    <button class="dd-profile-penjual" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <p className='text-sidebar-penjual d-flex justify-content-center align-items-center'><BiCollection color='white' size="20px" className='mx-3'/>Item Toko</p>
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li class="dropdown-item dd-pembeli">Item Saya</li>
-                        <li class="dropdown-item dd-pembeli">Masukkan Item</li>
-                    </ul>
+            <hr />
+
+            <div className="sidebar-item">
+                <div className="sidebar-title d-flex align-items-center" onClick={()=>setPage(<ProfileToko/>)}>
+                    <IoStorefront className='icon-title' color='white' size="30px"/>
+                    <p className='text-sidebar-admin-title pt-3' id='text-sidebar-admin'>Profile Toko</p>
                 </div>
-                
+            </div>
 
-       
-                    <div className="but-logout-penjual ">
-                        <p className='text-logout-penjual d-flex justify-content-center align-items-center' onClick={handleLogout}> Logout </p>
-                    </div>
-                
+            <div className="sidebar-item">
+                <div className="sidebar-title d-flex align-items-center" onClick={()=>setPage(<ItemToko setPage={setPage}/>)}>
+                    <BiCollection className='icon-title' color='white' size="30px"/>
+                    <p className='text-sidebar-admin-title pt-3' id='text-sidebar-admin'>Item Toko</p>
+                </div>
+            </div>
+
+            <div className="sidebar-item d-flex justify-content-center">
+                <button className='but-logout-admin' onClick={handleLogout}>Logout</button>
             </div>
         </div>
      );

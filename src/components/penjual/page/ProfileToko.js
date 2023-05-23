@@ -1,4 +1,4 @@
-import fotoKosing from '../image/kuraplongo.jpg'
+import './profiletoko.css'
 import { useState, useEffect } from 'react';
 import Cookies from 'js-cookie';
 import axios from 'axios';
@@ -23,14 +23,13 @@ const ProfileToko = () => {
         try {
             setFoto(btoa(String.fromCharCode(...new Uint8Array(penjualById.foto_profil.data))))
         } catch (error) {
-            setFoto(fotoKosing)
             console.log('sabar bang fotonya lagi loading')
         }
     }, 100)
 
     return ( 
-        <div className="profile-toko">
-            <div className="row my-3 border">
+        <div className="profile-toko container">
+            <div className="row my-3">
                 <div className="col-4 border d-flex justify-content-center">
                     <div className="bg-foto-profile">
                         <img className='foto-profile' src={ `data:image/png;base64,${foto}`} alt="" />
@@ -38,7 +37,10 @@ const ProfileToko = () => {
                 </div>
 
                 <div className="col p-5 border" >
-                    <div className="row border">
+                    
+                </div>
+
+                <div className="row border">
                         <div className="col-2 border">
                             <p className='text-profile-bio d-flex align-items-center'>Toko</p>
                         </div>
@@ -99,7 +101,6 @@ const ProfileToko = () => {
                             <p className="text-simpan-profile d-flex justify-content-center align-items-center">Simpan</p>
                         </div>
                     </div>
-                </div>
             </div>
         </div>
      );

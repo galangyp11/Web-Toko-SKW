@@ -4,6 +4,30 @@
     background-color: #2C3333;
 }
 
+.logo-skw-sidebar{
+    background-color: #0E8388;
+    height: 50px;
+    width: 78px;
+    gap: 1em;
+}
+
+.text-logo-skw-admin{
+    font-family: 'Bebas Neue';
+    font-size: 45px;
+    color: white;
+    cursor: pointer;
+    transition: .2s ease;
+    height: 100%;
+
+}
+
+.text-skw-penjual{
+    font-family:'Hind Siliguri';
+    font-size: 35px;
+    color: white;
+    height: 100%;
+}
+
 .text-navbar-admin{
     width: 100%;
     height: 100%;

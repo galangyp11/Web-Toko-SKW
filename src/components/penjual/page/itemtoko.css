@@ -1,0 +1,21 @@
+.item-toko{
+    background-color: white;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    border-radius: 5px;
+}
+
+.but-input-item-penjual{
+    border-radius: 5px;
+    height: 35px;
+    width: 120px;
+    border: none;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    background-color: #0E8388;
+    color: white;
+    font-weight: 600;
+    transition: .2s ease;
+}
+
+.but-input-item-penjual:hover{
+    background-color: #08595c;
+}

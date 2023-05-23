@@ -9,7 +9,7 @@
 
 .item{
     width: 200px;
-    height: 250px;
+    min-height: 250px;
     transition: .1s ease;
     background-color: white;
 

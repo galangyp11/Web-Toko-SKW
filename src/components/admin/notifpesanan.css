@@ -1,9 +1,10 @@
 .but-tolak-pesanan{
-    width: 110px;
+    width: 120px;
+    font-weight: 600;
 }
 
 .but-konfirmasi-pesanan{
-    width: 110px;
+    width: 120px;
 }
 
 .text-alert-notif-pesanan{

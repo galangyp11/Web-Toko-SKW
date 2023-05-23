@@ -7,6 +7,14 @@
     margin: 0;
 }
 
+.carousel-desc {
+    height: 100px;
+}
+
+.carousel-foto-item{
+    height: 25em;
+}
+
 .carousel-indicators-desc {
     position: static;
   }
