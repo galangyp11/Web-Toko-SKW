@@ -1,1 +1,1 @@
-export default 'http://localhost:3311/'
+export default "http://localhost:3311";
