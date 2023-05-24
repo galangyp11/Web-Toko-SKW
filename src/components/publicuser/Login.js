@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 import Cookies from "js-cookie";
+import apiHost from "../../constants/apiHost";
 
 const Login = () => {
   const [inputUser, setInputUser] = useState({
@@ -19,21 +20,21 @@ const Login = () => {
 
   useEffect(() => {
     const getAdminById = async () => {
-      const response = await axios.get(`http://localhost:3311/admin`);
+      const response = await axios.get(`${apiHost}admin`);
       setDataLoginAdmin(response.data);
       console.log(response.data);
     };
     getAdminById();
 
     const getPenjualById = async () => {
-      const response = await axios.get(`http://localhost:3311/penjual`);
+      const response = await axios.get(`${apiHost}penjual`);
       setDataLoginPenjual(response.data);
       console.log(response.data);
     };
     getPenjualById();
 
     const getPembeliById = async () => {
-      const response = await axios.get(`http://localhost:3311/pembeli`);
+      const response = await axios.get(`${apiHost}pembeli`);
       setDataLoginPembeli(response.data);
       console.log(response.data);
     };
@@ -139,11 +140,7 @@ const Login = () => {
 
                 <div className="row  mt-3">
                   <div className="col d-flex justify-content-center">
-                    <div className="but-login-login " onClick={handleLogin}>
-                      <p className="text-login-login d-flex justify-content-center align-items-center">
-                        Login
-                      </p>
-                    </div>
+                    <button className="but-login-login" onClick={handleLogin}>Login</button>
                   </div>
                 </div>
 

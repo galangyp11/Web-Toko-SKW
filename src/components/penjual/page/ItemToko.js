@@ -19,7 +19,7 @@ const ItemToko = () => {
             setDatumItem(response.data)
         }
         getDatumItem()
-    },[])
+    },[setDatumItem])
 
     const formatUang = (number) =>{
         return new Intl.NumberFormat("id-ID", {
@@ -31,13 +31,14 @@ const ItemToko = () => {
     console.log(datumItem)
 
     return ( 
-        <div className="item-toko container">
+        <div className="container">
             {!isInput? 
         <div>
         <div className="row">
             <p className='text-title-halaman'>Item SKW</p>
         </div>
 
+        <div className='item-toko container p-4'>
         <div className="row">
             <div className="col-3 d-flex justify-content-center align-items-center" style={{ height:'100%'}}>
                 <input className='search-admin p-2 ' type="text" placeholder='Search' />    
@@ -49,7 +50,7 @@ const ItemToko = () => {
             </div>
 
             <div className="col d-flex justify-content-end align-items-center">
-                <button className='but-input-item-penjual' onClick={()=>setIsInput(true)}>Input Item</button>
+                <button className='but-input-item-penjual' onClick={()=>setIsInput(true)}>Tambah Item</button>
             </div>
         </div>
 
@@ -87,6 +88,7 @@ const ItemToko = () => {
                 
         </tbody>
         </table>
+        </div>
         </div>
         : <InputItem setIsInput={setIsInput}/>}
     </div> 

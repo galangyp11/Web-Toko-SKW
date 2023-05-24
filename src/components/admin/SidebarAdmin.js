@@ -5,6 +5,8 @@ import { BsFillCaretRightFill } from "react-icons/bs";
 import { BsExclamationCircleFill } from "react-icons/bs";
 import { BsPersonFill } from "react-icons/bs";
 import { AiFillApple } from "react-icons/ai";
+import Cookies from 'js-cookie';
+import { useNavigate } from 'react-router-dom';
 
 import ProfilPenjualAdmin from './penjual/ProfilPenjualAdmin';
 import ProfilPembeliAdmin from './pembeli/ProfilPembeliAdmin';
@@ -20,6 +22,8 @@ const Sidebaradmin = ({setPage, dataKonfirmasi}) => {
     const [openPembeli, setOpenPembeli] = useState(false);
     const [openPenjual, setOpenPenjual] = useState(false);
     const [openItem, setOpenItem] = useState(false);
+
+    let navigate = useNavigate();
 
     const handleOpenPembeli = () => {
         setOpenPembeli(!openPembeli)
@@ -38,8 +42,22 @@ const Sidebaradmin = ({setPage, dataKonfirmasi}) => {
         setOpenPenjual(false)
         setOpenItem(!openItem)
     }
+
+    const handleLogout = () => {
+        Cookies.remove('id')
+        setTimeout(()=>{
+            navigate('/')
+        }, 100)
+    };
     return ( 
         <div className="sidebar-admin pt-4 px-3">
+             <div className="logo-skw-sidebar pt-1 px-2 mx-3 d-flex">
+                <p className='text-logo-skw-admin d-flex align-items-center' onClick={()=>navigate('/admin')}>SKW</p>
+                <p className='text-skw-penjual d-flex align-items-center'>ADMIN</p>
+            </div>
+
+            <hr />
+
             <div className={openPenjual ? "sidebar-item open" : "sidebar-item"}>
                 <div className="sidebar-title d-flex align-items-center" onClick={handleOpenPenjual}>
                     <IoStorefront className='icon-title' color='white' size="40px"/>
@@ -84,6 +102,10 @@ const Sidebaradmin = ({setPage, dataKonfirmasi}) => {
                         <p className="text-notif-pesanan">{dataKonfirmasi.length}</p>
                     </div>
                 </div>
+            </div>
+
+            <div className="my-5 d-flex justify-content-center">
+                <button className='but-logout-admin' onClick={handleLogout}>Logout</button>
             </div>
 
         </div>

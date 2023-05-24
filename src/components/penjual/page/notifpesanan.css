@@ -1,0 +1,18 @@
+.but-tolak-pesanan{
+    width: 120px;
+    font-weight: 600;
+}
+
+.but-konfirmasi-pesanan{
+    width: 120px;
+}
+
+.text-alert-notif-pesanan{
+    color: red;
+    font-weight: 600;
+}
+
+.text-pemberitahuan-notif-pesanan{
+    color: grey;
+    font-weight: 400;
+}

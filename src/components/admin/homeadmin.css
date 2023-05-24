@@ -1,0 +1,34 @@
+.home-admin{
+    width: 100%;
+    height: 100dvh;
+}
+
+.bg-info-skw-admin{
+    border-radius: 5px;
+    width: 100%;
+    height: 100px;
+    background-color: #0E8388;
+    /* background-color: #E7F6F2; */
+}
+
+.text-home-admin{
+    font-size: 2em;
+    font-weight: 600;
+}
+
+.text-username-home-admin{
+    font-size: 2em;
+    font-weight: bold;
+}
+
+.text-info-skw-admin{
+    color: white;
+    font-weight: 600;
+    font-size: 20px;
+}
+
+.text-info-skw-data-admin{
+    color: #FFCA2C;
+    font-weight: bold;
+    font-size: 1.2em;
+}

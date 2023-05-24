@@ -76,11 +76,12 @@ const InputItem = ({setIsInput}) => {
     console.log(dataInput.id_kategori)
 
     return ( 
-        <div className="input-item">
-            <div>
-                <p className='text-title-halaman'>Input Item</p>
-            </div>
-            <hr />
+        <div className="">
+            <p className='text-title-halaman'>Input Item</p>
+            <div className='item-toko container p-4'>
+                
+         
+            
             <div className="form-body-penjual gap-1 d-flex justify-content-center row">
                 <div className="row d-flex align-items-center">
                     <div className="col-3">
@@ -235,6 +236,7 @@ const InputItem = ({setIsInput}) => {
                 <div className="col-2 d-flex justify-content-start">
                     <button className='but-input-item-penjual' onClick={handleDaftarPenjual}>Input</button>
                 </div>
+            </div>
             </div>
         </div>
      );

@@ -11,7 +11,7 @@ const TransaksiPembeli = () => {
 
   useEffect(() => {
     const getNotif = async () => {
-      const response = await axios.get(`${apiHost}/transaksi/pembeli/${id}`);
+      const response = await axios.get(`${apiHost}transaksi/pembeli/${id}`);
       setDataKonfirmasi(response.data);
       console.log(response.data);
     };

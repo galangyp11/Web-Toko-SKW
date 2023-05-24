@@ -12,7 +12,7 @@ const ProfilPenjualAdmin = () => {
 
   useEffect(() => {
     const getNotif = async () => {
-      const response = await axios.get(`${apiHost}/transaksi/pembeli`);
+      const response = await axios.get(`${apiHost}transaksi/riwayat`);
       setDataKonfirmasi(response.data);
       console.log(response.data);
     };
@@ -73,8 +73,10 @@ const ProfilPenjualAdmin = () => {
         <thead className="table-dark table-striped">
           <tr>
             <th scope="col">Username</th>
+            <th scope="col">Item</th>
             <th scope="col">Pembayaran</th>
             <th scope="col">Nominal Harga</th>
+            <th scope="col">Jumlah</th>
             <th scope="col">Waktu</th>
             <th scope="col">Status</th>
           </tr>
@@ -84,8 +86,10 @@ const ProfilPenjualAdmin = () => {
             return (
               <tr key={data.id_konfirmasi}>
                 <td>{data.username}</td>
+                <td>{data.nama_item}</td>
                 <td>{data.nama_mp}</td>
-                <td>Rp. 69.000</td>
+                <td>{data.harga_item}</td>
+                <td>{data.stok_item}</td>
                 <td>{data.waktu_pesan}</td>
                 <td>{data.status_transaksi}</td>
               </tr>

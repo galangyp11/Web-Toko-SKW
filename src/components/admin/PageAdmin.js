@@ -33,24 +33,20 @@ const PageAdmin = ({dataLogin}) => {
 
     useEffect(()=>{
         setPage(<HomeAdmin dataAdmin={dataAdmin}/>)
-    },[])
+    },[dataAdmin])
 
-    console.log(page)
+    console.log(dataAdmin)
     return ( 
         <div className="page-admin">
-            <div className="sticky-top">
-                <NavbarAdmin/>
-            </div>
-
-            <div className="row container-fluid" style={{width:"100%", height:"100%"}}>
-                <div className="col-2 p-0">
+            <div className="row" style={{width:"100%", height:"100dvh"}}>
+                <div className="col-2 p-0 sticky-top" style={{height:"100%" }}>
                     <SidebarAdmin setPage={setPage} dataKonfirmasi={dataKonfirmasi}/>
                 </div>
 
-                <div className="col container-fluid">
-                      <div className="page-menu">
+                <div className="col container py-3">
+                    <div className="page-menu d-flex justify-content-center">
                         {page}
-                      </div>
+                    </div>
                 </div>
             </div>
         </div>

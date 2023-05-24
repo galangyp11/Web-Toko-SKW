@@ -14,6 +14,7 @@ const PagePenjual = () => {
     const navigate = useNavigate();
     const [page, setPage] = useState();
     const [dataPenjual, setDataPenjual] = useState([]);
+    const [dataKonfirmasi, setDataKonfirmasi] = useState([]);
     const id = Cookies.get('id')
 
     useEffect(()=>{
@@ -25,6 +26,14 @@ const PagePenjual = () => {
     },[])
 
     useEffect(()=>{
+        const getNotif = async () => {
+            const response = await axios.get(`${apiHost}transaksi/penjual/${id}`)
+            setDataKonfirmasi(response.data)
+        }
+        getNotif()
+    },[dataKonfirmasi])
+
+    useEffect(()=>{
         setPage(<ProfileToko dataPenjual={dataPenjual}/>)
     },[])
 
@@ -32,7 +41,7 @@ const PagePenjual = () => {
         <div className="page-penjual">
             <div className="row" style={{width:"100%", height:"100dvh"}}>
                 <div className="col-2 p-0 sticky-top" style={{height:"100%" }}>
-                    <SidebarPenjual setPage={setPage}/>
+                    <SidebarPenjual setPage={setPage} dataKonfirmasi={dataKonfirmasi}/>
                 </div>
 
                 <div className="col container py-3">

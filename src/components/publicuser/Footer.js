@@ -14,7 +14,7 @@ const Footer = () => {
                     <div className="row"></div>
                     <h2 className='footer-text'>Tentang</h2>
 
-                    <p className='footer-text'>Web Toko SKW merupakan sebuah wadah untuk begitu yang mana akan mempermudah begituan antar begituan</p>
+                    <p className='footer-text'>Web Toko SKW merupakan sebuah wadah untuk begitu yang mana akan mempermudah begituan antar begituan. Sistem ini merupakan salah satu satu layanan akademik untuk mahasiswa UPI yang memuat seluruh aktifitas utama administrasi akademik yang antara lain berisi fitur-fitur manajemen DIM (Data Induk Mahasiswa), pengajuan IRS dan PRS, informasi Kalender Akademik, informasi Jadwal Kuliah, riwayat status akademis, riwayat capaian nilai dan transkip nilai sementara, termasuk didalamnya berita akademik.</p>
                 </div>
 
                 <div className="col">

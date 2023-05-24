@@ -3,3 +3,19 @@
     box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
     border-radius: 5px;
 }
+
+.bg-foto-profile-penjual{
+    width: 200px;
+    height: 200px;
+    border: 1px solid grey;
+    border-radius: 50%;
+}
+
+.foto-profile{
+    height: 100%;
+    object-fit: cover;
+}
+
+.text-profile-bio{
+    height: 100%;
+}

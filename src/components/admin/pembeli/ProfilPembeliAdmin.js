@@ -38,7 +38,7 @@ const ProfilPenjualAdmin = () => {
   }
 
     return ( 
-        <div className="profil-pembeli-admin container-fluid border">
+        <div className="profil-pembeli-admin container-fluid">
             <div className="row">
                 <p className='text-title-halaman'>Profil Pembeli</p>
             </div>
@@ -87,7 +87,7 @@ const ProfilPenjualAdmin = () => {
         </tbody>
       </table>
 
-      <ul className="pagination border d-flex align-items-end">
+      <ul className="pagination d-flex align-items-end">
         <li className="page-item">
           <a href="#" className="page-link" onClick={prePage}>
             Prev

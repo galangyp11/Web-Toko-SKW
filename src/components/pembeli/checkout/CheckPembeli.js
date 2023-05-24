@@ -7,6 +7,7 @@ import NavbarCheck from './NavbarCheck'
 import ItemsCheck from './ItemsCheck'
 import ModalCheck from './ModalCheck'
 import Cookies from 'js-cookie'
+import apiHost from '../../../constants/apiHost'
 
 const CheckPembeli = () => {
 
@@ -19,6 +20,7 @@ const CheckPembeli = () => {
     const [dataPembeli, setDataPembeli] = useState({});
     const [dataInput, setDataInput] = useState({
         id_pembeli:'',
+        id_penjual:'',
         id_item:'',
         id_keranjang:'',
         id_mp: undefined,
@@ -32,22 +34,16 @@ const CheckPembeli = () => {
 
     useEffect(()=>{
         const dataDB = async () => {
-            const response = await axios.get(`http://localhost:3311/keranjang/${id}`)
+            const response = await axios.get(`${apiHost}keranjang/${id}`)
             setDataCheckout(response.data)
         }
         dataDB()    
         
         const getPembeliById = async () => {
-            const response = await axios.get(`http://localhost:3311/pembeli/${id}`);
+            const response = await axios.get(`${apiHost}pembeli/${id}`);
             setDataPembeli(response);
         }
-        getPembeliById();
-
-        const getDataKonfirmasi = async () => {
-            const response = await axios.get(`http://localhost:3311/konfirmasi`);
-            setDataPembeli(response.data);
-        }
-        getDataKonfirmasi();
+        getPembeliById()
     },[]);
 
     useEffect(()=>{
@@ -71,6 +67,7 @@ const CheckPembeli = () => {
             dataCheckout.map((data)=>{
                 setDataInput((item) => ({...item,
                     id_pembeli : data.id_pembeli,
+                    id_penjual : data.id_penjual,
                     id_item : data.id_item,
                     id_keranjang: data.id_keranjang,
                     id_mp : data.id_mp,
@@ -112,7 +109,7 @@ const CheckPembeli = () => {
     }
 
     const handleBatal = async() =>{
-        await axios.delete('http://localhost:3311/checkout')
+        await axios.delete(`${apiHost}checkout`)
         navigate('/')
     }
 
@@ -121,12 +118,12 @@ const CheckPembeli = () => {
         if(dataInput.id_mp == undefined){
             alert('pilih pembayaran dlu blok')
         }else{
-            await axios.post(`http://localhost:3311/transaksi`, dataInput);
+            await axios.post(`${apiHost}transaksi`, dataInput);
             setShow(true)
         }
     }
 
-    console.log(dataCheckout)
+    console.log(dataInput)
 
     return ( 
         <div className="check-pembeli">

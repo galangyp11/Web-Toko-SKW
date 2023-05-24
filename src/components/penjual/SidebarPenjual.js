@@ -1,13 +1,14 @@
 import './sidebarpenjual.css';
 import { IoStorefront } from 'react-icons/io5';
 import { BiCollection } from 'react-icons/bi';
-
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
+
+import NotifPesanan from './page/NotifPesanan';
 import ProfileToko from './page/ProfileToko';
 import ItemToko from './page/ItemToko';
 
-const SidebarPenjual = ({setPage}) => {
+const SidebarPenjual = ({setPage, dataKonfirmasi}) => {
 
     let navigate = useNavigate();
 
@@ -21,7 +22,7 @@ const SidebarPenjual = ({setPage}) => {
     return ( 
         <div className="sidebar-penjual pt-4 px-3">
             <div className="logo-skw-sidebar pt-1 px-2 mx-3 d-flex">
-                <p className='text-logo-skw-admin d-flex align-items-center'>SKW</p>
+                <p className='text-logo-skw-admin d-flex align-items-center' onClick={()=>navigate('/penjual')}>SKW</p>
                 <p className='text-skw-penjual d-flex align-items-center'>Penjual</p>
             </div>
 
@@ -41,7 +42,16 @@ const SidebarPenjual = ({setPage}) => {
                 </div>
             </div>
 
-            <div className="sidebar-item d-flex justify-content-center">
+            <div className="sidebar-item">
+                <div className="sidebar-title d-flex align-items-center">
+                    <p className="text-sidebar-admin-title pt-3" id='text-sidebar-admin' onClick={()=> setPage(<NotifPesanan/>)}>Pesanan Masuk</p>
+                    <div className="bg-text-notif-pesanan d-flex justify-content-center">
+                        <p className="text-notif-pesanan">{dataKonfirmasi.length}</p>
+                    </div>
+                </div>
+            </div>
+
+            <div className="my-5 d-flex justify-content-center">
                 <button className='but-logout-admin' onClick={handleLogout}>Logout</button>
             </div>
         </div>

@@ -12,7 +12,7 @@ const Items = () => {
   useEffect(() => {
     const dataDB = async () => {
       const response = await axios.get(
-        `${apiHost}/item?search=${state.search}`
+        `${apiHost}item?search=${state.search}`
       );
       setDatum(response.data);
       // console.log(response)

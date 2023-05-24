@@ -27,79 +27,115 @@ const ProfileToko = () => {
         }
     }, 100)
 
+    console.log(penjualById)
     return ( 
-        <div className="profile-toko container">
-            <div className="row my-3">
-                <div className="col-4 border d-flex justify-content-center">
-                    <div className="bg-foto-profile">
+        <div className=" container">
+            <div className="row">
+                <p className='text-title-halaman'>Profile Toko</p>
+            </div>
+            <div className="row profile-toko container p-4">
+                <div className="col-4 ">
+                    <div className="bg-foto-profile-penjual">
                         <img className='foto-profile' src={ `data:image/png;base64,${foto}`} alt="" />
                     </div>
                 </div>
 
-                <div className="col p-5 border" >
+                <div className="col p-5 " >
                     
                 </div>
-
-                <div className="row border">
-                        <div className="col-2 border">
+                
+                <div className="row ">
+                        <div className="col-2 ">
                             <p className='text-profile-bio d-flex align-items-center'>Toko</p>
                         </div>
 
-                        <div className="col-1 border">
+                        <div className="col-1 ">
                             <p className='text-profile-bio d-flex justify-content-center align-items-center'>:</p>
                         </div>
 
-                        <div className="col border">
+                        <div className="col ">
                             <p className='text-profile-bio d-flex align-items-center'>{penjualById.nama_toko}</p>
                         </div>
                     </div>
-
-                    <div className="row border">
-                        <div className="col-2 border">
+                    
+                    <hr />
+                    <div className="row ">
+                        <div className="col-2 ">
                             <p className='text-profile-bio d-flex align-items-center'>Email</p>
                         </div>
 
-                        <div className="col-1 border">
+                        <div className="col-1 ">
                             <p className='text-profile-bio d-flex justify-content-center align-items-center'>:</p>
                         </div>
 
-                        <div className="col border">
+                        <div className="col ">
                             <p className='text-profile-bio d-flex align-items-center'>{penjualById.email}</p>
                         </div>
                     </div>
+                    <hr />
 
-                    <div className="row border">
-                        <div className="col-2 border">
+                    <div className="row ">
+                        <div className="col-2 ">
                             <p className='text-profile-bio d-flex align-items-center'>Password</p>
                         </div>
 
-                        <div className="col-1 border">
+                        <div className="col-1 ">
                             <p className='text-profile-bio d-flex justify-content-center align-items-center'>:</p>
                         </div>
 
-                        <div className="col border">
+                        <div className="col ">
                             <p className='text-profile-bio d-flex align-items-center'>{penjualById.password}</p>
                         </div>
                     </div>
+                    <hr />
 
-                    <div className="row border">
-                        <div className="col-2 border">
+                    <div className="row ">
+                        <div className="col-2 ">
                             <p className='text-profile-bio d-flex align-items-center'>Alamat</p>
                         </div>
 
-                        <div className="col-1 border">
+                        <div className="col-1 ">
                             <p className='text-profile-bio d-flex justify-content-center align-items-center'>:</p>
                         </div>
 
-                        <div className="col border">
+                        <div className="col ">
                             <p className='text-profile-bio d-flex align-items-center'>{penjualById.alamat}</p>
                         </div>
                     </div>
+                    <hr />
 
-                    <div className="row border d-flex justify-content-end align-items-end">
-                        <div className="but-simpan-profile ">
-                            <p className="text-simpan-profile d-flex justify-content-center align-items-center">Simpan</p>
+                    <div className="row ">
+                        <div className="col-2 ">
+                            <p className='text-profile-bio d-flex align-items-center'>Whatsapp</p>
                         </div>
+
+                        <div className="col-1 ">
+                            <p className='text-profile-bio d-flex justify-content-center align-items-center'>:</p>
+                        </div>
+
+                        <div className="col ">
+                            <p className='text-profile-bio d-flex align-items-center'>{penjualById.whatsapp}</p>
+                        </div>
+                    </div>
+                    <hr />
+
+                    <div className="row ">
+                        <div className="col-2 ">
+                            <p className='text-profile-bio d-flex align-items-center'>No. Rekening</p>
+                        </div>
+
+                        <div className="col-1 ">
+                            <p className='text-profile-bio d-flex justify-content-center align-items-center'>:</p>
+                        </div>
+
+                        <div className="col ">
+                            <p className='text-profile-bio d-flex align-items-center'>{penjualById.no_rek_penjual}</p>
+                        </div>
+                    </div>
+                    <hr />
+
+                    <div className="row  d-flex justify-content-end align-items-end">
+                        <button className='btn btn-warning but-tolak-pesanan'>Edit</button>
                     </div>
             </div>
         </div>
