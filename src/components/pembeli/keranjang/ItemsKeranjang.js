@@ -1,21 +1,28 @@
-import './itemskeranjang.css'
-import kura from '../../image/kuraplongo.jpg'
-import axios from 'axios';
+import "./itemskeranjang.css";
+import kura from "../../image/kuraplongo.jpg";
+import axios from "axios";
 
 import { MdOutlineCancel } from "react-icons/md";
-import { useEffect, useState } from 'react';
-import Cookies from 'js-cookie';
+import { useEffect, useState } from "react";
+import Cookies from "js-cookie";
 
-const ItemsKeranjang = ({datum, setDatum, totalHarga, setTotalHarga, totalItem}) => {
+const ItemsKeranjang = ({datum, setDatum}) => {
 
-    const [disable, setDisable] = useState(true)
+    const [totalItem, setTotalItem] = useState()
+
+    useEffect(()=>{
+        datum.forEach((item) =>{
+            setTotalItem(item.jumlah)
+        })
+    },[])
+
     const handleDelete = async(id, e) => {
         e.preventDefault()
         try {
             await axios.delete(`http://localhost:3311/keranjang/${id}`)
             // window.location.reload()
-            // console.log(id)
-            // console.log('udh keapus bang', datum)  
+            console.log(id)
+            console.log('udh keapus bang', datum)  
             
             const dataFillter = datum.filter(item => item.id_keranjang !== id)
             setDatum(dataFillter)
@@ -25,15 +32,7 @@ const ItemsKeranjang = ({datum, setDatum, totalHarga, setTotalHarga, totalItem})
         }
     
     }
-
-    useEffect(()=>{
-        if(totalItem.current >= 1){
-            setDisable(false)
-        } else (
-            setDisable(true)
-        )
-
-    },[])
+  };
 
     const formatUang = (number) =>{
         return new Intl.NumberFormat("id-ID", {
@@ -41,29 +40,6 @@ const ItemsKeranjang = ({datum, setDatum, totalHarga, setTotalHarga, totalItem})
             currency: "IDR"
         }).format(number);
     }
-
-    const handlePlus = (harga, e) => {
-        e.preventDefault()
-        totalItem.current = totalItem.current + 1
-        setTotalHarga((data)=>({...data,
-            harga_item: harga * totalItem.current
-        }))
-    }
-
-
-    const handleMinus = (harga, e) => {
-        e.preventDefault()
-        totalItem.current = totalItem.current - 1
-        setTotalHarga((data)=>({...data,
-            harga_item: harga * totalItem.current
-        }))
-    }
-
-
-
-    console.log(totalItem)
-    console.log(totalHarga)
-    console.log(disable)
 
     return (
         datum.map((item)=>{
@@ -91,14 +67,13 @@ const ItemsKeranjang = ({datum, setDatum, totalHarga, setTotalHarga, totalItem})
                             </div>
                             <div className="row ">   
                                 <div className="col  d-flex justify-content-center align-items-center">
-                                    <button className='but-jumlah-keranjang' onClick={(e)=>handleMinus(item.harga_item, e)} disabled={disable}>-</button>
+                                    <button className='but-jumlah-keranjang ' onClick={()=>{setTotalItem(totalItem - 1)}}>-</button>
                                         <p 
                                             className='text-jumlah-keranjang px-3 py-2' 
                                             // placeholder={item.jumlah}
                                             // value={}
-                                            // onChange={(e)=>handleChange(totalItem.current, e)}
-                                        >{totalItem.current}</p>
-                                    <button className='but-jumlah-keranjang' onClick={(e)=>handlePlus(item.harga_item, e)}>+</button>
+                                        >{totalItem}</p>
+                                    <button className='but-jumlah-keranjang' onClick={()=>{setTotalItem(totalItem + 1)}}>+</button>
                                 </div>
                             </div>
                             

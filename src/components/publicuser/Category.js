@@ -2,16 +2,15 @@ import './category.css'
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import apiHost from '../../constants/apiHost';
-import DescCategory from './DescCategory';
 
 const Category = () => {
+  const [datum, setDatum] = useState([]);
 
     const [datum, setDatum] = useState([])
 
     useEffect(()=>{
         const dataDB = async () => {
-            const response = await axios.get(`${apiHost}kategori`)
+            const response = await axios.get(`http://localhost:3311/kategori`)
             setDatum(response.data)
             // console.log(response)
         }
