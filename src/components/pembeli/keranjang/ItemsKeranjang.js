@@ -7,23 +7,30 @@ import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import apiHost from "../../../constants/apiHost";
 
-const ItemsKeranjang = ({ datum, setDatum }) => {
-  const [totalItem, setTotalItem] = useState();
+const ItemsKeranjang = ({ datum, setDatum, setTotalHarga}) => {
+  
+  const [getHarga, setGetHarga] = useState();
+  const [dataInput, setDataInput] = useState({
+    id_keranjang:"",
+    jumlah:""
+  })
 
   useEffect(() => {
-    datum.forEach((item) => {
-      setTotalItem(item.jumlah);
-    });
-  }, []);
+   setTotalHarga(+dataInput.jumlah * getHarga)
+    
+  });
+
+  useEffect(() => {
+    const putData = async() =>{
+      await axios.put(`${apiHost}keranjang`, dataInput)
+    }
+    putData()
+  },[dataInput])
 
   const handleDelete = async (id, e) => {
     e.preventDefault();
     try {
       await axios.delete(`${apiHost}keranjang/${id}`);
-      // window.location.reload()
-      console.log(id);
-      console.log("udh keapus bang", datum);
-
       const dataFillter = datum.filter((item) => item.id_keranjang !== id);
       setDatum(dataFillter);
     } catch (error) {
@@ -38,7 +45,31 @@ const ItemsKeranjang = ({ datum, setDatum }) => {
     }).format(number);
   };
 
-  return datum?.map((item) => {
+  
+  const handleTambah = (ijumlah, ikeranjang, iharga, e) => {
+    e.preventDefault()
+    
+    setDataInput((data)=>({...data,
+      jumlah : +ijumlah + 1,
+      id_keranjang : ikeranjang
+    }))
+
+    setGetHarga(iharga)
+  }
+
+  const handleKurang = (ijumlah, ikeranjang, iharga,e) => {
+    e.preventDefault()
+    
+    setDataInput((data)=>({...data,
+      jumlah : +ijumlah - 1,
+      id_keranjang : ikeranjang
+    }))
+
+    setGetHarga(iharga)
+  }
+
+  console.log(dataInput)
+  return datum.map((item) => {
     // const foto = btoa(String.fromCharCode(...new Uint8Array(item.foto_item.data)))
     return (
       <div className="items-keranjang my-3" key={item.id_keranjang}>
@@ -73,24 +104,16 @@ const ItemsKeranjang = ({ datum, setDatum }) => {
               <div className="col  d-flex justify-content-center align-items-center">
                 <button
                   className="but-jumlah-keranjang "
-                  onClick={() => {
-                    setTotalItem(totalItem - 1);
-                  }}
+                  onClick={(e)=> handleKurang(item.jumlah, item.id_keranjang, item.harga_item,e)}
                 >
                   -
                 </button>
-                <p
-                  className="text-jumlah-keranjang px-3 py-2"
-                  // placeholder={item.jumlah}
-                  // value={}
-                >
-                  {totalItem}
+                <p className="text-jumlah-keranjang px-3 py-2" >
+                  {item.jumlah}
                 </p>
                 <button
                   className="but-jumlah-keranjang"
-                  onClick={() => {
-                    setTotalItem(totalItem + 1);
-                  }}
+                  onClick={(e)=> handleTambah(item.jumlah, item.id_keranjang, item.harga_item, e)}
                 >
                   +
                 </button>

@@ -2,6 +2,7 @@ import './halamanedit.css'
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
+import apiHost from '../../../constants/apiHost';
 
 const EditPembeli = ({setIsEdit, pembeliById}) => {
 
@@ -28,7 +29,7 @@ const EditPembeli = ({setIsEdit, pembeliById}) => {
     const handleSimpan = async (e) => {
         e.preventDefault()
         try {   
-            await axios.put(`http://localhost:3311/pembeli`, dataInput);
+            await axios.put(`${apiHost}pembeli`, dataInput);
             alert('udh berhasil daftar bang');
             setIsEdit(false);
             window.location.reload()
