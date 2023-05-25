@@ -59,7 +59,7 @@ const Login = () => {
             data.level === "Penjual"
           ) {
             Cookies.set("id", `${data.id_penjual}`);
-            setGetUrl(`/profile-toko`);
+            setGetUrl(`/penjual`);
           } else {
             dataLoginAdmin.map((data) => {
               if (

@@ -5,6 +5,7 @@ import axios from "axios";
 import { MdOutlineCancel } from "react-icons/md";
 import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
+import apiHost from "../../../constants/apiHost";
 
 const ItemsKeranjang = ({ datum, setDatum }) => {
   const [totalItem, setTotalItem] = useState();
@@ -18,7 +19,7 @@ const ItemsKeranjang = ({ datum, setDatum }) => {
   const handleDelete = async (id, e) => {
     e.preventDefault();
     try {
-      await axios.delete(`http://localhost:3311/keranjang/${id}`);
+      await axios.delete(`${apiHost}keranjang/${id}`);
       // window.location.reload()
       console.log(id);
       console.log("udh keapus bang", datum);

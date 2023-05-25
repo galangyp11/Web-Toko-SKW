@@ -29,6 +29,15 @@ const DescItem = () => {
     
     window.scrollTo(0, 0);
     setDataItem((data) => ({ ...data, id_pembeli: id_pembeli, id_item: id }));
+
+    
+    const getKeranjang = async () => {
+          const response = await axios.get(`${apiHost}keranjang/${id_pembeli}`);
+          setCekItemKeranjang(response.data);
+        };
+    if(id_pembeli !== undefined){
+      getKeranjang();
+    }
   }, []);
 
   // useEffect(()=>{
