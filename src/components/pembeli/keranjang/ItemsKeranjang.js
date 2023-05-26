@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import apiHost from "../../../constants/apiHost";
 
-const ItemsKeranjang = ({ datum, setDatum, setDataInput}) => {
+const ItemsKeranjang = ({ datum, setDatum, setDataInput, disable}) => {
 
   const handleDelete = async (id, e) => {
     e.preventDefault();
@@ -84,6 +84,7 @@ const ItemsKeranjang = ({ datum, setDatum, setDataInput}) => {
                 <button
                   className="but-jumlah-keranjang "
                   onClick={(e)=> handleKurang(item.jumlah, item.id_keranjang, item.harga_item, e)}
+                  disabled={disable}
                 >
                   -
                 </button>
