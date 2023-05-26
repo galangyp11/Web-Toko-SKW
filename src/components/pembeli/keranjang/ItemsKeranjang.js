@@ -7,25 +7,7 @@ import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import apiHost from "../../../constants/apiHost";
 
-const ItemsKeranjang = ({ datum, setDatum, setTotalHarga}) => {
-  
-  const [getHarga, setGetHarga] = useState();
-  const [dataInput, setDataInput] = useState({
-    id_keranjang:"",
-    jumlah:""
-  })
-
-  useEffect(() => {
-   setTotalHarga(+dataInput.jumlah * getHarga)
-    
-  });
-
-  useEffect(() => {
-    const putData = async() =>{
-      await axios.put(`${apiHost}keranjang`, dataInput)
-    }
-    putData()
-  },[dataInput])
+const ItemsKeranjang = ({ datum, setDatum, setDataInput}) => {
 
   const handleDelete = async (id, e) => {
     e.preventDefault();
@@ -46,29 +28,26 @@ const ItemsKeranjang = ({ datum, setDatum, setTotalHarga}) => {
   };
 
   
-  const handleTambah = (ijumlah, ikeranjang, iharga, e) => {
+  const handleTambah = (ijumlah, ikeranjang, ihargaitem, e) => {
     e.preventDefault()
     
     setDataInput((data)=>({...data,
       jumlah : +ijumlah + 1,
-      id_keranjang : ikeranjang
+      id_keranjang : ikeranjang,
+      total_harga : (+ijumlah + 1) * ihargaitem
     }))
-
-    setGetHarga(iharga)
   }
 
-  const handleKurang = (ijumlah, ikeranjang, iharga,e) => {
+  const handleKurang = (ijumlah, ikeranjang, ihargaitem, e) => {
     e.preventDefault()
     
     setDataInput((data)=>({...data,
       jumlah : +ijumlah - 1,
-      id_keranjang : ikeranjang
+      id_keranjang : ikeranjang,
+      total_harga : (+ijumlah - 1) * ihargaitem
     }))
-
-    setGetHarga(iharga)
   }
 
-  console.log(dataInput)
   return datum.map((item) => {
     // const foto = btoa(String.fromCharCode(...new Uint8Array(item.foto_item.data)))
     return (
@@ -104,7 +83,7 @@ const ItemsKeranjang = ({ datum, setDatum, setTotalHarga}) => {
               <div className="col  d-flex justify-content-center align-items-center">
                 <button
                   className="but-jumlah-keranjang "
-                  onClick={(e)=> handleKurang(item.jumlah, item.id_keranjang, item.harga_item,e)}
+                  onClick={(e)=> handleKurang(item.jumlah, item.id_keranjang, item.harga_item, e)}
                 >
                   -
                 </button>

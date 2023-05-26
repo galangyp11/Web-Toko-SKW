@@ -29,7 +29,7 @@ const PageAdmin = ({dataLogin}) => {
             setDataKonfirmasi(response.data)
         }
         getNotif()
-    },[setDataKonfirmasi])
+    })
 
     useEffect(()=>{
         setPage(<HomeAdmin dataAdmin={dataAdmin}/>)

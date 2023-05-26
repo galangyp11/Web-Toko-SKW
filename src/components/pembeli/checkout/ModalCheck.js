@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Modal } from "react-bootstrap";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import apiHost from "../../../constants/apiHost";
 
 const ModalCheck = ({show, setShow, dataInput, totalHarga}) => {
     
@@ -16,7 +17,7 @@ const ModalCheck = ({show, setShow, dataInput, totalHarga}) => {
 
     useEffect(() => {
         const getMp = async () => {
-            const response = await axios.get(`http://localhost:3311/metode_pembayaran/${id}`)
+            const response = await axios.get(`${apiHost}metode_pembayaran/${id}`)
             setDataMp(response.data)
         }
         getMp()

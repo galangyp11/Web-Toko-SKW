@@ -25,6 +25,7 @@ const CheckPembeli = () => {
         id_keranjang:'',
         id_mp: undefined,
         waktu_pesan:'',
+        total_harga_transaksi:'',
         status_transaksi:'Menunggu Konfirmasi'
     });
     const [mpModal, setMpModal] = useState('')
@@ -44,6 +45,7 @@ const CheckPembeli = () => {
             setDataPembeli(response);
         }
         getPembeliById()
+
     },[]);
 
     useEffect(()=>{
@@ -71,7 +73,8 @@ const CheckPembeli = () => {
                     id_item : data.id_item,
                     id_keranjang: data.id_keranjang,
                     id_mp : data.id_mp,
-                    waktu_pesan: new Date()
+                    waktu_pesan: new Date(),
+                    total_harga_transaksi : totalHarga
                 }))
 
                 setAlamatToko(data.alamat)
@@ -83,12 +86,11 @@ const CheckPembeli = () => {
 
     useEffect(()=>{
         try {
-            let sum = 0
-            dataCheckout.forEach(element => {
-                console.log(element)
-                sum += element.harga_item
-                setTotalHarga(sum)
-            });
+            let i = 0
+            dataCheckout.forEach((data)=>{
+             i += data.total_harga
+            setTotalHarga(i)
+        })  
     
         } catch (error) {
             console.log(error)

@@ -1,6 +1,7 @@
 import './notifpesanan.css'
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import apiHost from '../../constants/apiHost';
 
 const NotifPesanan = () => {
 
@@ -11,7 +12,7 @@ const NotifPesanan = () => {
 
     useEffect(()=>{
         const getNotif = async () => {
-            const response = await axios.get('http://localhost:3311/transaksi')
+            const response = await axios.get(`${apiHost}transaksi`)
             setDataKonfirmasi(response.data)
         }
         getNotif()
@@ -25,11 +26,18 @@ const NotifPesanan = () => {
         
         e.preventDefault()
         try {
-            await axios.put(`http://localhost:3311/transaksi/${id}`, dataInput);
+            await axios.put(`${apiHost}transaksi/${id}`, dataInput);
             alert('Berhasil di KOnfirmasi');
         } catch (error) {
             console.log('eror bang gabisa input')
         }
+    }
+
+    const formatUang = (number) =>{
+        return new Intl.NumberFormat("id-ID", {
+            style: "currency",
+            currency: "IDR"
+        }).format(number);
     }
     
     console.log(dataInput)
@@ -62,8 +70,8 @@ const NotifPesanan = () => {
                         <tr key={data.id_transaksi}>
                             <td>{data.username}</td>
                             <td>{data.nama_mp}</td>
-                            <td>Rp. 69.000</td>
-                            <td>12:04 17/5/23 </td>
+                            <td>{formatUang(data.total_harga_transaksi).replace(/\,00/g, '')}</td>
+                            <td>{data.waktu_pesan}</td>
                             <td style={{textAlign:"center"}}>
                                 <button className="btn btn-danger but-tolak-pesanan" onClick={handleTolak}>Tolak</button>    
                             </td>

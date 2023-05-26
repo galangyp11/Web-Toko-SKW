@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import './footerkeranjang.css'
 
-const FooterKeranjang = ({datum, handleCheckout, totalItem, totalHarga}) => {
+const FooterKeranjang = ({datum, handleCheckout, totalHarga}) => {
 
     const formatUang = (number) =>{
         return new Intl.NumberFormat("id-ID", {
@@ -42,7 +42,7 @@ const FooterKeranjang = ({datum, handleCheckout, totalItem, totalHarga}) => {
                     <p className='text-rincian-harga'>Rincian Harga</p>
                     <div className="row">
                         <div className="col">
-                            <p className='text-rincian-isi'>Total item {datum.length}</p>
+                            <p className='text-rincian-isi'>Total item : {datum.length}</p>
                         </div>
                         <div className="col">
                             <p>{formatUang(totalHarga).replace(/\,00/g, '')}</p>
