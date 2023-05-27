@@ -65,7 +65,7 @@ const Sidebaradmin = ({setPage, dataKonfirmasi}) => {
                     <BsFillCaretRightFill size="25px" color='white' className='toggle-btn d-flex justify-content-end'/>
                 </div>
                 <div className="sidebar-content ">
-                    <p className='text-sidebar-admin-content d-flex align-items-center px-3' id='text-sidebar-admin' onClick={()=> setPage(<ProfilPenjualAdmin/>)}>Profile</p>
+                    <p className='text-sidebar-admin-content d-flex align-items-center px-3' id='text-sidebar-admin' onClick={()=> setPage(<ProfilPenjualAdmin/>)}>Profile Penjual</p>
                 </div>
             </div>
 
@@ -76,7 +76,7 @@ const Sidebaradmin = ({setPage, dataKonfirmasi}) => {
                     <BsFillCaretRightFill size="25px" color='white' className='toggle-btn d-flex justify-content-end ' />
                 </div>
                 <div className="sidebar-content ">
-                    <p className='text-sidebar-admin-content px-3 d-flex align-items-center' id='text-sidebar-admin' onClick={()=> setPage(<ProfilPembeliAdmin/>)}>Profile</p>
+                    <p className='text-sidebar-admin-content px-3 d-flex align-items-center' id='text-sidebar-admin' onClick={()=> setPage(<ProfilPembeliAdmin/>)}>Profile Pembeli</p>
                     <p className='text-sidebar-admin-content px-3 d-flex align-items-center' id='text-sidebar-admin' onClick={()=> setPage(<TransaksiPembeliAdmin/>)}>Riwayat Transaksi</p>                
                 </div>
             </div>

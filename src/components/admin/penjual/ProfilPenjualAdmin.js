@@ -17,12 +17,19 @@ const ProfilPenjualAdmin = () => {
 
   useEffect(() => {
     const getDatumItem = async () => {
-      const response = await axios.get(`http://localhost:3311/penjual`);
+      const response = await axios.get(`${apiHost}penjual`);
       setDatum(response.data);
     };
 
     getDatumItem();
   }, []);
+
+  const handleDelete = async(e, id) =>{
+    e.preventDefault()
+    await axios.delete(`${apiHost}penjual/${id}`);
+    const dataFillter = datum.filter((item) => item.id_penjual !== id);
+    setDatum(dataFillter);
+  }
 
   function prePage() {
     if (currentPage !== firstIndex) {
@@ -87,7 +94,7 @@ const ProfilPenjualAdmin = () => {
                 <td>{data.nama_toko}</td>
                 <td>{data.alamat}</td>
                 <td style={{ textAlign: "center" }}>
-                  <button className="btn btn-danger but-tolak-pesanan">
+                  <button className="btn btn-danger but-tolak-pesanan" onClick={(e) =>handleDelete(e, data.id_penjual)}>
                     Hapus
                   </button>
                 </td>

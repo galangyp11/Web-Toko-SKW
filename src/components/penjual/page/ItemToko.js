@@ -61,7 +61,6 @@ const ItemToko = () => {
                     <th className='col-3' scope="col">Nama Item</th>
                     <th className='col-1' scope="col">Kategori</th>
                     <th className='col-1' scope="col">Harga</th>
-                    <th className='col-2' scope="col">Toko</th>
                     <th className='col-1' scope="col">Stok</th>
                     <th className='col-2 text-center' scope="col" colspan='2'>Aksi</th>
                 </tr>
@@ -74,7 +73,6 @@ const ItemToko = () => {
                         <td>{item.nama_item}</td>
                         <td>{item.nama_kategori}</td>
                         <td>{formatUang(item.harga_item).replace(/\,00/g, '')}</td>
-                        <td>{item.nama_toko}</td>
                         <td>{item.stok_item}</td>
                         <td style={{textAlign:"center"}}>
                             <button className="btn btn-warning but-tolak-pesanan">Edit</button>    

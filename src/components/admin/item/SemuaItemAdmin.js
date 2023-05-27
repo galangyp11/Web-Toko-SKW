@@ -21,6 +21,13 @@ const SemuaItemAdmin = () => {
         getDatumItem()
     },[])
 
+    const handleDelete = async(e, id) =>{
+        e.preventDefault()
+        await axios.delete(`${apiHost}item/${id}`);
+        const dataFillter = datumItem.filter((item) => item.id_item !== id);
+        setDatumItem(dataFillter);
+      }
+
     const formatUang = (number) =>{
         return new Intl.NumberFormat("id-ID", {
             style: "currency",
@@ -85,7 +92,7 @@ const SemuaItemAdmin = () => {
                         <td>{item.nama_toko}</td>
                         <td>{item.stok_item}</td>
                         <td style={{textAlign:"center"}}>
-                                <button className="btn btn-danger but-tolak-pesanan">Hapus</button>    
+                                <button className="btn btn-danger but-tolak-pesanan" onClick={(e)=> handleDelete(e, item.id_item)}>Hapus</button>    
                             </td>
                     </tr>
                     )
