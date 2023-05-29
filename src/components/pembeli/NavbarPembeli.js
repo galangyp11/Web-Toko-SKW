@@ -8,6 +8,8 @@ import axios from "axios";
 import { BsFillCartFill } from "react-icons/bs";
 import { BsSearch } from "react-icons/bs";
 import { useSearch } from "../../context";
+import Alert from "../AlertKuning";
+import apiHost from "../../constants/apiHost";
 
 const Navbar = () => {
   const [pembeliById, setPembeliById] = useState({});
@@ -16,28 +18,43 @@ const Navbar = () => {
   const id = Cookies.get("id");
   const { dispatch } = useSearch();
 
+  const [isAlert, setIsAlert] = useState(false)
+  const [textAlert, setTextAlert] = useState('')
+
   useEffect(() => {
     const getItemById = async () => {
-      const response = await axios.get(`http://localhost:3311/pembeli/${id}`);
+      const response = await axios.get(`${apiHost}pembeli/${id}`);
       setPembeliById(response.data);
       // console.log(response.data);
     };
     getItemById();
   }, []);
 
-  setTimeout(() => {
-    try {
-      setFoto(
-        btoa(
-          String.fromCharCode(...new Uint8Array(pembeliById.foto_profil.data))
-        )
-      );
-    } catch (error) {
-      setFoto(fotoKosing);
-      console.log("sabar bang fotonya lagi loading");
+  useEffect(()=>{
+    if(pembeliById.alamat === ""){
+      setIsAlert(true)
+      setTextAlert('Silahkan lengkapi profile')
     }
-  }, 100);
 
+    if(pembeliById.foto_profil === 0 ){
+      setFoto(fotoKosing)
+    } else {
+      setTimeout(() => {
+        try {
+          setFoto(
+            btoa(
+              String.fromCharCode(...new Uint8Array(pembeliById.foto_profil.data))
+            )
+          );
+        } catch (error) {
+          console.log("sabar bang fotonya lagi loading");
+        }
+      }, 100);
+    
+    }
+  },[pembeliById])
+
+  
   const handleLogout = () => {
     Cookies.remove("id");
 
@@ -47,7 +64,7 @@ const Navbar = () => {
     }, 100);
   };
 
-  // console.log(pembeliById)
+  console.log(pembeliById)
 
   return (
     <div className="navbar d-flex align-items-center justify-content-center">
@@ -86,6 +103,7 @@ const Navbar = () => {
             className="bg-keranjang-pembeli mx-3 d-flex justify-content-center align-items-center"
             onClick={() => {
               navigate("/keranjang");
+              // window.location.reload()
             }}
           >
             <BsFillCartFill color="#0E8388" size="25px" />
@@ -146,6 +164,9 @@ const Navbar = () => {
           </div>
         </div>
       </div>
+        <div className="d-flex justify-content-center">
+          {isAlert ? <Alert textAlert={textAlert} isAlert={isAlert} setIsAlert={setIsAlert}/> : <div></div>}
+        </div>
     </div>
   );
 };

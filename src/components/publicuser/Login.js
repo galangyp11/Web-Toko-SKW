@@ -4,6 +4,7 @@ import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 import Cookies from "js-cookie";
 import apiHost from "../../constants/apiHost";
+import Alert from "../AlertMerah";
 
 const Login = () => {
   const [inputUser, setInputUser] = useState({
@@ -14,70 +15,29 @@ const Login = () => {
   const [dataLoginAdmin, setDataLoginAdmin] = useState([]);
   const [dataLoginPembeli, setDataLoginPembeli] = useState([]);
   const [dataLoginPenjual, setDataLoginPenjual] = useState([]);
-
+  const [isAlert, setIsAlert] = useState(false)
+  const [textAlert, setTextAlert] = useState('')
   const navigate = useNavigate();
-  const [getUrl, setGetUrl] = useState("");
 
   useEffect(() => {
     const getAdminById = async () => {
       const response = await axios.get(`${apiHost}admin`);
       setDataLoginAdmin(response.data);
-      console.log(response.data);
     };
     getAdminById();
 
     const getPenjualById = async () => {
       const response = await axios.get(`${apiHost}penjual`);
       setDataLoginPenjual(response.data);
-      console.log(response.data);
     };
     getPenjualById();
 
     const getPembeliById = async () => {
       const response = await axios.get(`${apiHost}pembeli`);
       setDataLoginPembeli(response.data);
-      console.log(response.data);
     };
     getPembeliById();
   }, []);
-
-  useEffect(() => {
-    dataLoginPembeli.map((data) => {
-      console.log("dataloginpembeli", data);
-      if (
-        data.email === inputUser.emailInput &&
-        data.password === inputUser.passwordInput &&
-        data.level === "Pembeli"
-      ) {
-        Cookies.set("id", `${data.id_pembeli}`);
-        setGetUrl(`/`);
-      } else {
-        dataLoginPenjual.map((data) => {
-          if (
-            data.email === inputUser.emailInput &&
-            data.password === inputUser.passwordInput &&
-            data.level === "Penjual"
-          ) {
-            Cookies.set("id", `${data.id_penjual}`);
-            setGetUrl(`/penjual`);
-          } else {
-            dataLoginAdmin.map((data) => {
-              if (
-                data.email === inputUser.emailInput &&
-                data.password === inputUser.passwordInput &&
-                data.level === "Admin"
-              ) {
-                Cookies.set("id", `${data.id_admin}`);
-                setGetUrl(`/Admin`);
-              } else {
-                console.log("modar");
-              }
-            });
-          }
-        });
-      }
-    });
-  }, [inputUser]);
 
   const handleInput = (e) => {
     e.preventDefault();
@@ -85,9 +45,45 @@ const Login = () => {
   };
 
   const handleLogin = () => {
-    navigate(getUrl);
-    // console.log(getUrl)
+      dataLoginPembeli.map((data) => {
+        if (
+          data.email === inputUser.emailInput &&
+          data.password === inputUser.passwordInput &&
+          data.level === "Pembeli"
+        ) {
+          Cookies.set("id", `${data.id_pembeli}`);
+          navigate(`/`);
+        } else {
+          dataLoginPenjual.map((data) => {
+            if (
+              data.email === inputUser.emailInput &&
+              data.password === inputUser.passwordInput &&
+              data.level === "Penjual"
+            ) {
+              Cookies.set("id", `${data.id_penjual}`);
+              navigate(`/penjual`);
+            } else {
+              dataLoginAdmin.map((data) => {
+                if (
+                  data.email === inputUser.emailInput &&
+                  data.password === inputUser.passwordInput &&
+                  data.level === "Admin"
+                ) {
+                  Cookies.set("id", `${data.id_admin}`);
+                  navigate(`/Admin`);
+                } else {
+                  setIsAlert(true)
+                  setTextAlert('Email atau Password Salah')
+                }
+              });
+            }
+          });
+        }
+      });
+
   };
+
+
 
   return (
     <div className="login d-flex justify-content-center align-items-center">
@@ -184,6 +180,9 @@ const Login = () => {
               </div>
             </div>
           </div>
+        </div>
+        <div className="d-flex justify-content-center" >
+          {isAlert ? <Alert textAlert={textAlert} isAlert={isAlert} setIsAlert={setIsAlert}/> : <div></div>}
         </div>
       </div>
     </div>

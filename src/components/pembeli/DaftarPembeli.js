@@ -1,8 +1,10 @@
 import axios from 'axios';
 import apiHost from '../../constants/apiHost'
 import './daftarpembeli.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+
+import Alert from '../AlertMerah';
 
 const DaftarPembeli = () => {
 
@@ -16,35 +18,56 @@ const DaftarPembeli = () => {
         no_rek_pembeli:null,
         level: "Pembeli"
     })
+    const [isAlert, setIsAlert] = useState(false)
+    const [textAlert, setTextAlert] = useState('')
+    const [dataPembeli, setDataPembeli] = useState([])
 
+    useEffect(()=>{
+        const getDataPembeli = async() =>{
+            const response = await axios.get(`${apiHost}pembeli`)
+            setDataPembeli(response.data)
+        }
+
+        getDataPembeli()
+    },[])
+
+    console.log(dataPembeli)
     const handleInput = (e) =>{
         setDataInput((data) => ({...data, 
             [e.target.id] : e.target.value
         }))
     }
     
-    const handleDaftarPembeli = async (e) =>{
+    const handleDaftarPembeli = async(e) =>{
         e.preventDefault()
 
-        // if(!dataInput.email){
-        //     alert('di isi emailnya dulu bang')
-        //     if(!dataInput.username){
-        //         alert('di isi usernamenya dulu bang')
-        //         if(!dataInput.password){
-        //             alert('bang passwordnya g boleh kosong')
-        //         }else{
+        // dataPembeli.map((data)=>{
+        if(dataInput.email === ""){
+            setIsAlert(true)
+            setTextAlert('Email tidak boleh kosong!')
+        }else if(dataInput.password === ""){
+            setIsAlert(true)
+            setTextAlert('Password tidak boleh kosong!')
+        }else if(dataInput.password.length < 8){
+            setIsAlert(true)
+            setTextAlert('Password harus lebih dari 8 karakter')
+        }else if(dataInput.username === ""){
+            setIsAlert(true)
+            setTextAlert('Username tidak boleh kosong!')
+            
+            // }else if(dataInput.email === data.email){
+            //             setIsAlert(true)
+            //             setTextAlert('Email sudah terdaftar')
+                }else{
                     try {
                         await axios.post(`${apiHost}pembeli`, dataInput);
-                        alert('udh berhasil daftar bang');
                         navigate('/login');
                         console.log('bisa kog')
                     } catch (error) {
                         console.log('eror bang gabisa input')
                     }
-        //         }
-        //     }
-        // }
-        
+                }
+            // })
     }
 
     console.log(dataInput)
@@ -122,6 +145,9 @@ const DaftarPembeli = () => {
                                     </div>
                     </div>
                </div>
+            </div>
+            <div className="d-flex justify-content-center">
+                {isAlert ? <Alert textAlert={textAlert} isAlert={isAlert} setIsAlert={setIsAlert}/> : <div></div>}
             </div>
         </div>
      );

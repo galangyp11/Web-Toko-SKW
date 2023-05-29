@@ -4,6 +4,8 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import Cookies from "js-cookie";
 import apiHost from "../../constants/apiHost";
+import AlertHijau from "../AlertHijau";
+import AlertMerah from "../AlertMerah";
 
 import KuraPlongo from "../image/kuraplongo.jpg";
 
@@ -19,6 +21,9 @@ const DescItem = () => {
     id_item: "",
     jumlah: "1",
   });
+  const [isAlertHijau, setIsAlertHijau] = useState(false)
+  const [isAlertMerah, setIsAlertMerah] = useState(false)
+  const [textAlert, setTextAlert] = useState('')
 
   useEffect(() => {
     const getItemById = async () => {
@@ -40,24 +45,19 @@ const DescItem = () => {
     }
   }, []);
 
-  // useEffect(()=>{
-  //   const getKeranjang = async () => {
-  //     const response = await axios.get(`${apiHost}keranjang/${id_pembeli}`);
-  //     setCekItemKeranjang(response.data);
-  //   };
-  //   getKeranjang();
-  // },[id_pembeli !== undefined])
-
   const handleKeranjang = async (e) => {
     e.preventDefault();
     if (id_pembeli === undefined) {
-      alert("Login dulu bre");
+      setIsAlertMerah(true)
+      setTextAlert('Silahkan Login dahulu')
     } else if (idItemKeranjang === itemById.id_item) {
-      alert("Item sudah ada di Keranjang !");
+      setIsAlertMerah(true)
+      setTextAlert('Item sudah ada di keranjang')
     } else {
       try {
         await axios.post(`${apiHost}keranjang`, dataItem);
-        alert("Item Masuk ke keranjang :)");
+        setIsAlertHijau(true)
+        setTextAlert('Item dimasukkan ke keranjang')
         window.location.reload();
         console.log("bisa kog");
       } catch (error) {
@@ -197,7 +197,11 @@ const DescItem = () => {
                 </div>
 
             </div>
+            <div className="d-flex justify-content-center" >
+              {isAlertHijau ? <AlertHijau textAlert={textAlert} isAlert={isAlertHijau} setIsAlert={setIsAlertHijau}/> : <div></div>}
+              {isAlertMerah ? <AlertMerah textAlert={textAlert} isAlert={isAlertMerah} setIsAlert={setIsAlertMerah}/> : <div></div>}
           </div>
+    </div>
   );
 };
 

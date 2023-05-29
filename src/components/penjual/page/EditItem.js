@@ -6,18 +6,18 @@ import Cookies from 'js-cookie';
 import { GoFileMedia } from "react-icons/go";
 import apiHost from '../../../constants/apiHost';
 import ItemToko from './ItemToko';
-import { useNavigate } from 'react-router-dom';
 
-const InputItem = ({setIsUbah, setPageItem}) => {
+const EditItem = ({id_item, setIsUbah, setPageItem}) => {
 
+    const [itemById, setItemById] = useState({})
     const id = Cookies.get('id')
-    const navigate = useNavigate()
     const [dataInput, setDataInput] = useState({
+        id_item: '',
         id_penjual: '',
         nama_item: "",
         harga_item: "",
         foto_item: [],
-        deksripsi_item: "",
+        deskripsi_item: "",
         id_kategori: "",
         stok_item: "",
         warna_item: "",
@@ -26,6 +26,14 @@ const InputItem = ({setIsUbah, setPageItem}) => {
         tgl_input : ""
     });
     const tanggal = new Date()
+
+    useEffect(()=>{
+        const getItemById = async () => {
+            const response = await axios.get(`${apiHost}item/${id_item}`);
+            setItemById(response.data);
+          };
+          getItemById();
+    },[])
  
     const handleInput = (e) =>{
         e.preventDefault()
@@ -35,11 +43,21 @@ const InputItem = ({setIsUbah, setPageItem}) => {
         }))
     }
 
-    useEffect(()=>{
+    useEffect((e)=>{
         setDataInput((data)=> ({...data,
-            id_penjual : id
+            id_penjual : id,
+            id_item : itemById.id_item,
+            nama_item: itemById.nama_item,
+            harga_item: itemById.harga_item,
+            deskripsi_item: itemById.deskripsi_item,
+            id_kategori: itemById.id_kategori,
+            stok_item: itemById.stok_item,
+            warna_item: itemById.warna_item,
+            ukuran_item: [],
+            biaya_operasional: itemById.biaya_operasional,
+            tgl_input : itemById.tgl_input
         }))
-    }, [])
+    },[itemById])
 
     const handleBatal = () => {
         setIsUbah(false)
@@ -66,7 +84,7 @@ const InputItem = ({setIsUbah, setPageItem}) => {
 
             }
             
-            await axios.post(`${apiHost}item`, formData);
+            await axios.put(`${apiHost}item`, formData);
             alert('udh berhasil daftar bang');
             setPageItem(<ItemToko/>)
         } catch (error) {
@@ -88,12 +106,12 @@ const InputItem = ({setIsUbah, setPageItem}) => {
         }))
     }
 
+    console.log(itemById)
     console.log(dataInput)
-    // console.log(dataInput.id_kategori)
-
+    // console.log(id_item)
     return ( 
-        <div className="">
-            <p className='text-title-halaman'>Input Item</p>
+        <div className="edit-item">
+            <p className='text-title-halaman'>Edit Item</p>
             <div className='item-toko container p-4'>
             
             <div className="form-body-penjual gap-1 d-flex justify-content-center row">
@@ -117,7 +135,8 @@ const InputItem = ({setIsUbah, setPageItem}) => {
                             className='input-text'
                             type="text"
                             id="nama_item"
-                            value={dataInput.nama_item}
+                            placeholder={itemById.nama_item}
+                            //value={dataInput.nama_item}
                             onChange={handleInput}
                         />
                     </div>
@@ -133,7 +152,8 @@ const InputItem = ({setIsUbah, setPageItem}) => {
                             name="deksripsi" 
                             id="deksripsi_item"
                             style={{resize:"none", height:"100px"}}
-                            value={dataInput.deksripsi_item}
+                            placeholder={itemById.deskripsi_item}
+                            //value={dataInput.deksripsi_item}
                             onChange={handleInput}
                         ></textarea>
                     </div>
@@ -148,7 +168,8 @@ const InputItem = ({setIsUbah, setPageItem}) => {
                             name="kategori" 
                             id="id_kategori" 
                             className='input-text'
-                            value={dataInput.id_kategori}
+                            // placeholder={itemById.nama_item}
+                            //value={dataInput.id_kategori}
                             onChange={handleInput}
                         >
                             <option value="1">Makanan</option>
@@ -170,7 +191,8 @@ const InputItem = ({setIsUbah, setPageItem}) => {
                             className='input-text'
                             type="text"
                             id="harga_item"
-                            value={dataInput.harga_item}
+                            placeholder={itemById.harga_item}
+                            //value={dataInput.harga_item}
                             onChange={handleInput}
                             disabled={dataInput.id_kategori !== "6" ? false : true}
                         />
@@ -186,7 +208,8 @@ const InputItem = ({setIsUbah, setPageItem}) => {
                             className='input-text'
                             type="text"
                             id="stok_item"
-                            value={dataInput.stok_item}
+                            placeholder={itemById.stok_item}
+                            //value={dataInput.stok_item}
                             onChange={handleInput}
                         />
                     </div>
@@ -201,7 +224,8 @@ const InputItem = ({setIsUbah, setPageItem}) => {
                             className='input-text'
                             type="text"
                             id="warna_item"
-                            value={dataInput.warna_item}
+                            placeholder={itemById.warna_item}
+                            //value={dataInput.warna_item}
                             onChange={handleInput}
                             disabled={dataInput.id_kategori === "3" || dataInput.id_kategori === "4" ? false : true}
                         />
@@ -264,7 +288,8 @@ const InputItem = ({setIsUbah, setPageItem}) => {
                             className='input-text'
                             type="text"
                             id="biaya_operasional"
-                            value={dataInput.biaya_operasional}
+                            placeholder={itemById.biaya_operasional}
+                            //value={dataInput.biaya_operasional}
                             onChange={handleInput}
                             disabled={dataInput.id_kategori === "6" ? false : true}
                         />
@@ -287,4 +312,4 @@ const InputItem = ({setIsUbah, setPageItem}) => {
      );
 }
  
-export default InputItem;
+export default EditItem;

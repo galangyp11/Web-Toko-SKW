@@ -2,12 +2,14 @@ import './keranjang.css'
 import { useState, useEffect, useRef } from 'react';
 import apiHost from '../../../constants/apiHost'
 import axios from 'axios';
+import Cookies from 'js-cookie';
+import { useNavigate } from 'react-router-dom';
 
 import FooterKeranjang from './FooterKeranjang';
 import ItemsKeranjang from './ItemsKeranjang';
 import NavbarKeranjang from './NavbarKeranjang'
-import Cookies from 'js-cookie';
-import { useNavigate } from 'react-router-dom';
+import Alert from '../../AlertMerah';
+
 
 const Keranjang = () => {
 
@@ -17,12 +19,14 @@ const Keranjang = () => {
         jumlah:"",
         total_harga:""
       })
-    const [totalHarga, setTotalHarga] = useState()
+    const [totalHarga, setTotalHarga] = useState(0)
     const [isKosong, setIsKosong] = useState(true)
     const [disable, setDisable] = useState()
     const id = Cookies.get('id')
     const navigate = useNavigate()
-
+    const [isAlert, setIsAlert] = useState(false)
+    const [textAlert, setTextAlert] = useState('')
+    
     useEffect(()=>{
         const dataDB = async () => {
             const response = await axios.get(`${apiHost}keranjang/${id}`)
@@ -41,7 +45,16 @@ const Keranjang = () => {
                 setDisable(false)
             }
         })
+        
     }) 
+
+    // useEffect(()=>{
+    //     let i = 0
+    //     datum.forEach((data)=>{
+    //          i += data.harga_item
+    //         setTotalHarga(i)
+    //     })
+    // },[])
 
     useEffect(()=>{
         if(datum.length != 0){
@@ -62,7 +75,8 @@ const Keranjang = () => {
 
     const handleCheckout = async (e) =>{
         if(isKosong === true){
-            alert('Keranjang Kamu Kosong')
+            setIsAlert(true)
+            setTextAlert('Keranjang kamu kosong')
         } else {
             // await axios.post(`${apiHost}/transaksi`, );
             navigate('/checkout')
@@ -72,7 +86,7 @@ const Keranjang = () => {
     // console.log(isKosong)
     // console.log(datum)
     // console.log(dataInput)
-    // console.log(totalHarga)
+    console.log(totalHarga)
 
     return ( 
         <div className="keranjang">
@@ -90,6 +104,9 @@ const Keranjang = () => {
                         <FooterKeranjang datum={datum} isKosong={isKosong} handleCheckout={handleCheckout} totalHarga={totalHarga}/>
                     </div>
                 </div> 
+            </div>
+            <div className="d-flex justify-content-center" >
+            {isAlert ? <Alert textAlert={textAlert} isAlert={isAlert} setIsAlert={setIsAlert}/> : <div></div>}
             </div>
         </div>
      );

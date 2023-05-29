@@ -6,11 +6,12 @@ import { useState, useEffect } from 'react'
 import Cookies from 'js-cookie'
 import axios from 'axios'
 import apiHost from '../../../constants/apiHost'
+import EditItem from './EditItem'
 
 const ItemToko = () => {
-
-    const [isInput, setIsInput] = useState(false)
     const [datumItem, setDatumItem] = useState([])
+    const [isUbah, setIsUbah] = useState(false)
+    const [pageItem ,setPageItem] = useState(null)
     const id = Cookies.get('id')
 
     useEffect(()=>{
@@ -30,9 +31,33 @@ const ItemToko = () => {
 
     console.log(datumItem)
 
+    const handleTambah = () => {
+        setIsUbah(true)
+        setPageItem(<InputItem setIsUbah={setIsUbah} setPageItem={setPageItem}/>)
+    }
+
+    const handleEdit = (e, id_item) => {
+        e.preventDefault()
+
+        setIsUbah(true)
+        setPageItem(<EditItem id_item={id_item} setIsUbah={setIsUbah} setPageItem={setPageItem}/>)
+    }
+
+    const handleDelete = async(e, id) =>{
+        e.preventDefault()
+        await axios.delete(`${apiHost}item/${id}`);
+        const dataFillter = datumItem.filter((item) => item.id_item !== id);
+        setDatumItem(dataFillter);
+    }
+
+    // useEffect(()=>{
+    //     setPageItem(<ItemToko setPageItem={setPageItem}/>)
+    // },[])
+    
+
     return ( 
         <div className="container">
-            {!isInput? 
+        {!isUbah ?
         <div>
         <div className="row">
             <p className='text-title-halaman'>Item SKW</p>
@@ -50,7 +75,7 @@ const ItemToko = () => {
             </div>
 
             <div className="col d-flex justify-content-end align-items-center">
-                <button className='but-input-item-penjual' onClick={()=>setIsInput(true)}>Tambah Item</button>
+                <button className='but-input-item-penjual' onClick={handleTambah}>Tambah Item</button>
             </div>
         </div>
 
@@ -75,10 +100,10 @@ const ItemToko = () => {
                         <td>{formatUang(item.harga_item).replace(/\,00/g, '')}</td>
                         <td>{item.stok_item}</td>
                         <td style={{textAlign:"center"}}>
-                            <button className="btn btn-warning but-tolak-pesanan">Edit</button>    
+                            <button className="btn btn-warning but-tolak-pesanan" onClick={(e)=>handleEdit(e, item.id_item)}>Edit</button>    
                         </td>
                         <td style={{textAlign:"center"}}>
-                            <button className="btn btn-danger but-tolak-pesanan">Hapus</button>    
+                            <button className="btn btn-danger but-tolak-pesanan" onClick={(e)=>handleDelete(e, item.id_item)}>Hapus</button>    
                         </td>
                     </tr>
                 )
@@ -88,7 +113,7 @@ const ItemToko = () => {
         </table>
         </div>
         </div>
-        : <InputItem setIsInput={setIsInput}/>}
+            : pageItem}
     </div> 
         
      );

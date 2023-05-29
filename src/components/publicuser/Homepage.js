@@ -5,6 +5,7 @@ import Category from "./Category";
 import Banner from "./Banner";
 import Loading from "../Loading";
 
+
 const Homepage = () => {
   return (
     <div className="homepage-con container">
@@ -23,7 +24,9 @@ const Homepage = () => {
             {/* <div className="row d-flex justify-content-center">
                 <Loading />    
             </div> */}
-        </div>
+
+      
+    </div>
      );
 }
  

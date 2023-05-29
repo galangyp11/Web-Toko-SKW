@@ -7,6 +7,7 @@ import axios from 'axios';
 import fotoKosing from '../../image/kuraplongo.jpg';
 import InfoPembeli from './InfoPembeli';
 import HalamanEdit from '../edit/HalamanEdit';
+import apiHost from '../../../constants/apiHost';
 
 const ProfilePembeli = () => {
 
@@ -19,7 +20,7 @@ const ProfilePembeli = () => {
 
     useEffect(() => {
         const getItemById = async () => {
-            const response = await axios.get(`http://localhost:3311/pembeli/${id}`);
+            const response = await axios.get(`${apiHost}pembeli/${id}`);
             setPembeliById(response.data);
             console.log(response.data);
         }

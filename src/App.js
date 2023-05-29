@@ -19,6 +19,8 @@ import PagePenjual from "./components/penjual/PagePenjual";
 import DaftarPenjual from "./components/penjual/DaftarPenjual";
 
 import { SearchProvider } from "./context";
+import ProfileToko from "./components/penjual/page/ProfileToko";
+import ItemToko from "./components/penjual/page/ItemToko";
 
 function App() {
   return (
@@ -35,7 +37,9 @@ function App() {
           <Route path="/keranjang" element={<Keranjang />} />
           <Route path="/checkout" element={<CheckPembeli />} />
           <Route path="/pesanan" element={<TransaksiPembeli />} />
-          <Route path="/penjual" element={<PagePenjual />} />
+          <Route path="penjual" element={<PagePenjual />}>
+              <Route path="item-toko" element={<ItemToko />} />
+          </Route>
 
         </Route>
 
