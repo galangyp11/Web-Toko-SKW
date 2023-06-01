@@ -19,7 +19,7 @@ const Keranjang = () => {
         jumlah:"",
         total_harga:""
       })
-    const [totalHarga, setTotalHarga] = useState(0)
+    const [totalHarga, setTotalHarga] = useState()
     const [isKosong, setIsKosong] = useState(true)
     const [disable, setDisable] = useState()
     const id = Cookies.get('id')
@@ -33,35 +33,28 @@ const Keranjang = () => {
             setDatum(response.data)
         }
         dataDB()
-
-        let i = 0
-        datum.forEach((data)=>{
-             i += data.total_harga
-            setTotalHarga(i)
-
-            if(data.jumlah == 1){
-                setDisable(true)
-            } else {
-                setDisable(false)
-            }
-        })
         
     }) 
-
-    // useEffect(()=>{
-    //     let i = 0
-    //     datum.forEach((data)=>{
-    //          i += data.harga_item
-    //         setTotalHarga(i)
-    //     })
-    // },[])
 
     useEffect(()=>{
         if(datum.length != 0){
             setIsKosong(false)
           }  else {
             setIsKosong(true)
+            setTotalHarga(0)
           }
+   
+        let i = 0
+            datum.forEach((data)=>{           
+                i += data.total_harga
+                setTotalHarga(i)
+
+               if(data.jumlah == 1){
+                setDisable(true)
+                } else {
+                setDisable(false)
+                }
+            })
     },[datum])
     
     
@@ -78,15 +71,14 @@ const Keranjang = () => {
             setIsAlert(true)
             setTextAlert('Keranjang kamu kosong')
         } else {
-            // await axios.post(`${apiHost}/transaksi`, );
             navigate('/checkout')
         }
     }
 
     // console.log(isKosong)
-    // console.log(datum)
+    // console.log('datum:',datum)
     // console.log(dataInput)
-    console.log(totalHarga)
+    // console.log(`total harga : ${totalHarga}`)
 
     return ( 
         <div className="keranjang">

@@ -103,7 +103,7 @@ const ProfileToko = () => {
                         </div>
 
                         <div className="col ">
-                            <p className='text-profile-bio d-flex align-items-center'>{penjualById.alamat}</p>
+                            <p className='text-profile-bio d-flex align-items-center'>{penjualById.alamat_toko}</p>
                         </div>
                     </div>
                     <hr />

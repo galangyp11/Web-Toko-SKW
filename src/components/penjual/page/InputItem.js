@@ -7,6 +7,7 @@ import { GoFileMedia } from "react-icons/go";
 import apiHost from '../../../constants/apiHost';
 import ItemToko from './ItemToko';
 import { useNavigate } from 'react-router-dom';
+import Alert from '../../AlertHijau'
 
 const InputItem = ({setIsUbah, setPageItem}) => {
 
@@ -25,15 +26,41 @@ const InputItem = ({setIsUbah, setPageItem}) => {
         biaya_operasional: "",
         tgl_input : ""
     });
+    const [isChecked, setIsChecked] = useState(false)
     const tanggal = new Date()
+    const [isAlert, setIsAlert] = useState(false)
+    const [textAlert, setTextAlert] = useState('')
  
     const handleInput = (e) =>{
         e.preventDefault()
-                 
-        setDataInput((data) => ({...data, 
-            [e.target.id] : e.target.value,
-        }))
+            setDataInput((data) => ({...data, 
+                [e.target.id] : e.target.value,
+            }))
     }
+
+    const handleInputUkuran = (e) =>{
+        // setIsChecked(!isChecked)
+        e.preventDefault()
+        if(e.target.checked) {
+            const dataUkuran = [...dataInput.ukuran_item]
+            dataUkuran.splice(0, 0, e.target.value)
+            // console.log(dataUkuran)
+            setDataInput((data)=>({...data, ukuran_item : dataUkuran}))
+        } else {
+            setDataInput((data)=>({...data, ukuran_item: data.ukuran_item.splice(e.target.value, 1 )}))
+        }
+
+    }
+
+    useEffect(()=>{
+        setDataInput((data) => ({...data, 
+            harga_item : "",
+            stok_item : "",
+            warna_item : "",
+            // ukuran_item : [],
+            biaya_operasional : ""
+        }))
+    },[dataInput.id_kategori])
 
     useEffect(()=>{
         setDataInput((data)=> ({...data,
@@ -56,18 +83,26 @@ const InputItem = ({setIsUbah, setPageItem}) => {
             let formData = new FormData();
             
             for (const [key, value] of Object.entries(dataInput)) {
-                if (key !== 'foto_item') {
+                if (key !== 'foto_item' && key !== 'ukuran_item') {
                     formData.append(key, value)
-                }
+                }             
             }
             
             for (let i = 0; i < dataInput.foto_item.length; i++) {
                 formData.append('foto_item', dataInput.foto_item[i])
 
             }
+
+            for (let i = 0; i < dataInput.ukuran_item.length; i++) {
+                formData.append('ukuran_item', dataInput.ukuran_item[i])
+
+            }
             
             await axios.post(`${apiHost}item`, formData);
-            alert('udh berhasil daftar bang');
+            setIsAlert(true)
+            setTextAlert('Item berhasil diinput')
+            // console.log(dataInput.ukuran_item.length)
+            // console.log(formData)
             setPageItem(<ItemToko/>)
         } catch (error) {
             console.log('eror bang gabisa input', error)
@@ -76,7 +111,7 @@ const InputItem = ({setIsUbah, setPageItem}) => {
 
     const onChangeFile = (evt) => {
         if (evt.target.files.length > 4 ) {
-            alert('maksimum upload 4     file')
+            alert('maksimum upload 4 file')
             document.getElementById('imageFile').value = ""
             setDataInput((data)=> ({...data,
                 foto_item : []
@@ -87,8 +122,9 @@ const InputItem = ({setIsUbah, setPageItem}) => {
             foto_item : evt.target.files    
         }))
     }
+    
 
-    console.log(dataInput)
+    // console.log(dataInput)
     // console.log(dataInput.id_kategori)
 
     return ( 
@@ -168,7 +204,7 @@ const InputItem = ({setIsUbah, setPageItem}) => {
                     <div className="col">
                         <input
                             className='input-text'
-                            type="text"
+                            type="number"
                             id="harga_item"
                             value={dataInput.harga_item}
                             onChange={handleInput}
@@ -184,7 +220,7 @@ const InputItem = ({setIsUbah, setPageItem}) => {
                     <div className="col">
                         <input
                             className='input-text'
-                            type="text"
+                            type="number"
                             id="stok_item"
                             value={dataInput.stok_item}
                             onChange={handleInput}
@@ -214,42 +250,47 @@ const InputItem = ({setIsUbah, setPageItem}) => {
                     </div>
                     <div className="col">
                         <input 
-                            type="checkbox" 
-                            id="ukuran_item" 
+                            type="checkbox"
+                            id="0" 
                             value="XL"
-                            onChange={handleInput}
+                            onChange={handleInputUkuran}
+                            // checked={isChecked}
                             disabled={dataInput.id_kategori === "3" || dataInput.id_kategori === "4" ? false : true}
                         /> XL
                         <br />
                         <input 
                             type="checkbox" 
-                            id="ukuran_item" 
-                            value="XL"
-                            onChange={handleInput}
+                            id="1" 
+                            value="L"
+                            onChange={handleInputUkuran}
+                            // checked={isChecked}
                             disabled={dataInput.id_kategori === "3" || dataInput.id_kategori === "4" ? false : true}
                         /> L
                         <br />
                         <input 
                             type="checkbox" 
-                            id="ukuran_item" 
-                            value="XL"
-                            onChange={handleInput}
+                            id="2" 
+                            value="M"
+                            onChange={handleInputUkuran}
+                            // checked={isChecked}
                             disabled={dataInput.id_kategori === "3" || dataInput.id_kategori === "4" ? false : true}
                         /> M
                         <br />
                         <input 
                             type="checkbox" 
-                            id="ukuran_item" 
-                            value="XL"
-                            onChange={handleInput}
+                            id="3" 
+                            value="S"
+                            onChange={handleInputUkuran}
+                            // checked={isChecked}
                             disabled={dataInput.id_kategori === "3" || dataInput.id_kategori === "4" ? false : true}
                         /> S
                         <br />
                         <input 
                             type="checkbox" 
-                            id="ukuran_item" 
-                            value="XL"
-                            onChange={handleInput}
+                            id="4" 
+                            value="Semua Ukuran"
+                            onChange={handleInputUkuran}
+                            // checked={isChecked}
                             disabled={dataInput.id_kategori === "3" || dataInput.id_kategori === "4" ? false : true}
                         /> Semua Ukuran
                     </div>
@@ -262,7 +303,7 @@ const InputItem = ({setIsUbah, setPageItem}) => {
                     <div className="col">
                         <input
                             className='input-text'
-                            type="text"
+                            type="number"
                             id="biaya_operasional"
                             value={dataInput.biaya_operasional}
                             onChange={handleInput}
@@ -283,6 +324,9 @@ const InputItem = ({setIsUbah, setPageItem}) => {
                 </div>
             </div>
             </div>
+            <div className="d-flex justify-content-center" >
+          {isAlert ? <Alert textAlert={textAlert} isAlert={isAlert} setIsAlert={setIsAlert}/> : <div></div>}
+        </div>
         </div>
      );
 }

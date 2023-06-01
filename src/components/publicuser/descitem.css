@@ -69,15 +69,25 @@ hr{
 }
 
 .text-item-name-desc{
+    font-family: "Poppins";
     color: black;
     font-weight: 600;
     font-size: 2em;
+    margin: 0;
 }
 
 .text-item-price-desc{
     color: #0E8388;
     font-weight: 600;
     font-size: 1.7em;
+    margin: 0;
+}
+
+.text-item-stok{
+    font-weight: 600;
+    font-size: 1em;
+    margin: 0;
+    color: grey;
 }
 
 .desc-item{
@@ -103,6 +113,13 @@ hr{
 .text-name-toko-item{
     font-size: 1em;
     font-weight: 600;
+    margin: 0;
+}
+.text-name-alamt-toko{
+    font-size: 1em;
+    font-weight: 400;
+    color: grey;
+    margin: 0;
 }
 
 .but-cart{

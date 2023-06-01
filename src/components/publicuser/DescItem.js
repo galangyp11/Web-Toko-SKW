@@ -20,6 +20,7 @@ const DescItem = () => {
     id_pembeli: "",
     id_item: "",
     jumlah: "1",
+    total_harga: ""
   });
   const [isAlertHijau, setIsAlertHijau] = useState(false)
   const [isAlertMerah, setIsAlertMerah] = useState(false)
@@ -72,6 +73,12 @@ const DescItem = () => {
     });
   }, [handleKeranjang]);
 
+  useEffect(() => {
+    setDataItem((data)=> ({...data,
+      total_harga : itemById.harga_item * 1
+    }))
+  },[itemById])
+
   const formatUang = (number) => {
     return new Intl.NumberFormat("id-ID", {
       style: "currency",
@@ -88,6 +95,7 @@ const DescItem = () => {
   // }, 100)
   // console.log(idItemKeranjang)
   // console.log(cekItemKeranjang)
+  console.log(dataItem)
   console.log(itemById);
 
     return ( 
@@ -112,32 +120,30 @@ const DescItem = () => {
                                         <img src={KuraPlongo} className="carousel-foto-item d-block"/>
                                     </div>
                                 </div>
-
-                <button
-                  className="carousel-control-prev"
-                  type="button"
-                  data-mdb-target="#carouselExampleIndicators"
-                  data-mdb-slide="prev"
-                >
-                  <span
-                    className="carousel-control-prev-icon"
-                    aria-hidden="true"
-                  ></span>
-                  <span className="visually-hidden">Previous</span>
-                </button>
-                <button
-                  className="carousel-control-next"
-                  type="button"
-                  data-mdb-target="#carouselExampleIndicators"
-                  data-mdb-slide="next"
-                >
-                  <span
-                    className="carousel-control-next-icon"
-                    aria-hidden="true"
-                  ></span>
-                  <span className="visually-hidden">Next</span>
-                </button>
-
+                                  <button
+                                    className="carousel-control-prev"
+                                    type="button"
+                                    data-mdb-target="#carouselExampleIndicators"
+                                    data-mdb-slide="prev"
+                                  >
+                                    <span
+                                      className="carousel-control-prev-icon"
+                                      aria-hidden="true"
+                                    ></span>
+                                    <span className="visually-hidden">Previous</span>
+                                  </button>
+                                  <button
+                                    className="carousel-control-next"
+                                    type="button"
+                                    data-mdb-target="#carouselExampleIndicators"
+                                    data-mdb-slide="next"
+                                  >
+                                    <span
+                                      className="carousel-control-next-icon"
+                                      aria-hidden="true"
+                                    ></span>
+                                    <span className="visually-hidden">Next</span>
+                                  </button>
                                 <div className="carousel-indicators-desc d-flex justify-content-center">
                                     <button className='thumbnail-carousel-desc active' data-target="#carouselExampleIndicators" data-slide-to="0">
                                         <img src={KuraPlongo} className="d-block w-100"/>
@@ -152,49 +158,45 @@ const DescItem = () => {
                                         <img src={KuraPlongo} className="d-block w-100"/>
                                     </button>
                                 </div>
-                            
-                            </div>
-
-                           
-                        </div>
-                    </div>
-
-          <div className="col ">
-            <div className="desc-kanan py-2 px-3 ">
-              <div className="">
-                <p className="text-item-name-desc">{itemById.nama_item}</p>
-              </div>
-              <div className="">
-                <p className="text-item-price-desc">
-                  {formatUang(itemById.harga_item).replace(/\,00/g, "")}
-                </p>
-              </div>
-
-              <hr />
-              <div className="desc-item ">
-                <p className="text-desc-item-desc">{itemById.deskripsi_item}</p>
-              </div>
-
-              <hr />
-              <div className="row desc-item-toko ">
-                <div className="col-2  d-flex justify-content-end">
-                  <div className="desc-foto-toko-item">
-                    <img className="" src="" />
-                  </div>
-                </div>
-                <div className="col ">
-                  <p className="text-name-toko-item">{itemById.nama_toko}</p>
-                </div>
-              </div>
-              <hr />
-
-                            <div className="d-flex justify-content-end align-items-end" style={{height:"130px"}} >
-                                <button className='but-cart' onClick={handleKeranjang}>Tambah ke Keranjang</button>
                             </div>
                         </div>
-                        
                     </div>
-                </div>
+                    <div className="col ">
+                      <div className="desc-kanan px-3 ">
+                        <div className="py-2 container">
+                          <p className="text-item-name-desc">{itemById.nama_item}</p>
+                          <p className="text-item-price-desc">{formatUang(itemById.harga_item).replace(/\,00/g, "")}</p>
+                          <div className="d-flex" style={{height:"30px"}}>
+                            <p className="text-item-stok">Stok :</p>
+                            <p className="px-1 text-item-stok">{itemById.stok_item}</p>
+                          </div>
+                        </div>
+
+                        <hr />
+                        <div className="desc-item ">
+                          <p className="text-desc-item-desc">{itemById.deskripsi_item}</p>
+                        </div>
+
+                        <hr />
+                        <div className="row desc-item-toko ">
+                          <div className="col-2  d-flex justify-content-end">
+                            <div className="desc-foto-toko-item">
+                              <img className="" src="" />
+                            </div>
+                          </div>
+                          <div className="col p-1">
+                            <p className="text-name-toko-item">{itemById.nama_toko}</p>
+                            <p className="text-name-alamt-toko">{itemById.alamat_toko}</p>
+                          </div>
+                        </div>
+                        <hr />
+                          <div className="d-flex justify-content-end align-items-end" style={{height:"50px"}} >
+                            <button className='but-cart' onClick={handleKeranjang}>Tambah ke Keranjang</button>
+                          </div>
+                        </div>
+                                  
+                            </div>
+                          </div>
 
             </div>
             <div className="d-flex justify-content-center" >

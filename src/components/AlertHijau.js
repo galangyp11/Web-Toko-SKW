@@ -8,7 +8,7 @@ const Alert = ({textAlert, isAlert, setIsAlert, setIsEdit}) => {
         setTimeout(()=>{
             setIsAlert(false)
             setIsEdit(false);
-        },1000)
+        },1500)
     },[])
 
     return (

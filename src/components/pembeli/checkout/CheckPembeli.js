@@ -8,6 +8,7 @@ import ItemsCheck from './ItemsCheck'
 import ModalCheck from './ModalCheck'
 import Cookies from 'js-cookie'
 import apiHost from '../../../constants/apiHost'
+import Alert from '../../AlertMerah'
 
 const CheckPembeli = () => {
 
@@ -15,8 +16,6 @@ const CheckPembeli = () => {
     const navigate = useNavigate()
 
     const [dataCheckout, setDataCheckout] = useState([]);
-    // const [cekIdKonfirmasi, setCekIdKonfirmasi] = useState();
-    // const [dataKonfirmasi, setDataKonfirmasi] = useState([]);
     const [dataPembeli, setDataPembeli] = useState({});
     const [dataInput, setDataInput] = useState({
         id_pembeli:'',
@@ -30,8 +29,13 @@ const CheckPembeli = () => {
     });
     const [mpModal, setMpModal] = useState('')
     const [show, setShow] = useState(false)
-    const [alamatToko, setAlamatToko] = useState('')
+    const [alamatPembeli, setAlamatPembeli] = useState({
+        id_pembeli: "",
+        alamat : ""
+    })
     const [totalHarga, setTotalHarga] = useState('')
+    const [isAlert, setIsAlert] = useState(false)
+    const [textAlert, setTextAlert] = useState('')
 
     useEffect(()=>{
         const dataDB = async () => {
@@ -42,12 +46,25 @@ const CheckPembeli = () => {
         
         const getPembeliById = async () => {
             const response = await axios.get(`${apiHost}pembeli/${id}`);
-            setDataPembeli(response);
+            setDataPembeli(response.data);
         }
         getPembeliById()
 
     },[]);
 
+    const handleInput = (e) => {
+        setAlamatPembeli((data) => ({...data,
+            id_pembeli : dataPembeli.id_pembeli,
+            alamat : e.target.value
+        }))
+    }
+
+    const handleInputMP = (e) => {
+        setDataInput((data)=>({...data,
+            id_mp : e.target.value
+        }))
+    }
+    
     useEffect(()=>{
         if(dataInput.id_mp == 1){
             setMpModal('Bank')
@@ -76,13 +93,17 @@ const CheckPembeli = () => {
                     waktu_pesan: new Date(),
                     total_harga_transaksi : totalHarga
                 }))
-
-                setAlamatToko(data.alamat)
             })
         }
         dataObj()
 
     },[dataCheckout])
+
+    useEffect(()=>{
+        setAlamatPembeli((data)=>({...data,
+            alamat : dataPembeli.alamat
+        }))
+    },[dataPembeli])
 
     useEffect(()=>{
         try {
@@ -104,12 +125,6 @@ const CheckPembeli = () => {
         }).format(number);
     }
 
-    const handleInput = (e) =>{
-        setDataInput((data) => ({...data, 
-            [e.target.id] : e.target.value
-        }))
-    }
-
     const handleBatal = async() =>{
         await axios.delete(`${apiHost}checkout`)
         navigate('/')
@@ -117,16 +132,21 @@ const CheckPembeli = () => {
 
     const handleBayar = async(e) =>{
         e.preventDefault()
-        if(dataInput.id_mp == undefined){
-            alert('pilih pembayaran dlu blok')
+        if(alamatPembeli.alamat === "") {
+            setIsAlert(true)
+            setTextAlert('Silahkan isi alamat kamu')
+        }else if(dataInput.id_mp == undefined){
+            setIsAlert(true)
+            setTextAlert('Silahkan pilih metode pembayaran')
         }else{
+            await axios.put(`${apiHost}alamat-pembeli`, alamatPembeli);
             await axios.post(`${apiHost}transaksi`, dataInput);
             setShow(true)
         }
     }
 
-    console.log(dataInput)
-
+    // console.log(dataPembeli)
+    // console.log(alamatPembeli)
     return ( 
         <div className="check-pembeli">
              <div className="sticky-top">
@@ -141,7 +161,12 @@ const CheckPembeli = () => {
                 <div className="row">
                     <p className='text-sub-checkout'>Alamat :</p>
                     <div className="col">
-                        <textarea className="alamat-checkout" placeholder={alamatToko}></textarea>
+                        <input 
+                                className='text-profile-bio d-flex align-items-center' 
+                                placeholder={dataPembeli.alamat}
+                                id='alamat'
+                                onChange={handleInput}
+                        ></input>
                     </div>
                     <div className="col">
                         <p className='text-info-checkout'>*Pastikan alamat sudah benar dan jelas agar memudahkan proses.</p>
@@ -156,7 +181,7 @@ const CheckPembeli = () => {
                             id="id_mp" 
                             className='input-text'
                             value={dataInput.id_mp}
-                            onChange={handleInput}
+                            onChange={handleInputMP}
                         >
                             <option value="undefined" >-Pilih Metode Pembayaran-</option>
                             <option value="1">Bank</option>
@@ -220,6 +245,9 @@ const CheckPembeli = () => {
                 </div>  
                 <div>
                     <ModalCheck show={show} setShow={setShow} dataInput={dataInput} totalHarga={totalHarga}/>
+                </div>
+                <div className="d-flex justify-content-center" >
+                    {isAlert ? <Alert textAlert={textAlert} isAlert={isAlert} setIsAlert={setIsAlert}/> : <div></div>}
                 </div>           
             </div>
         </div>

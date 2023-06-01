@@ -64,7 +64,7 @@ const Navbar = () => {
     }, 100);
   };
 
-  console.log(pembeliById)
+  // console.log(pembeliById)
 
   return (
     <div className="navbar d-flex align-items-center justify-content-center">

@@ -4,24 +4,25 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import apiHost from "../../../constants/apiHost";
 
-const ModalCheck = ({show, setShow, dataInput, totalHarga}) => {
+const ModalCheck = ({show, setShow, totalHarga, dataInput}) => {
     
     const [dataMp, setDataMp] = useState({});
-    const id = dataInput.id_mp
+    const id_mp = dataInput.id_mp
     const navigate = useNavigate()
+
+    useEffect(()=>{
+        const getDataMp = async () => {
+            const response = await axios.get(`${apiHost}metode_pembayaran/${id_mp}`)
+            setDataMp(response.data)
+        }
+
+        getDataMp()
+    },[])
 
     const handleTutup = () => {
         setShow(false)
         navigate('/')
     }
-
-    useEffect(() => {
-        const getMp = async () => {
-            const response = await axios.get(`${apiHost}metode_pembayaran/${id}`)
-            setDataMp(response.data)
-        }
-        getMp()
-    },[id])
 
     const formatUang = (number) =>{
         return new Intl.NumberFormat("id-ID", {

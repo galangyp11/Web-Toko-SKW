@@ -4,6 +4,7 @@ import Cookies from 'js-cookie';
 import axios from 'axios';
 import ProfileToko from './ProfileToko';
 import apiHost from '../../../constants/apiHost'
+import Alert from '../../AlertHijau'
 
 const EditProfileToko = ({setIsEdit}) => {
 
@@ -19,6 +20,8 @@ const EditProfileToko = ({setIsEdit}) => {
         whatsapp : '',
         no_rek_penjual : ''
     })
+    const [isAlert, setIsAlert] = useState(false)
+    const [textAlert, setTextAlert] = useState('')
 
     useEffect(() => {
         const getItemById = async () => {
@@ -59,9 +62,9 @@ const EditProfileToko = ({setIsEdit}) => {
     const handleSimpanPenjual = async(e) => {
         e.preventDefault()
         await axios.put(`${apiHost}penjual`, dataInput);
-        alert('Berhasil diubah bang');
+        setIsAlert(true)
+        setTextAlert('Profile berhasil diubah')
         window.location.reload()
-        setIsEdit(false);
     }
 
     console.log(dataInput)
@@ -154,7 +157,7 @@ const EditProfileToko = ({setIsEdit}) => {
                         <div className="col ">
                             <input 
                                 className='text-profile-bio d-flex align-items-center' 
-                                placeholder={penjualById.alamat}
+                                placeholder={penjualById.alamat_toko}
                                 id='alamat'
                                 // value={dataInput.alamat} 
                                 onChange={handleInput}
@@ -194,7 +197,8 @@ const EditProfileToko = ({setIsEdit}) => {
                         </div>
 
                         <div className="col ">
-                            <input 
+                            <input
+                            type="number"
                                 className='text-profile-bio d-flex align-items-center' 
                                 placeholder={penjualById.no_rek_penjual}
                                 id='no_rek_penjual'
@@ -213,6 +217,9 @@ const EditProfileToko = ({setIsEdit}) => {
                             <button className='but-input-item-penjual' onClick={handleSimpanPenjual}>Simpan</button>
                         </div>
                     </div>
+            </div>
+            <div className="d-flex justify-content-center" >
+                {isAlert ? <Alert textAlert={textAlert} isAlert={isAlert} setIsAlert={setIsAlert} setIsEdit={setIsEdit}/> : <div></div>}
             </div>
         </div>
      );
