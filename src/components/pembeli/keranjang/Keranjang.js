@@ -34,7 +34,7 @@ const Keranjang = () => {
         }
         dataDB()
         
-    }) 
+    },[]) 
 
     useEffect(()=>{
         if(datum.length != 0){
@@ -76,7 +76,7 @@ const Keranjang = () => {
     }
 
     // console.log(isKosong)
-    // console.log('datum:',datum)
+    console.log('datum:',datum)
     // console.log(dataInput)
     // console.log(`total harga : ${totalHarga}`)
 

@@ -72,6 +72,10 @@ const ItemsKeranjang = ({ datum, setDatum, setDataInput, disable}) => {
             <div className="row">
               <p>{formatUang(item.harga_item).replace(/\,00/g, "")}</p>
             </div>
+            <div className="row">
+              <p>Ukuran : </p>
+              <p></p>
+            </div>
           </div>
           <div className="col-3 ">
             <div className="row d-flex justify-content-center">

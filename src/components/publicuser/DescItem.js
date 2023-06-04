@@ -1,12 +1,14 @@
 import "./descitem.css";
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
+import { BsFillCartFill } from "react-icons/bs";
+import {IoLogoWhatsapp} from "react-icons/io"
 import axios from "axios";
 import Cookies from "js-cookie";
+
 import apiHost from "../../constants/apiHost";
 import AlertHijau from "../AlertHijau";
 import AlertMerah from "../AlertMerah";
-
 import KuraPlongo from "../image/kuraplongo.jpg";
 
 const DescItem = () => {
@@ -20,8 +22,12 @@ const DescItem = () => {
     id_pembeli: "",
     id_item: "",
     jumlah: "1",
+    ukuran_item: "",
+    warna_item:"",
     total_harga: ""
   });
+  const [isUkuran, setIsUkuran] = useState(false)
+  const [isWarna, setIsWarna] = useState(false)
   const [isAlertHijau, setIsAlertHijau] = useState(false)
   const [isAlertMerah, setIsAlertMerah] = useState(false)
   const [textAlert, setTextAlert] = useState('')
@@ -35,7 +41,6 @@ const DescItem = () => {
     
     window.scrollTo(0, 0);
     setDataItem((data) => ({ ...data, id_pembeli: id_pembeli, id_item: id }));
-
     
     const getKeranjang = async () => {
           const response = await axios.get(`${apiHost}keranjang/${id_pembeli}`);
@@ -46,15 +51,32 @@ const DescItem = () => {
     }
   }, []);
 
+  const handleInputUkuran = (e) =>{
+    e.preventDefault()
+    setDataItem((data)=>({...data, ukuran_item : e.target.value}))
+  }
+
+  const handleInputWarna = (e) =>{
+    e.preventDefault()
+    setDataItem((data)=>({...data, warna_item : e.target.value}))
+  }
+
   const handleKeranjang = async (e) => {
     e.preventDefault();
+
     if (id_pembeli === undefined) {
       setIsAlertMerah(true)
       setTextAlert('Silahkan Login dahulu')
     } else if (idItemKeranjang === itemById.id_item) {
       setIsAlertMerah(true)
       setTextAlert('Item sudah ada di keranjang')
-    } else {
+    } else if (itemById.nama_ukuran !== null && dataItem.ukuran_item === "") {
+      setIsAlertMerah(true)
+      setTextAlert('Silahkan pilih ukuran')
+    } else if (itemById.warna_item !== null && dataItem.warna_item === "") {
+      setIsAlertMerah(true)
+      setTextAlert('Silahkan pilih varian warna')
+    }  else {
       try {
         await axios.post(`${apiHost}keranjang`, dataItem);
         setIsAlertHijau(true)
@@ -77,6 +99,17 @@ const DescItem = () => {
     setDataItem((data)=> ({...data,
       total_harga : itemById.harga_item * 1
     }))
+    if(itemById.nama_ukuran === null) {
+      setIsUkuran(false)
+    } else (
+      setIsUkuran(true)
+    )
+
+    if(itemById.warna_item === null || itemById.warna_item === "") {
+      setIsWarna(false)
+    } else {
+      setIsWarna(true)
+    }
   },[itemById])
 
   const formatUang = (number) => {
@@ -95,8 +128,10 @@ const DescItem = () => {
   // }, 100)
   // console.log(idItemKeranjang)
   // console.log(cekItemKeranjang)
-  console.log(dataItem)
-  console.log(itemById);
+  // console.log('dataItem',dataItem)
+  console.log('itemById',itemById);
+  // console.log('isWarna', isWarna)
+  // console.log('isUkuran', isUkuran)
 
     return ( 
         <div className="descitem">
@@ -179,19 +214,44 @@ const DescItem = () => {
 
                         <hr />
                         <div className="row desc-item-toko ">
-                          <div className="col-2  d-flex justify-content-end">
+                          <div className="col-2 d-flex justify-content-end">
                             <div className="desc-foto-toko-item">
                               <img className="" src="" />
                             </div>
                           </div>
                           <div className="col p-1">
-                            <p className="text-name-toko-item">{itemById.nama_toko}</p>
-                            <p className="text-name-alamt-toko">{itemById.alamat_toko}</p>
+                            <Link to={`/toko/${itemById.id_penjual}`} style={{ textDecoration:"none"}}>
+                              <p className="text-name-toko-item px-2">{itemById.nama_toko}</p>
+                            </Link>
+                            <p className="text-name-alamt-toko px-2">{itemById.alamat_toko}</p>
+                          </div>
+                          <div className="col d-flex  align-items-center justify-content-end">
+                            <button className="but-chat-penjual d-flex align-items-center justify-content-center gap-2"><IoLogoWhatsapp color="white" size="20px"/>Chat penjual</button>
                           </div>
                         </div>
                         <hr />
-                          <div className="d-flex justify-content-end align-items-end" style={{height:"50px"}} >
-                            <button className='but-cart' onClick={handleKeranjang}>Tambah ke Keranjang</button>
+                          <div className="row pilihan-desc-item">
+                            {isUkuran ?  <div className="col d-flex gap-2">
+                              <input 
+                                type="checkbox" 
+                                name="ukuran" 
+                                value={itemById.nama_ukuran}
+                                onChange={handleInputUkuran}/>
+                              <label htmlFor="ukuran">{itemById.nama_ukuran}</label>
+                            </div> : <div></div>}
+                           
+
+                            {isWarna ? <div className="col d-flex gap-2">
+                              <input 
+                                type="checkbox" 
+                                name="ukuran" 
+                                value={itemById.warna_item}
+                                onChange={handleInputWarna}/>
+                              <label htmlFor="ukuran">{itemById.warna_item}</label>
+                            </div> : <div></div>}
+                          </div>
+                          <div className="d-flex justify-content-center align-items-end" style={{height:"100px"}} >
+                            <button className='but-cart d-flex align-items-center justify-content-center gap-2' onClick={handleKeranjang}><BsFillCartFill color="white" size="20px"/>Tambah ke Keranjang</button>
                           </div>
                         </div>
                                   

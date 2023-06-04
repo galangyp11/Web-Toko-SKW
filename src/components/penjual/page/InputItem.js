@@ -124,7 +124,7 @@ const InputItem = ({setIsUbah, setPageItem}) => {
     }
     
 
-    // console.log(dataInput)
+    console.log(dataInput)
     // console.log(dataInput.id_kategori)
 
     return ( 

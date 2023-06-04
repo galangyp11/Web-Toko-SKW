@@ -1,0 +1,31 @@
+.display-toko{
+    max-width: 100dvw;
+    height: 100%;
+    min-height: 100dvh;
+
+    background-color: white;
+    margin: 0;
+}
+
+.bg-foto-profil-toko{
+    width: 9em;
+    height: 9em;
+    border-radius: 50%;
+    background-color: bisque;
+}
+
+.nama-toko-display{
+    height: 100%;
+}
+
+.text-item-toko-display{
+    font-size: 1.5em;
+    font-weight: 600;
+}
+
+.text-nama-toko-display{
+    height: 100%;
+    font-size: 2em;
+    font-weight: 600;
+    color: #0E8388;
+}

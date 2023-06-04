@@ -21,6 +21,7 @@ import DaftarPenjual from "./components/penjual/DaftarPenjual";
 import { SearchProvider } from "./context";
 import ProfileToko from "./components/penjual/page/ProfileToko";
 import ItemToko from "./components/penjual/page/ItemToko";
+import DisplayToko from "./components/penjual/page/DisplayToko";
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
           <Route path="/" element={<Homepage />} />
           <Route path="/kategori/:id" element={<DescCategory />} />
           <Route path="/item/:id" element={<DescItem />} />
+          <Route path="/toko/:id" element={<DisplayToko/>}/>
         </Route>
 
         <Route element={<ProtectedRoutes />}>

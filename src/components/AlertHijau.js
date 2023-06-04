@@ -14,7 +14,7 @@ const Alert = ({textAlert, isAlert, setIsAlert, setIsEdit}) => {
     return (
         <Modal className='modal-alert' show={isAlert} backdrop={false} animation={true} size='md'>
             <div className="bg-alert-hijau">
-                <p className="text-alert-kuning d-flex justify-content-center align-items-center ">{textAlert}</p>
+                <p className="text-alert-merah d-flex justify-content-center align-items-center ">{textAlert}</p>
             </div>
         </Modal>
      );
