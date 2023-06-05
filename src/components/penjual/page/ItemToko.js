@@ -87,7 +87,7 @@ const ItemToko = () => {
                     <th className='col-1' scope="col">Kategori</th>
                     <th className='col-1' scope="col">Harga</th>
                     <th className='col-1' scope="col">Stok</th>
-                    <th className='col-2 text-center' scope="col" colspan='2'>Aksi</th>
+                    <th className='col-2 text-center' scope="col" colSpan='2'>Aksi</th>
                 </tr>
             </thead>
         <tbody className='table-group-divider'>

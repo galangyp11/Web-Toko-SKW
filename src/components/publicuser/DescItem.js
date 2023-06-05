@@ -22,10 +22,11 @@ const DescItem = () => {
     id_pembeli: "",
     id_item: "",
     jumlah: "1",
-    ukuran_item: "",
-    warna_item:"",
+    ukuran: "",
+    warna:"",
     total_harga: ""
   });
+  const [ukuranitem, setUkuranItem] = useState([])
   const [isUkuran, setIsUkuran] = useState(false)
   const [isWarna, setIsWarna] = useState(false)
   const [isAlertHijau, setIsAlertHijau] = useState(false)
@@ -38,6 +39,12 @@ const DescItem = () => {
       setItemById(response.data);
     };
     getItemById();
+
+    const getUkuranItem = async () => {
+      const response = await axios.get(`${apiHost}item-ukuran/${id}`);
+      setUkuranItem(response.data)
+    }
+    getUkuranItem();
 
     window.scrollTo(0, 0);
     setDataItem((data) => ({ ...data, id_pembeli: id_pembeli, id_item: id }));
@@ -53,12 +60,12 @@ const DescItem = () => {
 
   const handleInputUkuran = (e) =>{
     e.preventDefault()
-    setDataItem((data)=>({...data, ukuran_item : e.target.value}))
+    setDataItem((data)=>({...data, ukuran : e.target.value}))
   }
 
   const handleInputWarna = (e) =>{
     e.preventDefault()
-    setDataItem((data)=>({...data, warna_item : e.target.value}))
+    setDataItem((data)=>({...data, warna : e.target.value}))
   }
 
   const handleKeranjang = async (e) => {
@@ -73,9 +80,9 @@ const DescItem = () => {
     } else if (itemById.nama_ukuran !== null && dataItem.ukuran_item === "") {
       setIsAlertMerah(true)
       setTextAlert('Silahkan pilih ukuran')
-    } else if (itemById.warna_item !== null && dataItem.warna_item === "") {
-      setIsAlertMerah(true)
-      setTextAlert('Silahkan pilih varian warna')
+    // } else if (itemById.warna_item !== null && dataItem.warna_item === "") {
+    //   setIsAlertMerah(true)
+    //   setTextAlert('Silahkan pilih varian warna')
     }  else {
       try {
         await axios.post(`${apiHost}keranjang`, dataItem);
@@ -101,6 +108,7 @@ const DescItem = () => {
     setDataItem((data)=> ({...data,
       total_harga : itemById.harga_item * 1
     }))
+
     if(itemById.nama_ukuran === null) {
       setIsUkuran(false)
     } else (
@@ -130,8 +138,9 @@ const DescItem = () => {
   // }, 100)
   // console.log(idItemKeranjang)
   // console.log(cekItemKeranjang)
-  // console.log('dataItem',dataItem)
+  console.log('dataItem',dataItem)
   console.log('itemById',itemById);
+  // console.log('ukuranItem',ukuranitem);
   // console.log('isWarna', isWarna)
   // console.log('isUkuran', isUkuran)
 
@@ -265,15 +274,19 @@ const DescItem = () => {
                           </div>
                         </div>
                         <hr />
-                          <div className="row pilihan-desc-item">
-                            {isUkuran ?  <div className="col d-flex gap-2">
-                              <input 
-                                type="checkbox" 
-                                name="ukuran" 
-                                value={itemById.nama_ukuran}
-                                onChange={handleInputUkuran}/>
-                              <label htmlFor="ukuran">{itemById.nama_ukuran}</label>
-                            </div> : <div></div>}
+                          <div className="row pilihan-desc-item border">
+                            {isUkuran ?  
+                              ukuranitem.map((data)=>{
+                                return(
+                                  <div key={data.id_ukuran} className="ukuran-item-input">
+                                    <input 
+                                      type="checkbox" 
+                                      name="ukuran"
+                                      id={data.id_ukuran} 
+                                      value={data.nama_ukuran}
+                                      onChange={handleInputUkuran}/>
+                                    <label htmlFor="ukuran">{data.nama_ukuran}</label>
+                                  </div>)}) : <div></div>}
                            
 
                             {isWarna ? <div className="col d-flex gap-2">
@@ -290,33 +303,15 @@ const DescItem = () => {
                           </div>
                         </div>
                                   
-                            </div>
-                          </div>
-
-            </div>
           </div>
         </div>
-      </div>
+
+
       <div className="d-flex justify-content-center">
-        {isAlertHijau ? (
-          <AlertHijau
-            textAlert={textAlert}
-            isAlert={isAlertHijau}
-            setIsAlert={setIsAlertHijau}
-          />
-        ) : (
-          <div></div>
-        )}
-        {isAlertMerah ? (
-          <AlertMerah
-            textAlert={textAlert}
-            isAlert={isAlertMerah}
-            setIsAlert={setIsAlertMerah}
-          />
-        ) : (
-          <div></div>
-        )}
+        {isAlertHijau ? <AlertHijau textAlert={textAlert} isAlert={isAlertHijau} setIsAlert={setIsAlertHijau}/> : <div></div> }
+        {isAlertMerah ? <AlertMerah textAlert={textAlert} isAlert={isAlertMerah} setIsAlert={setIsAlertMerah}/> : <div></div> }
       </div>
+    </div>
     </div>
   );
 };

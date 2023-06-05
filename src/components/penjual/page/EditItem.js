@@ -6,10 +6,13 @@ import Cookies from 'js-cookie';
 import { GoFileMedia } from "react-icons/go";
 import apiHost from '../../../constants/apiHost';
 import ItemToko from './ItemToko';
+import { BsFillPlusSquareFill, BsDash } from "react-icons/bs";
 
 const EditItem = ({id_item, setIsUbah, setPageItem}) => {
 
     const [itemById, setItemById] = useState({})
+    const [ukuranItemById, setUkuranItemById] = useState([])
+    const [warnaItemById, setWarnaItemById] = useState([])
     const id = Cookies.get('id')
     const [dataInput, setDataInput] = useState({
         id_item: '',
@@ -20,30 +23,44 @@ const EditItem = ({id_item, setIsUbah, setPageItem}) => {
         deskripsi_item: "",
         id_kategori: "",
         stok_item: "",
-        warna_item: "",
+        warna_item: [],
         ukuran_item: [],
-        biaya_operasional: "",
-        tgl_input : ""
+        biaya_operasional: ""
     });
     const tanggal = new Date()
+    const [warnaItem, setWarnaItem] = useState("")
+    const [isWarna, setIsWarna] = useState(false)
+    const [isAlert, setIsAlert] = useState(false)
+    const [textAlert, setTextAlert] = useState('')
 
     useEffect(()=>{
         const getItemById = async () => {
             const response = await axios.get(`${apiHost}item/${id_item}`);
             setItemById(response.data);
           };
-          getItemById();
+        getItemById();
+
+        const getUkuranById = async () => {
+            const response = await axios.get(`${apiHost}item-ukuran/${id_item}`);
+            setUkuranItemById(response.data);
+        }
+        getUkuranById()
+
+        const getWarna = async () => {
+            const response = await axios.get(`${apiHost}item-warna/${id_item}`);
+            setWarnaItemById(response.data);
+        }
+        getWarna() 
     },[])
  
     const handleInput = (e) =>{
-        e.preventDefault()
-                 
+        e.preventDefault()     
         setDataInput((data) => ({...data, 
             [e.target.id] : e.target.value,
         }))
     }
 
-    useEffect((e)=>{
+    useEffect(()=>{
         setDataInput((data)=> ({...data,
             id_penjual : id,
             id_item : itemById.id_item,
@@ -52,12 +69,28 @@ const EditItem = ({id_item, setIsUbah, setPageItem}) => {
             deskripsi_item: itemById.deskripsi_item,
             id_kategori: itemById.id_kategori,
             stok_item: itemById.stok_item,
-            warna_item: itemById.warna_item,
-            ukuran_item: [],
             biaya_operasional: itemById.biaya_operasional,
-            tgl_input : itemById.tgl_input
         }))
     },[itemById])
+
+    useEffect(()=>{
+        const dataUkuran = [ ...ukuranItemById ]
+        setDataInput((data)=>({...data, ukuran_item : dataUkuran}))
+    },[ukuranItemById])
+
+    useEffect(()=>{
+        const dataWarna = [ ...warnaItemById ]
+        setDataInput((data)=>({...data, warna_item : dataWarna}))
+    },[warnaItemById])
+
+    const handleWarna = (e) => {
+        e.preventDefault()
+        setIsWarna(true)
+        const dataWarna = [...dataInput.warna_item]
+        dataWarna.splice(0,0, warnaItem)
+        setDataInput((data)=>({...data, warna_item : dataWarna}))
+        setWarnaItem("")
+    }
 
     const handleBatal = () => {
         setIsUbah(false)
@@ -106,8 +139,12 @@ const EditItem = ({id_item, setIsUbah, setPageItem}) => {
         }))
     }
 
-    console.log(itemById)
-    console.log(dataInput)
+    console.log({
+        itemById,
+        ukuranItemById,
+        warnaItemById,
+        dataInput
+    })
     // console.log(id_item)
     return ( 
         <div className="edit-item">
@@ -222,6 +259,7 @@ const EditItem = ({id_item, setIsUbah, setPageItem}) => {
                     <div className="col">
                         <input
                             className='input-text'
+                            style={{width:'260px'}}
                             type="text"
                             id="warna_item"
                             placeholder={itemById.warna_item}
@@ -229,6 +267,19 @@ const EditItem = ({id_item, setIsUbah, setPageItem}) => {
                             onChange={handleInput}
                             disabled={dataInput.id_kategori === "3" || dataInput.id_kategori === "4" ? false : true}
                         />
+                         <BsFillPlusSquareFill className='mx-2' color='#0E8388' size={30} style={{cursor:"pointer"}} onClick={handleWarna}/>
+                    </div>
+                </div>
+
+                <div className="row">
+                    <div className="col-3"></div>
+                    <div className="col">
+                        <div className="bg-warna-input p-2 ">
+                            {isWarna ? dataInput.warna_item.map((item, index)=>{
+                                return(
+                                    <p key={index} className=' m-0 text-warna-input'><BsDash className='mx-1'/>{item}</p>
+                                )})  : <BsDash className='mx-1'/>}
+                        </div>
                     </div>
                 </div>
 

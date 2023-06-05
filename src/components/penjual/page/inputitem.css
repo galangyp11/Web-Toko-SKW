@@ -1,5 +1,15 @@
-.input-item{
-    
+.bg-warna-input{
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+    transition: .2s ease;
+    border-radius: 5px;
+    background-color: white;
+    min-height: 35px;
+    height: auto;
+    width: 300px;
+}
+
+.text-warna-input{
+    font-weight: 400;
 }
 
 .input-gambar-item{

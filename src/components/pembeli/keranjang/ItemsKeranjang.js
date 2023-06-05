@@ -9,6 +9,16 @@ import apiHost from "../../../constants/apiHost";
 
 const ItemsKeranjang = ({ datum, setDatum, setDataInput, disable}) => {
 
+  const [isUkuran, setIsUkuran] = useState(false)
+
+  useEffect(()=>{
+    if(datum.ukuran === null){
+      setIsUkuran(false)
+    } else {
+      setIsUkuran(true)
+    }
+  },[])
+
   const handleDelete = async (id, e) => {
     e.preventDefault();
     try {
@@ -73,8 +83,10 @@ const ItemsKeranjang = ({ datum, setDatum, setDataInput, disable}) => {
               <p>{formatUang(item.harga_item).replace(/\,00/g, "")}</p>
             </div>
             <div className="row">
-              <p>Ukuran : </p>
-              <p></p>
+              {isUkuran ? <div className="d-flex gap-2">
+                <p>Ukuran : </p>
+                <p>{item.ukuran}</p>
+              </div> : <div></div>}
             </div>
           </div>
           <div className="col-3 ">
