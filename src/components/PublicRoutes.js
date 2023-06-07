@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 
 import Navbar from "./publicuser/Navbar";
 import NavbarPembeli from "./pembeli/NavbarPembeli";
+import EmailCC from "./EmailCC";
 import Footer from "./publicuser/Footer";
 
 const PublicRoutes = () => {
@@ -26,6 +27,11 @@ const PublicRoutes = () => {
 
       <div className="homepage-con container-md">
         <Outlet Context={checkCookie} />
+      </div>
+
+      
+      <div className="sticky-bottom px-4" style={{display:"inline-block", width:'auto'}}>
+        <EmailCC/>
       </div>
 
       <div className="">

@@ -26,8 +26,7 @@
 
 .search{
     border: none;
-    border-radius: 20px 0px 0px 20px;
-    background-color: #E7F6F2;
+    border-radius: 10px 0px 0px 10px;
     height: 35px;
     width: 400px;
     transition: .2s ease;
@@ -35,7 +34,7 @@
 
 .logo-search{
     padding: 7px;
-    border-radius: 0px 20px 20px 0px; 
+    border-radius: 0px 10px 10px 0px; 
     background-color: #E7F6F2;
     cursor: pointer;
     transition: .2s ease;
@@ -44,8 +43,8 @@
 }
 
 .bg-search{
-    border-radius: 20px;
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    border-radius: 10px;
+    box-shadow: rgba(231, 246, 242, 1) 0px 1px 3px 0px, rgba(231, 246, 242, 1) 0px 0px 0px 1px;
 }
 
 .search:hover{

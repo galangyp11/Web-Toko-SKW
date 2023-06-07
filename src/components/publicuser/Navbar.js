@@ -24,7 +24,7 @@ const Navbar = () => {
         <div className="col-4 d-flex justify-content-center align-items-center" style={{ height: "100%" }}>
           <div className="bg-search d-flex justify-content-center align-items-center border">
             <input
-              className="search p-2 text-center"
+              className="search p-2"
               type="text"
               placeholder="Search"
               onChange={(e) => {

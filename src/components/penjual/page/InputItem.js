@@ -23,11 +23,12 @@ const InputItem = ({setIsUbah, setPageItem}) => {
         deksripsi_item: "",
         id_kategori: "",
         stok_item: "",
-        warna_item: [],
         ukuran_item: [],
+        warna_item: [],
         biaya_operasional: "",
         tgl_input : ""
     });
+    console.log('dataInput', dataInput)
     const [warnaItem, setWarnaItem] = useState("")
     const [isWarna, setIsWarna] = useState(false)
     const tanggal = new Date()
@@ -37,9 +38,9 @@ const InputItem = ({setIsUbah, setPageItem}) => {
  
     const handleInput = (e) =>{
         e.preventDefault()
-            setDataInput((data) => ({...data, 
-                [e.target.id] : e.target.value,
-            }))
+        setDataInput((data) => ({...data, 
+            [e.target.id] : e.target.value,
+        }))
     }
 
     const handleInputUkuran = (e) =>{
@@ -68,7 +69,7 @@ const InputItem = ({setIsUbah, setPageItem}) => {
         } else {
             setIsWarna(true)
             const dataWarna = [...dataInput.warna_item]
-            dataWarna.splice(0,0, warnaItem)
+            dataWarna.splice(0, 0, warnaItem)
             setDataInput((data)=>({...data, warna_item : dataWarna}))
             setWarnaItem("")
         }
@@ -76,15 +77,13 @@ const InputItem = ({setIsUbah, setPageItem}) => {
 
     const handleDeleteWarna = (e, index) => {
         e.preventDefault()
-
         try {
-            const dataFilter = dataInput.warna_item.filter((item) => item.index !== index)
-            setDataInput(dataFilter)
-            console.log(index)
+            // const dataFilter = dataInput.warna_item.filter((item) => item.index !== index)
+            // console.log(dataFilter)
+            setDataInput((data)=>({...data, warna_item : data.warna_item.splice(e.target.value, 1)}))
         } catch (error) {
             console.log(error)
         }
-      
     }
 
     useEffect(()=>{
@@ -97,8 +96,8 @@ const InputItem = ({setIsUbah, setPageItem}) => {
         setDataInput((data) => ({...data, 
             harga_item : "",
             stok_item : "",
-            warna_item : "",
-            // ukuran_item : [],
+            warna_item : [],
+            ukuran_item : [],
             biaya_operasional : ""
         }))
     },[dataInput.id_kategori])
@@ -108,7 +107,7 @@ const InputItem = ({setIsUbah, setPageItem}) => {
             id_penjual : id
         }))
 
-        if(dataInput.warna_item === "") {
+        if(dataInput.warna_item === null) {
             setIsWarna(false)
         }
     }, [])
@@ -170,9 +169,7 @@ const InputItem = ({setIsUbah, setPageItem}) => {
         }))
     }
     
-
-    console.log('dataInput', dataInput)
-    console.log('warnaItem', warnaItem)
+    // console.log('warnaItem', warnaItem)
     // console.log(dataInput.id_kategori)
 
     return ( 
@@ -310,11 +307,11 @@ const InputItem = ({setIsUbah, setPageItem}) => {
                                         <div className="col">
                                             <p  className=' m-0 text-warna-input'><BsDash className='mx-1'/>{item}</p>
                                         </div>
-                                        <div className="col-2">
-                                            <div style={{ cursor:"pointer" }} onClick={(e) => handleDeleteWarna(e, index)}>
-                                                <RxCross2/>
+                                       <div className="col-3">
+                                            <div style={{ cursor:"pointer", display:"inline-block" }} onClick={(e) => handleDeleteWarna(e, index)}>
+                                                <RxCross2 size={20}/>
                                             </div>
-                                        </div>                                    
+                                        </div>                             
                                     </div>
                                 )})  : <BsDash className='mx-1'/>}
                         </div>

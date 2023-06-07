@@ -7,6 +7,8 @@ import { GoFileMedia } from "react-icons/go";
 import apiHost from '../../../constants/apiHost';
 import ItemToko from './ItemToko';
 import { BsFillPlusSquareFill, BsDash } from "react-icons/bs";
+import { RxCross2 } from "react-icons/rx";
+import Alert from '../../AlertHijau'
 
 const EditItem = ({id_item, setIsUbah, setPageItem}) => {
 
@@ -29,9 +31,11 @@ const EditItem = ({id_item, setIsUbah, setPageItem}) => {
     });
     const tanggal = new Date()
     const [warnaItem, setWarnaItem] = useState("")
-    const [isWarna, setIsWarna] = useState(false)
+    const [isWarna, setIsWarna] = useState(true)
+    const [isIsiWarna, setIsIsiWarna] = useState(false)
     const [isAlert, setIsAlert] = useState(false)
     const [textAlert, setTextAlert] = useState('')
+    
 
     useEffect(()=>{
         const getItemById = async () => {
@@ -51,6 +55,10 @@ const EditItem = ({id_item, setIsUbah, setPageItem}) => {
             setWarnaItemById(response.data);
         }
         getWarna() 
+
+        if(dataInput.warna_item.length !== 0) {
+            setIsWarna(true)
+        }
     },[])
  
     const handleInput = (e) =>{
@@ -79,17 +87,48 @@ const EditItem = ({id_item, setIsUbah, setPageItem}) => {
     },[ukuranItemById])
 
     useEffect(()=>{
-        const dataWarna = [ ...warnaItemById ]
-        setDataInput((data)=>({...data, warna_item : dataWarna}))
+        // const dataWarna = [ ...warnaItemById ]
+        // setDataInput((data)=>({...data, warna_item : dataWarna}))
+
+        warnaItemById.forEach((item)=>{
+            // const dataWarna = [...dataInput.warna_item]
+            // dataWarna.splice(0, 0, item.nama_warna)
+            setDataInput((data)=>({
+                ...data,
+                warna_item: warnaItemById.map(warna => warna.nama_warna)
+            }))
+        })
+
     },[warnaItemById])
+
+    const handleInputWarna = (e) => {
+        e.preventDefault()
+        setWarnaItem(e.target.value)
+    }
 
     const handleWarna = (e) => {
         e.preventDefault()
-        setIsWarna(true)
-        const dataWarna = [...dataInput.warna_item]
-        dataWarna.splice(0,0, warnaItem)
-        setDataInput((data)=>({...data, warna_item : dataWarna}))
-        setWarnaItem("")
+        
+        if(warnaItem === "") {
+            setIsIsiWarna(true)
+        } else { 
+            setIsWarna(true)
+            const dataWarna = [...dataInput.warna_item]
+            dataWarna.splice(0,0, warnaItem)
+            setDataInput((data)=>({...data, warna_item : dataWarna}))
+            setWarnaItem("")
+        }
+    }
+
+    const handleDeleteWarna = (e, index) => {
+        e.preventDefault()
+        try {
+            // const dataFilter = dataInput.warna_item.filter((item) => item.index !== index)
+            // console.log(dataFilter)
+            setDataInput((data)=>({...data, warna_item : data.warna_item.splice(e.target.value, 1)}))
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     const handleBatal = () => {
@@ -107,18 +146,28 @@ const EditItem = ({id_item, setIsUbah, setPageItem}) => {
             let formData = new FormData();
             
             for (const [key, value] of Object.entries(dataInput)) {
-                if (key !== 'foto_item') {
+                if (key !== 'foto_item' && key !== 'ukuran_item' && key !== 'warna_item' ) {
                     formData.append(key, value)
-                }
+                }             
             }
             
             for (let i = 0; i < dataInput.foto_item.length; i++) {
                 formData.append('foto_item', dataInput.foto_item[i])
+            }
 
+            for (let i = 0; i < dataInput.ukuran_item.length; i++) {
+                formData.append('ukuran_item', dataInput.ukuran_item[i])
+            }
+
+            for (let i = 0; i < dataInput.warna_item.length; i++) {
+                formData.append('warna_item', dataInput.warna_item[i])
             }
             
-            await axios.put(`${apiHost}item`, formData);
-            alert('udh berhasil daftar bang');
+            await axios.post(`${apiHost}item`, formData);
+            setIsAlert(true)
+            setTextAlert('Item berhasil diubah')
+            // console.log(dataInput.ukuran_item.length)
+            // console.log(formData)
             setPageItem(<ItemToko/>)
         } catch (error) {
             console.log('eror bang gabisa input', error)
@@ -140,10 +189,10 @@ const EditItem = ({id_item, setIsUbah, setPageItem}) => {
     }
 
     console.log({
-        itemById,
-        ukuranItemById,
+        // itemById,
+        // ukuranItemById,
         warnaItemById,
-        dataInput
+        dataInput,
     })
     // console.log(id_item)
     return ( 
@@ -262,12 +311,17 @@ const EditItem = ({id_item, setIsUbah, setPageItem}) => {
                             style={{width:'260px'}}
                             type="text"
                             id="warna_item"
-                            placeholder={itemById.warna_item}
                             //value={dataInput.warna_item}
-                            onChange={handleInput}
+                            onChange={handleInputWarna}
                             disabled={dataInput.id_kategori === "3" || dataInput.id_kategori === "4" ? false : true}
                         />
-                         <BsFillPlusSquareFill className='mx-2' color='#0E8388' size={30} style={{cursor:"pointer"}} onClick={handleWarna}/>
+                          <BsFillPlusSquareFill 
+                            className='mx-2' 
+                            color='#0E8388' 
+                            size={30} 
+                            style={{cursor:"pointer"}} 
+                            onClick={handleWarna} 
+                            disabled={dataInput.id_kategori === "3" || dataInput.id_kategori === "4" ? false : true}/>
                     </div>
                 </div>
 
@@ -275,11 +329,23 @@ const EditItem = ({id_item, setIsUbah, setPageItem}) => {
                     <div className="col-3"></div>
                     <div className="col">
                         <div className="bg-warna-input p-2 ">
-                            {isWarna ? dataInput.warna_item.map((item, index)=>{
+                        {isWarna ? dataInput.warna_item.map((item, index)=>{
                                 return(
-                                    <p key={index} className=' m-0 text-warna-input'><BsDash className='mx-1'/>{item}</p>
+                                    <div className='row d-flex align-items-center' key={index}>
+                                        <div className="col">
+                                            <p  className=' m-0 text-warna-input'><BsDash className='mx-1'/>{item}</p>
+                                        </div>
+                                       <div className="col-3">
+                                            <div style={{ cursor:"pointer", display:"inline-block" }} onClick={(e) => handleDeleteWarna(e, index)}>
+                                                <RxCross2 size={20}/>
+                                            </div>
+                                        </div>                             
+                                    </div>
                                 )})  : <BsDash className='mx-1'/>}
                         </div>
+                    </div>
+                    <div className="col">
+                        {isIsiWarna ? <p style={{color:'red'}}>*silahkan isi warna terlebih dahulu</p> : <></> }
                     </div>
                 </div>
 
@@ -355,7 +421,7 @@ const EditItem = ({id_item, setIsUbah, setPageItem}) => {
                     <button className='btn btn-outline-danger but-tolak-pesanan' onClick={handleBatal}>Batal</button>
                 </div>
                 <div className="col-2 d-flex justify-content-start">
-                    <button className='but-input-item-penjual' onClick={handleDaftarPenjual}>Input</button>
+                    <button className='but-input-item-penjual' onClick={handleDaftarPenjual}>Simpan</button>
                 </div>
             </div>
             </div>
