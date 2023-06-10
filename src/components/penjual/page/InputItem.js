@@ -9,7 +9,8 @@ import ItemToko from './ItemToko';
 import { useNavigate } from 'react-router-dom';
 import { BsFillPlusSquareFill, BsDash } from "react-icons/bs";
 import { RxCross2 } from "react-icons/rx";
-import Alert from '../../AlertHijau'
+import AlertHijau from '../../AlertHijau'
+import AlertMerah from '../../AlertMerah'
 
 const InputItem = ({setIsUbah, setPageItem}) => {
 
@@ -31,7 +32,8 @@ const InputItem = ({setIsUbah, setPageItem}) => {
     const [warnaItem, setWarnaItem] = useState("")
     const [isWarna, setIsWarna] = useState(false)
     const tanggal = new Date()
-    const [isAlert, setIsAlert] = useState(false)
+    const [isAlertHijau, setIsAlertHijau] = useState(false)
+    const [isAlertMerah, setIsAlertMerah] = useState(false)
     const [textAlert, setTextAlert] = useState('')
     const [isIsiWarna, setIsIsiWarna] = useState(false)
  
@@ -124,7 +126,21 @@ const InputItem = ({setIsUbah, setPageItem}) => {
     }
 
     const handleDaftarPenjual = async (e) =>{
-        e.preventDefault()    
+        e.preventDefault()
+
+        if(dataInput.nama_item === ''){
+            setIsAlertMerah(true)
+            setTextAlert('Nama Item Tidak Boleh Kosong !')
+        } else if(dataInput.deskripsi_item === ''){
+            setIsAlertMerah(true)
+            setTextAlert('Deksripsi Item Tidak Boleh Kosong !')
+        } else if(dataInput.harga_item === ''){
+            setIsAlertMerah(true)
+            setTextAlert('Harga Item Tidak Boleh Kosong !')
+        } else if(dataInput.stok_item === ''){
+            setIsAlertMerah(true)
+            setTextAlert('Stok Item Tidak Boleh Kosong !')
+        } else {
         try {   
             let formData = new FormData();
             
@@ -147,16 +163,17 @@ const InputItem = ({setIsUbah, setPageItem}) => {
             }
             
             await axios.post(`${apiHost}item`, formData);
-            setIsAlert(true)
+            setIsAlertHijau(true)
             setTextAlert('Item berhasil diinput')
 
             setTimeout(()=>{setPageItem(<ItemToko/>)},1500)
             
                     
-            console.log(isAlert)
+            console.log(isAlertHijau)
 
         } catch (error) {
             console.log('eror bang gabisa input', error)
+        }
         }
     }
 
@@ -176,7 +193,7 @@ const InputItem = ({setIsUbah, setPageItem}) => {
     
     // console.log('warnaItem', warnaItem)
     // console.log(dataInput)
-    console.log(isAlert)
+    console.log(isAlertHijau)
 
     return ( 
         <div className="">
@@ -406,7 +423,8 @@ const InputItem = ({setIsUbah, setPageItem}) => {
                 </div>
             </div>
             <div className="d-flex justify-content-center" >
-                {isAlert ? <Alert textAlert={textAlert} isAlert={isAlert} setIsAlert={setIsAlert}/> : <div></div>}
+                {isAlertHijau ? <AlertHijau textAlert={textAlert} isAlert={isAlertHijau} setIsAlert={setIsAlertHijau}/> : <div></div>}
+                {isAlertMerah ? <AlertMerah textAlert={textAlert} isAlert={isAlertMerah} setIsAlert={setIsAlertMerah}/> : <div></div>}
             </div>
         </div>
      );
