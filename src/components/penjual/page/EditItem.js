@@ -244,7 +244,7 @@ const EditItem = ({id_item, setIsUbah, setPageItem}) => {
     return ( 
         <div className="edit-item">
             <p className='text-title-halaman'>Edit Item</p>
-           
+
             
             <div className="form-body-penjual gap-1 d-flex justify-content-center row">
                 <div className="row d-flex align-items-center">
@@ -340,7 +340,8 @@ const EditItem = ({id_item, setIsUbah, setPageItem}) => {
                     <div className="col-3">
                         <label htmlFor="stok_item"  id='label-input'>Stok</label>
                     </div>
-                    <div className="col">
+                    <div className="col d-flex" style={{ height:'100'}}>
+                        <p className=''>{itemById.stok_item} + </p>
                         <input
                             className='input-text'
                             type="text"
@@ -348,7 +349,12 @@ const EditItem = ({id_item, setIsUbah, setPageItem}) => {
                             placeholder={itemById.stok_item}
                             //value={dataInput.stok_item}
                             onChange={handleInput}
+                            style={{width:'200px'}}
                         />
+                        <p>= 99</p>
+                    </div>
+                    <div className="col">
+                        
                     </div>
                 </div>
 
