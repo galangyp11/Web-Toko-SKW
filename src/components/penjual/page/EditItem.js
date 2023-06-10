@@ -30,6 +30,7 @@ const EditItem = ({id_item, setIsUbah, setPageItem}) => {
         biaya_operasional: ""
     });
     const tanggal = new Date()
+    const [stokItem, setStokItem] = useState(0)
     const [kategoriById, setKategoriById] = useState('')
     const [warnaItem, setWarnaItem] = useState("")
     const [isWarna, setIsWarna] = useState(true)
@@ -58,9 +59,7 @@ const EditItem = ({id_item, setIsUbah, setPageItem}) => {
         }
         getWarna() 
 
-        if(dataInput.warna_item.length !== 0) {
-            setIsWarna(true)
-        }
+    
 
     },[])
  
@@ -69,6 +68,7 @@ const EditItem = ({id_item, setIsUbah, setPageItem}) => {
         setDataInput((data) => ({...data, 
             [e.target.id] : e.target.value,
         }))
+
     }
 
     useEffect(()=>{
@@ -98,7 +98,11 @@ const EditItem = ({id_item, setIsUbah, setPageItem}) => {
         } else {
             setKategoriById('')
         }
-        
+      
+            
+        if(stokItem === 0) {
+            setStokItem(itemById.stok_item)
+        }
     },[itemById])
 
     useEffect(()=>{
@@ -328,7 +332,6 @@ const EditItem = ({id_item, setIsUbah, setPageItem}) => {
                             className='input-text'
                             type="text"
                             id="harga_item"
-                            placeholder={itemById.harga_item}
                             //value={dataInput.harga_item}
                             onChange={handleInput}
                             disabled={dataInput.id_kategori !== "6" ? false : true}
@@ -338,20 +341,19 @@ const EditItem = ({id_item, setIsUbah, setPageItem}) => {
 
                 <div className="row d-flex align-items-center">
                     <div className="col-3">
-                        <label htmlFor="stok_item"  id='label-input'>Stok</label>
+                        <label htmlFor="stok_item"  id='label-input'>Tambah stok</label>
                     </div>
-                    <div className="col d-flex" style={{ height:'100'}}>
-                        <p className=''>{itemById.stok_item} + </p>
+                    <div className="col d-flex" style={{ height:'90%'}}>
+                        <p className='text-info-edit-item d-flex align-items-center'>{itemById.stok_item} + </p>
                         <input
                             className='input-text'
                             type="text"
                             id="stok_item"
-                            placeholder={itemById.stok_item}
                             //value={dataInput.stok_item}
                             onChange={handleInput}
-                            style={{width:'200px'}}
+                            style={{width:'100px'}}
                         />
-                        <p>= 99</p>
+                        <p className='text-info-edit-item d-flex align-items-center' style={{marginLeft:'10px'}}> Stok item ({stokItem})</p>
                     </div>
                     <div className="col">
                         

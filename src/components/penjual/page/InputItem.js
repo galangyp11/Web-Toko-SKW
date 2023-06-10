@@ -21,14 +21,13 @@ const InputItem = ({setIsUbah, setPageItem}) => {
         harga_item: "",
         foto_item: [],
         deksripsi_item: "",
-        id_kategori: "",
+        id_kategori: "" ,
         stok_item: "",
         ukuran_item: [],
         warna_item: [],
         biaya_operasional: "",
         tgl_input : ""
     });
-    console.log('dataInput', dataInput)
     const [warnaItem, setWarnaItem] = useState("")
     const [isWarna, setIsWarna] = useState(false)
     const tanggal = new Date()
@@ -147,18 +146,16 @@ const InputItem = ({setIsUbah, setPageItem}) => {
             // console.log(dataInput.ukuran_item.length)
             console.log(dataInput)
             setPageItem(<ItemToko/>)
+
+            const tgl_input = tanggal.getHours() + ':' + tanggal.getMinutes() + ' ' + tanggal.getDate() + '/' + (+tanggal.getMonth() + 1) + '/' + tanggal.getFullYear()
+        
+            setDataInput((data) => ({...data,
+                tgl_input : tgl_input
+            }))
         } catch (error) {
             console.log('eror bang gabisa input', error)
         }
     }
-
-    useEffect(()=>{
-        const tgl_input = tanggal.getHours() + ':' + tanggal.getMinutes() + ' ' + tanggal.getDate() + '/' + (+tanggal.getMonth() + 1) + '/' + tanggal.getFullYear()
-        
-        setDataInput((data) => ({...data,
-            tgl_input : tgl_input
-        }))
-    },[handleDaftarPenjual])
 
     const onChangeFile = (evt) => {
         if (evt.target.files.length > 4 ) {

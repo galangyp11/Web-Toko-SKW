@@ -19,3 +19,9 @@
     height: 100px;
     margin-left: 75px;
 }
+
+.text-info-edit-item{
+    color: gray;
+    height: 100%;
+    margin-right: 10px;
+}
