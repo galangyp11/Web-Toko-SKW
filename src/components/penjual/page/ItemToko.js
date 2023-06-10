@@ -20,7 +20,7 @@ const ItemToko = () => {
             setDatumItem(response.data)
         }
         getDatumItem()
-    },[setDatumItem])
+    },[])
 
     const formatUang = (number) =>{
         return new Intl.NumberFormat("id-ID", {
