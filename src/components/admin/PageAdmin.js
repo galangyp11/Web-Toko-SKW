@@ -21,15 +21,13 @@ const PageAdmin = ({dataLogin}) => {
             setDataAdmin(response.data)
         }
         getAdmin()
-    },[])
 
-    useEffect(()=>{
         const getNotif = async () => {
             const response = await axios.get(`${apiHost}transaksi`)
             setDataKonfirmasi(response.data)
         }
         getNotif()
-    })
+    },[])
 
     useEffect(()=>{
         setPage(<HomeAdmin dataAdmin={dataAdmin}/>)

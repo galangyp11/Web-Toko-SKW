@@ -24,15 +24,13 @@ const PagePenjual = () => {
             setDataPenjual(response.data)
         }
         getPenjual()
-    },[])
-
-    useEffect(()=>{
         const getNotif = async () => {
             const response = await axios.get(`${apiHost}transaksi/penjual/${id}`)
             setDataKonfirmasi(response.data)
         }
         getNotif()
-    },[dataKonfirmasi])
+    },[])
+
 
     useEffect(()=>{
         setPage(<ProfileToko dataPenjual={dataPenjual}/>)
