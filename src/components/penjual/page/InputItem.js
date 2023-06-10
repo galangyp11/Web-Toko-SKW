@@ -21,7 +21,7 @@ const InputItem = ({setIsUbah, setPageItem}) => {
         harga_item: "",
         foto_item: [],
         deksripsi_item: "",
-        id_kategori: "" ,
+        id_kategori: "1" ,
         stok_item: "",
         ukuran_item: [],
         warna_item: [],
