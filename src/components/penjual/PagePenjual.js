@@ -8,6 +8,7 @@ import Cookies from 'js-cookie';
 import NavbarPenjual from './NavbarPenjual';
 import SidebarPenjual from './SidebarPenjual';
 import ProfileToko from './page/ProfileToko';
+import InputItem from './page/InputItem';
 
 const PagePenjual = () => {
 
@@ -40,11 +41,13 @@ const PagePenjual = () => {
     return ( 
         <div className="page-penjual">
             <div className="row" style={{width:"100%", height:"100dvh"}}>
-                <div className="col-2 p-0 sticky-top" style={{height:"100%" }}>
+                <div className="col-2 p-0">
+                    <div className=' sticky-top'>
                     <SidebarPenjual setPage={setPage} dataKonfirmasi={dataKonfirmasi}/>
+                    </div>
                 </div>
 
-                <div className="col container py-3">
+                <div className="col container py-3" >
                     <div className="page-menu d-flex justify-content-center">
                         {page}
                     </div>

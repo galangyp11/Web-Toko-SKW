@@ -39,8 +39,10 @@ const PageAdmin = ({dataLogin}) => {
     return ( 
         <div className="page-admin">
             <div className="row" style={{width:"100%", height:"100dvh"}}>
-                <div className="col-2 p-0 sticky-top" style={{height:"100%" }}>
-                    <SidebarAdmin setPage={setPage} dataKonfirmasi={dataKonfirmasi}/>
+                <div className="col-2 p-0" >
+                    <div className=' sticky-top'>
+                        <SidebarAdmin setPage={setPage} dataKonfirmasi={dataKonfirmasi}/>
+                    </div>
                 </div>
 
                 <div className="col container py-3">

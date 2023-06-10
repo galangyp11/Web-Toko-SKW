@@ -50,7 +50,7 @@ const Sidebaradmin = ({setPage, dataKonfirmasi}) => {
         }, 100)
     };
     return ( 
-        <div className="sidebar-admin pt-4 px-3">
+        <div className="sidebar-admin pt-4 px-2">
              <div className="logo-skw-sidebar pt-1 px-2 mx-3 d-flex">
                 <p className='text-logo-skw-admin d-flex align-items-center' onClick={()=>navigate('/admin')}>SKW</p>
                 <p className='text-skw-penjual d-flex align-items-center'>ADMIN</p>
@@ -65,7 +65,7 @@ const Sidebaradmin = ({setPage, dataKonfirmasi}) => {
                     <BsFillCaretRightFill size="25px" color='white' className='toggle-btn d-flex justify-content-end'/>
                 </div>
                 <div className="sidebar-content ">
-                    <p className='text-sidebar-admin-content d-flex align-items-center px-3' id='text-sidebar-admin' onClick={()=> setPage(<ProfilPenjualAdmin/>)}>Profile Penjual</p>
+                    <p className='text-sidebar-admin-content d-flex align-items-center px-2' id='text-sidebar-admin' onClick={()=> setPage(<ProfilPenjualAdmin/>)}>Profile Penjual</p>
                 </div>
             </div>
 
@@ -76,8 +76,8 @@ const Sidebaradmin = ({setPage, dataKonfirmasi}) => {
                     <BsFillCaretRightFill size="25px" color='white' className='toggle-btn d-flex justify-content-end ' />
                 </div>
                 <div className="sidebar-content ">
-                    <p className='text-sidebar-admin-content px-3 d-flex align-items-center' id='text-sidebar-admin' onClick={()=> setPage(<ProfilPembeliAdmin/>)}>Profile Pembeli</p>
-                    <p className='text-sidebar-admin-content px-3 d-flex align-items-center' id='text-sidebar-admin' onClick={()=> setPage(<TransaksiPembeliAdmin/>)}>Riwayat Transaksi</p>                
+                    <p className='text-sidebar-admin-content px-2 d-flex align-items-center' id='text-sidebar-admin' onClick={()=> setPage(<ProfilPembeliAdmin/>)}>Profile Pembeli</p>
+                    <p className='text-sidebar-admin-content px-2 d-flex align-items-center' id='text-sidebar-admin' onClick={()=> setPage(<TransaksiPembeliAdmin/>)}>Riwayat Transaksi</p>                
                 </div>
             </div>
 
@@ -89,15 +89,15 @@ const Sidebaradmin = ({setPage, dataKonfirmasi}) => {
                 </div>
 
                 <div className="sidebar-content ">
-                    <p className='text-sidebar-admin-content px-3 d-flex align-items-center' id='text-sidebar-admin' onClick={()=> setPage(<SemuaItemAdmin/>)}>Semua Item</p>
-                    <p className='text-sidebar-admin-content px-3 d-flex align-items-center' id='text-sidebar-admin' onClick={()=> setPage(<PemasukanItemAdmin/>)}>Pemasukan Item</p>
-                    <p className='text-sidebar-admin-content px-3 d-flex align-items-center' id='text-sidebar-admin' onClick={()=> setPage(<PengeluaranItemAdmin/>)}>Pengeluaran Item</p>
+                    <p className='text-sidebar-admin-content px-2 d-flex align-items-center' id='text-sidebar-admin' onClick={()=> setPage(<SemuaItemAdmin/>)}>Semua Item</p>
+                    <p className='text-sidebar-admin-content px-2 d-flex align-items-center' id='text-sidebar-admin' onClick={()=> setPage(<PemasukanItemAdmin/>)}>Riwayat Item Masuk</p>
+                    <p className='text-sidebar-admin-content px-2 d-flex align-items-center' id='text-sidebar-admin' onClick={()=> setPage(<PengeluaranItemAdmin/>)}>Riwayat Item Keluar</p>
                 </div>
             </div>
 
             <div className="sidebar-item">
                 <div className="sidebar-title d-flex align-items-center">
-                    <p className="text-sidebar-admin-title pt-3" id='text-sidebar-admin' onClick={()=> setPage(<NotifPesanan/>)}>Pesanan Masuk</p>
+                    <p className="text-sidebar-admin-title pt-3" id='text-sidebar-admin' onClick={()=> setPage(<NotifPesanan/>)}>Konfirmasi Pembayaran</p>
                     <div className="bg-text-notif-pesanan d-flex justify-content-center">
                         <p className="text-notif-pesanan">{dataKonfirmasi.length}</p>
                     </div>

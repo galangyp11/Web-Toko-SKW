@@ -63,7 +63,6 @@ const ItemToko = () => {
             <p className='text-title-halaman'>Item SKW</p>
         </div>
 
-        <div className='item-toko container p-4'>
         <div className="row">
             <div className="col-3 d-flex justify-content-center align-items-center" style={{ height:'100%'}}>
                 <input className='search-admin p-2 ' type="text" placeholder='Search' />    
@@ -112,8 +111,7 @@ const ItemToko = () => {
         </tbody>
         </table>
         </div>
-        </div>
-            : pageItem}
+            : <div>{pageItem}</div> }
     </div> 
         
      );

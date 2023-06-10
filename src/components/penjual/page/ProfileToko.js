@@ -37,7 +37,7 @@ const ProfileToko = () => {
                 <p className='text-title-halaman'>Profile Toko</p>
             </div>
             {!isEdit ? 
-            <div className="row profile-toko container p-4  d-flex justify-content-center">
+            <div className="row profile-toko container d-flex justify-content-center">
                 <div className="col-4 ">
                     <div className="bg-foto-profile-penjual">
                         <img className='foto-profile' src={ `data:image/png;base64,${foto}`} alt="" />

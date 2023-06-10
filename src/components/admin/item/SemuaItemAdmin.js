@@ -54,6 +54,7 @@ const SemuaItemAdmin = () => {
     console.log(datumItem)
     return ( 
         <div className="semua-item-admin container-fluid">
+            <div className="sticky-top">
             <div className="row">
                 <p className='text-title-halaman'>Item SKW</p>
             </div>
@@ -67,6 +68,7 @@ const SemuaItemAdmin = () => {
                             </div>
                         </div>                     
                 </div>
+            </div>
             </div>
 
            <table class="table my-5 table-bordered">

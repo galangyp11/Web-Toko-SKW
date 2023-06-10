@@ -30,9 +30,11 @@ const EditItem = ({id_item, setIsUbah, setPageItem}) => {
         biaya_operasional: ""
     });
     const tanggal = new Date()
+    const [kategoriById, setKategoriById] = useState('')
     const [warnaItem, setWarnaItem] = useState("")
     const [isWarna, setIsWarna] = useState(true)
     const [isIsiWarna, setIsIsiWarna] = useState(false)
+    const [isChecked, setIsChecked] = useState()
     const [isAlert, setIsAlert] = useState(false)
     const [textAlert, setTextAlert] = useState('')
     
@@ -59,6 +61,7 @@ const EditItem = ({id_item, setIsUbah, setPageItem}) => {
         if(dataInput.warna_item.length !== 0) {
             setIsWarna(true)
         }
+
     },[])
  
     const handleInput = (e) =>{
@@ -79,27 +82,62 @@ const EditItem = ({id_item, setIsUbah, setPageItem}) => {
             stok_item: itemById.stok_item,
             biaya_operasional: itemById.biaya_operasional,
         }))
+
+        if(itemById.id_kategori === 1){
+            setKategoriById('Makanan')
+        } else if(itemById.id_kategori === 2){
+            setKategoriById('Minuman')
+        } else if(itemById.id_kategori === 3){
+            setKategoriById('Pakaian')
+        } else if(itemById.id_kategori === 4){
+            setKategoriById('Aksesoris')
+        } else if(itemById.id_kategori === 5){
+            setKategoriById('Kerajinan')
+        } else if(itemById.id_kategori === 6){
+            setKategoriById('jasa')
+        } else {
+            setKategoriById('')
+        }
+        
     },[itemById])
 
     useEffect(()=>{
-        const dataUkuran = [ ...ukuranItemById ]
-        setDataInput((data)=>({...data, ukuran_item : dataUkuran}))
+        ukuranItemById.forEach(()=>{
+            setDataInput((data)=>({
+                ...data, 
+                ukuran_item : ukuranItemById.map(ukuran => ukuran.nama_ukuran)
+            }))
+        })
+
     },[ukuranItemById])
 
     useEffect(()=>{
-        // const dataWarna = [ ...warnaItemById ]
-        // setDataInput((data)=>({...data, warna_item : dataWarna}))
-
         warnaItemById.forEach((item)=>{
-            // const dataWarna = [...dataInput.warna_item]
-            // dataWarna.splice(0, 0, item.nama_warna)
             setDataInput((data)=>({
                 ...data,
                 warna_item: warnaItemById.map(warna => warna.nama_warna)
             }))
         })
-
     },[warnaItemById])
+
+    const handleInputUkuran = (e) =>{
+        // setIsChecked(!isChecked)
+        e.preventDefault()
+        if(e.target.checked) {
+            const dataUkuran = [...dataInput.ukuran_item]
+            dataUkuran.splice(0, 0, e.target.value)
+            // console.log(dataUkuran)
+            setDataInput((data)=>({...data, ukuran_item : dataUkuran}))
+        } else {
+            setDataInput((data)=>({...data, ukuran_item: data.ukuran_item.splice(e.target.value, 1 )}))
+        }
+
+        if(e.target.id === dataInput.ukuran_item){
+            setIsChecked(true)
+        } else {
+            setIsChecked(false)
+        }
+    }
 
     const handleInputWarna = (e) => {
         e.preventDefault()
@@ -163,16 +201,24 @@ const EditItem = ({id_item, setIsUbah, setPageItem}) => {
                 formData.append('warna_item', dataInput.warna_item[i])
             }
             
-            await axios.post(`${apiHost}item`, formData);
+            await axios.put(`${apiHost}item`, formData);
+            
             setIsAlert(true)
             setTextAlert('Item berhasil diubah')
             // console.log(dataInput.ukuran_item.length)
-            // console.log(formData)
+            console.log(formData)
             setPageItem(<ItemToko/>)
         } catch (error) {
             console.log('eror bang gabisa input', error)
         }
     }
+
+    useEffect(()=>{
+        const postRiwayat = async() => {
+            await axios.post(`${apiHost}riwayat-item-masuk`, dataInput)
+        }
+        postRiwayat()
+    },[handleDaftarPenjual])
 
     const onChangeFile = (evt) => {
         if (evt.target.files.length > 4 ) {
@@ -198,7 +244,7 @@ const EditItem = ({id_item, setIsUbah, setPageItem}) => {
     return ( 
         <div className="edit-item">
             <p className='text-title-halaman'>Edit Item</p>
-            <div className='item-toko container p-4'>
+           
             
             <div className="form-body-penjual gap-1 d-flex justify-content-center row">
                 <div className="row d-flex align-items-center">
@@ -250,7 +296,12 @@ const EditItem = ({id_item, setIsUbah, setPageItem}) => {
                         <label htmlFor="id_kategori" id='label-input'>Kategori</label>
                     </div>
                     <div className="col">
-                        <select 
+                        <input 
+                            type="text" 
+                            className='input-text'
+                            placeholder={kategoriById}
+                            disabled/>
+                        {/* <select 
                             name="kategori" 
                             id="id_kategori" 
                             className='input-text'
@@ -264,7 +315,7 @@ const EditItem = ({id_item, setIsUbah, setPageItem}) => {
                             <option value="4">Aksesoris</option>
                             <option value="5">kerajinan</option>
                             <option value="6">Jasa</option>
-                        </select>
+                        </select> */}
                     </div>
                 </div>
 
@@ -356,41 +407,43 @@ const EditItem = ({id_item, setIsUbah, setPageItem}) => {
                     <div className="col">
                         <input 
                             type="checkbox" 
-                            id="ukuran_item" 
+                            id="XL" 
                             value="XL"
-                            onChange={handleInput}
+                            onChange={handleInputUkuran}
                             disabled={dataInput.id_kategori === "3" || dataInput.id_kategori === "4" ? false : true}
                         /> XL
                         <br />
                         <input 
                             type="checkbox" 
-                            id="ukuran_item" 
-                            value="XL"
-                            onChange={handleInput}
+                            id="L" 
+                            value="L"
+                            onChange={handleInputUkuran}
                             disabled={dataInput.id_kategori === "3" || dataInput.id_kategori === "4" ? false : true}
                         /> L
                         <br />
                         <input 
                             type="checkbox" 
-                            id="ukuran_item" 
-                            value="XL"
-                            onChange={handleInput}
+                            id="M" 
+                            value="M"
+                            onChange={handleInputUkuran}
+                            checked={isChecked}
                             disabled={dataInput.id_kategori === "3" || dataInput.id_kategori === "4" ? false : true}
                         /> M
                         <br />
                         <input 
                             type="checkbox" 
-                            id="ukuran_item" 
-                            value="XL"
-                            onChange={handleInput}
+                            id="S" 
+                            value="S"
+                            onChange={handleInputUkuran}
                             disabled={dataInput.id_kategori === "3" || dataInput.id_kategori === "4" ? false : true}
                         /> S
                         <br />
                         <input 
                             type="checkbox" 
-                            id="ukuran_item" 
-                            value="XL"
-                            onChange={handleInput}
+                            id="Semua Ukuran" 
+                            value="Semua Ukuran"
+                            onChange={handleInputUkuran}
+                            checked={isChecked}
                             disabled={dataInput.id_kategori === "3" || dataInput.id_kategori === "4" ? false : true}
                         /> Semua Ukuran
                     </div>
@@ -424,6 +477,8 @@ const EditItem = ({id_item, setIsUbah, setPageItem}) => {
                     <button className='but-input-item-penjual' onClick={handleDaftarPenjual}>Simpan</button>
                 </div>
             </div>
+            <div className="d-flex justify-content-center" >
+                {isAlert ? <Alert textAlert={textAlert} isAlert={isAlert} setIsAlert={setIsAlert}/> : <div></div>}
             </div>
         </div>
      );

@@ -119,10 +119,7 @@ const InputItem = ({setIsUbah, setPageItem}) => {
 
     const handleDaftarPenjual = async (e) =>{
         e.preventDefault()
-        const tgl_input = tanggal.getDate() + '/' + (+tanggal.getMonth() + 1) + '/' + tanggal.getFullYear()
-        setDataInput((data) => ({...data,
-            tgl_input : tgl_input
-        }))
+    
         try {   
             let formData = new FormData();
             
@@ -148,12 +145,20 @@ const InputItem = ({setIsUbah, setPageItem}) => {
             setIsAlert(true)
             setTextAlert('Item berhasil diinput')
             // console.log(dataInput.ukuran_item.length)
-            // console.log(formData)
+            console.log(dataInput)
             setPageItem(<ItemToko/>)
         } catch (error) {
             console.log('eror bang gabisa input', error)
         }
     }
+
+    useEffect(()=>{
+        const tgl_input = tanggal.getHours() + ':' + tanggal.getMinutes() + ' ' + tanggal.getDate() + '/' + (+tanggal.getMonth() + 1) + '/' + tanggal.getFullYear()
+        
+        setDataInput((data) => ({...data,
+            tgl_input : tgl_input
+        }))
+    },[handleDaftarPenjual])
 
     const onChangeFile = (evt) => {
         if (evt.target.files.length > 4 ) {
@@ -175,7 +180,6 @@ const InputItem = ({setIsUbah, setPageItem}) => {
     return ( 
         <div className="">
             <p className='text-title-halaman'>Input Item</p>
-            <div className='item-toko container p-4'>
             
             <div className="form-body-penjual gap-1 d-flex justify-content-center row">
                 <div className="row d-flex align-items-center">
@@ -400,10 +404,9 @@ const InputItem = ({setIsUbah, setPageItem}) => {
                     <button className='but-input-item-penjual' onClick={handleDaftarPenjual}>Input</button>
                 </div>
             </div>
-            </div>
             <div className="d-flex justify-content-center" >
-          {isAlert ? <Alert textAlert={textAlert} isAlert={isAlert} setIsAlert={setIsAlert}/> : <div></div>}
-        </div>
+                {isAlert ? <Alert textAlert={textAlert} isAlert={isAlert} setIsAlert={setIsAlert}/> : <div></div>}
+            </div>
         </div>
      );
 }
