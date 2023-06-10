@@ -20,7 +20,7 @@ const InputItem = ({setIsUbah, setPageItem}) => {
         nama_item: "",
         harga_item: "",
         foto_item: [],
-        deksripsi_item: "",
+        deskripsi_item: "",
         id_kategori: "1" ,
         stok_item: "",
         ukuran_item: [],
@@ -109,6 +109,12 @@ const InputItem = ({setIsUbah, setPageItem}) => {
         if(dataInput.warna_item === null) {
             setIsWarna(false)
         }
+
+         const tgl_input = tanggal.getHours() + ':' + tanggal.getMinutes() + ' ' + tanggal.getDate() + '/' + (+tanggal.getMonth() + 1) + '/' + tanggal.getFullYear()
+        
+            setDataInput((data) => ({...data,
+                tgl_input : tgl_input
+            }))
     }, [])
 
     const handleBatal = () => {
@@ -117,8 +123,7 @@ const InputItem = ({setIsUbah, setPageItem}) => {
     }
 
     const handleDaftarPenjual = async (e) =>{
-        e.preventDefault()
-    
+        e.preventDefault()    
         try {   
             let formData = new FormData();
             
@@ -143,15 +148,11 @@ const InputItem = ({setIsUbah, setPageItem}) => {
             await axios.post(`${apiHost}item`, formData);
             setIsAlert(true)
             setTextAlert('Item berhasil diinput')
-            // console.log(dataInput.ukuran_item.length)
-            console.log(dataInput)
+            
             setPageItem(<ItemToko/>)
-
-            const tgl_input = tanggal.getHours() + ':' + tanggal.getMinutes() + ' ' + tanggal.getDate() + '/' + (+tanggal.getMonth() + 1) + '/' + tanggal.getFullYear()
         
-            setDataInput((data) => ({...data,
-                tgl_input : tgl_input
-            }))
+            console.log(isAlert)
+
         } catch (error) {
             console.log('eror bang gabisa input', error)
         }
@@ -172,7 +173,8 @@ const InputItem = ({setIsUbah, setPageItem}) => {
     }
     
     // console.log('warnaItem', warnaItem)
-    // console.log(dataInput.id_kategori)
+    // console.log(dataInput)
+    console.log(isAlert)
 
     return ( 
         <div className="">
@@ -207,15 +209,15 @@ const InputItem = ({setIsUbah, setPageItem}) => {
 
                 <div className="row d-flex align-items-center">
                     <div className="col-3">
-                        <label htmlFor="deksripsi_item"  id='label-input'>Deksripsi</label>
+                        <label htmlFor="deskripsi_item"  id='label-input'>Deskripsi</label>
                     </div>
                     <div className="col">
                         <textarea 
                             className='input-text' 
-                            name="deksripsi" 
-                            id="deksripsi_item"
+                            name="deskripsi" 
+                            id="deskripsi_item"
                             style={{resize:"none", height:"100px"}}
-                            value={dataInput.deksripsi_item}
+                            value={dataInput.deskripsi_item}
                             onChange={handleInput}
                         ></textarea>
                     </div>
