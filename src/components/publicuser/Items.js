@@ -16,6 +16,7 @@ const Items = () => {
       setDatum(response.data);
       // console.log(response)
     };
+
     dataDB();
   }, [state.search]);
 
@@ -35,7 +36,6 @@ const Items = () => {
       <div className="items p-4 d-flex justify-content-center">
         <div className="row gap-4 d-flex justify-content-center align-items-center row-cols-5">
           {datum.map((item) => {
-            console.log("gambar", item.gambar);
             return (
               <div
                 className="item m-2"
@@ -50,7 +50,9 @@ const Items = () => {
                     <img
                       className="item-image"
                       src={
-                        "http://localhost:3311/1b84a10e4350de424f0620f56fd5c912.png"
+                        item.gambar?.length
+                          ? `${apiHost}${item.gambar[0]}`
+                          : "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/2300px-React-icon.svg.png"
                       }
                       alt=""
                     />
