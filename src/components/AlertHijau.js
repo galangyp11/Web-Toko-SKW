@@ -7,7 +7,7 @@ const Alert = ({textAlert, isAlert, setIsAlert, setIsEdit}) => {
     useEffect(()=>{
         setTimeout(()=>{
             setIsAlert(false)
-            setIsEdit(false);
+            // setIsEdit(false);
         },1500)
     },[])
 

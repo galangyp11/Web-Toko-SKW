@@ -115,6 +115,7 @@ const InputItem = ({setIsUbah, setPageItem}) => {
             setDataInput((data) => ({...data,
                 tgl_input : tgl_input
             }))
+
     }, [])
 
     const handleBatal = () => {
@@ -148,9 +149,10 @@ const InputItem = ({setIsUbah, setPageItem}) => {
             await axios.post(`${apiHost}item`, formData);
             setIsAlert(true)
             setTextAlert('Item berhasil diinput')
+
+            setTimeout(()=>{setPageItem(<ItemToko/>)},1500)
             
-            setPageItem(<ItemToko/>)
-        
+                    
             console.log(isAlert)
 
         } catch (error) {
