@@ -44,7 +44,14 @@ const ProfilPenjualAdmin = () => {
     }
   }
 
-    return ( 
+  const onSearchItem = async ({  target: { value } }) => {
+    console.log('val', value)
+    const response = await axios.get(`${apiHost}pembeli?search=${value}`)
+    setDatum(response.data)
+  }
+
+  console.log(datum)
+  return ( 
         <div className="profil-pembeli-admin container-fluid">
             <div className="row">
                 <p className='text-title-halaman'>Profil Pembeli</p>
@@ -52,7 +59,7 @@ const ProfilPenjualAdmin = () => {
 
             <div className="row">
                 <div className="col-3 d-flex justify-content-center align-items-center" style={{ height:'100%'}}>
-                    <input className='search-admin p-2 ' type="text" placeholder='Search' />    
+                    <input className='search-admin p-2 ' type="text" placeholder='Search' onChange={onSearchItem}/>    
                         <div className="col-1 d-flex justify-content-center align-items-center" style={{ height:'100%'}}>
                             <div className="logo-search-admin d-flex justify-content-center">
                                 <img className='p-1' src={search} alt=""/>
@@ -61,7 +68,7 @@ const ProfilPenjualAdmin = () => {
                 </div>
             </div>
 
-      <table class="table my-5 table-bordered">
+      <table className="table my-5 table-bordered">
         <thead className="table-dark">
           <tr>
             <th scope="col">No</th>
@@ -90,7 +97,7 @@ const ProfilPenjualAdmin = () => {
                 </td>
               </tr>
             );
-          })}
+          }) }
         </tbody>
       </table>
 

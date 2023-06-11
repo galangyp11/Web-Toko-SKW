@@ -28,13 +28,13 @@ const Keranjang = () => {
     const [textAlert, setTextAlert] = useState('')
     
     useEffect(()=>{
-        const dataDB = async () => {
-            const response = await axios.get(`${apiHost}keranjang/${id}`)
-            setDatum(response.data)
-        }
-        dataDB()
-        
-    },[]) 
+        dataDB() 
+    }, [dataInput]) 
+
+    const dataDB = async () => {
+        const response = await axios.get(`${apiHost}keranjang/${id}`)
+        setDatum(response.data)
+    }
 
     useEffect(()=>{
         if(datum.length != 0){
@@ -89,11 +89,11 @@ const Keranjang = () => {
             <div className="keranjang-con container mt-2">
                 <div className="row">
                     <div className="col">
-                        {isKosong? <p className='text-keranjang-kosong d-flex justify-content-center align-items-center'>Keranjang Kosong</p> : <ItemsKeranjang datum={datum} setDatum={setDatum} setDataInput={setDataInput} disable={disable}/>}
+                        {isKosong? <p className='text-keranjang-kosong d-flex justify-content-center align-items-center'>Keranjang Kosong</p> : <ItemsKeranjang datum={datum} setDatum={setDatum} setDataInput={setDataInput} disable={disable} dataDB={dataDB} />}
                     </div>
 
                     <div className="col-4 sticky-top">
-                        <FooterKeranjang datum={datum} isKosong={isKosong} handleCheckout={handleCheckout} totalHarga={totalHarga}/>
+                        <FooterKeranjang datum={datum} isKosong={isKosong} handleCheckout={handleCheckout} totalHarga={totalHarga} dataDB={dataDB} />
                     </div>
                 </div> 
             </div>

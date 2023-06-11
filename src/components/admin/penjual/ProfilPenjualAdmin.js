@@ -20,7 +20,6 @@ const ProfilPenjualAdmin = () => {
       const response = await axios.get(`${apiHost}penjual`);
       setDatum(response.data);
     };
-
     getDatumItem();
   }, []);
 
@@ -44,6 +43,14 @@ const ProfilPenjualAdmin = () => {
       setCurrentPage(currentPage + 1);
     }
   }
+
+  const onSearchItem = async ({  target: { value } }) => {
+    console.log('val', value)
+    const response = await axios.get(`${apiHost}penjual?search=${value}`)
+    setDatum(response.data)
+  }
+
+  console.log(datum)
   return (
     <div className="container-fluid">
       <div className="row">
@@ -59,6 +66,7 @@ const ProfilPenjualAdmin = () => {
             className="search-admin p-2 "
             type="text"
             placeholder="Search"
+            onChange={onSearchItem}
           />
           <div
             className="col-1 d-flex justify-content-center align-items-center"
@@ -71,7 +79,7 @@ const ProfilPenjualAdmin = () => {
         </div>
       </div>
 
-      <table class="table my-5 table-bordered">
+      <table className="table my-5 table-bordered">
         <thead className="table-dark">
           <tr>
             <th scope="col">No</th>
@@ -100,7 +108,7 @@ const ProfilPenjualAdmin = () => {
                 </td>
               </tr>
             );
-          })}
+          }) }
         </tbody>
       </table>
 

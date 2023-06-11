@@ -34,9 +34,7 @@ const SemuaItemAdmin = () => {
             currency: "IDR"
         }).format(number);
     }
-
-    console.log(datumItem)
-
+    
     function prePage (){
         if(currentPage !== firstIndex){
             setCurrentPage(currentPage - 1)

@@ -50,6 +50,12 @@ const PemasukanItemAdmin = () => {
             setCurrentPage(currentPage +1)
         }
      }
+
+     const onSearchItem = async ({  target: { value } }) => {
+        console.log('val', value)
+        const response = await axios.get(`${apiHost}riwayat-item-masuk?search=${value}`)
+        setDatumItem(response.data)
+     }
     return ( 
         <div className="pemasukan-item-admin container-fluid">
              <div className="row">
@@ -58,7 +64,7 @@ const PemasukanItemAdmin = () => {
 
             <div className="row">
                 <div className="col-3 d-flex justify-content-center align-items-center " style={{ height:'100%'}}>
-                    <input className='search-admin p-2 ' type="text" placeholder='Search' />    
+                    <input className='search-admin p-2 ' type="text" placeholder='Search' onChange={onSearchItem}/>    
                         <div className="col-1 d-flex justify-content-center align-items-center" style={{ height:'100%'}}>
                             <div className="logo-search-admin d-flex justify-content-center">
                                 <img className='p-1' src={search} alt=""/>

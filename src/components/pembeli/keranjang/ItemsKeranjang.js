@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import apiHost from "../../../constants/apiHost";
 
-const ItemsKeranjang = ({ datum, setDatum, setDataInput, disable}) => {
+const ItemsKeranjang = ({ datum, setDatum, setDataInput, disable, dataDB}) => {
 
   const [isUkuran, setIsUkuran] = useState(false)
 
@@ -46,6 +46,8 @@ const ItemsKeranjang = ({ datum, setDatum, setDataInput, disable}) => {
       id_keranjang : ikeranjang,
       total_harga : (+ijumlah + 1) * ihargaitem
     }))
+
+    dataDB()
   }
 
   const handleKurang = (ijumlah, ikeranjang, ihargaitem, e) => {
@@ -56,6 +58,8 @@ const ItemsKeranjang = ({ datum, setDatum, setDataInput, disable}) => {
       id_keranjang : ikeranjang,
       total_harga : (+ijumlah - 1) * ihargaitem
     }))
+
+    dataDB()
   }
 
   return datum.map((item) => {
