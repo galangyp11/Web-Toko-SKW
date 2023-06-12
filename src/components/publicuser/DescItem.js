@@ -42,11 +42,11 @@ const DescItem = () => {
     };
     getItemById();
 
-    const getUkuranItem = async () => {
-      const response = await axios.get(`${apiHost}item-ukuran/${id}`);
-      setUkuranItem(response.data);
-    };
-    getUkuranItem();
+    // const getUkuranItem = async () => {
+    //   const response = await axios.get(`${apiHost}item-ukuran/${id}`);
+    //   setUkuranItem(response.data);
+    // };
+    // getUkuranItem();
 
     window.scrollTo(0, 0);
     setDataItem((data) => ({ ...data, id_pembeli: id_pembeli, id_item: id }));

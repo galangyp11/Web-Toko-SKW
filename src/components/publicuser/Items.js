@@ -11,12 +11,11 @@ const Items = () => {
 
   useEffect(() => {
     const dataDB = async () => {
-      const response = await axios.get(`${apiHost}item?search=${state.search}`);
-      console.log("response", response);
+      const response = await axios.get(`${apiHost}item`);
+      // console.log("response", response);
       setDatum(response.data);
       // console.log(response)
     };
-
     dataDB();
   }, [state.search]);
 
@@ -27,7 +26,7 @@ const Items = () => {
     }).format(number);
   };
 
-  console.log(datum);
+  // console.log(datum);
   return (
     <div
       className="bg-items my-5 d-flex justify-content-center"

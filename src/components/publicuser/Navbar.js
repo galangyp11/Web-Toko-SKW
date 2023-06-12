@@ -1,39 +1,59 @@
 import "./navbar.css";
-import { useNavigate } from "react-router-dom";
-
+import { useNavigate, Link } from "react-router-dom";
+import apiHost from "../../constants/apiHost";
 import { BsSearch } from "react-icons/bs";
-import { useSearch } from "../../context";
-import searchItemCon from "../../context/SearchItemCon";
 import { useEffect, useState } from "react";
+import axios from "axios";
 
 const Navbar = () => {
   const navigate = useNavigate();
-  const { dispatch } = useSearch();
   const [isSearch, setIsSearch] = useState(false)
 
-  useEffect(()=>{
+  const [datum, setDatum] = useState([]);
 
-  },[])
+  const onSearchItem = async (e) => {
+    console.log('val', e.target.value)
+  
+    const response = await axios.get(`${apiHost}item?search=${e.target.value}`)
+    setDatum(response.data)
+    if(e.target.value !== datum.nama_item || e.target.value === ''){
+      setIsSearch(false)
+    }
+  }
+
+  useEffect(()=>{
+    if(datum.length !== 0){
+      setIsSearch(true)
+    } else if(datum.length === Math.max(...datum)){
+      setIsSearch(false)
+    }
+  },[onSearchItem])
+
+  const formatUang = (number) => {
+    return new Intl.NumberFormat("id-ID", {
+      style: "currency",
+      currency: "IDR",
+    }).format(number);
+  };
+
+  console.log(datum)
   return (
     <div className="navbar-public d-flex align-items-center justify-content-center">
-      <div className="row " style={{ width: "90dvw", height: "100%" }}>
+      <div className="row d-flex justify-content-center" style={{ width: "90dvw", height: "100%" }}>
         <div className="col" style={{ height: "100%" }}>
           {/* <img className='logo' src={logo} alt="logo bang" onClick={()=>navigate("/")}/> */}
           <p className="text-logo-skw d-flex align-items-center" onClick={() => navigate("/")}>SKW </p>
         </div>
         <div className="col-4 d-flex justify-content-center align-items-center" style={{ height: "100%" }}>
-          <div className="bg-search d-flex justify-content-center align-items-center border">
+          <div className="bg-search d-flex justify-content-center align-items-center">
             <input
               className="search p-2"
               type="text"
               placeholder="Search"
-              onChange={(e) => {
-                dispatch.setSearch(e.target.value);
-              }}
+              onChange={(e) => onSearchItem(e)}
             />
             <BsSearch color="#0E8388" size="20px" className="logo-search" />
           </div>
-          {isSearch ? <searchItemCon/> : <></>}
         </div>
         <div
           className="col d-flex justify-content-end align-items-center"
@@ -63,6 +83,45 @@ const Navbar = () => {
               </div>
             </div>
           </div>
+        </div>
+        <div className="row d-flex justify-content-center" style={{width:"50em"}}>
+        {isSearch ? <div className="bg-item-navbar">
+          {datum?.map((data)=>{
+            return(
+              <div className="row d-flex justify-content-center my-2 " key={data.id_item}>
+                <Link
+                  to={`/item/${data.id_item}`}
+                  style={{ textDecoration: "none", color: "black" }}
+                  
+                >
+                <div className="row item-navbar d-flex align-items-center" >
+                  <div className="col-2 ">
+                    <img
+                        className="item-image"
+                        src={
+                          data.gambar?.length
+                            ? `${apiHost}${data.gambar[0]}`
+                            : "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/2300px-React-icon.svg.png"
+                        }
+                        alt=""
+                      />
+                  </div>
+                  <div className="col">
+                    <p className="text-item-name">{data.nama_item}</p>
+                    <p className="text-item-price">
+                      {formatUang(data.harga_item).replace(/,00/g, "")}
+                    </p>
+                  </div>
+                  <div className="col-4">
+                    <p className="text-item-toko d-flex align-items-end pb-1">
+                      {data.nama_toko}
+                    </p>
+                  </div>
+                </div>
+                </Link>
+             </div>
+            )
+          })}</div> : <></>}
         </div>
       </div>
     </div>

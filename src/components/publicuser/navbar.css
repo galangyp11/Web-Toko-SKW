@@ -104,3 +104,24 @@
 .but-login:hover{
     background-color: #08595c;
 }
+
+.bg-item-navbar{
+    min-height: 10em;
+    width: 42em;
+    background-color: white;
+    border-radius: 0px 0px 10px 10px;
+    box-shadow: rgba(0, 0, 0, 0.09) 0px 3px 12px;
+}
+
+.item-navbar{
+    height: 7em;
+    width: 40em;
+    border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    background-color: white;
+    cursor: pointer;
+}
+
+.item-navbar:hover{
+    filter: brightness(95%);
+}
