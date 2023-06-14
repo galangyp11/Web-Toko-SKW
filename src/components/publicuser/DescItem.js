@@ -3,8 +3,10 @@ import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { BsFillCartFill } from "react-icons/bs";
 import { IoLogoWhatsapp } from "react-icons/io";
+import ReactWhatsapp from "react-whatsapp";
 import axios from "axios";
 import Cookies from "js-cookie";
+import fotoKosing from '../image/kuraplongo.jpg'
 
 import apiHost from "../../constants/apiHost";
 import AlertHijau from "../AlertHijau";
@@ -13,7 +15,6 @@ import KuraPlongo from "../image/kuraplongo.jpg";
 
 const DescItem = () => {
   const [itemById, setItemById] = useState({});
-  console.log("itemById", itemById);
   const [cekItemKeranjang, setCekItemKeranjang] = useState([]);
   const [idItemKeranjang, setIdItemKeranjang] = useState();
   const [foto, setFoto] = useState();
@@ -28,9 +29,12 @@ const DescItem = () => {
     total_harga: "",
     gambar: [],
   });
-  const [ukuranitem, setUkuranItem] = useState([]);
+  const [ukuranItem, setUkuranItem] = useState([]);
   const [isUkuran, setIsUkuran] = useState(false);
+  const [warnaItem, setWarnaItem] = useState([]);
   const [isWarna, setIsWarna] = useState(false);
+  const [noWa, setNoWa] = useState();
+  const [messageWa, setMessageWa] = useState('');
   const [isAlertHijau, setIsAlertHijau] = useState(false);
   const [isAlertMerah, setIsAlertMerah] = useState(false);
   const [textAlert, setTextAlert] = useState("");
@@ -42,11 +46,17 @@ const DescItem = () => {
     };
     getItemById();
 
-    // const getUkuranItem = async () => {
-    //   const response = await axios.get(`${apiHost}item-ukuran/${id}`);
-    //   setUkuranItem(response.data);
-    // };
-    // getUkuranItem();
+    const getUkuranItem = async () => {
+      const response = await axios.get(`${apiHost}item-ukuran/${id}`);
+      setUkuranItem(response.data);
+    };
+    getUkuranItem();
+
+    const getWarnaItem = async()=>{
+      const response = await axios.get(`${apiHost}item-warna/${id}`);
+      setWarnaItem(response.data)
+    };
+    getWarnaItem();
 
     window.scrollTo(0, 0);
     setDataItem((data) => ({ ...data, id_pembeli: id_pembeli, id_item: id }));
@@ -55,6 +65,7 @@ const DescItem = () => {
       const response = await axios.get(`${apiHost}keranjang/${id_pembeli}`);
       setCekItemKeranjang(response.data);
     };
+
     if (id_pembeli !== undefined) {
       getKeranjang();
     }
@@ -108,16 +119,37 @@ const DescItem = () => {
   useEffect(() => {
     setDataItem((data) => ({ ...data, total_harga: itemById.harga_item * 1 }));
 
-    if (itemById.nama_ukuran === null) {
+    if(itemById.logo_toko === 0 ){
+      setFoto(fotoKosing)
+    } else {
+      setTimeout(() => {
+        try {
+          setFoto(
+            btoa(
+              String.fromCharCode(...new Uint8Array(itemById.logo_toko.data))
+            )
+          );
+        } catch (error) {
+          console.log("sabar bang fotonya lagi loading");
+        }
+      }, 100);
+    }
+
+    setNoWa(`${itemById.whatsapp}`)
+    setMessageWa(`Halo ${itemById.nama_toko}, Apakah barang ${itemById.nama_item} tersedia?`);
+  }, [itemById]);
+
+  useEffect(()=>{
+    if (ukuranItem.length === 0 ) {
       setIsUkuran(false);
     } else setIsUkuran(true);
+  },[ukuranItem])
 
-    if (itemById.warna_item === null || itemById.warna_item === "") {
+  useEffect(()=>{
+    if (warnaItem.length === 0 ) {
       setIsWarna(false);
-    } else {
-      setIsWarna(true);
-    }
-  }, [itemById]);
+    } else setIsWarna(true);
+  },[warnaItem])
 
   const formatUang = (number) => {
     return new Intl.NumberFormat("id-ID", {
@@ -126,18 +158,14 @@ const DescItem = () => {
     }).format(number);
   };
 
-  // setTimeout(()=>{
-  //     try {
-  //         setFoto(btoa(String.fromCharCode(...new Uint8Array(itemById.foto_item.data))))
-  //     } catch (error) {
-  //         console.log('sabar bang fotonya lagi loading')
-  //     }
-  // }, 100)
-  // console.log(idItemKeranjang)
-  // console.log(cekItemKeranjang)
-  // console.log('ukuranItem',ukuranitem);
-  // console.log('isWarna', isWarna)
-  // console.log('isUkuran', isUkuran)
+  console.log({
+    // ukuranItem,
+    // warnaItem,
+    // isWarna,
+    // isUkuran,
+    itemById,
+    messageWa
+  })
 
   return (
     <div className="descitem">
@@ -224,7 +252,7 @@ const DescItem = () => {
               <div className="row desc-item-toko ">
                 <div className="col-2 d-flex justify-content-end">
                   <div className="desc-foto-toko-item">
-                    <img className="" src="" />
+                    <img className="photo-profile"  src={`data:image/png;base64,${foto}`} />
                   </div>
                 </div>
                 <div className="col p-1">
@@ -241,16 +269,18 @@ const DescItem = () => {
                   </p>
                 </div>
                 <div className="col d-flex  align-items-center justify-content-end">
-                  <button className="but-chat-penjual d-flex align-items-center justify-content-center gap-2">
-                    <IoLogoWhatsapp color="white" size="20px" />
-                    Chat penjual
-                  </button>
+                    <ReactWhatsapp number="62-812-111-39102" message={messageWa} style={{border:'none', backgroundColor:'trasnparent'}}>
+                      <button className="but-chat-penjual d-flex align-items-center justify-content-center gap-2" >
+                          <IoLogoWhatsapp color="white" size="20px" /> 
+                          Chat penjual
+                      </button>
+                    </ReactWhatsapp>
                 </div>
               </div>
               <hr />
-              <div className="row pilihan-desc-item border">
-                {isUkuran ? (
-                  ukuranitem.map((data) => {
+              <div className="row pilihan-desc-item">
+                {isUkuran ? <div>{
+                  ukuranItem.map((data) => {
                     return (
                       <div key={data.id_ukuran} className="ukuran-item-input">
                         <input
@@ -260,15 +290,15 @@ const DescItem = () => {
                           value={data.nama_ukuran}
                           onChange={handleInputUkuran}
                         />
-                        <label htmlFor="ukuran">{data.nama_ukuran}</label>
+                        <label htmlFor="ukuran" className="px-2">{data.nama_ukuran}</label>
                       </div>
                     );
                   })
-                ) : (
-                  <div></div>
-                )}
+                }</div> : 
+                  <></>
+                }
 
-                {isWarna ? (
+                {isWarna ? <div>{
                   <div className="col d-flex gap-2">
                     <input
                       type="checkbox"
@@ -278,9 +308,9 @@ const DescItem = () => {
                     />
                     <label htmlFor="ukuran">{itemById.warna_item}</label>
                   </div>
-                ) : (
-                  <div></div>
-                )}
+                }</div>: 
+                  <></>
+                }
               </div>
               <div
                 className="d-flex justify-content-center align-items-end"

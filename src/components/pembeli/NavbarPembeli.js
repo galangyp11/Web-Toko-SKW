@@ -50,7 +50,6 @@ const Navbar = () => {
           console.log("sabar bang fotonya lagi loading");
         }
       }, 100);
-    
     }
   },[pembeliById])
 
