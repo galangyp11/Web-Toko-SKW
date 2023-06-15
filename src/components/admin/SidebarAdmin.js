@@ -22,6 +22,12 @@ const Sidebaradmin = ({setPage, dataKonfirmasi}) => {
     const [openPembeli, setOpenPembeli] = useState(false);
     const [openPenjual, setOpenPenjual] = useState(false);
     const [openItem, setOpenItem] = useState(false);
+    const [isActiveProfilePenjual, setIsActiveProfilePenjual] = useState(false);
+    const [isActiveProfilePembeli, setIsActiveProfilePembeli] = useState(false);
+    const [isActiveTransaksiPembeli, setIsActiveTransaksiPembeli] = useState(false);
+    const [isActiveSemuaItem, setIsActiveSemuaItem] = useState(false);
+    const [isActiveRiwayatMasuk, setIsActiveRiwayatMasuk] = useState(false);
+    const [isActiveRiwayatKeluar, setIsActiveRiwayatKeluar] = useState(false);
 
     let navigate = useNavigate();
 
@@ -41,6 +47,66 @@ const Sidebaradmin = ({setPage, dataKonfirmasi}) => {
         setOpenPembeli(false)
         setOpenPenjual(false)
         setOpenItem(!openItem)
+    }
+
+    const handleProfilPenjual = () => {
+        setIsActiveProfilePenjual(true)
+        setIsActiveSemuaItem(false)
+        setIsActiveRiwayatMasuk(false)
+        setIsActiveRiwayatKeluar(false)
+        setIsActiveProfilePembeli(false)
+        setIsActiveTransaksiPembeli(false)
+        setPage(<ProfilPenjualAdmin/>)
+    }
+
+    const handleProfilePembeli = () => {
+        setIsActiveProfilePenjual(false)
+        setIsActiveSemuaItem(false)
+        setIsActiveRiwayatMasuk(false)
+        setIsActiveRiwayatKeluar(false)
+        setIsActiveProfilePembeli(true)
+        setIsActiveTransaksiPembeli(false)
+        setPage(<ProfilPembeliAdmin/>)
+    }
+
+    const handleTransaksiPembeli = () => {
+        setIsActiveProfilePenjual(false)
+        setIsActiveSemuaItem(false)
+        setIsActiveRiwayatMasuk(false)
+        setIsActiveRiwayatKeluar(false)
+        setIsActiveProfilePembeli(false)
+        setIsActiveTransaksiPembeli(true)
+        setPage(<TransaksiPembeliAdmin/>)
+    }
+
+    const handleSemuaItem = () => {
+        setIsActiveProfilePenjual(false)
+        setIsActiveSemuaItem(true)
+        setIsActiveRiwayatMasuk(false)
+        setIsActiveRiwayatKeluar(false)
+        setIsActiveProfilePembeli(false)
+        setIsActiveTransaksiPembeli(false)
+        setPage(<SemuaItemAdmin/>)
+    }
+
+    const handleRiwayatMasuk = () => {
+        setIsActiveProfilePenjual(false)
+        setIsActiveSemuaItem(false)
+        setIsActiveRiwayatMasuk(true)
+        setIsActiveRiwayatKeluar(false)
+        setIsActiveProfilePembeli(false)
+        setIsActiveTransaksiPembeli(false)
+        setPage(<PemasukanItemAdmin/>)
+    }
+
+    const handleRiwayatKeluar = () => {
+        setIsActiveProfilePenjual(false)
+        setIsActiveSemuaItem(false)
+        setIsActiveRiwayatMasuk(false)
+        setIsActiveRiwayatKeluar(true)
+        setIsActiveProfilePembeli(false)
+        setIsActiveTransaksiPembeli(false)
+        setPage(<PengeluaranItemAdmin/>)
     }
 
     const handleLogout = () => {
@@ -65,7 +131,7 @@ const Sidebaradmin = ({setPage, dataKonfirmasi}) => {
                     <BsFillCaretRightFill size="25px" color='white' className='toggle-btn d-flex justify-content-end'/>
                 </div>
                 <div className="sidebar-content ">
-                    <p className='text-sidebar-admin-content d-flex align-items-center px-2' id='text-sidebar-admin' onClick={()=> setPage(<ProfilPenjualAdmin/>)}>Profile Penjual</p>
+                    <p className={`${!isActiveProfilePenjual ? 'text-sidebar-admin-content' : 'text-sidebar-admin-content-active' } d-flex align-items-center my-1`} onClick={handleProfilPenjual}>Profile Penjual</p>
                 </div>
             </div>
 
@@ -76,8 +142,8 @@ const Sidebaradmin = ({setPage, dataKonfirmasi}) => {
                     <BsFillCaretRightFill size="25px" color='white' className='toggle-btn d-flex justify-content-end ' />
                 </div>
                 <div className="sidebar-content ">
-                    <p className='text-sidebar-admin-content px-2 d-flex align-items-center' id='text-sidebar-admin' onClick={()=> setPage(<ProfilPembeliAdmin/>)}>Profile Pembeli</p>
-                    <p className='text-sidebar-admin-content px-2 d-flex align-items-center' id='text-sidebar-admin' onClick={()=> setPage(<TransaksiPembeliAdmin/>)}>Riwayat Transaksi</p>                
+                    <p className={`${!isActiveProfilePembeli ? 'text-sidebar-admin-content' : 'text-sidebar-admin-content-active' } d-flex align-items-center my-1`} id='text-sidebar-admin' onClick={handleProfilePembeli}>Profile Pembeli</p>
+                    <p className={`${!isActiveTransaksiPembeli ? 'text-sidebar-admin-content' : 'text-sidebar-admin-content-active' } d-flex align-items-center my-1`} id='text-sidebar-admin' onClick={handleTransaksiPembeli}>Riwayat Transaksi</p>                
                 </div>
             </div>
 
@@ -89,9 +155,9 @@ const Sidebaradmin = ({setPage, dataKonfirmasi}) => {
                 </div>
 
                 <div className="sidebar-content ">
-                    <p className='text-sidebar-admin-content px-2 d-flex align-items-center' id='text-sidebar-admin' onClick={()=> setPage(<SemuaItemAdmin/>)}>Semua Item</p>
-                    <p className='text-sidebar-admin-content px-2 d-flex align-items-center' id='text-sidebar-admin' onClick={()=> setPage(<PemasukanItemAdmin/>)}>Riwayat Item Masuk</p>
-                    <p className='text-sidebar-admin-content px-2 d-flex align-items-center' id='text-sidebar-admin' onClick={()=> setPage(<PengeluaranItemAdmin/>)}>Riwayat Item Keluar</p>
+                    <p className={`${!isActiveSemuaItem ? 'text-sidebar-admin-content' : 'text-sidebar-admin-content-active' } d-flex align-items-center my-1`} onClick={handleSemuaItem}>Semua Item</p>
+                    <p className={`${!isActiveRiwayatMasuk ? 'text-sidebar-admin-content' : 'text-sidebar-admin-content-active' } d-flex align-items-center my-1`} onClick={handleRiwayatMasuk}>Riwayat Item Masuk</p>
+                    <p className={`${!isActiveRiwayatKeluar ? 'text-sidebar-admin-content' : 'text-sidebar-admin-content-active' } d-flex align-items-center my-1`} onClick={handleRiwayatKeluar}>Riwayat Item Keluar</p>
                 </div>
             </div>
 

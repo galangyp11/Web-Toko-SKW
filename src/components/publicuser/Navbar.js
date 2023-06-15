@@ -8,26 +8,27 @@ import axios from "axios";
 const Navbar = () => {
   const navigate = useNavigate();
   const [isSearch, setIsSearch] = useState(false)
-
+  const [dataSearch, setDataSearch] = useState("");
   const [datum, setDatum] = useState([]);
 
-  const onSearchItem = async (e) => {
-    console.log('val', e.target.value)
-  
-    const response = await axios.get(`${apiHost}item?search=${e.target.value}`)
-    setDatum(response.data)
-    if(e.target.value !== datum.nama_item || e.target.value === ''){
-      setIsSearch(false)
-    }
-  }
-
   useEffect(()=>{
-    if(datum.length !== 0){
+    const onSearchItem = async (e) => {  
+      const response = await axios.get(`${apiHost}item?search=${dataSearch}`)
+      setDatum(response.data)
+    }
+    onSearchItem()
+
+    if(dataSearch !== ''){
       setIsSearch(true)
-    } else if(datum.length === Math.max(...datum)){
+    } else {
       setIsSearch(false)
     }
-  },[onSearchItem])
+  },[dataSearch])
+
+  const handleDataSearch = (e) => {
+    e.preventDefault()
+    setDataSearch(`${e.target.value}`)
+  }
 
   const formatUang = (number) => {
     return new Intl.NumberFormat("id-ID", {
@@ -36,7 +37,11 @@ const Navbar = () => {
     }).format(number);
   };
 
-  console.log(datum)
+  console.log({
+    datum,
+    dataSearch
+  })
+
   return (
     <div className="navbar-public d-flex align-items-center justify-content-center">
       <div className="row d-flex justify-content-center" style={{ width: "90dvw", height: "100%" }}>
@@ -50,7 +55,7 @@ const Navbar = () => {
               className="search p-2"
               type="text"
               placeholder="Search"
-              onChange={(e) => onSearchItem(e)}
+              onChange={(e) => handleDataSearch(e)}
             />
             <BsSearch color="#0E8388" size="20px" className="logo-search" />
           </div>
@@ -85,19 +90,20 @@ const Navbar = () => {
           </div>
         </div>
         <div className="row d-flex justify-content-center" style={{width:"50em"}}>
-        {isSearch ? <div className="bg-item-navbar">
+        {isSearch ? <div className="bg-item-navbar px-4">
           {datum?.map((data)=>{
             return(
               <div className="row d-flex justify-content-center my-2 " key={data.id_item}>
                 <Link
                   to={`/item/${data.id_item}`}
                   style={{ textDecoration: "none", color: "black" }}
-                  
+              
                 >
                 <div className="row item-navbar d-flex align-items-center" >
-                  <div className="col-2 ">
+                  <div className="col-2 p-0" style={{height:'90%'}}>
                     <img
                         className="item-image"
+                        style={{objectFit:'contain'}}
                         src={
                           data.gambar?.length
                             ? `${apiHost}${data.gambar[0]}`

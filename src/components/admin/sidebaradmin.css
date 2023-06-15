@@ -67,13 +67,28 @@
     font-size: 18px;
     transition: .2s ease;
     border-radius: 5px;
+    color: white;
 
     height: 40px;
     cursor: pointer;
+    padding-left: 1em;
   }
 
   .text-sidebar-admin-content:hover{
     background-color: grey;
+    padding-left: 1.5em;
+  }
+
+  .text-sidebar-admin-content-active{
+    font-size: 18px;
+    transition: .2s ease;
+    border-radius: 5px;
+    color: white;
+
+    height: 40px;
+    cursor: pointer;
+    background-color: grey;
+    padding-left: 1.5em;
   }
 
   .bg-text-notif-pesanan{

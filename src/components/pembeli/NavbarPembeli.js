@@ -3,7 +3,7 @@ import fotoKosing from "../image/kuraplongo.jpg";
 import "./navbarpembeli.css";
 
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import { BsFillCartFill } from "react-icons/bs";
 import { BsSearch } from "react-icons/bs";
@@ -16,7 +16,9 @@ const Navbar = () => {
   const navigate = useNavigate();
   const [foto, setFoto] = useState();
   const id = Cookies.get("id");
-  const { dispatch } = useSearch();
+  const [isSearch, setIsSearch] = useState(false)
+  const [dataSearch, setDataSearch] = useState("");
+  const [datum, setDatum] = useState([]);
 
   const [isAlert, setIsAlert] = useState(false)
   const [textAlert, setTextAlert] = useState('')
@@ -63,6 +65,32 @@ const Navbar = () => {
     }, 100);
   };
 
+  useEffect(()=>{
+    const onSearchItem = async (e) => {  
+      const response = await axios.get(`${apiHost}item?search=${dataSearch}`)
+      setDatum(response.data)
+    }
+    onSearchItem()
+
+    if(dataSearch !== ''){
+      setIsSearch(true)
+    } else {
+      setIsSearch(false)
+    }
+  },[dataSearch])
+
+  const handleDataSearch = (e) => {
+    e.preventDefault()
+    setDataSearch(`${e.target.value}`)
+  }
+
+  const formatUang = (number) => {
+    return new Intl.NumberFormat("id-ID", {
+      style: "currency",
+      currency: "IDR",
+    }).format(number);
+  };
+
   // console.log(pembeliById)
 
   return (
@@ -86,9 +114,7 @@ const Navbar = () => {
               className="search p-2"
               type="text"
               placeholder="Search"
-              onChange={(e) => {
-                dispatch.setSearch(e.target.value);
-              }}
+              onChange={(e) => handleDataSearch(e)}
             />
             <BsSearch color="#0E8388" size="20px" className="logo-search" />
           </div>
@@ -163,6 +189,46 @@ const Navbar = () => {
           </div>
         </div>
       </div>
+      <div className="row d-flex justify-content-center" style={{width:"50em"}}>
+        {isSearch ? <div className="bg-item-navbar px-4">
+          {datum?.map((data)=>{
+            return(
+              <div className="row d-flex justify-content-center my-2 " key={data.id_item}>
+                <Link
+                  to={`/item/${data.id_item}`}
+                  style={{ textDecoration: "none", color: "black" }}
+              
+                >
+                <div className="row item-navbar d-flex align-items-center" >
+                  <div className="col-2 p-0" style={{height:'90%'}}>
+                    <img
+                        className="item-image"
+                        style={{objectFit:'contain'}}
+                        src={
+                          data.gambar?.length
+                            ? `${apiHost}${data.gambar[0]}`
+                            : "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/2300px-React-icon.svg.png"
+                        }
+                        alt=""
+                      />
+                  </div>
+                  <div className="col">
+                    <p className="text-item-name">{data.nama_item}</p>
+                    <p className="text-item-price">
+                      {formatUang(data.harga_item).replace(/,00/g, "")}
+                    </p>
+                  </div>
+                  <div className="col-4">
+                    <p className="text-item-toko d-flex align-items-end pb-1">
+                      {data.nama_toko}
+                    </p>
+                  </div>
+                </div>
+                </Link>
+             </div>
+            )
+          })}</div> : <></>}
+        </div>
         <div className="d-flex justify-content-center">
           {isAlert ? <Alert textAlert={textAlert} isAlert={isAlert} setIsAlert={setIsAlert}/> : <div></div>}
         </div>

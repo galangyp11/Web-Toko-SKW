@@ -28,9 +28,8 @@ const PublicRoutes = () => {
       <div className="homepage-con container-md">
         <Outlet Context={checkCookie} />
       </div>
-
       
-      <div className="sticky-bottom px-4" style={{display:"inline-block", width:'auto'}}>
+      <div className="sticky-bottom px-4 row" style={{display:"inline-block", width:'auto', zIndex:'5'}}>
         <EmailCC/>
       </div>
 
