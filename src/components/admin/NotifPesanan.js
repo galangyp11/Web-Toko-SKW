@@ -43,7 +43,7 @@ const NotifPesanan = () => {
     console.log(dataInput)
     
     return ( 
-        <div className="notif-pesanan container-fluid border">
+        <div className="notif-pesanan container-fluid">
             <p className='text-title-halaman'>Konfirmasi Pembayaran Pesanan</p>
 
             <div className="row">

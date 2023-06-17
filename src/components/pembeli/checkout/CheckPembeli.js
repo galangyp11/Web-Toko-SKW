@@ -139,8 +139,8 @@ const CheckPembeli = () => {
             setIsAlert(true)
             setTextAlert('Silahkan pilih metode pembayaran')
         }else{
-            await axios.put(`${apiHost}alamat-pembeli`, alamatPembeli);
             await axios.post(`${apiHost}transaksi`, dataInput);
+            await axios.put(`${apiHost}alamat-pembeli`, alamatPembeli);
             setShow(true)
         }
     }

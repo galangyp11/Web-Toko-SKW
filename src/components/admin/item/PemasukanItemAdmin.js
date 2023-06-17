@@ -56,6 +56,7 @@ const PemasukanItemAdmin = () => {
         const response = await axios.get(`${apiHost}riwayat-item-masuk?search=${value}`)
         setDatumItem(response.data)
      }
+     
     return ( 
         <div className="pemasukan-item-admin container-fluid">
              <div className="row">

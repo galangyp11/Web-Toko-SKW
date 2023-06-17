@@ -1,0 +1,100 @@
+.item-transaksi-pembeli-atas{
+    height: 5em;
+    width: 100%;
+    box-shadow: rgba(0,0,0, .6) 0px 0px 1px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: .2s ease;
+}
+
+.item-transaksi-pembeli-atas:hover{
+    backdrop-filter: brightness(90%);
+}
+
+.item-transaksi-pembeli-detail{
+    min-height: 12em;
+    width: 100%;
+    box-shadow: rgba(0,0,0, .6) 0px 0px 1px;
+    background-color: #f7f7f7;
+    border-radius: 0px 0px 5px 5px;
+}
+
+.arrow-detail{
+    transform: .2 ease;
+}
+
+.arrow-detail-active{
+    transform: rotate(90deg);
+}
+
+.text-no-item-transaksi{
+    height: 100%;
+    font-weight: 600;
+}
+
+.bg-img-transaksi-pembeli{
+    height: 4em;
+    width: 4em;
+    background-color: green;
+}
+
+.text-nama-item-transaksi{
+    height: 100%;
+    font-family: Poppins;
+}
+
+.text-total-item-transaksi{
+    height: 100%;
+    font-family: Poppins;
+}
+
+.arrow-transaksi{
+    height: 100%;
+}
+
+.bg-img-transaksi-pembeli-detail{
+    height: 8em;
+    width: 8em;
+    background-color: aquamarine;
+}
+
+.but-bermasalah-transaksi{
+    border: 1px solid grey;
+    border-radius: 5px;
+    background-color: #f7f7f7;
+    color: grey;
+    font-weight: 600;
+    height: 2.3em;
+    width: 8em;
+    transition: .2s ease;
+}
+
+.but-bermasalah-transaksi:hover{
+    background-color: black;
+    color: #f7f7f7;
+}
+
+.but-terima-transaksi{
+    border: none;
+    border-radius: 5px;
+    background-color: #0E8388;
+    color: white;
+    font-weight: 600;
+    height: 2.3em;
+    width: 8em;
+    transition: .2s ease;
+}
+
+.but-terima-transaksi:hover{
+    filter: brightness(80%);
+}
+
+.garis-vertical-kanan{
+    height: 80%;
+    border-right: 1px solid rgb(228, 228, 228);
+}
+
+.garis-vertical-kiri{
+    height: 80%;
+    border-left: 1px solid rgb(228, 228, 228);
+}
