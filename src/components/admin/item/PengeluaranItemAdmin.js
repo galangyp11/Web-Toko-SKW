@@ -14,7 +14,7 @@ const ProfilPenjualAdmin = () => {
 
     useEffect(()=>{
         const getDatumItem = async() => {
-            const response = await axios.get(`${apiHost}riwayat-item-masuk`)
+            const response = await axios.get(`${apiHost}riwayat-item-keluar`)
             setDatumItem(response.data)
         }
         getDatumItem()
@@ -34,7 +34,7 @@ const ProfilPenjualAdmin = () => {
         }).format(number);
     }
 
-    console.log(datumItem)
+    console.log('item keluar',datumItem)
 
     function prePage (){
         if(currentPage !== firstIndex){
@@ -72,7 +72,7 @@ const ProfilPenjualAdmin = () => {
            </div>
        </div>
 
-      <table class="table my-5 table-bordered">
+      <table className="table my-5 table-bordered">
            <thead className="table-dark">
                <tr>
                    <th className='col-1 text-center' scope="col">No</th>
@@ -85,19 +85,19 @@ const ProfilPenjualAdmin = () => {
                </tr>
            </thead>
        <tbody>
-           {/* {datumItem.map((item, index)=>{
+           {datumItem.map((item, index)=>{
                return(
-               <tr key={item.id_item}>
+               <tr key={item.transaksi}>
                    <td className='text-center'>{index+1}</td>
+                   <td>{item.username}</td>
                    <td>{item.nama_item}</td>
-                   <td>{formatUang(item.harga_item).replace(/\,00/g, '')}</td>
+                   <td>{item.jumlah}</td>
                    <td>{item.nama_toko}</td>
                    <td>{item.stok_item}</td>
-                   <td>{item.tgl_input}</td>
+                   <td>{item.tanggal}</td>
                </tr>
                )
-           })} */}
-               
+           })} 
        </tbody>
        </table>
        

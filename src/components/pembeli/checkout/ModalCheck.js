@@ -4,20 +4,9 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import apiHost from "../../../constants/apiHost";
 
-const ModalCheck = ({show, setShow, totalHarga, dataInput}) => {
+const ModalCheck = ({show, setShow, totalHarga, dataMp, dataAdmin}) => {
     
-    const [dataMp, setDataMp] = useState({});
-    const id_mp = dataInput.id_mp
     const navigate = useNavigate()
-
-    useEffect(()=>{
-        const getDataMp = async () => {
-            const response = await axios.get(`${apiHost}metode_pembayaran/${id_mp}`)
-            setDataMp(response.data)
-        }
-
-        getDataMp()
-    },[])
 
     const handleTutup = () => {
         setShow(false)
@@ -43,7 +32,7 @@ const ModalCheck = ({show, setShow, totalHarga, dataInput}) => {
                             <p className='text-mp-modal'>{dataMp.nama_mp} {dataMp.no_mp}</p>
                         </div>
                         <div className="d-flex justify-content-center">
-                            <p className="text-mp-nama-modal">A/N ADMIN SUPRI</p>
+                            <p className="text-mp-nama-modal">{dataAdmin.username}</p>
                         </div>
 
                         <div className="row mt-5">

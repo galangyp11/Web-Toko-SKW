@@ -23,10 +23,17 @@ const CheckPembeli = () => {
         id_item:'',
         id_keranjang:'',
         id_mp: undefined,
+        jumlah_beli:'',
         waktu_pesan:'',
         total_harga_transaksi:'',
         status_transaksi:'Menunggu Konfirmasi'
     });
+    const [stokItem, setStokItem] = useState({
+        id_item : '',
+        stok_item: ''
+    })
+    const [dataMp, setDataMp] = useState({});
+    const [dataAdmin, setDataAdmin] = useState([])
     const [mpModal, setMpModal] = useState('')
     const [show, setShow] = useState(false)
     const [alamatPembeli, setAlamatPembeli] = useState({
@@ -36,6 +43,7 @@ const CheckPembeli = () => {
     const [totalHarga, setTotalHarga] = useState('')
     const [isAlert, setIsAlert] = useState(false)
     const [textAlert, setTextAlert] = useState('')
+    const tanggal = new Date()
 
     useEffect(()=>{
         const dataDB = async () => {
@@ -90,8 +98,15 @@ const CheckPembeli = () => {
                     id_item : data.id_item,
                     id_keranjang: data.id_keranjang,
                     id_mp : data.id_mp,
-                    waktu_pesan: new Date(),
+                    jumlah_beli : data.jumlah,
+                    waktu_pesan: tanggal.getHours() + ':' + tanggal.getMinutes() + ' ' + tanggal.getDate() + '/' + (+tanggal.getMonth() + 1) + '/' + tanggal.getFullYear(),
                     total_harga_transaksi : totalHarga
+                }))
+
+                setStokItem((stok) => ({
+                    ...stok,
+                    id_item : data.id_item,
+                    stok_item : +data.stok_item - +data.jumlah
                 }))
             })
         }
@@ -141,12 +156,34 @@ const CheckPembeli = () => {
         }else{
             await axios.post(`${apiHost}transaksi`, dataInput);
             await axios.put(`${apiHost}alamat-pembeli`, alamatPembeli);
+            await axios.put(`${apiHost}item-stok`, stokItem)
+            // await axios.delete(`${apiHost}keranjang/${id}`);
+            // const dataFillter = dataCheckout.filter((item) => item.id_keranjang !== id);
+            // setDataCheckout(dataFillter);
             setShow(true)
+
+            const getDataMp = async () => {
+                const response = await axios.get(`${apiHost}metode_pembayaran/${dataInput.id_mp}`)
+                setDataMp(response.data)
+            }
+            getDataMp()
+    
+            const getAdmin = async() => {
+                const response = await axios.get(`${apiHost}admin/6`)
+                setDataAdmin(response.data)
+            }
+            getAdmin()
         }
     }
 
     // console.log(dataPembeli)
     // console.log(alamatPembeli)
+    console.log({
+        dataCheckout,
+        stokItem,
+        dataAdmin,
+        dataMp
+    })
     return ( 
         <div className="check-pembeli">
              <div className="sticky-top">
@@ -244,7 +281,7 @@ const CheckPembeli = () => {
                     </div>
                 </div>  
                 <div>
-                    <ModalCheck show={show} setShow={setShow} dataInput={dataInput} totalHarga={totalHarga}/>
+                    <ModalCheck show={show} setShow={setShow} totalHarga={totalHarga} dataMp={dataMp} dataAdmin={dataAdmin}/>
                 </div>
                 <div className="d-flex justify-content-center" >
                     {isAlert ? <Alert textAlert={textAlert} isAlert={isAlert} setIsAlert={setIsAlert}/> : <div></div>}

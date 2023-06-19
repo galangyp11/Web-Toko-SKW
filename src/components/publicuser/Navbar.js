@@ -91,7 +91,7 @@ const Navbar = () => {
         </div>
         <div className="row d-flex justify-content-center" style={{width:"50em"}}>
         {isSearch ? <div className="bg-item-navbar px-4">
-          {datum?.map((data)=>{
+          {datum?.slice(0,5).map((data)=>{
             return(
               <div className="row d-flex justify-content-center my-2 " key={data.id_item}>
                 <Link

@@ -1,5 +1,6 @@
 import './notifpesanan.css'
 import { useState, useEffect } from 'react';
+import AlertKonfirmasiTolak from './AlertKonfirmasiTolak';
 import axios from 'axios';
 import apiHost from '../../constants/apiHost';
 
@@ -7,8 +8,11 @@ const NotifPesanan = () => {
 
     const [dataKonfirmasi, setDataKonfirmasi] = useState([]);
     const [dataInput , setDataInput] = useState({   
-        status_transaksi:'Pesanan sedang di proses'
+        status_transaksi:'Pesanan diteruskan ke penjual'
     })
+    const [isAlert, setIsAlert] = useState(false)
+    const [textAlert, setTextAlert] = useState('')
+    const [idTransaksi, setIdTransaksi] = useState('')
 
     useEffect(()=>{
         const getNotif = async () => {
@@ -16,10 +20,13 @@ const NotifPesanan = () => {
             setDataKonfirmasi(response.data)
         }
         getNotif()
-    },[dataKonfirmasi])
+    },[])
 
-    const handleTolak = () => {
-        alert('nanti status pesanannya ditolak')
+    const handleTolak = (e, id, username) => {
+        e.preventDefault()
+        setIdTransaksi(id)
+        setIsAlert(true)
+        setTextAlert(`Konfirmasi Tolak Pesanan : ${username}`)
     }
 
     const handleKonfirmasi = async(id, e) => {
@@ -38,9 +45,8 @@ const NotifPesanan = () => {
             style: "currency",
             currency: "IDR"
         }).format(number);
-    }
-    
-    console.log(dataInput)
+    }    
+    console.log(dataKonfirmasi)
     
     return ( 
         <div className="notif-pesanan container-fluid">
@@ -53,13 +59,13 @@ const NotifPesanan = () => {
             </div>
 
             <div className="row ">
-                <table class="table my-5 table-bordered">
+                <table className="table my-5 table-bordered">
                     <thead className="table-dark table-striped">
                         <tr>
                             <th scope="col">Username</th>
                             <th scope="col">Pembayaran</th>
                             <th scope="col">Nominal Harga</th>
-                            <th scope="col">Waktu</th>
+                            <th className='col-1' scope="col">Waktu</th>
                             <th className='col-2' scope="col" colSpan="2" style={{textAlign:"center"}}>Aksi</th>
                         </tr>
                     </thead>
@@ -73,7 +79,7 @@ const NotifPesanan = () => {
                             <td>{formatUang(data.total_harga_transaksi).replace(/\,00/g, '')}</td>
                             <td>{data.waktu_pesan}</td>
                             <td style={{textAlign:"center"}}>
-                                <button className="btn btn-danger but-tolak-pesanan" onClick={handleTolak}>Tolak</button>    
+                                <button className="btn btn-danger but-tolak-pesanan" onClick={(e) =>handleTolak(e, data.id_transaksi, data.username)}>Tolak</button>    
                             </td>
                             <td style={{textAlign:"center"}}>
                                 <button className="btn btn-primary but-konfirmasi-pesanan" onClick={(e)=> handleKonfirmasi(data.id_transaksi, e)}>Konfirmasi</button>
@@ -83,6 +89,9 @@ const NotifPesanan = () => {
                     })}
                     </tbody>
                 </table>
+            </div>
+            <div className="d-flex justify-content-center" >
+                {isAlert ? <AlertKonfirmasiTolak textAlert={textAlert} isAlert={isAlert} setIsAlert={setIsAlert} idTransaksi={idTransaksi} dataInput={dataInput} setDataInput={setDataInput}/> : <div></div>}
             </div>
         </div>
      );

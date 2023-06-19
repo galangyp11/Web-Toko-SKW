@@ -109,6 +109,19 @@ const Sidebaradmin = ({setPage, dataKonfirmasi}) => {
         setPage(<PengeluaranItemAdmin/>)
     }
 
+    const handleKonfirmasi= () => {
+        setOpenPembeli(false)
+        setOpenPenjual(false)
+        setOpenItem(false)
+        setIsActiveProfilePenjual(false)
+        setIsActiveSemuaItem(false)
+        setIsActiveRiwayatMasuk(false)
+        setIsActiveRiwayatKeluar(false)
+        setIsActiveProfilePembeli(false)
+        setIsActiveTransaksiPembeli(false)
+        setPage(<NotifPesanan/>)
+    }
+
     const handleLogout = () => {
         Cookies.remove('id')
         setTimeout(()=>{
@@ -163,7 +176,7 @@ const Sidebaradmin = ({setPage, dataKonfirmasi}) => {
 
             <div className="sidebar-item">
                 <div className="sidebar-title d-flex align-items-center">
-                    <p className="text-sidebar-admin-title pt-3" id='text-sidebar-admin' onClick={()=> setPage(<NotifPesanan/>)}>Konfirmasi Pembayaran</p>
+                    <p className="text-sidebar-admin-title pt-3" id='text-sidebar-admin' onClick={handleKonfirmasi}>Konfirmasi Pembayaran</p>
                     <div className="bg-text-notif-pesanan d-flex justify-content-center">
                         <p className="text-notif-pesanan">{dataKonfirmasi.length}</p>
                     </div>

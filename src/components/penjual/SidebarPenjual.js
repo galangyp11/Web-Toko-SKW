@@ -8,8 +8,9 @@ import NotifPesanan from './page/NotifPesanan';
 import ProfileToko from './page/ProfileToko';
 import ItemToko from './page/ItemToko';
 import PageItemToko from './page/PageItemToko';
+import ProsesPesanan from './page/ProsesPesanan';
 
-const SidebarPenjual = ({setPage, dataKonfirmasi}) => {
+const SidebarPenjual = ({setPage, dataKonfirmasi, dataProses}) => {
 
     let navigate = useNavigate();
 
@@ -40,6 +41,15 @@ const SidebarPenjual = ({setPage, dataKonfirmasi}) => {
                 <div className="sidebar-title d-flex align-items-center" onClick={()=>setPage(<ItemToko setPage={setPage}/>)}>
                     <BiCollection className='icon-title' color='white' size="30px"/>
                     <p className='text-sidebar-admin-title pt-3' id='text-sidebar-admin'>Item Toko</p>
+                </div>
+            </div>
+
+            <div className="sidebar-item">
+                <div className="sidebar-title d-flex align-items-center">
+                    <p className="text-sidebar-admin-title pt-3" id='text-sidebar-admin' onClick={()=> setPage(<ProsesPesanan/>)}>Pesanan diproses</p>
+                    <div className="bg-text-notif-pesanan d-flex justify-content-center">
+                        <p className="text-notif-pesanan">{dataProses.length}</p>
+                    </div>
                 </div>
             </div>
 

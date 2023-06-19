@@ -20,7 +20,17 @@ const TransaksiPembeli = () => {
     getNotif();
   }, []);
 
-  const handleDetail = () => {
+  const handleDetail = (e, id) => {
+    e.preventDefault()
+
+    // dataKonfirmasi.forEach((data) => {
+    //   if(data.id_transaksi =  id ){
+    //     setIsDetail(!isDetail)
+    //   } else {
+    //     setIsDetail(false)
+    //   }
+    // })
+
     setIsDetail(!isDetail)
   }
 
@@ -35,8 +45,8 @@ const TransaksiPembeli = () => {
       <div className="profilepembeli-con container py-5">
         {dataKonfirmasi?.map((data, index) => {
           return(
-        <div className="item-transaksi-pembeli" key={data.id_pembeli}>
-          <div className="item-transaksi-pembeli-atas d-flex justify-content-center" onClick={handleDetail}>
+        <div className="item-transaksi-pembeli my-2" key={data.id_transaksi} >
+          <div className="item-transaksi-pembeli-atas d-flex justify-content-center" onClick={(e)=> handleDetail(e, data.id_transaksi)}>
             <div className="row  d-flex align-items-center" style={{width:"100%"}}>
               <div className="col-1 garis-vertical-kanan">
                 <p className="text-no-item-transaksi d-flex align-items-center justify-content-center">{index +1}</p>

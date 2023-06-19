@@ -8,6 +8,7 @@ import PublicRoutes from "./components/PublicRoutes";
 
 import ProtectedRoutes from "./components/ProtectedRoutes";
 import PageAdmin from "./components/admin/PageAdmin";
+import NotifPesanan from "./components/admin/NotifPesanan";
 
 import ProfilePembeli from "./components/pembeli/profile/ProfilePembeli";
 import DaftarPembeli from "./components/pembeli/DaftarPembeli";
@@ -49,7 +50,7 @@ function App() {
         <Route path="/daftar-pembeli" element={<DaftarPembeli />} />
         <Route path="/daftar-penjual" element={<DaftarPenjual />} />
 
-        <Route path="/admin" element={<PageAdmin />} />
+        <Route path="/admin" element={<PageAdmin />}/>
       </Routes>
     </SearchProvider>
   );

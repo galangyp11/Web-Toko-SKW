@@ -16,19 +16,27 @@ const PagePenjual = () => {
     const [page, setPage] = useState();
     const [dataPenjual, setDataPenjual] = useState([]);
     const [dataKonfirmasi, setDataKonfirmasi] = useState([]);
+    const [dataProses, setDataProses] = useState([]);
     const id = Cookies.get('id')
 
     useEffect(()=>{
         const getPenjual = async () => {
-            const response = await axios.get(`${apiHost}penjual/${id}`)
+            const response = await axios.get(`${apiHost}penjual/${id}`);
             setDataPenjual(response.data)
         }
         getPenjual()
+
         const getNotif = async () => {
-            const response = await axios.get(`${apiHost}transaksi/penjual/${id}`)
+            const response = await axios.get(`${apiHost}transaksi-notif/penjual/${id}`);
             setDataKonfirmasi(response.data)
         }
         getNotif()
+
+        const getProsesPesanan = async () => {
+            const response = await axios.get(`${apiHost}transaksi-proses/penjual/${id}`);
+            setDataProses(response.data);
+        }
+        getProsesPesanan()
     },[])
 
 
@@ -41,7 +49,7 @@ const PagePenjual = () => {
             <div className="row" style={{width:"100%", height:"100dvh"}}>
                 <div className="col-2 p-0">
                     <div className=' sticky-top'>
-                    <SidebarPenjual setPage={setPage} dataKonfirmasi={dataKonfirmasi}/>
+                    <SidebarPenjual setPage={setPage} dataKonfirmasi={dataKonfirmasi} dataProses={dataProses}/>
                     </div>
                 </div>
 
