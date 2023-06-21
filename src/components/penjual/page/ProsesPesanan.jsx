@@ -97,7 +97,7 @@ const ProsesPesanan = () => {
                             <td>{data.username}</td>
                             <td>{data.nama_item}</td>
                             <td>{data.harga_item}</td>
-                            <td>{data.stok_item}</td>
+                            <td>{data.jumlah_beli}</td>
                             <td>{data.alamat}</td>
                             <td style={{textAlign:"center"}}>
                                 <button className="btn btn-danger but-tolak-pesanan" onClick={handleTolak}>Tolak</button>    

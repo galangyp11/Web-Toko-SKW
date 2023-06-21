@@ -75,7 +75,7 @@ const SemuaItemAdmin = () => {
             </div>
             </div>
 
-           <table class="table my-5 table-bordered">
+           <table className="table my-5 table-bordered">
                 <thead className="table-dark">
                     <tr>
                         <th className='col-1 text-center' scope="col">No</th>

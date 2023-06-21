@@ -27,11 +27,11 @@ const InputItem = ({setIsUbah, setPageItem}) => {
         ukuran_item: [],
         warna_item: [],
         biaya_operasional: "",
-        tgl_input : ""
+        tanggal : ""
     });
     const [warnaItem, setWarnaItem] = useState("")
     const [isWarna, setIsWarna] = useState(false)
-    const tanggal = new Date()
+    const tanggalDate = new Date()
     const [isAlertHijau, setIsAlertHijau] = useState(false)
     const [isAlertMerah, setIsAlertMerah] = useState(false)
     const [textAlert, setTextAlert] = useState('')
@@ -112,10 +112,10 @@ const InputItem = ({setIsUbah, setPageItem}) => {
             setIsWarna(false)
         }
 
-         const tgl_input = tanggal.getHours() + ':' + tanggal.getMinutes() + ' ' + tanggal.getDate() + '/' + (+tanggal.getMonth() + 1) + '/' + tanggal.getFullYear()
+         const tanggalSekarang = tanggalDate.getHours() + ':' + tanggalDate.getMinutes() + ' ' + tanggalDate.getDate() + '/' + (+tanggalDate.getMonth() + 1) + '/' + tanggalDate.getFullYear()
         
             setDataInput((data) => ({...data,
-                tgl_input : tgl_input
+                tanggal : tanggalSekarang
             }))
 
     }, [])

@@ -7,7 +7,7 @@ import apiHost from '../../../constants/apiHost'
 const PemasukanItemAdmin = () => {
 
     const [datumItem, setDatumItem] = useState([])
-
+    const [datumRiwayatMasuk, setDatumRiwayatMasuk] = useState({})
     const [currentPage,setCurrentPage] = useState (1)
     const recordsPerPage = 10;
     const lastIndex = currentPage * recordsPerPage;
@@ -20,6 +20,10 @@ const PemasukanItemAdmin = () => {
         }
         getDatumItem()
     },[])
+
+    useEffect(()=>{
+        
+    },[datumItem])
 
     const handleDelete = async(e, id) =>{
         e.preventDefault()
@@ -34,8 +38,6 @@ const PemasukanItemAdmin = () => {
             currency: "IDR"
         }).format(number);
     }
-
-    console.log(datumItem)
 
     function prePage (){
         if(currentPage !== firstIndex){
@@ -52,11 +54,13 @@ const PemasukanItemAdmin = () => {
      }
 
      const onSearchItem = async ({  target: { value } }) => {
-        console.log('val', value)
         const response = await axios.get(`${apiHost}riwayat-item-masuk?search=${value}`)
         setDatumItem(response.data)
      }
      
+     console.log({
+        datumItem,
+     })
     return ( 
         <div className="pemasukan-item-admin container-fluid">
              <div className="row">
@@ -77,27 +81,40 @@ const PemasukanItemAdmin = () => {
                 </div>
             </div>
 
-           <table class="table my-5 table-bordered">
+           <table className="table my-5 table-bordered">
                 <thead className="table-dark">
                     <tr>
                         <th className='col-1 text-center' scope="col">No</th>
                         <th className='col-3' scope="col">Nama Item</th>
                         <th className='col-1' scope="col">Harga</th>
                         <th className='col-2' scope="col">Toko</th>
-                        <th className='col-1' scope="col">Stok</th>
-                        <th className='col-2' scope="col">Tanggal</th>
+                        <th className='col-1' scope="col">Stok Awal</th>
+                        <th className='col-1' scope="col">Stok Masuk</th>
+                        <th className='col-1' scope="col">Stok Toko</th>
+                        <th className='col-1' scope="col">Tanggal</th>
                     </tr>
                 </thead>
             <tbody>
                 {datumItem.map((item, index)=>{
+                    let dataAwal = ''
+                    if(item.stok_tambah === null){
+                        dataAwal = "-"
+                    } else {
+                        dataAwal = item.stok_tambah
+                    }
+
+                    let stokToko = +item.stok_awal + +item.stok_tambah
+
                     return(
-                    <tr key={item.id_item}>
+                    <tr key={item.id_riwayat}>
                         <td className='text-center'>{index+1}</td>
                         <td>{item.nama_item}</td>
                         <td>{formatUang(item.harga_item).replace(/\,00/g, '')}</td>
                         <td>{item.nama_toko}</td>
-                        <td>{item.stok_item}</td>
-                        <td>{item.tgl_input}</td>
+                        <td>{item.stok_awal}</td>
+                        <td className='text-stok-masuk'>{dataAwal}</td>
+                        <td>{stokToko}</td>
+                        <td>{item.tanggal}</td>
                     </tr>
                     )
                 })}

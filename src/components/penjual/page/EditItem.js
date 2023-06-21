@@ -30,7 +30,13 @@ const EditItem = ({id_item, setIsUbah, setPageItem}) => {
         biaya_operasional: ""
     });
     const tanggal = new Date()
-    const [stokItem, setStokItem] = useState(0)
+    const [stokTambah, setStokTambah] = useState({
+        id_item:'',
+        id_penjual:'',
+        stok_awal:'',
+        stok_tambah:'',
+        tanggal:''
+    })
     const [kategoriById, setKategoriById] = useState('')
     const [warnaItem, setWarnaItem] = useState("")
     const [isWarna, setIsWarna] = useState(true)
@@ -58,17 +64,23 @@ const EditItem = ({id_item, setIsUbah, setPageItem}) => {
             setWarnaItemById(response.data);
         }
         getWarna() 
-
-    
-
     },[])
  
     const handleInput = (e) =>{
         e.preventDefault()     
         setDataInput((data) => ({...data, 
             [e.target.id] : e.target.value,
+            stok_item : +e.target.value + +itemById.stok_item
         }))
 
+        setStokTambah((data)=>({
+            ...data,
+            id_item: itemById.id_item,
+            id_penjual: itemById.id_penjual,
+            stok_awal: itemById.stok_item,
+            stok_tambah: e.target.value,
+            tanggal: itemById.tanggal
+        }))
     }
 
     useEffect(()=>{
@@ -99,10 +111,6 @@ const EditItem = ({id_item, setIsUbah, setPageItem}) => {
             setKategoriById('')
         }
       
-            
-        if(stokItem === 0) {
-            setStokItem(itemById.stok_item)
-        }
     },[itemById])
 
     useEffect(()=>{
@@ -185,32 +193,33 @@ const EditItem = ({id_item, setIsUbah, setPageItem}) => {
             tgl_input : tgl_input
         }))
         try {   
-            let formData = new FormData();
+            // let formData = new FormData();
             
-            for (const [key, value] of Object.entries(dataInput)) {
-                if (key !== 'foto_item' && key !== 'ukuran_item' && key !== 'warna_item' ) {
-                    formData.append(key, value)
-                }             
-            }
+            // for (const [key, value] of Object.entries(dataInput)) {
+            //     if (key !== 'foto_item' && key !== 'ukuran_item' && key !== 'warna_item' ) {
+            //         formData.append(key, value)
+            //     }             
+            // }
             
-            for (let i = 0; i < dataInput.foto_item.length; i++) {
-                formData.append('foto_item', dataInput.foto_item[i])
-            }
+            // for (let i = 0; i < dataInput.foto_item.length; i++) {
+            //     formData.append('foto_item', dataInput.foto_item[i])
+            // }
 
-            for (let i = 0; i < dataInput.ukuran_item.length; i++) {
-                formData.append('ukuran_item', dataInput.ukuran_item[i])
-            }
+            // for (let i = 0; i < dataInput.ukuran_item.length; i++) {
+            //     formData.append('ukuran_item', dataInput.ukuran_item[i])
+            // }
 
-            for (let i = 0; i < dataInput.warna_item.length; i++) {
-                formData.append('warna_item', dataInput.warna_item[i])
-            }
-            
-            await axios.put(`${apiHost}item`, formData);
-            
+            // for (let i = 0; i < dataInput.warna_item.length; i++) {
+            //     formData.append('warna_item', dataInput.warna_item[i])
+            // }
+
+            await axios.post(`${apiHost}riwayat-item-masuk`, stokTambah);
+            await axios.put(`${apiHost}item`, dataInput);
+    
             setIsAlert(true)
             setTextAlert('Item berhasil diubah')
             // console.log(dataInput.ukuran_item.length)
-            console.log(formData)
+            // console.log(formData)
             setPageItem(<ItemToko/>)
         } catch (error) {
             console.log('eror bang gabisa input', error)
@@ -239,9 +248,10 @@ const EditItem = ({id_item, setIsUbah, setPageItem}) => {
     }
 
     console.log({
-        // itemById,
+        itemById,
         // ukuranItemById,
-        warnaItemById,
+        stokTambah,
+        // warnaItemById,
         dataInput,
     })
     // console.log(id_item)
@@ -285,8 +295,8 @@ const EditItem = ({id_item, setIsUbah, setPageItem}) => {
                     <div className="col">
                         <textarea 
                             className='input-text' 
-                            name="deksripsi" 
-                            id="deksripsi_item"
+                            name="deskripsi" 
+                            id="deskripsi_item"
                             style={{resize:"none", height:"100px"}}
                             placeholder={itemById.deskripsi_item}
                             //value={dataInput.deksripsi_item}
@@ -333,6 +343,7 @@ const EditItem = ({id_item, setIsUbah, setPageItem}) => {
                             type="text"
                             id="harga_item"
                             //value={dataInput.harga_item}
+                            placeholder={itemById.harga_item}
                             onChange={handleInput}
                             disabled={dataInput.id_kategori !== "6" ? false : true}
                         />
@@ -348,12 +359,12 @@ const EditItem = ({id_item, setIsUbah, setPageItem}) => {
                         <input
                             className='input-text'
                             type="text"
-                            id="stok_item"
+                            // id="stok_item"
                             //value={dataInput.stok_item}
                             onChange={handleInput}
                             style={{width:'100px'}}
                         />
-                        <p className='text-info-edit-item d-flex align-items-center' style={{marginLeft:'10px'}}> Stok item ({stokItem})</p>
+                        <p className='text-info-edit-item d-flex align-items-center' style={{marginLeft:'10px'}}> Stok item ({dataInput.stok_item})</p>
                     </div>
                     <div className="col">
                         

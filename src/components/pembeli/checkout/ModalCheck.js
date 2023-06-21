@@ -74,7 +74,7 @@ const ModalCheck = ({show, setShow, totalHarga, dataMp, dataAdmin}) => {
                             <p>10:00</p>
                         </div>
                         <div className="col d-flex justify-content-end">
-                            <p onClick={handleTutup}>Sudah Bayar</p>
+                            <button className="btn btn-outline-secondary" onClick={handleTutup}>Sudah Bayar</button>
                         </div>
                         
                     </div>

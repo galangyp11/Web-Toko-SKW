@@ -81,6 +81,7 @@ const ProfilPenjualAdmin = () => {
                    <th className='col-1' scope="col">Jumlah</th>
                    <th className='col-2' scope="col">Toko</th>
                    <th className='col-1' scope="col">Stok</th>
+                   <th className='col-1' scope="col">Sisa Stok</th>
                    <th className='col-2' scope="col">Tanggal</th>
                </tr>
            </thead>
@@ -91,8 +92,9 @@ const ProfilPenjualAdmin = () => {
                    <td className='text-center'>{index+1}</td>
                    <td>{item.username}</td>
                    <td>{item.nama_item}</td>
-                   <td>{item.jumlah}</td>
+                   <td className='text-jumlah-beli'>{item.jumlah_beli}</td>
                    <td>{item.nama_toko}</td>
+                   <td>{+item.stok_item + +item.jumlah_beli}</td>
                    <td>{item.stok_item}</td>
                    <td>{item.tanggal}</td>
                </tr>

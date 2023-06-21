@@ -8,7 +8,7 @@ const NotifPesanan = () => {
 
     const [dataKonfirmasi, setDataKonfirmasi] = useState([]);
     const [dataInput , setDataInput] = useState({   
-        status_transaksi:'Pesanan sedang diproses'
+        status_transaksi:'Pesanan sedang dikemas'
     })
     const id = Cookies.get('id')
 
@@ -75,7 +75,7 @@ const NotifPesanan = () => {
                             <td>{index +1}</td>
                             <td>{data.username}</td>
                             <td>{data.nama_item}</td>
-                            <td>{data.stok_item}</td>
+                            <td>{data.jumlah_beli}</td>
                             <td>{data.alamat}</td>
                             <td>{data.waktu_pesan}</td>
                             <td style={{textAlign:"center"}}>

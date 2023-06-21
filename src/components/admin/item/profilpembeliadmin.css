@@ -35,3 +35,13 @@
 .logo-search-admin:hover{
    border: 1px solid grey;
 }
+
+.text-jumlah-beli{
+    font-weight: 600;
+    color: red;
+}
+
+.text-stok-masuk{
+    font-weight: 600;
+    color: #0fab55;
+}

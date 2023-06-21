@@ -150,7 +150,7 @@ const CheckPembeli = () => {
         if(alamatPembeli.alamat === "") {
             setIsAlert(true)
             setTextAlert('Silahkan isi alamat kamu')
-        }else if(dataInput.id_mp == undefined){
+        }else if(dataInput.id_mp === undefined){
             setIsAlert(true)
             setTextAlert('Silahkan pilih metode pembayaran')
         }else{
