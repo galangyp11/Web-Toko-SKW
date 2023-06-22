@@ -6,7 +6,7 @@ import apiHost from "../../../constants/apiHost";
 
 const SemuaItemAdmin = () => {
   const [datumItem, setDatumItem] = useState([]);
-
+  const [totalItem, setTotalItem] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const recordsPerPage = 10;
   const lastIndex = currentPage * recordsPerPage;
@@ -21,6 +21,16 @@ const SemuaItemAdmin = () => {
     };
     getDatumItem();
   }, [currentPage]);
+
+  useEffect(() => {
+    const getTotalItem = async () => {
+      const response = await axios.get(
+        `${apiHost}total-item`
+      );
+      setTotalItem(response.data);
+    };
+    getTotalItem();
+  }, []);
 
   const handleDelete = async (e, id) => {
     e.preventDefault();
@@ -59,35 +69,28 @@ const SemuaItemAdmin = () => {
   console.log(datumItem);
   return (
     <div className="semua-item-admin container-fluid">
-      <div className="sticky-top">
+
         <div className="row">
           <p className="text-title-halaman">Item SKW</p>
         </div>
 
         <div className="row">
-          <div
-            className="col-3 d-flex justify-content-center align-items-center"
-            style={{ height: "100%" }}
-          >
-            <input
-              className="search-admin p-2 "
-              type="text"
-              placeholder="Search"
-              onChange={onSearchItem}
-            />
-            <div
-              className="col-1 d-flex justify-content-center align-items-center"
-              style={{ height: "100%" }}
-            >
-              <div className="logo-search-admin d-flex justify-content-center">
-                <img className="p-1" src={search} alt="" />
-              </div>
-            </div>
-          </div>
+                <div className="col-3 d-flex justify-content-center align-items-center " style={{ height:'100%'}}>
+                    <input className='search-admin p-2 ' type="text" placeholder='Search' onChange={onSearchItem}/>    
+                        <div className="col-1 d-flex justify-content-center align-items-center" style={{ height:'100%'}}>
+                            <div className="logo-search-admin d-flex justify-content-center">
+                                <img className='p-1' src={search} alt=""/>
+                            </div>
+                        </div>                     
+                </div>
+                <div className="col d-flex justify-content-end " style={{height:"2em"}}>
+                    <p className='text-info-admin d-flex align-items-center mx-2' >Total Jumlah Item : </p>
+                    <p className="text-info-admin-data d-flex justify-content-center align-items-center px-2">{totalItem.length}</p>
+                </div>
         </div>
-      </div>
 
-           <table class="table my-5 table-bordered">
+
+           <table class="table my-4 table-bordered">
                 <thead className="table-dark">
                     <tr>
                         <th className='col-1 text-center' scope="col">No</th>
@@ -109,9 +112,9 @@ const SemuaItemAdmin = () => {
                         <td>{formatUang(item.harga_item).replace(/\,00/g, '')}</td>
                         <td>{item.nama_toko}</td>
                         <td>{item.stok_item}</td>
-                        <td style={{textAlign:"center"}}>
-                                <button className="btn btn-danger but-tolak-pesanan" onClick={(e)=> handleDelete(e, item.id_item)}>Hapus</button>    
-                            </td>
+                        <td className="p-1" style={{textAlign:"center"}}>
+                            <button className="btn btn-danger but-tolak-pesanan" onClick={(e)=> handleDelete(e, item.id_item)}>Hapus</button>    
+                        </td>
                     </tr>
                     )
                 })}
@@ -119,19 +122,14 @@ const SemuaItemAdmin = () => {
             </tbody>
             </table>
             
-                <ul className='pagination d-flex align-items-end'>
-                    <li className='page-item'>
-                        <a href="#" className='page-link' onClick={prePage}>Prev</a>
-                    </li>
-                        {/* <li className={`page-item ${currentPage === n ? 'active' : ''}`} key={i}>
-                            <a href="#" className='page-link' onClick={changeCpage}>{n}</a>
-                        </li>     */}
-
-        <li className="page-item">
-          <a href="#" className="page-link" onClick={nextPage}>
-            Next
-          </a>
-        </li>
+      <ul className='pagination d-flex justify-content-center'>
+          <li className='page-item'>
+            <a href="#" className='page-link' onClick={prePage}>Prev</a>
+          </li>
+                  
+          <li className="page-item">
+            <a href="#" className="page-link" onClick={nextPage}>Next</a>
+          </li>
       </ul>
     </div>
   );

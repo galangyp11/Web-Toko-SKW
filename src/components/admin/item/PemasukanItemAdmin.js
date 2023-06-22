@@ -15,22 +15,17 @@ const PemasukanItemAdmin = () => {
 
     useEffect(()=>{
         const getDatumItem = async() => {
-            const response = await axios.get(`${apiHost}riwayat-item-masuk`)
+            const response = await axios.get(
+                `${apiHost}riwayat-item-masuk?page=${currentPage}&limit=${recordsPerPage}`
+            )
             setDatumItem(response.data)
         }
         getDatumItem()
-    },[])
+    },[currentPage])
 
     useEffect(()=>{
         
     },[datumItem])
-
-    const handleDelete = async(e, id) =>{
-        e.preventDefault()
-        await axios.delete(`${apiHost}item/${id}`);
-        const dataFillter = datumItem.filter((item) => item.id_item !== id);
-        setDatumItem(dataFillter);
-      }
 
     const formatUang = (number) =>{
         return new Intl.NumberFormat("id-ID", {
@@ -77,7 +72,7 @@ const PemasukanItemAdmin = () => {
                         </div>                     
                 </div>
                 <div className="col  d-flex justify-content-end">
-                    <p className='teks-info-stok-masuk lh-1' style={{color:"grey"}}> Stok dengan warna hijau = penambahan stok <br /> Stok dengan warna hitam = jumlah awal stok</p>
+                    <p className='teks-info-stok-masuk lh-1' style={{color:"grey"}}> Stok dengan warna hijau = penambahan stok</p>
                 </div>
             </div>
 
@@ -96,7 +91,7 @@ const PemasukanItemAdmin = () => {
                 </thead>
             <tbody>
                 {datumItem.map((item, index)=>{
-                    let dataAwal = ''
+                    let dataAwal
                     if(item.stok_tambah === null){
                         dataAwal = "-"
                     } else {
@@ -122,18 +117,15 @@ const PemasukanItemAdmin = () => {
             </tbody>
             </table>
             
-                <ul className='pagination d-flex align-items-end'>
-                    <li className='page-item'>
-                        <a href="#" className='page-link' onClick={prePage}>Prev</a>
-                    </li>
-                        {/* <li className={`page-item ${currentPage === n ? 'active' : ''}`} key={i}>
-                            <a href="#" className='page-link' onClick={changeCpage}>{n}</a>
-                        </li>     */}
-
-                    <li className='page-item'>
-                        <a href="#" className='page-link' onClick={nextPage}>Next</a>
-                    </li>
-                </ul>
+            <ul className='pagination d-flex justify-content-center'>
+                <li className='page-item'>
+                    <a href="#" className='page-link' onClick={prePage}>Prev</a>
+                </li>
+                        
+                <li className="page-item">
+                    <a href="#" className="page-link" onClick={nextPage}>Next</a>
+                </li>
+            </ul>
         </div>
      );
 }

@@ -10,17 +10,46 @@ import EditItem from './EditItem'
 
 const ItemToko = () => {
     const [datumItem, setDatumItem] = useState([])
+    const [penjualById, setPenjualById] = useState({});
     const [isUbah, setIsUbah] = useState(false)
     const [pageItem ,setPageItem] = useState(null)
     const id = Cookies.get('id')
 
+     const [currentPage,setCurrentPage] = useState (1)
+    const recordsPerPage = 10;
+    const lastIndex = currentPage * recordsPerPage;
+    const firstIndex = currentPage - recordsPerPage;
+
     useEffect(()=>{
         const getDatumItem = async() => {
-            const response = await axios.get(`${apiHost}item-penjual/${id}`)
+            const response = await axios.get(
+                `${apiHost}item-penjual/${id}?page=${currentPage}&limit=${recordsPerPage}`
+                )
             setDatumItem(response.data)
         }
         getDatumItem()
-    },[])
+
+        const getPenjualId = async () => {
+            const response = await axios.get(`${apiHost}penjual/${id}`);
+            setPenjualById(response.data);
+            console.log(response.data);
+        }
+        getPenjualId();
+    },[currentPage])
+
+    function prePage (){
+        if(currentPage !== firstIndex){
+            setCurrentPage(currentPage - 1)
+        }
+     }
+     function changeCpage(id) {
+        setCurrentPage(id)
+     }
+     function nextPage (){
+        if(currentPage !== lastIndex){
+            setCurrentPage(currentPage +1)
+        }
+     }
 
     const formatUang = (number) =>{
         return new Intl.NumberFormat("id-ID", {
@@ -50,22 +79,25 @@ const ItemToko = () => {
         setDatumItem(dataFillter);
     }
 
-    // useEffect(()=>{
-    //     setPageItem(<ItemToko setPageItem={setPageItem}/>)
-    // },[])
+    const onSearchItem = async ({  target: { value } }) => {
+        console.log('val', value)
+        const response = await axios.get(`${apiHost}item-penjual/${id}?search=${value}`)
+        setDatumItem(response.data)
+     }
     
+    console.log(datumItem)
 
     return ( 
         <div className="container">
         {!isUbah ?
         <div>
         <div className="row">
-            <p className='text-title-halaman'>Item SKW</p>
+            <p className='text-title-halaman'>Item {penjualById.nama_toko}</p>
         </div>
 
         <div className="row">
             <div className="col-3 d-flex justify-content-center align-items-center" style={{ height:'100%'}}>
-                <input className='search-admin p-2 ' type="text" placeholder='Search' />    
+                <input className='search-admin p-2 ' type="text" placeholder='Search' onChange={onSearchItem}/>    
                     <div className="col-1 d-flex justify-content-center align-items-center" style={{ height:'100%'}}>
                         <div className="logo-search-admin d-flex justify-content-center">
                             <img className='p-1' src={search} alt=""/>
@@ -110,6 +142,16 @@ const ItemToko = () => {
                 
         </tbody>
         </table>
+
+        <ul className='pagination d-flex justify-content-center'>
+          <li className='page-item'>
+            <a href="#" className='page-link' onClick={prePage}>Prev</a>
+          </li>
+                  
+          <li className="page-item">
+            <a href="#" className="page-link" onClick={nextPage}>Next</a>
+          </li>
+        </ul>
         </div>
             : <div>{pageItem}</div> }
     </div> 

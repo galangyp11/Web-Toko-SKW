@@ -8,10 +8,12 @@ import { AiFillApple } from "react-icons/ai";
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
 
+import HomeAdmin from './HomeAdmin';
 import ProfilPenjualAdmin from './penjual/ProfilPenjualAdmin';
 import ProfilPembeliAdmin from './pembeli/ProfilPembeliAdmin';
 import TransaksiPembeliAdmin from './pembeli/TransaksiPembeliAdmin';
 import SemuaItemAdmin from './item/SemuaItemAdmin';
+import KategoriItem from './item/KategoriItem';
 import PemasukanItemAdmin from './item/PemasukanItemAdmin';
 import PengeluaranItemAdmin from './item/PengeluaranItemAdmin';
 import NotifPesanan from './NotifPesanan';
@@ -26,6 +28,7 @@ const Sidebaradmin = ({setPage, dataKonfirmasi}) => {
     const [isActiveProfilePembeli, setIsActiveProfilePembeli] = useState(false);
     const [isActiveTransaksiPembeli, setIsActiveTransaksiPembeli] = useState(false);
     const [isActiveSemuaItem, setIsActiveSemuaItem] = useState(false);
+    const [isActiveKategoriItem, setIsActiveKategoriItem] = useState(false);
     const [isActiveRiwayatMasuk, setIsActiveRiwayatMasuk] = useState(false);
     const [isActiveRiwayatKeluar, setIsActiveRiwayatKeluar] = useState(false);
 
@@ -52,6 +55,7 @@ const Sidebaradmin = ({setPage, dataKonfirmasi}) => {
     const handleProfilPenjual = () => {
         setIsActiveProfilePenjual(true)
         setIsActiveSemuaItem(false)
+        setIsActiveKategoriItem(false)
         setIsActiveRiwayatMasuk(false)
         setIsActiveRiwayatKeluar(false)
         setIsActiveProfilePembeli(false)
@@ -62,6 +66,7 @@ const Sidebaradmin = ({setPage, dataKonfirmasi}) => {
     const handleProfilePembeli = () => {
         setIsActiveProfilePenjual(false)
         setIsActiveSemuaItem(false)
+        setIsActiveKategoriItem(false)
         setIsActiveRiwayatMasuk(false)
         setIsActiveRiwayatKeluar(false)
         setIsActiveProfilePembeli(true)
@@ -72,6 +77,7 @@ const Sidebaradmin = ({setPage, dataKonfirmasi}) => {
     const handleTransaksiPembeli = () => {
         setIsActiveProfilePenjual(false)
         setIsActiveSemuaItem(false)
+        setIsActiveKategoriItem(false)
         setIsActiveRiwayatMasuk(false)
         setIsActiveRiwayatKeluar(false)
         setIsActiveProfilePembeli(false)
@@ -82,6 +88,7 @@ const Sidebaradmin = ({setPage, dataKonfirmasi}) => {
     const handleSemuaItem = () => {
         setIsActiveProfilePenjual(false)
         setIsActiveSemuaItem(true)
+        setIsActiveKategoriItem(false)
         setIsActiveRiwayatMasuk(false)
         setIsActiveRiwayatKeluar(false)
         setIsActiveProfilePembeli(false)
@@ -89,9 +96,21 @@ const Sidebaradmin = ({setPage, dataKonfirmasi}) => {
         setPage(<SemuaItemAdmin/>)
     }
 
+    const handleKategoriItem = () => {
+        setIsActiveProfilePenjual(false)
+        setIsActiveSemuaItem(false)
+        setIsActiveKategoriItem(true)
+        setIsActiveRiwayatMasuk(false)
+        setIsActiveRiwayatKeluar(false)
+        setIsActiveProfilePembeli(false)
+        setIsActiveTransaksiPembeli(false)
+        setPage(<KategoriItem/>)
+    }
+
     const handleRiwayatMasuk = () => {
         setIsActiveProfilePenjual(false)
         setIsActiveSemuaItem(false)
+        setIsActiveKategoriItem(false)
         setIsActiveRiwayatMasuk(true)
         setIsActiveRiwayatKeluar(false)
         setIsActiveProfilePembeli(false)
@@ -102,6 +121,7 @@ const Sidebaradmin = ({setPage, dataKonfirmasi}) => {
     const handleRiwayatKeluar = () => {
         setIsActiveProfilePenjual(false)
         setIsActiveSemuaItem(false)
+        setIsActiveKategoriItem(false)
         setIsActiveRiwayatMasuk(false)
         setIsActiveRiwayatKeluar(true)
         setIsActiveProfilePembeli(false)
@@ -115,6 +135,7 @@ const Sidebaradmin = ({setPage, dataKonfirmasi}) => {
         setOpenItem(false)
         setIsActiveProfilePenjual(false)
         setIsActiveSemuaItem(false)
+        setIsActiveKategoriItem(false)
         setIsActiveRiwayatMasuk(false)
         setIsActiveRiwayatKeluar(false)
         setIsActiveProfilePembeli(false)
@@ -130,8 +151,8 @@ const Sidebaradmin = ({setPage, dataKonfirmasi}) => {
     };
     return ( 
         <div className="sidebar-admin pt-4 px-2">
-             <div className="logo-skw-sidebar pt-1 px-2 mx-3 d-flex">
-                <p className='text-logo-skw-admin d-flex align-items-center' onClick={()=>navigate('/admin')}>SKW</p>
+             <div className="logo-skw-sidebar pt-1 px-2 mx-3 d-flex" style={{cursor:"pointer"}} onClick={()=>window.location.reload()}>
+                <p className='text-logo-skw-admin d-flex align-items-center'>SKW</p>
                 <p className='text-skw-penjual d-flex align-items-center'>ADMIN</p>
             </div>
 
@@ -169,6 +190,7 @@ const Sidebaradmin = ({setPage, dataKonfirmasi}) => {
 
                 <div className="sidebar-content ">
                     <p className={`${!isActiveSemuaItem ? 'text-sidebar-admin-content' : 'text-sidebar-admin-content-active' } d-flex align-items-center my-1`} onClick={handleSemuaItem}>Semua Item</p>
+                    <p className={`${!isActiveKategoriItem ? 'text-sidebar-admin-content' : 'text-sidebar-admin-content-active' } d-flex align-items-center my-1`} onClick={handleKategoriItem}>Kategori Item</p>
                     <p className={`${!isActiveRiwayatMasuk ? 'text-sidebar-admin-content' : 'text-sidebar-admin-content-active' } d-flex align-items-center my-1`} onClick={handleRiwayatMasuk}>Riwayat Item Masuk</p>
                     <p className={`${!isActiveRiwayatKeluar ? 'text-sidebar-admin-content' : 'text-sidebar-admin-content-active' } d-flex align-items-center my-1`} onClick={handleRiwayatKeluar}>Riwayat Item Keluar</p>
                 </div>
@@ -183,7 +205,7 @@ const Sidebaradmin = ({setPage, dataKonfirmasi}) => {
                 </div>
             </div>
 
-            <div className="my-5 d-flex justify-content-center">
+            <div className="my-2 d-flex justify-content-center">
                 <button className='but-logout-admin' onClick={handleLogout}>Logout</button>
             </div>
 

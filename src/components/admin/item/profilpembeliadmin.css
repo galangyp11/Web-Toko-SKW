@@ -45,3 +45,18 @@
     font-weight: 600;
     color: #0fab55;
 }
+
+.text-info-admin{
+    height: 100%;
+    color: grey;
+}
+
+.text-info-admin-data{
+    background-color: #2C3333;
+    border-radius: 5px;
+
+    min-width: 2em;
+    height: 2em;
+
+    color: white;
+}

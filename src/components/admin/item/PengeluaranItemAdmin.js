@@ -14,11 +14,13 @@ const ProfilPenjualAdmin = () => {
 
     useEffect(()=>{
         const getDatumItem = async() => {
-            const response = await axios.get(`${apiHost}riwayat-item-keluar`)
+            const response = await axios.get(
+                `${apiHost}riwayat-item-keluar?page=${currentPage}&limit=${recordsPerPage}`
+            )
             setDatumItem(response.data)
         }
         getDatumItem()
-    },[])
+    },[currentPage])
 
     const handleDelete = async(e, id) =>{
         e.preventDefault()
@@ -52,7 +54,7 @@ const ProfilPenjualAdmin = () => {
 
      const onSearchItem = async ({  target: { value } }) => {
         console.log('val', value)
-        const response = await axios.get(`${apiHost}riwayat-item-masuk?search=${value}`)
+        const response = await axios.get(`${apiHost}riwayat-item-keluar?search=${value}`)
         setDatumItem(response.data)
      }
     return ( 
@@ -103,18 +105,15 @@ const ProfilPenjualAdmin = () => {
        </tbody>
        </table>
        
-           <ul className='pagination d-flex align-items-end'>
-               <li className='page-item'>
-                   <a href="#" className='page-link' onClick={prePage}>Prev</a>
-               </li>
-                   {/* <li className={`page-item ${currentPage === n ? 'active' : ''}`} key={i}>
-                       <a href="#" className='page-link' onClick={changeCpage}>{n}</a>
-                   </li>     */}
-
-               <li className='page-item'>
-                   <a href="#" className='page-link' onClick={nextPage}>Next</a>
-               </li>
-           </ul>
+       <ul className='pagination d-flex justify-content-center'>
+          <li className='page-item'>
+            <a href="#" className='page-link' onClick={prePage}>Prev</a>
+          </li>
+                  
+          <li className="page-item">
+            <a href="#" className="page-link" onClick={nextPage}>Next</a>
+          </li>
+      </ul>
    </div>
      );
 }

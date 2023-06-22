@@ -17,7 +17,9 @@ const ProfilPenjualAdmin = () => {
 
   useEffect(() => {
     const getDatumItem = async () => {
-      const response = await axios.get(`${apiHost}pembeli`);
+      const response = await axios.get(
+        `${apiHost}pembeli?page=${currentPage}&limit=${recordsPerPage}`
+      );
       setDatum(response.data);
     };
     getDatumItem();
@@ -72,13 +74,10 @@ const ProfilPenjualAdmin = () => {
         <thead className="table-dark">
           <tr>
             <th scope="col">No</th>
-            <th scope="col">Id</th>
             <th scope="col">Email</th>
             <th scope="col">Username</th>
             <th scope="col">Alamat</th>
-            <th className="text-center" scope="col">
-              Aksi
-            </th>
+            <th className='col-1' scope="col">Aksi</th>
           </tr>
         </thead>
         <tbody>
@@ -86,11 +85,10 @@ const ProfilPenjualAdmin = () => {
             return (
               <tr key={data.id_pembeli}>
                 <td>{index + 1}</td>
-                <td>{data.id_pembeli}</td>
                 <td>{data.email}</td>
                 <td>{data.username}</td>
                 <td>{data.alamat}</td>
-                <td style={{ textAlign: "center" }}>
+                <td className="p-1" style={{ textAlign: "center" }}>
                   <button className="btn btn-danger but-tolak-pesanan" onClick={(e) =>handleDelete(e, data.id_pembeli)}>
                     Hapus
                   </button>

@@ -1,0 +1,167 @@
+import { useEffect, useState } from "react";
+import "./kategoriitem.css"
+import axios from "axios";
+import apiHost from "../../../constants/apiHost";
+
+const KategoriItem = () => {
+
+    const [datumKategori, setDatumKategori] = useState([]);
+    const [isTambah, setIsTambah] = useState(false);
+    const [isEdit, setIsEdit] = useState(false);
+    const [inputKategori, setInputKategori] = useState({
+        id_kategori:'',
+        nama_kategori:''
+    })
+
+    useEffect(() =>{
+        const getData = async() => {
+            const response = await axios.get(`${apiHost}kategori`);
+            setDatumKategori(response.data)
+        }
+        getData()
+    },[isTambah, isEdit])
+
+    const handleTambah = (e) => {
+        e.preventDefault()
+        setIsTambah(true)
+        setIsEdit(false)
+    }
+
+    const handleEdit = async(e, id, nama) => {
+        e.preventDefault()
+        setIsTambah(false)
+        setIsEdit(true)
+        setInputKategori((data)=>({
+            ...data,
+            id_kategori: id,
+            nama_kategori: nama
+        }))
+    }
+
+    const handleDelete = async(e, id) => {
+        e.preventDefault()
+        await axios.delete(`${apiHost}kategori/${id}`);
+        const dataDelete = datumKategori.filter((data) => data.id_kategori !== id);
+        setDatumKategori(dataDelete)
+    }
+
+    const handleInputKategori = (e) => {
+        e.preventDefault()
+        setInputKategori((data)=>({
+            ...data,
+            nama_kategori: e.target.value
+        }))
+    }
+
+    const handleSimpan = async(e) => {
+        e.preventDefault()
+        await axios.post(`${apiHost}kategori`, inputKategori);
+        setIsTambah(false)
+    }
+
+    const handleSimpanEdit = async(e) => {
+        e.preventDefault()
+        await axios.put(`${apiHost}kategori`, inputKategori);
+        setIsEdit(false)
+    }
+
+    const handleBatal = () => {
+        setIsTambah(false)
+        setIsEdit(false)
+    }
+
+    console.log(inputKategori)
+    return ( 
+        <div className="kategori-item container-fluid">
+            <div className="row">
+                <p className='text-title-halaman'>Kategori Item</p>
+            </div>
+
+            <div className="row">
+                <div className="col-3 d-flex justify-content-start align-items-center" style={{ height:'100%'}}>
+                    <p className='text-info-admin d-flex align-items-center mx-2' >Total Jumlah Item : </p>
+                    <p className="text-info-admin-data d-flex justify-content-center align-items-center px-2">{datumKategori.length}</p>    
+                </div>
+
+                <div className="col d-flex justify-content-end align-items-center">
+                    {!isTambah ?
+                    <button className='but-input-item-penjual' style={{width:"11em"}} onClick={handleTambah}>Tambah Kategori</button>
+                    :<></>}        
+                </div>
+            </div>
+
+            {isTambah? 
+                <div className="container bg-input-kategori my-3">
+                    <p className="text-judul-kategori">Tambah Kategori</p>
+
+                    <hr />
+                    <div className="row d-flex align-items-center">
+                        <div className="col-2 " style={{height:'100%'}}>
+                            <p className="text-input-kategori d-flex align-items-center">Nama Kategori</p>                        
+                        </div>
+                        <div className="col">
+                            <input type="text" className="input-text" onChange={handleInputKategori}/>
+                        </div>
+                        <div className="col-2 d-flex justify-content-end">
+                            <button className='btn btn-outline-danger' style={{height:'2.3em', width:"7em"}} onClick={handleBatal}>Batal</button>
+                        </div>
+                        <div className="col-2 d-flex justify-content-end">
+                            <button className='but-input-item-penjual' onClick={handleSimpan}>Simpan</button>
+                        </div>
+                    </div>
+                </div>
+                :<></>}
+
+            {isEdit? 
+                <div className="container bg-input-kategori my-3">
+                    <p className="text-judul-kategori">Edit Kategori</p>
+
+                    <hr />
+                    <div className="row d-flex align-items-center">
+                        <div className="col-2 " style={{height:'100%'}}>
+                            <p className="text-input-kategori d-flex align-items-center">Nama Kategori</p>                        
+                        </div>
+                        <div className="col">
+                            <input type="text" className="input-text" placeholder={inputKategori.nama_kategori} onChange={handleInputKategori}/>
+                        </div>
+                        <div className="col-2 d-flex justify-content-end">
+                            <button className='btn btn-outline-danger' style={{height:'2.3em', width:"7em"}} onClick={handleBatal}>Batal</button>
+                        </div>
+                        <div className="col-2 d-flex justify-content-end">
+                            <button className='but-input-item-penjual' onClick={handleSimpanEdit}>Simpan</button>
+                        </div>
+                    </div>
+                </div>
+                :<></>}
+
+            <table class="table my-4 table-bordered">
+                <thead className="table-dark">
+                    <tr>
+                        <th className='col-1 text-center' scope="col">No</th>
+                        <th className='col-3' scope="col">Nama kategori</th>
+                        <th className='col-1 text-center' scope="col" colSpan="2">Aksi</th>
+                    </tr>
+                </thead>
+            <tbody>
+                {datumKategori.map((item, index)=>{
+                    return(
+                    <tr key={item.id_kategori}>
+                        <td className='text-center'>{index+1}</td>
+                        <td>{item.nama_kategori}</td>
+                        <td style={{textAlign:"center"}}>
+                            <button className="btn btn-warning but-tolak-pesanan" onClick={(e)=>handleEdit(e, item.id_kategori, item.nama_kategori)}>Edit</button>    
+                        </td>
+                        <td className="p-1" style={{textAlign:"center"}}>
+                            <button className="btn btn-danger but-tolak-pesanan" onClick={(e)=> handleDelete(e, item.id_kategori)}>Hapus</button>    
+                        </td>
+                    </tr>
+                    )
+                })}
+                    
+            </tbody>
+            </table>
+        </div>
+     );
+}
+ 
+export default KategoriItem;

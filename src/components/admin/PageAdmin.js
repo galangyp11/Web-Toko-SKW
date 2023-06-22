@@ -12,28 +12,18 @@ const PageAdmin = ({dataLogin}) => {
 
     const navigate = useNavigate();
     const [page, setPage] = useState();
-    const [dataAdmin, setDataAdmin] = useState([]);
     const [dataKonfirmasi, setDataKonfirmasi] = useState([]);
 
     useEffect(()=>{
-        const getAdmin = async () => {
-            const response = await axios.get(`${apiHost}admin`)
-            setDataAdmin(response.data)
-        }
-        getAdmin()
-
         const getNotif = async () => {
             const response = await axios.get(`${apiHost}transaksi`)
             setDataKonfirmasi(response.data)
         }
         getNotif()
+
+        setPage(<HomeAdmin/>)
     },[])
 
-    useEffect(()=>{
-        setPage(<HomeAdmin dataAdmin={dataAdmin}/>)
-    },[dataAdmin])
-
-    console.log(dataAdmin)
     return ( 
         <div className="page-admin">
             <div className="row" style={{width:"100%", height:"100dvh"}}>

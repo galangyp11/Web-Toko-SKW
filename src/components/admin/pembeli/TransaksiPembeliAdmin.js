@@ -12,7 +12,9 @@ const ProfilPenjualAdmin = () => {
 
   useEffect(() => {
     const getNotif = async () => {
-      const response = await axios.get(`${apiHost}transaksi/riwayat`);
+      const response = await axios.get(
+        `${apiHost}transaksi/riwayat?page=${currentPage}&limit=${recordsPerPage}`
+      );
       setDataKonfirmasi(response.data);
       console.log(response.data);
     };
@@ -40,6 +42,12 @@ const ProfilPenjualAdmin = () => {
     }
   }
 
+  const onSearchItem = async ({ target: { value } }) => {
+    console.log("val", value);
+    const response = await axios.get(`${apiHost}transaksi/riwayat?search=${value}`);
+    setDataKonfirmasi(response.data);
+  };
+
   console.log(dataKonfirmasi);
 
   return (
@@ -57,6 +65,7 @@ const ProfilPenjualAdmin = () => {
             className="search-admin p-2 "
             type="text"
             placeholder="Search"
+            onChange={onSearchItem}
           />
           <div
             className="col-1 d-flex justify-content-center align-items-center"
@@ -82,7 +91,7 @@ const ProfilPenjualAdmin = () => {
           </tr>
         </thead>
         <tbody>
-          {dataKonfirmasi.map((data) => {
+          {dataKonfirmasi?.map((data) => {
             return (
               <tr key={data.id_konfirmasi}>
                 <td>{data.username}</td>

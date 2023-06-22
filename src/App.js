@@ -40,17 +40,14 @@ function App() {
           <Route path="/keranjang" element={<Keranjang />} />
           <Route path="/checkout" element={<CheckPembeli />} />
           <Route path="/pesanan" element={<TransaksiPembeli />} />
-          <Route path="penjual" element={<PagePenjual />}>
-              <Route path="item-toko" element={<ItemToko />} />
-          </Route>
-
+          <Route path="/penjual" element={<PagePenjual />}/>
+          <Route path="/admin" element={<PageAdmin />}/>
         </Route>
 
         <Route path="/login" element={<Login />} />
         <Route path="/daftar-pembeli" element={<DaftarPembeli />} />
         <Route path="/daftar-penjual" element={<DaftarPenjual />} />
 
-        <Route path="/admin" element={<PageAdmin />}/>
       </Routes>
     </SearchProvider>
   );
