@@ -64,6 +64,12 @@ const KategoriItem = () => {
     await axios.post(`${apiHost}kategori`, inputKategori);
     setIsButTambah(true);
     setIsTambah(false);
+    document.getElementById("imageFile").value = "";
+    setInputKategori({
+      id_kategori: "",
+      nama_kategori: "",
+      foto_kategori: "",
+    });
   };
 
   const handleSimpanEdit = async (e) => {
@@ -71,12 +77,24 @@ const KategoriItem = () => {
     await axios.put(`${apiHost}kategori`, inputKategori);
     setIsButTambah(true);
     setIsEdit(false);
+    document.getElementById("imageFile").value = "";
+    setInputKategori({
+      id_kategori: "",
+      nama_kategori: "",
+      foto_kategori: "",
+    });
   };
 
   const handleBatal = () => {
     setIsButTambah(true);
     setIsTambah(false);
     setIsEdit(false);
+    document.getElementById("imageFile").value = "";
+    setInputKategori({
+      id_kategori: "",
+      nama_kategori: "",
+      foto_kategori: "",
+    });
   };
   const onSearchItem = async ({ target: { value } }) => {
     console.log("val", value);
