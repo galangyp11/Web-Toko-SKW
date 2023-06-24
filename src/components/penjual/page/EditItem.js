@@ -279,8 +279,6 @@ const EditItem = ({ id_item, setIsUbah, setPageItem }) => {
 
       setDataInput((data) => ({ ...data, foto_item }));
     }
-
-    evt.target.value = null;
   };
 
   console.log({
