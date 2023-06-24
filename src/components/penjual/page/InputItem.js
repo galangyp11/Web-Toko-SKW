@@ -36,6 +36,7 @@ const InputItem = ({setIsUbah, setPageItem}) => {
     const [isAlertMerah, setIsAlertMerah] = useState(false)
     const [textAlert, setTextAlert] = useState('')
     const [isIsiWarna, setIsIsiWarna] = useState(false)
+    const [previewImg, setPreviewImg] = useState([])
  
     const handleInput = (e) =>{
         e.preventDefault()
@@ -60,6 +61,17 @@ const InputItem = ({setIsUbah, setPageItem}) => {
     const handleInputWarna = (e) => {
         e.preventDefault()
         setWarnaItem(e.target.value)
+    }
+
+    const handleDeleteFoto = (e, index2) => {
+        const dataFilterDataInput = Array.from(dataInput.foto_item)?.filter((data, index) => index !== index2)
+        setDataInput((data) => ({
+            ...data, 
+            foto_item: dataFilterDataInput
+        }))
+
+        const dataFilterPreviewImg = previewImg?.filter((data, index) => index !== index2)
+        setPreviewImg(dataFilterPreviewImg)
     }
 
     const handleWarna = (e) => {
@@ -177,7 +189,7 @@ const InputItem = ({setIsUbah, setPageItem}) => {
         }
     }
 
-    const onChangeFile = (evt) => {
+    const onChangeFile = async (evt) => {
         if (evt.target.files.length > 4 ) {
             alert('maksimum upload 4 file')
             document.getElementById('imageFile').value = ""
@@ -189,11 +201,20 @@ const InputItem = ({setIsUbah, setPageItem}) => {
         setDataInput((data)=> ({...data,
             foto_item : evt.target.files    
         }))
-    }
+
+        const images = []
+        Array.from(evt.target.files)?.forEach(async d => {
+            images.push(URL.createObjectURL(d))
     
-    // console.log('warnaItem', warnaItem)
-    // console.log(dataInput)
-    console.log(isAlertHijau)
+        })
+        console.log('imgs', images)
+        setPreviewImg(images)
+    }
+
+    console.log({
+        // previewImg,
+        dataInput
+    })
 
     return ( 
         <div className="">
@@ -201,13 +222,28 @@ const InputItem = ({setIsUbah, setPageItem}) => {
             
             <div className="form-body-penjual gap-1 d-flex justify-content-center row">
                 <div className="row d-flex align-items-center">
-                    <div className="col-3">
-                        <div className="input-gambar-item d-flex align-items-center justify-content-center">
-                            <GoFileMedia color='white' size='30px'/>
-                        </div>
+                    <div className="col mx-5 px-4 " >
+                        <input id="imageFile" type="file" style={{color:"transparent"}} multiple onChange={onChangeFile} accept='image/png' />
                     </div>
-                    <div className="col">
-                        <input id="imageFile" type="file" multiple onChange={onChangeFile} accept='image/png' />
+                </div>
+
+                <div className="row d-flex align-items-center">
+                    <div className="col-4">
+                        {previewImg?.map((item, index) => {
+                            return(
+                                <div className="row d-flex align-items-center my-1" style={{height:"100%"}}>
+                                    <div className="col" >
+                                        <div className="input-gambar-item">
+                                            <img className='input-gambar-item-edit' src={`${item}`} alt="" key={index}/>
+                                        </div>
+                                    </div>
+                                    <div className="col">
+                                        <RxCross2 color='grey' size='30px' style={{cursor:"pointer"}} onClick={(e) =>handleDeleteFoto(e, index)}/>
+                                    </div>
+                                </div>                                    
+                                )
+                            })}
+                            {/* <GoFileMedia color='white' size='30px'/> */}
                     </div>
                 </div>
 

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import "./kategoriitem.css"
+import search from '../../image/search.png'
 import axios from "axios";
 import apiHost from "../../../constants/apiHost";
 
@@ -7,6 +8,7 @@ const KategoriItem = () => {
 
     const [datumKategori, setDatumKategori] = useState([]);
     const [isTambah, setIsTambah] = useState(false);
+    const [isButTambah, setIsButTambah] = useState(true);
     const [isEdit, setIsEdit] = useState(false);
     const [inputKategori, setInputKategori] = useState({
         id_kategori:'',
@@ -23,12 +25,14 @@ const KategoriItem = () => {
 
     const handleTambah = (e) => {
         e.preventDefault()
+        setIsButTambah(false)
         setIsTambah(true)
         setIsEdit(false)
     }
 
     const handleEdit = async(e, id, nama) => {
         e.preventDefault()
+        setIsButTambah(false)
         setIsTambah(false)
         setIsEdit(true)
         setInputKategori((data)=>({
@@ -56,19 +60,27 @@ const KategoriItem = () => {
     const handleSimpan = async(e) => {
         e.preventDefault()
         await axios.post(`${apiHost}kategori`, inputKategori);
+        setIsButTambah(true)
         setIsTambah(false)
     }
 
     const handleSimpanEdit = async(e) => {
         e.preventDefault()
         await axios.put(`${apiHost}kategori`, inputKategori);
+        setIsButTambah(true)
         setIsEdit(false)
     }
 
     const handleBatal = () => {
+        setIsButTambah(true)
         setIsTambah(false)
         setIsEdit(false)
     }
+    const onSearchItem = async ({  target: { value } }) => {
+        console.log('val', value)
+        const response = await axios.get(`${apiHost}kategori?search=${value}`)
+        setDatumKategori(response.data)
+     }
 
     console.log(inputKategori)
     return ( 
@@ -79,12 +91,21 @@ const KategoriItem = () => {
 
             <div className="row">
                 <div className="col-3 d-flex justify-content-start align-items-center" style={{ height:'100%'}}>
-                    <p className='text-info-admin d-flex align-items-center mx-2' >Total Jumlah Item : </p>
+                    <input className='search-admin p-2 ' type="text" placeholder='Search' onChange={onSearchItem}/>    
+                        <div className="col-1 d-flex justify-content-center align-items-center" style={{ height:'100%'}}>
+                            <div className="logo-search-admin d-flex justify-content-center">
+                                <img className='p-1' src={search} alt=""/>
+                            </div>
+                        </div>
+                </div>
+
+                <div className="col d-flex justify-content-start align-items-center" style={{ height:'100%'}}>
+                    <p className='text-info-admin d-flex align-items-center mx-2' >Total Kategori Item : </p>
                     <p className="text-info-admin-data d-flex justify-content-center align-items-center px-2">{datumKategori.length}</p>    
                 </div>
 
-                <div className="col d-flex justify-content-end align-items-center">
-                    {!isTambah ?
+                <div className="col d-flex justify-content-end align-items-center" style={{ height:'100%'}}>
+                    {isButTambah ?
                     <button className='but-input-item-penjual' style={{width:"11em"}} onClick={handleTambah}>Tambah Kategori</button>
                     :<></>}        
                 </div>

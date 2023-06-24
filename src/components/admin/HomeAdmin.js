@@ -77,28 +77,73 @@ const HomeAdmin = () => {
             <div className="bg-info-data-admin my-3 p-3">
                 <p className="text-judul-data-admin">Data Admin</p>
                 <hr />
-                <div className="row isi-data-admin">
-                   
-                        <p className="text-mp-data-admin">Metode Pembayaran</p>
 
-                        {dataMetodePembayaran?.map((data)=>{
-                            return(
-                            <div className="bg-data-info row">
-                                <div className="col-3">
-                                    <p className="text-data-info">{data.nama_mp}</p>
-                                </div>
-                                <div className="col-1 p-0">
-                                    <p>:</p>
-                                </div>
-                                <div className="col-3">
-                                    <input type="text" className="input-text" placeholder={data.no_mp} disabled style={{width:"9em"}}/>
-                                </div>
-                            </div>
-                            )
-                        })}                        
-                   
+                <div className="row">
+                    <p className="text-mp-data-admin">Informasi Admin</p>
+                    
+                    <div className="bg-data-info row">
+                        <div className="col-3">
+                            <p className="text-data-info">Email</p>
+                        </div>
+                        <div className="col-1 p-0">
+                            <p>:</p>
+                        </div>
+                        <div className="col-3">
+                            <input type="text" className="input-text" value={dataAdmin.email} disabled />
+                        </div>
+                    </div>
+
+                    <div className="bg-data-info row">
+                        <div className="col-3">
+                            <p className="text-data-info">Username</p>
+                        </div>
+                        <div className="col-1 p-0">
+                            <p>:</p>
+                        </div>
+                        <div className="col-3">
+                            <input type="text" className="input-text" value={dataAdmin.username} disabled />
+                        </div>
+                    </div>
+
+                    <div className="bg-data-info row">
+                        <div className="col-3">
+                            <p className="text-data-info">Password</p>
+                        </div>
+                        <div className="col-1 p-0">
+                            <p>:</p>
+                        </div>
+                        <div className="col-3">
+                            <input type="password" className="input-text" value={dataAdmin.password} disabled />
+                        </div>
+                    </div>
                 </div>
-               
+                <div className="row isi-data-admin">
+                    <p className="text-mp-data-admin">Metode Pembayaran</p>
+
+                    {dataMetodePembayaran?.map((data)=>{
+                        return(
+                        <div className="bg-data-info row">
+                            <div className="col-3">
+                                <p className="text-data-info">{data.nama_mp}</p>
+                            </div>
+                            <div className="col-1 p-0">
+                                <p>:</p>
+                            </div>
+                            <div className="col-3">
+                                <input type="text" className="input-text" placeholder={data.no_mp} disabled />
+                            </div>
+                        </div>
+                        )
+                    })}                        
+                </div>
+                <div className="row my-2">
+                    <div className="col">
+                        <button className='btn btn-warning but-tolak-pesanan'>Edit</button>
+                    </div>
+                    <div className="col">
+                        <button className='but-input-item-penjual' style={{width:"11em"}}>Tambah Metode</button>
+                    </div>
+                </div>
             </div>
             
         </div>

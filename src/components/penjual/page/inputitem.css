@@ -12,12 +12,26 @@
     font-weight: 400;
 }
 
-.input-gambar-item{
+.bg-input-gambar-item-edit{
     border-radius: 5px;
-    background-color: grey;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    width: 60%;
+
+}
+
+.input-gambar-item{
+    border: 1px solid grey;
+    border-radius: 5px;
+    /* background-color: grey; */
     width: 100px;
     height: 100px;
     margin-left: 75px;
+}
+
+.input-gambar-item-edit{
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
 }
 
 .text-info-edit-item{

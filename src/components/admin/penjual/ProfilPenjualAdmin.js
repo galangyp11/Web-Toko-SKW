@@ -1,4 +1,3 @@
-import React from "react";
 import { useState, useEffect } from "react";
 import "./profilpembeliadmin.css";
 import search from "../../image/search.png";
@@ -20,7 +19,7 @@ const ProfilPenjualAdmin = () => {
       setDatumPenjual(response.data);
     };
     getDatumItem();
-  }, []);
+  }, [currentPage]);
 
   const handleDelete = async(e, id) =>{
     e.preventDefault()
@@ -91,7 +90,7 @@ const ProfilPenjualAdmin = () => {
           </tr>
         </thead>
         <tbody>
-          {datumPenjual.map((data, index) => {
+          {datumPenjual?.map((data, index) => {
             return (
               <tr key={data.id_penjual}>
                 <td>{index +1}</td>

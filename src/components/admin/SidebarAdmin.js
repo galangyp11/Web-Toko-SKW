@@ -1,9 +1,7 @@
 import './sidebaradmin.css'
 import { IoStorefront } from 'react-icons/io5'
-import { BiCollection } from 'react-icons/bi'
-import { BsFillCaretRightFill } from "react-icons/bs";
-import { BsExclamationCircleFill } from "react-icons/bs";
-import { BsPersonFill } from "react-icons/bs";
+import { BiCollection } from 'react-icons/bi';
+import { BsPersonFill, BsFillFilePersonFill, BsFillCaretRightFill } from "react-icons/bs";
 import { AiFillApple } from "react-icons/ai";
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
@@ -33,6 +31,20 @@ const Sidebaradmin = ({setPage, dataKonfirmasi}) => {
     const [isActiveRiwayatKeluar, setIsActiveRiwayatKeluar] = useState(false);
 
     let navigate = useNavigate();
+
+    const handleOpenAdmin = () => {
+        setOpenPembeli(false)
+        setOpenPenjual(false)
+        setOpenItem(false)
+        setIsActiveProfilePenjual(false)
+        setIsActiveSemuaItem(false)
+        setIsActiveKategoriItem(false)
+        setIsActiveRiwayatMasuk(false)
+        setIsActiveRiwayatKeluar(false)
+        setIsActiveProfilePembeli(false)
+        setIsActiveTransaksiPembeli(false)
+        setPage(<HomeAdmin/>)
+    }
 
     const handleOpenPembeli = () => {
         setOpenPembeli(!openPembeli)
@@ -157,6 +169,13 @@ const Sidebaradmin = ({setPage, dataKonfirmasi}) => {
             </div>
 
             <hr />
+
+            <div className="sidebar-item">
+                <div className="sidebar-title d-flex align-items-center" onClick={handleOpenAdmin}>
+                    <BsFillFilePersonFill className='icon-title' color='white' size="30px"/>
+                    <p className='text-sidebar-admin-title pt-3' id='text-sidebar-admin'>Profile Admin </p>
+                </div>
+            </div>
 
             <div className={openPenjual ? "sidebar-item open" : "sidebar-item"}>
                 <div className="sidebar-title d-flex align-items-center" onClick={handleOpenPenjual}>

@@ -27,7 +27,8 @@ const EditItem = ({id_item, setIsUbah, setPageItem}) => {
         stok_item: "",
         warna_item: [],
         ukuran_item: [],
-        biaya_operasional: ""
+        biaya_operasional: "",
+        id_foto_item_delete:[]
     });
     const tanggal = new Date()
     const [stokTambah, setStokTambah] = useState({
@@ -131,6 +132,22 @@ const EditItem = ({id_item, setIsUbah, setPageItem}) => {
             }))
         })
     },[warnaItemById])
+
+    const handleDeleteFoto = (e, id) => {
+        e.preventDefault()
+        const dataIdFoto = [...dataInput.id_foto_item_delete]
+        dataIdFoto.splice(0,0, id)
+        setDataInput((data) => ({
+            ...data,
+            id_foto_item_delete : dataIdFoto
+        }))
+
+        const dataFilter = itemById.gambar.filter((data) => data.id_gambar !== id)
+        setItemById((data) => ({
+            ...data, 
+            gambar: dataFilter
+        }))
+    }
 
     const handleInputUkuran = (e) =>{
         // setIsChecked(!isChecked)
@@ -251,24 +268,38 @@ const EditItem = ({id_item, setIsUbah, setPageItem}) => {
         itemById,
         // ukuranItemById,
         stokTambah,
-        // warnaItemById,
+        warnaItemById,
         dataInput,
     })
     // console.log(id_item)
     return ( 
         <div className="edit-item">
             <p className='text-title-halaman'>Edit Item</p>
-
             
             <div className="form-body-penjual gap-1 d-flex justify-content-center row">
                 <div className="row d-flex align-items-center">
-                    <div className="col-3">
-                        <div className="input-gambar-item d-flex align-items-center justify-content-center">
-                            <GoFileMedia color='white' size='30px'/>
-                        </div>
+                    <div className="col mx-5 px-4 " >
+                        <input id="imageFile" type="file" style={{color:"transparent"}} multiple onChange={onChangeFile} accept='image/png' />
                     </div>
-                    <div className="col">
-                        <input id="imageFile" type="file" multiple onChange={onChangeFile} accept='image/png' />
+                </div>
+
+                <div className="row d-flex align-items-center">
+                    <div className="col-4">
+                        {itemById.gambar?.map((item) => {
+                            return(
+                                <div className="row d-flex align-items-center my-1" style={{height:"100%"}}>
+                                    <div className="col" >
+                                        <div className="input-gambar-item">
+                                            <img className='input-gambar-item-edit' src={`${apiHost}${item.src}`} alt="" key={item.id_gambar}/>
+                                        </div>
+                                    </div>
+                                    <div className="col">
+                                        <RxCross2 color='grey' size='30px' style={{cursor:"pointer"}} onClick={(e) =>handleDeleteFoto(e, item.id_gambar)}/>
+                                    </div>
+                                </div>                                    
+                                )
+                            })}
+                            {/* <GoFileMedia color='white' size='30px'/> */}
                     </div>
                 </div>
 
