@@ -3,6 +3,7 @@ import "./kategoriitem.css"
 import search from '../../image/search.png'
 import axios from "axios";
 import apiHost from "../../../constants/apiHost";
+import { RxCross2 } from "react-icons/rx";
 
 const KategoriItem = () => {
 
@@ -12,8 +13,10 @@ const KategoriItem = () => {
     const [isEdit, setIsEdit] = useState(false);
     const [inputKategori, setInputKategori] = useState({
         id_kategori:'',
-        nama_kategori:''
+        nama_kategori:'',
+        foto_kategori:''
     })
+    const [previewImg, setPreviewImg] = useState([])
 
     useEffect(() =>{
         const getData = async() => {
@@ -80,7 +83,40 @@ const KategoriItem = () => {
         console.log('val', value)
         const response = await axios.get(`${apiHost}kategori?search=${value}`)
         setDatumKategori(response.data)
-     }
+    }
+
+    const handleDeleteFoto = (e, index2) => {
+        const dataFilterInputKategori = Array.from(inputKategori.foto_kategori)?.filter((data, index) => index !== index2)
+        setInputKategori((data) => ({
+            ...data, 
+            foto_kategori: dataFilterInputKategori
+        }))
+
+        const dataFilterPreviewImg = previewImg?.filter((data, index) => index !== index2)
+        setPreviewImg(dataFilterPreviewImg)
+    }
+
+    const onChangeFile = async (evt) => {
+        if (evt.target.files.length > 4 ) {
+            alert('maksimum upload 4 file')
+            document.getElementById('imageFile').value = ""
+            setInputKategori((data)=> ({...data,
+                foto_kategori : []
+            }))
+            return false
+        }
+        setInputKategori((data)=> ({...data,
+            foto_kategori : evt.target.files    
+        }))
+
+        const images = []
+        Array.from(evt.target.files)?.forEach(async d => {
+            images.push(URL.createObjectURL(d))
+    
+        })
+        console.log('imgs', images)
+        setPreviewImg(images)
+    }
 
     console.log(inputKategori)
     return ( 
@@ -116,6 +152,30 @@ const KategoriItem = () => {
                     <p className="text-judul-kategori">Tambah Kategori</p>
 
                     <hr />
+                    <div className="row d-flex align-items-center">
+                        <div className="col mx-5 px-4 " >
+                            <input id="imageFile" type="file" style={{color:"transparent"}} multiple onChange={onChangeFile} accept='image/png' />
+                        </div>
+                    </div>
+
+                    <div className="row d-flex align-items-center">
+                        <div className="col-4">
+                            {previewImg?.map((item, index) => {
+                                return(
+                                    <div className="row d-flex align-items-center my-1" style={{height:"100%"}}>
+                                        <div className="col" >
+                                            <div className="input-gambar-item">
+                                                <img className='input-gambar-item-edit' src={`${item}`} alt="" key={index}/>
+                                            </div>
+                                        </div>
+                                        <div className="col">
+                                            <RxCross2 color='grey' size='30px' style={{cursor:"pointer"}} onClick={(e) =>handleDeleteFoto(e, index)}/>
+                                        </div>
+                                    </div>                                    
+                                    )
+                                })}
+                        </div>
+                    </div>
                     <div className="row d-flex align-items-center">
                         <div className="col-2 " style={{height:'100%'}}>
                             <p className="text-input-kategori d-flex align-items-center">Nama Kategori</p>                        
