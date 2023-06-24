@@ -152,6 +152,9 @@ const InputItem = ({setIsUbah, setPageItem}) => {
         } else if(dataInput.stok_item === ''){
             setIsAlertMerah(true)
             setTextAlert('Stok Item Tidak Boleh Kosong !')
+        } else if(previewImg.length === 0){
+            setIsAlertMerah(true)
+            setTextAlert('Gambar tidak boleh kosong !')
         } else {
         try {   
             let formData = new FormData();
