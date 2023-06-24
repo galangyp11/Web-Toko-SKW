@@ -97,16 +97,33 @@ const KategoriItem = () => {
       (data, index) => index !== index2
     );
     setPreviewImg(dataFilterPreviewImg);
+
+    e.target.value = "";
   };
 
   const onChangeFile = async (evt) => {
+    console.log("evt", evt.target.files);
     if (evt.target.files.length > 4) {
       alert("maksimum upload 4 file");
       document.getElementById("imageFile").value = "";
       setInputKategori((data) => ({ ...data, foto_kategori: [] }));
       return false;
     }
-    setInputKategori((data) => ({ ...data, foto_kategori: evt.target.files }));
+
+    if (evt.target.files.length > 0) {
+      const foto_kategori = [];
+
+      Array.from(evt.target.files).forEach((imageFile) => {
+        const fileReader = new FileReader();
+        fileReader.onload = () => {
+          const srcData = fileReader.result;
+          foto_kategori.push(srcData);
+        };
+        fileReader.readAsDataURL(imageFile);
+      });
+
+      setInputKategori((data) => ({ ...data, foto_kategori }));
+    }
 
     const images = [];
     Array.from(evt.target.files)?.forEach(async (d) => {
