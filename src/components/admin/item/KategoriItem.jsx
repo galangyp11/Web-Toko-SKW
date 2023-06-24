@@ -116,6 +116,8 @@ const KategoriItem = () => {
         })
         console.log('imgs', images)
         setPreviewImg(images)
+
+        evt.target.value = null
     }
 
     console.log(inputKategori)
