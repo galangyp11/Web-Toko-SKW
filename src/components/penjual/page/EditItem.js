@@ -9,6 +9,7 @@ import ItemToko from "./ItemToko";
 import { BsFillPlusSquareFill, BsDash } from "react-icons/bs";
 import { RxCross2 } from "react-icons/rx";
 import Alert from "../../AlertHijau";
+import AlertMerah from '../../AlertMerah'
 
 const EditItem = ({ id_item, setIsUbah, setPageItem }) => {
   const [itemById, setItemById] = useState({});
@@ -43,6 +44,7 @@ const EditItem = ({ id_item, setIsUbah, setPageItem }) => {
   const [isIsiWarna, setIsIsiWarna] = useState(false);
   const [isChecked, setIsChecked] = useState();
   const [isAlert, setIsAlert] = useState(false);
+  const [isAlertMerah, setIsAlertMerah] = useState(false)
   const [textAlert, setTextAlert] = useState("");
 
   useEffect(() => {
@@ -209,6 +211,10 @@ const EditItem = ({ id_item, setIsUbah, setPageItem }) => {
 
   const handleDaftarPenjual = async (e) => {
     e.preventDefault();
+    if(itemById.gambar.length === 0){
+        setIsAlertMerah(true)
+        setTextAlert('Gambar tidak boleh kosong !')
+    } else {
     const tgl_input =
       tanggal.getDate() +
       "/" +
@@ -247,6 +253,7 @@ const EditItem = ({ id_item, setIsUbah, setPageItem }) => {
       setPageItem(<ItemToko />);
     } catch (error) {
       console.log("eror bang gabisa input", error);
+    }
     }
   };
 
@@ -658,6 +665,7 @@ const EditItem = ({ id_item, setIsUbah, setPageItem }) => {
         ) : (
           <div></div>
         )}
+        {isAlertMerah ? <AlertMerah textAlert={textAlert} isAlert={isAlertMerah} setIsAlert={setIsAlertMerah}/> : <div></div>}
       </div>
     </div>
   );

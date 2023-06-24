@@ -199,6 +199,30 @@ const KategoriItem = () => {
 
                     <hr />
                     <div className="row d-flex align-items-center">
+                        <div className="col mx-5 px-4 " >
+                            <input id="imageFile" type="file" style={{color:"transparent"}} multiple onChange={onChangeFile} accept='image/png' />
+                        </div>
+                    </div>
+
+                    <div className="row d-flex align-items-center">
+                        <div className="col-4">
+                            {previewImg?.map((item, index) => {
+                                return(
+                                    <div className="row d-flex align-items-center my-1" style={{height:"100%"}}>
+                                        <div className="col" >
+                                            <div className="input-gambar-item">
+                                                <img className='input-gambar-item-edit' src={`${item}`} alt="" key={index}/>
+                                            </div>
+                                        </div>
+                                        <div className="col">
+                                            <RxCross2 color='grey' size='30px' style={{cursor:"pointer"}} onClick={(e) =>handleDeleteFoto(e, index)}/>
+                                        </div>
+                                    </div>                                    
+                                    )
+                                })}
+                        </div>
+                    </div>
+                    <div className="row d-flex align-items-center">
                         <div className="col-2 " style={{height:'100%'}}>
                             <p className="text-input-kategori d-flex align-items-center">Nama Kategori</p>                        
                         </div>
