@@ -16,7 +16,7 @@ const KategoriItem = () => {
         nama_kategori:'',
         foto_kategori:''
     })
-    const [previewImg, setPreviewImg] = useState([])
+    const [previewImg, setPreviewImg] = useState([]);
 
     useEffect(() =>{
         const getData = async() => {
