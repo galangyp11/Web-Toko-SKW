@@ -30,6 +30,7 @@ const DescItem = () => {
     gambar: [],
   });
   const [ukuranItem, setUkuranItem] = useState([]);
+  const [gambarItem, setGambarItem] = useState('');
   const [isUkuran, setIsUkuran] = useState(false);
   const [warnaItem, setWarnaItem] = useState([]);
   const [isWarna, setIsWarna] = useState(false);
@@ -137,6 +138,7 @@ const DescItem = () => {
 
     setNoWa(`${itemById.whatsapp}`)
     setMessageWa(`Halo ${itemById.nama_toko}, Apakah barang ${itemById.nama_item} tersedia?`);
+    setGambarItem(`${apiHost}${itemById?.gambar?.[0]?.src}`)
   }, [itemById]);
 
   useEffect(()=>{
@@ -163,6 +165,7 @@ const DescItem = () => {
     // warnaItem,
     // isWarna,
     // isUkuran,
+    gambarItem,
     itemById,
     messageWa
   })
@@ -171,63 +174,32 @@ const DescItem = () => {
     <div className="descitem">
       <div className="desc-item-con container ">
         <div className="row pt-4" style={{ overflow: "hidden" }}>
-          <div className="col d-flex justify-content-center">
-            <div className="">
-              <div
-                id="carouselExampleIndicators"
-                className="carousel slide"
-                data-mdb-ride="carousel"
-              >
-                <div className="carousel-inner">
-                  <div className="carousel-item active">
-                    <img
-                      src={`${apiHost}${itemById?.gambar?.[0]}`}
-                      className="carousel-foto-item d-block"
+          <div className="col">
+            <div className="row d-flex justify-content-center" style={{width:"100%"}}>
+                  <div className="bg-gambar-desc d-flex justify-content-center align-items-center">
+                    <img  
+                      src={gambarItem}
+                      className="gambar-item-desc"
                     />
                   </div>
-                </div>
-                <button
-                  className="carousel-control-prev"
-                  type="button"
-                  data-mdb-target="#carouselExampleIndicators"
-                  data-mdb-slide="prev"
-                >
-                  <span
-                    className="carousel-control-prev-icon"
-                    aria-hidden="true"
-                  ></span>
-                  <span className="visually-hidden">Previous</span>
-                </button>
-                <button
-                  className="carousel-control-next"
-                  type="button"
-                  data-mdb-target="#carouselExampleIndicators"
-                  data-mdb-slide="next"
-                >
-                  <span
-                    className="carousel-control-next-icon"
-                    aria-hidden="true"
-                  ></span>
-                  <span className="visually-hidden">Next</span>
-                </button>
-                <div className="carousel-indicators-desc d-flex justify-content-center">
+            </div>
+          
+            <div className="container-sub-gambar row d-flex justify-content-center my-2 gap-2">
                   {itemById &&
                     itemById?.gambar?.map((i) => {
                       return (
-                        <button
-                          className="thumbnail-carousel-desc active"
-                          data-target="#carouselExampleIndicators"
-                          data-slide-to="0"
-                        >
-                          <img
-                            src={`${apiHost}${i}`}
-                            className="d-block w-100"
-                          />
-                        </button>
+                          <div
+                            className="bg-sub-gambar d-flex justify-content-center align-items-center"
+                            onClick={()=>setGambarItem(`${apiHost}${i.src}`)}
+                          >
+                            <img
+                              src={`${apiHost}${i.src}`}
+                              className="gambar-item-desc"
+                            />
+                          </div>
+                      
                       );
                     })}
-                </div>
-              </div>
             </div>
           </div>
           <div className="col ">

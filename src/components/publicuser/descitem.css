@@ -7,35 +7,39 @@
     margin: 0;
 }
 
-.carousel-desc {
-    height: 100px;
-}
-
-.carousel-foto-item{
-    height: 25em;
-}
-
-.carousel-indicators-desc {
-    position: static;
-  }
-
-.thumbnail-carousel-desc{
-    border: none;
-}
-
-.thumbnail-carousel-desc.active {
-    width: 100px;
-    height: 100px;
-  }
-
-.thumbnail-carousel-desc:not(.active) {
-    width: 100px;
-    height: 100px;
-    opacity: 0.7;
-  }
 
 hr{
     color: gray;
+}
+
+.container-sub-gambar{
+    width: 100%;
+    height: 10em;
+}
+
+.bg-gambar-desc{
+    width: 26em;
+    height: 26em;
+    background-color: #f7f7f7;
+}
+
+.bg-sub-gambar{
+    height: 10em;
+    width: 10em;
+    background-color: #f7f7f7;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: .2s ease;
+}
+
+.bg-sub-gambar:hover{
+    filter: brightness(80%);
+}
+
+.gambar-item-desc{
+    width: 90%;
+    height: 90%;
+    object-fit: cover;
 }
 
 .desc-item-con{

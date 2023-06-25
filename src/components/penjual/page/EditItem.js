@@ -15,6 +15,7 @@ const EditItem = ({ id_item, setIsUbah, setPageItem }) => {
   const [itemById, setItemById] = useState({});
   const [ukuranItemById, setUkuranItemById] = useState([]);
   const [warnaItemById, setWarnaItemById] = useState([]);
+  const [gambarItemById, setGambarItemById] = useState([]);
   const id = Cookies.get("id");
   const [dataInput, setDataInput] = useState({
     id_item: "",
@@ -65,6 +66,12 @@ const EditItem = ({ id_item, setIsUbah, setPageItem }) => {
       setWarnaItemById(response.data);
     };
     getWarna();
+
+    const getGambar = async () => {
+      const response = await axios.get(`${apiHost}item-gambar/${id_item}`);
+      setGambarItemById(response.data);
+    }
+    getGambar()
   }, []);
 
   const handleInput = (e) => {
@@ -132,6 +139,15 @@ const EditItem = ({ id_item, setIsUbah, setPageItem }) => {
       }));
     });
   }, [warnaItemById]);
+
+  useEffect(() => {
+    gambarItemById.forEach((item) => {
+      setDataInput((data) => ({
+        ...data,
+        foto_item: gambarItemById.map((foto) => foto.gambar),
+      }));
+    });
+  }, [gambarItemById]);
 
   const handleDeleteFoto = (e, id) => {
     e.preventDefault();
@@ -291,6 +307,7 @@ const EditItem = ({ id_item, setIsUbah, setPageItem }) => {
   console.log({
     itemById,
     // ukuranItemById,
+    gambarItemById,
     stokTambah,
     warnaItemById,
     dataInput,
