@@ -15,7 +15,7 @@ const EditItem = ({ id_item, setIsUbah, setPageItem }) => {
   const [itemById, setItemById] = useState({});
   const [ukuranItemById, setUkuranItemById] = useState([]);
   const [warnaItemById, setWarnaItemById] = useState([]);
-  const [gambarItemById, setGambarItemById] = useState([]);
+  // const [gambarItemById, setGambarItemById] = useState([]);
   const id = Cookies.get("id");
   const [dataInput, setDataInput] = useState({
     id_item: "",
@@ -67,11 +67,11 @@ const EditItem = ({ id_item, setIsUbah, setPageItem }) => {
     };
     getWarna();
 
-    const getGambar = async () => {
-      const response = await axios.get(`${apiHost}item-gambar/${id_item}`);
-      setGambarItemById(response.data);
-    }
-    getGambar()
+    // const getGambar = async () => {
+    //   const response = await axios.get(`${apiHost}item-gambar/${id_item}`);
+    //   setGambarItemById(response.data);
+    // }
+    // getGambar()
   }, []);
 
   const handleInput = (e) => {
@@ -103,6 +103,7 @@ const EditItem = ({ id_item, setIsUbah, setPageItem }) => {
       id_kategori: itemById.id_kategori,
       stok_item: itemById.stok_item,
       biaya_operasional: itemById.biaya_operasional,
+      foto_item: itemById.gambar?.map((data) => data.src)
     }));
 
     if (itemById.id_kategori === 1) {
@@ -140,14 +141,14 @@ const EditItem = ({ id_item, setIsUbah, setPageItem }) => {
     });
   }, [warnaItemById]);
 
-  useEffect(() => {
-    gambarItemById.forEach((item) => {
-      setDataInput((data) => ({
-        ...data,
-        foto_item: gambarItemById.map((foto) => foto.gambar),
-      }));
-    });
-  }, [gambarItemById]);
+  // useEffect(() => {
+  //   gambarItemById.forEach((item) => {
+  //     setDataInput((data) => ({
+  //       ...data,
+  //       foto_item: gambarItemById.map((foto) => foto.gambar),
+  //     }));
+  //   });
+  // }, [gambarItemById]);
 
   const handleDeleteFoto = (e, id) => {
     e.preventDefault();
@@ -227,10 +228,13 @@ const EditItem = ({ id_item, setIsUbah, setPageItem }) => {
 
   const handleDaftarPenjual = async (e) => {
     e.preventDefault();
-    if(itemById.gambar.length === 0){
+    if(dataInput.foto_item.length === 0){
         setIsAlertMerah(true)
         setTextAlert('Gambar tidak boleh kosong !')
-    } else {
+    } else if(dataInput.foto_item.length > 4){
+      setIsAlertMerah(true)
+      setTextAlert('Gambar tidak boleh lebih dari 4 !')
+    }else {
     const tgl_input =
       tanggal.getDate() +
       "/" +
@@ -307,7 +311,7 @@ const EditItem = ({ id_item, setIsUbah, setPageItem }) => {
   console.log({
     itemById,
     // ukuranItemById,
-    gambarItemById,
+    // gambarItemById,
     stokTambah,
     warnaItemById,
     dataInput,
@@ -495,9 +499,9 @@ const EditItem = ({ id_item, setIsUbah, setPageItem }) => {
               //value={dataInput.warna_item}
               onChange={handleInputWarna}
               disabled={
-                dataInput.id_kategori === "3" || dataInput.id_kategori === "4"
-                  ? false
-                  : true
+                itemById.id_kategori === "3" || itemById.id_kategori === "4"
+                  ? true : false
+                  
               }
             />
             <BsFillPlusSquareFill
@@ -507,9 +511,8 @@ const EditItem = ({ id_item, setIsUbah, setPageItem }) => {
               style={{ cursor: "pointer" }}
               onClick={handleWarna}
               disabled={
-                dataInput.id_kategori === "3" || dataInput.id_kategori === "4"
-                  ? false
-                  : true
+                itemById.id_kategori === "3" || itemById.id_kategori === "4"
+                  ? true : false
               }
             />
           </div>

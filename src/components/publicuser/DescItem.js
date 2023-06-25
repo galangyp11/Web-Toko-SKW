@@ -161,13 +161,13 @@ const DescItem = () => {
   };
 
   console.log({
-    // ukuranItem,
-    // warnaItem,
+    ukuranItem,
+    warnaItem,
     // isWarna,
     // isUkuran,
     gambarItem,
     itemById,
-    messageWa
+    // messageWa
   })
 
   return (
@@ -251,7 +251,7 @@ const DescItem = () => {
               </div>
               <hr />
               <div className="row pilihan-desc-item">
-                {isUkuran ? <div>{
+                {isUkuran ? <div className="col">{
                   ukuranItem.map((data) => {
                     return (
                       <div key={data.id_ukuran} className="ukuran-item-input">
@@ -270,16 +270,20 @@ const DescItem = () => {
                   <></>
                 }
 
-                {isWarna ? <div>{
-                  <div className="col d-flex gap-2">
-                    <input
-                      type="checkbox"
-                      name="ukuran"
-                      value={itemById.warna_item}
-                      onChange={handleInputWarna}
-                    />
-                    <label htmlFor="ukuran">{itemById.warna_item}</label>
-                  </div>
+                {isWarna ? <div className="col">{
+                  warnaItem?.map((data) => {
+                    return (
+                      <div key={data.id_warna} className="col d-flex gap-2">
+                        <input
+                          type="checkbox"
+                          name="warna"
+                          value={itemById.warna_item}
+                          onChange={handleInputWarna}
+                        />
+                        <label htmlFor="warna">{data.nama_warna}</label>
+                      </div>
+                  );
+                  })
                 }</div>: 
                   <></>
                 }
