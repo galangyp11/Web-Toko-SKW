@@ -12,7 +12,7 @@ const FooterKeranjang = ({datum, handleCheckout, totalHarga}) => {
 
     console.log(totalHarga)
     return ( 
-        <div className="footer-keranjang">
+        <div className="footer-keranjang mt-3">
            <div className="row px-1 d-flex justify-content-center align-items-start " style={{height:"100%"}}>
                 <div className="row d-flex justify-content-center mt-3" >
                     <div className="col-4 ">

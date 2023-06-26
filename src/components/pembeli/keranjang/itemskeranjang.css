@@ -15,7 +15,13 @@
 .text-nama-item-keranjang{
     font-size: 1.3em;
     font-weight: 600;
-    
+    cursor: pointer;
+    transition: .2s ease;
+    display: inline-block;
+}
+
+.text-nama-item-keranjang:hover{
+    color: #0E8388;
 }
 
 .but-jumlah-keranjang{

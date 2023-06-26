@@ -180,9 +180,11 @@ const CheckPembeli = () => {
     // console.log(alamatPembeli)
     console.log({
         dataCheckout,
-        stokItem,
-        dataAdmin,
-        dataMp
+        dataInput,
+        alamatPembeli,
+        // stokItem,
+        // dataAdmin,
+        // dataMp
     })
     return ( 
         <div className="check-pembeli">
@@ -198,12 +200,12 @@ const CheckPembeli = () => {
                 <div className="row">
                     <p className='text-sub-checkout'>Alamat :</p>
                     <div className="col">
-                        <input 
-                                className='text-profile-bio d-flex align-items-center' 
-                                placeholder={dataPembeli.alamat}
-                                id='alamat'
-                                onChange={handleInput}
-                        ></input>
+                        <textarea 
+                            className='alamat-checkout d-flex align-items-center' 
+                            placeholder={dataPembeli.alamat}
+                            id='alamat'
+                            onChange={handleInput}
+                        ></textarea>
                     </div>
                     <div className="col">
                         <p className='text-info-checkout'>*Pastikan alamat sudah benar dan jelas agar memudahkan proses.</p>

@@ -24,8 +24,8 @@ const DescItem = () => {
     id_pembeli: "",
     id_item: "",
     jumlah: "1",
-    ukuran: "",
-    warna: "",
+    ukuran: "-",
+    warna: "-",
     total_harga: "",
     gambar: [],
   });
@@ -91,12 +91,12 @@ const DescItem = () => {
     } else if (idItemKeranjang === itemById.id_item) {
       setIsAlertMerah(true);
       setTextAlert("Item sudah ada di keranjang");
-    } else if (itemById.nama_ukuran !== null && dataItem.ukuran_item === "") {
+    } else if (ukuranItem.length !== 0 && dataItem.ukuran === "-") {
       setIsAlertMerah(true);
       setTextAlert("Silahkan pilih ukuran");
-      // } else if (itemById.warna_item !== null && dataItem.warna_item === "") {
-      //   setIsAlertMerah(true)
-      //   setTextAlert('Silahkan pilih varian warna')
+    } else if (warnaItem.length !== 0 && dataItem.warna === "-") {
+      setIsAlertMerah(true)
+      setTextAlert('Silahkan pilih warna')
     } else {
       try {
         await axios.post(`${apiHost}keranjang`, dataItem);
@@ -163,6 +163,7 @@ const DescItem = () => {
   console.log({
     ukuranItem,
     warnaItem,
+    dataItem,
     // isWarna,
     // isUkuran,
     gambarItem,
@@ -224,7 +225,9 @@ const DescItem = () => {
               <div className="row desc-item-toko ">
                 <div className="col-2 d-flex justify-content-end">
                   <div className="desc-foto-toko-item">
-                    <img className="photo-profile"  src={`data:image/png;base64,${foto}`} />
+                    <img className="photo-profile"  src={ btoa(
+              String.fromCharCode(...new Uint8Array(itemById?.logo_toko))
+            )} />
                   </div>
                 </div>
                 <div className="col p-1">
@@ -256,7 +259,7 @@ const DescItem = () => {
                     return (
                       <div key={data.id_ukuran} className="ukuran-item-input">
                         <input
-                          type="checkbox"
+                          type="radio"
                           name="ukuran"
                           id={data.id_ukuran}
                           value={data.nama_ukuran}
@@ -275,9 +278,9 @@ const DescItem = () => {
                     return (
                       <div key={data.id_warna} className="col d-flex gap-2">
                         <input
-                          type="checkbox"
+                          type="radio"
                           name="warna"
-                          value={itemById.warna_item}
+                          value={data.nama_warna}
                           onChange={handleInputWarna}
                         />
                         <label htmlFor="warna">{data.nama_warna}</label>

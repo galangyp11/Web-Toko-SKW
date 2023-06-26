@@ -1,7 +1,7 @@
 import "./itemskeranjang.css";
 import kura from "../../image/kuraplongo.jpg";
 import axios from "axios";
-
+import { Link } from "react-router-dom";
 import { MdOutlineCancel } from "react-icons/md";
 import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
@@ -9,25 +9,23 @@ import apiHost from "../../../constants/apiHost";
 
 const ItemsKeranjang = ({ datum, setDatum, setDataInput, disable, dataDB}) => {
 
-  const [isUkuran, setIsUkuran] = useState(false)
+  // const [isUkuran, setIsUkuran] = useState(false)
+  
 
-  useEffect(()=>{
-    if(datum.ukuran === null){
-      setIsUkuran(false)
-    } else {
-      setIsUkuran(true)
-    }
-  },[])
+  // useEffect(()=>{
+  //   if(datum.ukuran === " "){
+  //     setIsUkuran(false)
+  //   } else {
+  //     setIsUkuran(true)
+  //   }
+  // },[])
 
-  const handleDelete = async (id, e) => {
+  const handleDelete = async (e, id) => {
     e.preventDefault();
-    try {
-      await axios.delete(`${apiHost}keranjang/${id}`);
-      const dataFillter = datum.filter((item) => item.id_keranjang !== id);
-      setDatum(dataFillter);
-    } catch (error) {
-      console.log(error);
-    }
+  
+    await axios.delete(`${apiHost}keranjang/${id}`);
+    const dataFillter = datum.filter((item) => item.id_keranjang !== id);
+    setDatum(dataFillter);
   };
 
   const formatUang = (number) => {
@@ -62,7 +60,7 @@ const ItemsKeranjang = ({ datum, setDatum, setDataInput, disable, dataDB}) => {
     dataDB()
   }
 
-  return datum.map((item) => {
+  return datum?.map((item) => {
     // const foto = btoa(String.fromCharCode(...new Uint8Array(item.foto_item.data)))
     return (
       <div className="items-keranjang my-3" key={item.id_keranjang}>
@@ -71,26 +69,38 @@ const ItemsKeranjang = ({ datum, setDatum, setDataInput, disable, dataDB}) => {
           style={{ height: "100%", width: "100%" }}
         >
           <div
-            className="col-3  d-flex justify-content-center align-items-center"
+            className="col-3 d-flex justify-content-center align-items-center"
             style={{ height: "100%" }}
           >
+          <Link
+            to={`/item/${item.id_item}`}
+            style={{ textDecoration: "none", color: "black" }}
+          >
+            <div className="bg-sub-gambar d-flex justify-content-center align-items-center">
             <img
-              className="img-items-keranjang"
-              src={`data:image/png;base64,`}
+              className="gambar-item-desc"
+              src={`${apiHost}${item?.gambar?.[0]}`}
             />
+            </div>
+            </Link>
           </div>
-          <div className="col  py-2" style={{ height: "100%" }}>
+          <div className="col py-2" style={{ height: "100%" }}>
             <div className="row">
+            <Link
+            to={`/item/${item.id_item}`}
+            style={{ textDecoration: "none", color: "black" }}
+          >
               <p className="text-nama-item-keranjang">{item.nama_item}</p>
+              </Link>
             </div>
             <div className="row">
               <p>{formatUang(item.harga_item).replace(/\,00/g, "")}</p>
             </div>
             <div className="row">
-              {isUkuran ? <div className="d-flex gap-2">
-                <p>Ukuran : </p>
-                <p>{item.ukuran}</p>
-              </div> : <div></div>}
+              <div className="d-flex gap-2">
+                <p>Varian : </p>
+                <p>{item?.ukuran}, {item.warna}</p>
+              </div>
             </div>
           </div>
           <div className="col-3 ">
@@ -124,7 +134,7 @@ const ItemsKeranjang = ({ datum, setDatum, setDataInput, disable, dataDB}) => {
             className="col-1  d-flex justify-content-center align-items-center"
             style={{ height: "100%" }}
           >
-            <div onClick={(e) => handleDelete(item.id_keranjang, e)}>
+            <div onClick={(e) => handleDelete(e, item.id_keranjang)}>
               <MdOutlineCancel
                 size="30px"
                 color="grey"

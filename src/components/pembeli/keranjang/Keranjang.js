@@ -19,25 +19,25 @@ const Keranjang = () => {
         jumlah:"",
         total_harga:""
       })
-    const [totalHarga, setTotalHarga] = useState()
+    const [totalHarga, setTotalHarga] = useState();
     const [isKosong, setIsKosong] = useState(true)
-    const [disable, setDisable] = useState()
+    const [disable, setDisable] = useState(true)
     const id = Cookies.get('id')
     const navigate = useNavigate()
     const [isAlert, setIsAlert] = useState(false)
     const [textAlert, setTextAlert] = useState('')
     
     useEffect(()=>{
-        dataDB() 
-    }, [dataInput]) 
-
+        dataDB()
+    }, [dataInput])
+    
     const dataDB = async () => {
         const response = await axios.get(`${apiHost}keranjang/${id}`)
         setDatum(response.data)
     }
 
     useEffect(()=>{
-        if(datum.length != 0){
+        if(datum?.length != 0){
             setIsKosong(false)
           }  else {
             setIsKosong(true)
@@ -45,14 +45,14 @@ const Keranjang = () => {
           }
    
         let i = 0
-            datum.forEach((data)=>{           
+            datum?.forEach((data)=>{           
                 i += data.total_harga
                 setTotalHarga(i)
 
-               if(data.jumlah == 1){
-                setDisable(true)
+               if(data.jumlah !== 1){
+                    setDisable(false)
                 } else {
-                setDisable(false)
+                    setDisable(true)
                 }
             })
     },[datum])
@@ -93,7 +93,7 @@ const Keranjang = () => {
                     </div>
 
                     <div className="col-4 sticky-top">
-                        <FooterKeranjang datum={datum} isKosong={isKosong} handleCheckout={handleCheckout} totalHarga={totalHarga} dataDB={dataDB} />
+                        <FooterKeranjang datum={datum} isKosong={isKosong} handleCheckout={handleCheckout} totalHarga={totalHarga}/>
                     </div>
                 </div> 
             </div>
