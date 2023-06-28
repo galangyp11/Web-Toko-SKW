@@ -3,14 +3,35 @@ import { Modal } from "react-bootstrap";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import apiHost from "../../../constants/apiHost";
+import Countdown from 'react-countdown';
+import Cookies from "js-cookie";
 
 const ModalCheck = ({show, setShow, totalHarga, dataMp, dataAdmin}) => {
     
     const navigate = useNavigate()
+    const id = Cookies.get('id')
 
-    const handleTutup = () => {
+    const handleTutup = async() => {
         setShow(false)
+        await axios.delete(`${apiHost}keranjang-pembeli/${id}`)
         navigate('/')
+    }
+
+    const handleTimer = ({ minutes, seconds, completed}) => {
+        if (completed) {
+            setShow(false)
+            navigate('/')
+            const deleteKeranjang = async() =>{
+                await axios.delete(`${apiHost}keranjang-pembeli/${id}`)
+            }
+            deleteKeranjang()
+        } else {
+            return (
+                <div>
+                    {minutes}:{seconds}
+                </div>
+            )
+        }
     }
 
     const formatUang = (number) =>{
@@ -71,7 +92,7 @@ const ModalCheck = ({show, setShow, totalHarga, dataMp, dataAdmin}) => {
 
                         </div>
                         <div className="col d-flex justify-content-center">
-                            <p>10:00</p>
+                            <p>{<Countdown date={Date.now() + 600000} renderer={handleTimer}/>}</p>
                         </div>
                         <div className="col d-flex justify-content-end">
                             <button className="btn btn-outline-secondary" onClick={handleTutup}>Sudah Bayar</button>

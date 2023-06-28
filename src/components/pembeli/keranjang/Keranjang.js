@@ -45,16 +45,16 @@ const Keranjang = () => {
           }
    
         let i = 0
-            datum?.forEach((data)=>{           
-                i += data.total_harga
-                setTotalHarga(i)
+        datum?.forEach((data)=>{           
+            i += data.total_harga
+            setTotalHarga(i)
 
-               if(data.jumlah !== 1){
-                    setDisable(false)
-                } else {
-                    setDisable(true)
-                }
-            })
+        if(data.jumlah !== 1){
+            setDisable(false)
+        } else {
+            setDisable(true)
+        }
+        })
     },[datum])
     
     
@@ -76,7 +76,7 @@ const Keranjang = () => {
     }
 
     // console.log(isKosong)
-    console.log('datum:',datum)
+    // console.log('datum:',datum)
     // console.log(dataInput)
     // console.log(`total harga : ${totalHarga}`)
 

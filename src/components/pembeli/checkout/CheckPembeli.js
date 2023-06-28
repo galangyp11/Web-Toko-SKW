@@ -91,7 +91,7 @@ const CheckPembeli = () => {
 
     useEffect(()=>{
         const dataObj = () => {
-            dataCheckout.map((data)=>{
+            dataCheckout?.map((data)=>{
                 setDataInput((item) => ({...item,
                     id_pembeli : data.id_pembeli,
                     id_penjual : data.id_penjual,
@@ -123,7 +123,7 @@ const CheckPembeli = () => {
     useEffect(()=>{
         try {
             let i = 0
-            dataCheckout.forEach((data)=>{
+            dataCheckout?.forEach((data)=>{
              i += data.total_harga
             setTotalHarga(i)
         })  
@@ -154,25 +154,30 @@ const CheckPembeli = () => {
             setIsAlert(true)
             setTextAlert('Silahkan pilih metode pembayaran')
         }else{
-            await axios.post(`${apiHost}transaksi`, dataInput);
-            await axios.put(`${apiHost}alamat-pembeli`, alamatPembeli);
-            await axios.put(`${apiHost}item-stok`, stokItem)
-            // await axios.delete(`${apiHost}keranjang/${id}`);
-            // const dataFillter = dataCheckout.filter((item) => item.id_keranjang !== id);
-            // setDataCheckout(dataFillter);
-            setShow(true)
-
-            const getDataMp = async () => {
-                const response = await axios.get(`${apiHost}metode_pembayaran/${dataInput.id_mp}`)
-                setDataMp(response.data)
-            }
-            getDataMp()
+            try {
+                await axios.post(`${apiHost}transaksi`, dataInput);
+                await axios.put(`${apiHost}alamat-pembeli`, alamatPembeli);
+                await axios.put(`${apiHost}item-stok`, stokItem)
+                // await axios.delete(`${apiHost}keranjang/${id}`);
+                // const dataFillter = dataCheckout.filter((item) => item.id_keranjang !== id);
+                // setDataCheckout(dataFillter);
+                setShow(true)
     
-            const getAdmin = async() => {
-                const response = await axios.get(`${apiHost}admin/6`)
-                setDataAdmin(response.data)
+                const getDataMp = async () => {
+                    const response = await axios.get(`${apiHost}metode_pembayaran/${dataInput.id_mp}`)
+                    setDataMp(response.data)
+                }
+                getDataMp()
+        
+                const getAdmin = async() => {
+                    const response = await axios.get(`${apiHost}admin/6`)
+                    setDataAdmin(response.data)
+                }
+                getAdmin()
+            } catch (error) {
+                console.log(error)
             }
-            getAdmin()
+           
         }
     }
 

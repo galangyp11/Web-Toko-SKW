@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import "./items.css";
+import imageKosong from '../image/image-kosong.png'
 import { Link } from "react-router-dom";
 import axios from "axios";
 import apiHost from "../../constants/apiHost";
@@ -51,7 +52,7 @@ const Items = () => {
                       src={
                         item.gambar?.length
                           ? `${apiHost}${item.gambar[0]}`
-                          : "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/2300px-React-icon.svg.png"
+                          : imageKosong
                       }
                       alt=""
                     />

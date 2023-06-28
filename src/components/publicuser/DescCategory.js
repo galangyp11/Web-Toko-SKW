@@ -1,4 +1,5 @@
 import './desccategory.css'
+import imageKosong from '../image/image-kosong.png'
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useParams } from 'react-router-dom'
@@ -22,7 +23,6 @@ const DescCategory = () => {
         const getKategoriById = async () => {
             const response = await axios.get(`${apiHost}kategori/${id}`)
             setKategoriById(response.data)
-            console.log(response.data)
         }
         getKategoriById()
 
@@ -43,6 +43,8 @@ const DescCategory = () => {
             console.log('bentar bang lagi loading')
         }
     }, 100)
+
+    console.log(kategoriById)
 
     return ( 
         <div className="desc-category">
@@ -71,15 +73,16 @@ const DescCategory = () => {
                         
                          <div className="items p-4">
                             <div className="row gap-4 d-flex justify-content-center align-items-center row-cols-5">
-                            
                                     { kategoriById.map((item) => {
                                         // const foto = btoa(String.fromCharCode(...new Uint8Array(item.foto_item.data)));
                                         return(
                                     
-                                        <div className="item m-3" key={item.id_item} style={{cursor:"pointer", padding:'0px'}}>
+                                        <div className="item m-3" key={item.id_kategori} style={{cursor:"pointer", padding:'0px'}}>
                                             <Link to={`/item/${item.id_item}`} style={{ textDecoration:"none", color:"black"}}>
                                             <div className="img-thumbnail-item " >
-                                                <img className='item-image' src='' alt="" />
+                                                <img className='item-image' src={item.gambar?.length
+                          ? `${apiHost}${item.gambar}`
+                          : imageKosong} alt="" />
                                             </div>
                                             <div className="item-name py-1 px-2">
                                                 <p>{item.nama_item}</p>
