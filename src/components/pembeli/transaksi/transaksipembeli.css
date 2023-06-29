@@ -7,6 +7,16 @@
     transition: .2s ease;
 }
 
+.judul-pesananku{
+    box-shadow: rgba(33, 35, 38, 0.1) 0px 10px 10px -10px;
+    height: 3em;
+}
+
+.text-judul-pesananku{
+    font-size: 1.5em;
+    font-weight: 600;
+}
+
 .item-transaksi-pembeli-atas:hover{
     backdrop-filter: brightness(90%);
 }
@@ -17,6 +27,12 @@
     box-shadow: rgba(0,0,0, .6) 0px 0px 1px;
     background-color: #f7f7f7;
     border-radius: 0px 0px 5px 5px;
+}
+
+.text-item-pesanan-selesai{
+    color: #0E8388;
+    font-weight: 600;
+    font-size: 1.5em;
 }
 
 .arrow-detail{
@@ -83,6 +99,18 @@
     height: 2.3em;
     width: 8em;
     transition: .2s ease;
+}
+
+.but-terima-transaksi-disable{
+    border: 1px solid grey;
+    border-radius: 5px;
+    background-color: #f7f7f7;
+    color: grey;
+    font-weight: 600;
+    height: 2.3em;
+    width: 8em;
+    transition: .2s ease;
+    cursor: no-drop;
 }
 
 .but-terima-transaksi:hover{

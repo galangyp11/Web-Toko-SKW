@@ -69,7 +69,7 @@
     background-color: #9fd8c9;
 }
 
-.bg-photo-profile{
+.bg-photo-profile-navbar{
     background-color: #E7F6F2;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
     border-radius: 50%;
@@ -79,8 +79,9 @@
     padding: 2px;
 }
 
-.photo-profile{
-    height: 100%;
+.photo-profile-navbar{
+    border-radius: 50%;
+    height: 95%;
     object-fit: cover;
 }
 

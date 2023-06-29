@@ -4,7 +4,7 @@ import NavbarProfile from './NavbarProfile';
 import Cookies from 'js-cookie';
 import axios from 'axios';
 
-import fotoKosing from '../../image/kuraplongo.jpg';
+import fotoKosing from '../../image/pp-kosong.png';
 import InfoPembeli from './InfoPembeli';
 import HalamanEdit from '../edit/HalamanEdit';
 import apiHost from '../../../constants/apiHost';
@@ -27,14 +27,13 @@ const ProfilePembeli = () => {
         getItemById();
     }, []);
 
-    setTimeout(()=>{
-        try {
-            setFoto(btoa(String.fromCharCode(...new Uint8Array(pembeliById.foto_profil.data))))
-        } catch (error) {
-            setFoto(fotoKosing)
-            console.log('sabar bang fotonya lagi loading')
-        }
-    }, 100)
+    useEffect(() => {
+        const fotoData = btoa(
+            String.fromCharCode(...new Uint8Array(pembeliById.foto_profil?.data))
+          );  
+
+        setFoto(fotoData)
+    },[pembeliById])
 
     console.log(isEdit)
 

@@ -1,9 +1,32 @@
 import { BsFillCaretRightFill } from "react-icons/bs";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import apiHost from "../../../constants/apiHost";
 
 const DetailTransaksi = ({data, index}) => {
+  const [isDetail, setIsDetail] = useState(false);
+  const [isDisable, setIsDisable] = useState(true);
+  const [isSelesai, setIsSelesai] = useState(false);
+  const [dataInput, setDataInput] = useState({
+    status_transaksi: 'Pesanan selesai'
+  })
 
-    const [isDetail, setIsDetail] = useState(false);
+  useEffect(() => {
+    if(data.status_transaksi === "Pesanan sedang dikirim") {
+      setIsDisable(false)
+    } else {
+      setIsDisable(true)
+    }
+  },[])
+
+  const handleTerima = async() => {
+    await axios.put(`${apiHost}transaksi/${data.id_transaksi}`, dataInput)
+    window.location.reload()
+    setIsSelesai(true)
+  }
+
+  console.log({data})
+
     return ( 
         <div className="item-transaksi-pembeli my-2" key={data.id_transaksi} >
           <div className="item-transaksi-pembeli-atas d-flex justify-content-center" onClick={()=> setIsDetail(!isDetail)}>
@@ -11,13 +34,11 @@ const DetailTransaksi = ({data, index}) => {
               <div className="col-1 garis-vertical-kanan">
                 <p className="text-no-item-transaksi d-flex align-items-center justify-content-center">{index +1}</p>
               </div>
-              <div className="col-1 d-flex align-items-center" style={{height:'100%'}}>
-                <div className="bg-img-transaksi-pembeli d-flex align-items-center">
-
-                </div>
+              <div className="col-1">
+                <p className="text-nama-item-transaksi">Item ({data.length ? data.length : 1}) :</p>
               </div>
-              <div className="col garis-vertical-kiri">
-                <p className="text-nama-item-transaksi">Item ({data.length}) :</p>
+              <div className="col">
+                <p className="text-nama-item-transaksi">- {data.nama_item}</p>
               </div>
               <div className="col-2 garis-vertical-kiri">
                 <p className="text-total-item-transaksi d-flex align-items-center">Total Harga : Rp {data.total_harga_transaksi}</p>
@@ -36,8 +57,11 @@ const DetailTransaksi = ({data, index}) => {
           <div className="item-transaksi-pembeli-detail d-flex justify-content-center" key={index}>
             <div className="row pt-3" style={{height:"100%" ,width:"100%"}}>
               <div className="col-3 d-flex align-items-center justify-content-center" style={{height:'100%'}}>
-                <div className="bg-img-transaksi-pembeli-detail">
-
+                <div className="bg-sub-gambar d-flex justify-content-center align-items-center">
+                  <img
+                    src={`${apiHost}${data?.gambar?.[0]}`}
+                    className="gambar-item-desc"
+                  />
                 </div>
               </div>
 
@@ -48,19 +72,28 @@ const DetailTransaksi = ({data, index}) => {
                 <p className="text-item-detail">{data.nama_toko}</p>
               </div>
 
-              <hr />
-              <div className="row">
-                <div className="col-2">
+              <hr className="mt-4"/>
+              <div className="row" >
+                <div className="col-2" >
                   <p className="text-item-status-detail">Waktu : {data.waktu_pesan}</p>
                 </div>
                 <div className="col garis-vertical-kiri">
+                  {isSelesai ?
+                   <p className="text-item-pesanan-selesai">Pesanan selesai</p>
+                   :
                   <p className="text-item-status-detail">Status Pesanan : {data.status_transaksi}</p>
+                  }
                 </div>
                 <div className="col-3" style={{height:"100%"}}>
+                  {isSelesai ?
+                  <></> :
                   <div className="d-flex align-items-center" >
                     <button className="but-bermasalah-transaksi mx-1">Bermasalah?</button>
-                    <button className="but-terima-transaksi mx-1">Terima</button>
+                    {!isDisable ?
+                    <button className="but-terima-transaksi" onClick={handleTerima}>Terima</button>
+                    : <></>}
                   </div>
+                  }
                 </div>
                 </div>
             </div>

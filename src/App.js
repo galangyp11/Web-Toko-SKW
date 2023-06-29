@@ -17,7 +17,7 @@ import CheckPembeli from "./components/pembeli/checkout/CheckPembeli";
 import TransaksiPembeli from "./components/pembeli/transaksi/TransaksiPembeli";
 
 import PagePenjual from "./components/penjual/PagePenjual";
-import DaftarPenjual from "./components/penjual/DaftarPenjual";
+import DaftarPenjual from "./components/penjual/daftar/DaftarPenjual";
 
 import { SearchProvider } from "./context";
 import ProfileToko from "./components/penjual/page/ProfileToko";

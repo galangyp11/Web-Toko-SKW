@@ -16,6 +16,8 @@ const Category = () => {
     dataDB();
   }, []);
 
+  console.log({datum})
+
   return (
     <div className="d-flex justify-content-center" style={{ width: "100%" }}>
       <div className="category row d-flex justify-content-center align-items-center">

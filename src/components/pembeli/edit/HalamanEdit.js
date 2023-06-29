@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import ppKosong from '../../image/pp-kosong.png'
 import Cookies from 'js-cookie';
 import axios from 'axios';
 import apiHost from '../../../constants/apiHost';
@@ -10,14 +11,14 @@ const HalamanEdit = ({ setIsEdit}) => {
    const [foto, setFoto] = useState()
    const id = Cookies.get('id')
    const [dataInput, setDataInput] = useState({
-       id_penjual : '',
-       nama_toko : '',
+    username:'',
        email : '',
        password : '',
        alamat : '',
-       whatsapp : '',
-       no_rek_penjual : ''
+       no_telp : '',
+       foto_profil: "",
    })
+   const [previewImg, setPreviewImg] = useState([]);
    const [isAlert, setIsAlert] = useState(false)
    const [textAlert, setTextAlert] = useState('')
 
@@ -29,6 +30,38 @@ const HalamanEdit = ({ setIsEdit}) => {
        getItemById();
                
    }, []);
+
+   const onChangeFile = async (evt) => {
+    console.log("evt", evt.target.files);
+    if (evt.target.files.length > 1) {
+      alert("maksimum upload 1 file");
+      document.getElementById("imageFile").value = "";
+      setDataInput((data) => ({ ...data, foto_profil: [] }));
+      return false;
+    }
+
+    if (evt.target.files.length > 0) {
+      const foto_profil = [];
+
+      Array.from(evt.target.files).forEach((imageFile) => {
+        const fileReader = new FileReader();
+        fileReader.onload = () => {
+          const srcData = fileReader.result;
+          foto_profil.push(srcData);
+        };
+        fileReader.readAsDataURL(imageFile);
+      });
+
+      setDataInput((data) => ({ ...data, foto_profil }));
+    }
+
+    const images = [];
+    Array.from(evt.target.files)?.forEach(async (d) => {
+      images.push(URL.createObjectURL(d));
+    });
+    console.log("imgs", images);
+    setPreviewImg(images);
+  };
 
    setTimeout(()=>{
        try {
@@ -50,7 +83,9 @@ const HalamanEdit = ({ setIsEdit}) => {
            email : pembeliById.email,
            password : pembeliById.password,
            alamat : pembeliById.alamat,
-           username : pembeliById.username
+           username : pembeliById.username,
+           no_telp : pembeliById.no_telp,
+           foto_profil : pembeliById.foto_profil
        }))
    }, [pembeliById])
 
@@ -62,14 +97,36 @@ const HalamanEdit = ({ setIsEdit}) => {
       window.location.reload()
 
    }
+
+   console.log({
+        previewImg,
+        dataInput
+    })
     return ( 
       <div className="info-pembeli py-5 px-3 my-3">
       <div className="row my-3">
-              <div className="col-5 d-flex justify-content-center">
-                  <div className="bg-foto-profile-pembeli">
-                      <img className='foto-profile' src={ `data:image/png;base64,${foto}`} alt="" />
+              <div className="col-5 ">
+                <div className="row d-flex justify-content-center">
+                  <div className="bg-foto-profile-pembeli d-flex justify-content-center align-items-center">
+                    {previewImg?.map((data, index) => {
+                        return(
+                        <img className='foto-profile' src={`${data}`} key={index} alt="" />
+                      )
+                    })}
                   </div>
-                
+                </div>
+                <div className="row d-flex align-items-center">
+                    <div className="col" >
+                    <input
+                        id="imageFile"
+                        type="file"
+                        style={{ color: "transparent" }}
+                        multiple
+                        onChange={onChangeFile}
+                        accept="image/png"
+                    />
+                    </div>
+                </div>
               </div>
 
               <div className="col" >
@@ -82,7 +139,7 @@ const HalamanEdit = ({ setIsEdit}) => {
                       </div>
                       <div className="col">
                         <input 
-                           className='text-profile-bio-data d-flex align-items-center'
+                           className='input-text d-flex align-items-center'
                            placeholder={pembeliById.username}
                            id='username'
                            onChange={handleInput}
@@ -101,7 +158,7 @@ const HalamanEdit = ({ setIsEdit}) => {
                       </div>
                       <div className="col">
                         <input 
-                           className='text-profile-bio-data d-flex align-items-center'
+                           className='input-text d-flex align-items-center'
                            placeholder={pembeliById.email}
                            id='email'
                            onChange={handleInput}
@@ -120,9 +177,28 @@ const HalamanEdit = ({ setIsEdit}) => {
                       </div>
                       <div className="col">
                         <input 
-                           className='text-profile-bio-data d-flex align-items-center'
+                           className='input-text d-flex align-items-center'
                            placeholder={pembeliById.password}
                            id='password'
+                           onChange={handleInput}
+                        ></input>
+                      </div>
+                    
+                  </div>
+                  <hr/>
+
+                  <div className="row">
+                      <div className="col-2">
+                          <p className='text-profile-bio d-flex align-items-center'>Nomor Telepon</p>
+                      </div>
+                      <div className="col-1">
+                          <p className='text-profile-bio d-flex justify-content-center align-items-center'>:</p>
+                      </div>
+                      <div className="col">
+                        <input 
+                           className='input-text d-flex align-items-center'
+                           placeholder={pembeliById.no_telp}
+                           id='no_telp'
                            onChange={handleInput}
                         ></input>
                       </div>
@@ -138,12 +214,13 @@ const HalamanEdit = ({ setIsEdit}) => {
                           <p className='text-profile-bio d-flex justify-content-center align-items-center'>:</p>
                       </div>
                       <div className="col">
-                        <input 
-                           className='text-profile-bio-data d-flex align-items-center'
+                        <textarea
+                           className='input-text d-flex align-items-center'
                            placeholder={pembeliById.alamat}
                            id='alamat'
                            onChange={handleInput}
-                        ></input>
+                           style={{height:"5em", resize:'none'}}
+                        />
                       </div>
                     
                   </div>

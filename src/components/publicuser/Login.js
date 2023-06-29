@@ -158,24 +158,6 @@ const Login = () => {
                       </Link>
                     </div>
                   </div>
-
-                  <div className="row" style={{ height: "30px" }}>
-                    <div className="col d-flex justify-content-center align-items-center">
-                      <p className="text-daftar-login d-flex justify-content-start align-items-center">
-                        Ingin bergabung sebagai penjual?
-                      </p>
-                    </div>
-                    <div className="col-2 p-0 d-flex justify-content-start align-items-center">
-                      <Link
-                        to={"/daftar-penjual"}
-                        style={{ textDecoration: "none" }}
-                      >
-                        <p className="but-daftar-login d-flex justify-content-start align-items-center">
-                          Gabung!
-                        </p>
-                      </Link>
-                    </div>
-                  </div>
                 </div>
               </div>
             </div>

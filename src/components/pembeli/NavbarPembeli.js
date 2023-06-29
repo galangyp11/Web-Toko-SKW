@@ -1,5 +1,5 @@
 import Cookies from "js-cookie";
-import fotoKosing from "../image/kuraplongo.jpg";
+import fotoKosing from "../image/pp-kosong.png";
 import "./navbarpembeli.css";
 
 import { useState, useEffect } from "react";
@@ -38,7 +38,7 @@ const Navbar = () => {
       setTextAlert('Silahkan lengkapi profile')
     }
 
-    if(pembeliById.foto_profil === 0 ){
+    if(pembeliById.foto_profil?.data?.length === 0 ){
       setFoto(fotoKosing)
     } else {
       setTimeout(() => {
@@ -147,10 +147,10 @@ const Navbar = () => {
               aria-expanded="false"
             >
               <div className="col-1">
-                <div className="bg-photo-profile d-flex justify-content-center align-items-center">
+                <div className="bg-photo-profile-navbar d-flex justify-content-center align-items-center">
                   <img
-                    className="photo-profile"
-                    src={`data:image/png;base64,${foto}`}
+                    className="photo-profile-navbar"
+                    src={pembeliById.foto_profil?.data.length === 0 ? fotoKosing : `data:image/png;base64,${foto}`}
                     alt="Photo-profile"
                   />
                 </div>

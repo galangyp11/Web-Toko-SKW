@@ -41,11 +41,15 @@ const DaftarPembeli = () => {
     const handleDaftarPembeli = async(e) =>{
         e.preventDefault()
 
-        // dataPembeli.map((data)=>{
         if(dataInput.email === ""){
             setIsAlert(true)
             setTextAlert('Email tidak boleh kosong!')
-        }else if(dataInput.password === ""){
+        }
+        // else if(dataPembeli.map((data)=>{return(dataInput.email === data.email)})){
+        //     setIsAlert(true)
+        //     setTextAlert('Email sudah terdaftar!')
+        // }
+        else if(dataInput.password === ""){
             setIsAlert(true)
             setTextAlert('Password tidak boleh kosong!')
         }else if(dataInput.password.length < 8){
@@ -54,11 +58,7 @@ const DaftarPembeli = () => {
         }else if(dataInput.username === ""){
             setIsAlert(true)
             setTextAlert('Username tidak boleh kosong!')
-            
-            // }else if(dataInput.email === data.email){
-            //             setIsAlert(true)
-            //             setTextAlert('Email sudah terdaftar')
-                }else{
+        }else{
                     try {
                         await axios.post(`${apiHost}pembeli`, dataInput);
                         navigate('/login');
@@ -67,7 +67,6 @@ const DaftarPembeli = () => {
                         console.log('eror bang gabisa input')
                     }
                 }
-            // })
     }
 
     console.log(dataInput)

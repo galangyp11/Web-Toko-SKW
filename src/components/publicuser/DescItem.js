@@ -136,7 +136,8 @@ const DescItem = () => {
       }, 100);
     }
 
-    setNoWa(`${itemById.whatsapp}`)
+    const nowa = itemById.whatsapp
+    setNoWa(`+62 ${nowa}`)
     setMessageWa(`Halo ${itemById.nama_toko}, Apakah barang ${itemById.nama_item} tersedia?`);
     setGambarItem(`${apiHost}${itemById?.gambar?.[0]?.src}`)
   }, [itemById]);
@@ -198,7 +199,6 @@ const DescItem = () => {
                               className="gambar-item-desc"
                             />
                           </div>
-                      
                       );
                     })}
             </div>
@@ -244,7 +244,7 @@ const DescItem = () => {
                   </p>
                 </div>
                 <div className="col d-flex  align-items-center justify-content-end">
-                    <ReactWhatsapp number="62-812-111-39102" message={messageWa} style={{border:'none', backgroundColor:'trasnparent'}}>
+                    <ReactWhatsapp number={`${noWa}`} message={messageWa} style={{border:'none', backgroundColor:'trasnparent'}}>
                       <button className="but-chat-penjual d-flex align-items-center justify-content-center gap-2" >
                           <IoLogoWhatsapp color="white" size="20px" /> 
                           Chat penjual
