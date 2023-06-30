@@ -49,7 +49,7 @@ const PagePenjual = () => {
             <div className="row" style={{width:"100%", height:"100dvh"}}>
                 <div className="col-2 p-0">
                     <div className=' sticky-top'>
-                    <SidebarPenjual setPage={setPage} dataKonfirmasi={dataKonfirmasi} dataProses={dataProses}/>
+                        <SidebarPenjual setPage={setPage} dataKonfirmasi={dataKonfirmasi} dataProses={dataProses}/>
                     </div>
                 </div>
 

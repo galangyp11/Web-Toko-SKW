@@ -138,7 +138,7 @@ const DescItem = () => {
 
     const nowa = itemById.whatsapp
     setNoWa(`+62 ${nowa}`)
-    setMessageWa(`Halo ${itemById.nama_toko}, Apakah barang ${itemById.nama_item} tersedia?`);
+    setMessageWa(`Halo ${itemById.nama_toko}, Apakah ${itemById.nama_item} tersedia?`);
     setGambarItem(`${apiHost}${itemById?.gambar?.[0]?.src}`)
   }, [itemById]);
 

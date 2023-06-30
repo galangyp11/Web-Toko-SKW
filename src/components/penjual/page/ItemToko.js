@@ -12,7 +12,7 @@ const ItemToko = () => {
     const [datumItem, setDatumItem] = useState([])
     const [penjualById, setPenjualById] = useState({});
     const [isUbah, setIsUbah] = useState(false)
-    const [pageItem ,setPageItem] = useState(null)
+    const [pageItem ,setPageItem] = useState()
     const id = Cookies.get('id')
 
      const [currentPage,setCurrentPage] = useState (1)
@@ -35,7 +35,7 @@ const ItemToko = () => {
             console.log(response.data);
         }
         getPenjualId();
-    },[currentPage])
+    },[])
 
     function prePage (){
         if(currentPage !== firstIndex){

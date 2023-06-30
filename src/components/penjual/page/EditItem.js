@@ -36,7 +36,9 @@ const EditItem = ({ id_item, setIsUbah, setPageItem }) => {
     id_item: "",
     id_penjual: "",
     stok_awal: "",
-    stok_tambah: "",
+    stok_tambah: null,
+    stok_toko: null,
+    stok_ubah: null,
     tanggal: "",
   });
   const [kategoriById, setKategoriById] = useState("");
@@ -44,8 +46,9 @@ const EditItem = ({ id_item, setIsUbah, setPageItem }) => {
   const [isWarna, setIsWarna] = useState(true);
   const [isIsiWarna, setIsIsiWarna] = useState(false);
   const [isChecked, setIsChecked] = useState();
+  const [isUbahStok, setIsUbahStok] = useState(false)
   const [isAlert, setIsAlert] = useState(false);
-  const [isAlertMerah, setIsAlertMerah] = useState(false)
+  const [isAlertMerah, setIsAlertMerah] = useState(false);
   const [textAlert, setTextAlert] = useState("");
 
   useEffect(() => {
@@ -78,19 +81,39 @@ const EditItem = ({ id_item, setIsUbah, setPageItem }) => {
     e.preventDefault();
     setDataInput((data) => ({
       ...data,
-      [e.target.id]: e.target.value,
-      stok_item: +e.target.value + +itemById.stok_item,
-    }));
-
-    setStokTambah((data) => ({
-      ...data,
-      id_item: itemById.id_item,
-      id_penjual: itemById.id_penjual,
-      stok_awal: itemById.stok_item,
-      stok_tambah: e.target.value,
-      tanggal: itemById.tanggal,
+      [e.target.id]: e.target.value
     }));
   };
+
+  const handleInputTambahStok = (e) => {
+    e.preventDefault()
+
+    setDataInput((data) => ({
+      ...data,
+      stok_item: +e.target.value + +itemById.stok_item,
+    }))
+
+    setStokTambah((data)=>({
+      ...data,
+      stok_tambah: e.target.value,
+      stok_toko: +e.target.value + +itemById.stok_item,
+    }))
+  }
+
+  const handleInputUbahStok = (e) => {
+    e.preventDefault()
+
+    setDataInput((data)=> ({
+      ...data,
+      stok_item: e.target.value
+    }))
+
+    setStokTambah((data)=>({
+      ...data,
+      stok_ubah: e.target.value,
+      stok_toko: e.target.value
+    }))
+  }
 
   useEffect(() => {
     setDataInput((data) => ({
@@ -104,6 +127,14 @@ const EditItem = ({ id_item, setIsUbah, setPageItem }) => {
       stok_item: itemById.stok_item,
       biaya_operasional: itemById.biaya_operasional,
       foto_item: itemById.gambar?.map((data) => data.src)
+    }));
+
+    setStokTambah((data) => ({
+      ...data,
+      id_item: itemById.id_item,
+      id_penjual: itemById.id_penjual,
+      stok_awal: itemById.stok_item,
+      tanggal: itemById.tanggal,
     }));
 
     if (itemById.id_kategori === 1) {
@@ -121,6 +152,7 @@ const EditItem = ({ id_item, setIsUbah, setPageItem }) => {
     } else {
       setKategoriById("");
     }
+
   }, [itemById]);
 
   useEffect(() => {
@@ -226,23 +258,45 @@ const EditItem = ({ id_item, setIsUbah, setPageItem }) => {
     setPageItem(null);
   };
 
+  const handleTambahStok = () => {
+    setIsUbahStok(false)
+    setStokTambah((data)=>({
+      ...data,
+      stok_ubah: null
+    }))
+  }
+
+  const handleEditStok = () => {
+    setIsUbahStok(true)
+    setStokTambah((data)=>({
+      ...data,
+      stok_tambah: null
+    }))
+  }
+
   const handleDaftarPenjual = async (e) => {
     e.preventDefault();
+
     if(dataInput.foto_item.length === 0){
         setIsAlertMerah(true)
-        setTextAlert('Gambar tidak boleh kosong !')
+        setTextAlert('Gambar tidak boleh kosong !');
     } else if(dataInput.foto_item.length > 4){
       setIsAlertMerah(true)
-      setTextAlert('Gambar tidak boleh lebih dari 4 !')
-    }else {
-    const tgl_input =
+      setTextAlert('Gambar tidak boleh lebih dari 4 !');
+    }else { 
+      setTimeout(()=>{setPageItem(<ItemToko />)},1500) 
+      setIsAlert(true);
+      setTextAlert("Item berhasil diubah");
+
+      const tgl_input =
       tanggal.getDate() +
       "/" +
       (+tanggal.getMonth() + 1) +
       "/" +
       tanggal.getFullYear();
     setDataInput((data) => ({ ...data, tgl_input: tgl_input }));
-    try {
+
+    // try {
       // let formData = new FormData();
 
       // for (const [key, value] of Object.entries(dataInput)) {
@@ -262,27 +316,17 @@ const EditItem = ({ id_item, setIsUbah, setPageItem }) => {
       // for (let i = 0; i < dataInput.warna_item.length; i++) {
       //     formData.append('warna_item', dataInput.warna_item[i])
       // }
-
       await axios.post(`${apiHost}riwayat-item-masuk`, stokTambah);
       await axios.put(`${apiHost}item`, dataInput);
-
-      setIsAlert(true);
-      setTextAlert("Item berhasil diubah");
+   
       // console.log(dataInput.ukuran_item.length)
       // console.log(formData)
-      setPageItem(<ItemToko />);
-    } catch (error) {
-      console.log("eror bang gabisa input", error);
-    }
+
+    // } catch (error) {
+    //   console.log("eror bang gabisa input", error);
+    // }
     }
   };
-
-  useEffect(() => {
-    const postRiwayat = async () => {
-      await axios.post(`${apiHost}riwayat-item-masuk`, dataInput);
-    };
-    postRiwayat();
-  }, [handleDaftarPenjual]);
 
   const onChangeFile = (evt) => {
     if (evt.target.files.length > 4) {
@@ -389,7 +433,7 @@ const EditItem = ({ id_item, setIsUbah, setPageItem }) => {
         <div className="row d-flex align-items-center">
           <div className="col-3">
             <label htmlFor="deksripsi_item" id="label-input">
-              Deksripsi
+              Deskripsi
             </label>
           </div>
           <div className="col">
@@ -445,7 +489,7 @@ const EditItem = ({ id_item, setIsUbah, setPageItem }) => {
           <div className="col">
             <input
               className="input-text"
-              type="text"
+              type="number"
               id="harga_item"
               //value={dataInput.harga_item}
               placeholder={itemById.harga_item}
@@ -455,13 +499,42 @@ const EditItem = ({ id_item, setIsUbah, setPageItem }) => {
           </div>
         </div>
 
+        {isUbahStok ?
+        <div className="row d-flex align-items-center">
+          <div className="col-3">
+            <label htmlFor="stok_item" id="label-input">
+              Ubah Stok
+            </label>
+          </div>
+          <div className="col-3 d-flex" style={{ height: "90%" }}>
+            <input
+              className="input-text"
+              type="number"
+              id="stok_item"
+              //value={dataInput.stok_item}
+              onChange={handleInputUbahStok}
+              style={{ width: "100px" }}
+            />
+            <p
+              className="text-info-edit-item d-flex align-items-center"
+              style={{ marginLeft: "10px" }}
+            >
+              {" "}
+              Stok item ({itemById.stok_item})
+            </p>
+          </div>
+          <div className="col">
+            <button className="btn btn-secondary" onClick={handleTambahStok}>Tambah stok</button>
+          </div>         
+        </div>
+        : 
         <div className="row d-flex align-items-center">
           <div className="col-3">
             <label htmlFor="stok_item" id="label-input">
               Tambah stok
             </label>
           </div>
-          <div className="col d-flex" style={{ height: "90%" }}>
+          <div className="col-3 d-flex" style={{ height: "90%" }}>
             <p className="text-info-edit-item d-flex align-items-center">
               {itemById.stok_item} +{" "}
             </p>
@@ -470,7 +543,7 @@ const EditItem = ({ id_item, setIsUbah, setPageItem }) => {
               type="text"
               // id="stok_item"
               //value={dataInput.stok_item}
-              onChange={handleInput}
+              onChange={handleInputTambahStok}
               style={{ width: "100px" }}
             />
             <p
@@ -481,8 +554,11 @@ const EditItem = ({ id_item, setIsUbah, setPageItem }) => {
               Stok item ({dataInput.stok_item})
             </p>
           </div>
-          <div className="col"></div>
+          <div className="col">
+            <button className="btn btn-secondary" onClick={handleEditStok}>Salah input stok?</button>
+          </div>
         </div>
+        }
 
         <div className="row d-flex align-items-center">
           <div className="col-3">
@@ -500,7 +576,7 @@ const EditItem = ({ id_item, setIsUbah, setPageItem }) => {
               onChange={handleInputWarna}
               disabled={
                 itemById.id_kategori === "3" || itemById.id_kategori === "4"
-                  ? true : false
+                  ? false : true
                   
               }
             />
@@ -512,7 +588,7 @@ const EditItem = ({ id_item, setIsUbah, setPageItem }) => {
               onClick={handleWarna}
               disabled={
                 itemById.id_kategori === "3" || itemById.id_kategori === "4"
-                  ? true : false
+                  ? false : true
               }
             />
           </div>
@@ -676,15 +752,7 @@ const EditItem = ({ id_item, setIsUbah, setPageItem }) => {
         </div>
       </div>
       <div className="d-flex justify-content-center">
-        {isAlert ? (
-          <Alert
-            textAlert={textAlert}
-            isAlert={isAlert}
-            setIsAlert={setIsAlert}
-          />
-        ) : (
-          <div></div>
-        )}
+        {isAlert ? <Alert textAlert={textAlert} isAlert={isAlert} setIsAlert={setIsAlert}/> :<div></div>}
         {isAlertMerah ? <AlertMerah textAlert={textAlert} isAlert={isAlertMerah} setIsAlert={setIsAlertMerah}/> : <div></div>}
       </div>
     </div>

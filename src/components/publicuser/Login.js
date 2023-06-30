@@ -2,6 +2,7 @@ import "./login.css";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
+import { BsEyeFill, BsEyeSlashFill } from 'react-icons/bs';
 import Cookies from "js-cookie";
 import apiHost from "../../constants/apiHost";
 import Alert from "../AlertMerah";
@@ -18,6 +19,8 @@ const Login = () => {
   const [isAlert, setIsAlert] = useState(false)
   const [textAlert, setTextAlert] = useState('')
   const navigate = useNavigate();
+  const [typePassword, setTypePassword] = useState("password")
+  const [isHiddenPass, setIsHiddenPass] = useState(false)
 
   useEffect(() => {
     const getAdminById = async () => {
@@ -83,7 +86,17 @@ const Login = () => {
 
   };
 
+  const handleHiddenPass = (e) => {
+    e.preventDefault()
+    setIsHiddenPass(false)
+   setTypePassword("password")
+  }
 
+  const handleShowPass = (e) => {
+    e.preventDefault()
+    setIsHiddenPass(true)
+    setTypePassword("text")
+  }
 
   return (
     <div className="login d-flex justify-content-center align-items-center">
@@ -125,13 +138,17 @@ const Login = () => {
 
                 <div className="row mt-3 d-flex justify-content-center">
                   <input
-                    className="input-text"
-                    type="password"
+                    className="input-text mx-2"
+                    type={typePassword} 
                     placeholder="Password"
                     id="passwordInput"
                     value={inputUser.passwordInput}
                     onChange={handleInput}
                   />
+                   <div className="lihat-password">
+                        {isHiddenPass ? <BsEyeFill size='1.2em' color='#0E8388' onClick={handleHiddenPass} style={{cursor:"pointer"}}/> 
+                        : <BsEyeSlashFill size='1.2em' color='#0E8388' onClick={handleShowPass} style={{cursor:"pointer"}}/>}
+                    </div>
                 </div>
 
                 <div className="row  mt-3">

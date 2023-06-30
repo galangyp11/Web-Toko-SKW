@@ -74,15 +74,15 @@ const CheckPembeli = () => {
     }
     
     useEffect(()=>{
-        if(dataInput.id_mp == 1){
+        if(dataInput.id_mp === 1){
             setMpModal('Bank')
-        } else if(dataInput.id_mp == 2){
+        } else if(dataInput.id_mp === 2){
             setMpModal('DANA')
-        } else if(dataInput.id_mp == 3){
+        } else if(dataInput.id_mp === 3){
             setMpModal('GoPay')
-        } else if(dataInput.id_mp == 4){
+        } else if(dataInput.id_mp === 4){
             setMpModal('ShopeePay')
-        } else if(dataInput.id_mp == 5){
+        } else if(dataInput.id_mp === 5){
             setMpModal('OVO')
         } else {
             setMpModal('-')
@@ -149,7 +149,7 @@ const CheckPembeli = () => {
         e.preventDefault()
         if(alamatPembeli.alamat === "") {
             setIsAlert(true)
-            setTextAlert('Silahkan isi alamat kamu')
+            setTextAlert('Silahkan lengkapi alamat rumah anda')
         }else if(dataInput.id_mp === undefined){
             setIsAlert(true)
             setTextAlert('Silahkan pilih metode pembayaran')

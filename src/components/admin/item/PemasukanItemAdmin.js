@@ -71,8 +71,11 @@ const PemasukanItemAdmin = () => {
                             </div>
                         </div>                     
                 </div>
-                <div className="col  d-flex justify-content-end">
-                    <p className='teks-info-stok-masuk lh-1' style={{color:"grey"}}> Stok dengan warna hijau = penambahan stok</p>
+                <div className="col d-flex justify-content-end">
+                    <ul>
+                        <li><p className='teks-info-stok-masuk lh-1' style={{color:"grey"}}> Stok dengan warna Hijau = penambahan stok</p></li>
+                        <li><p className='teks-info-stok-masuk lh-1' style={{color:"grey"}}> Stok dengan warna Kuning = perubahan stok</p></li>
+                    </ul>
                 </div>
             </div>
 
@@ -80,25 +83,26 @@ const PemasukanItemAdmin = () => {
                 <thead className="table-dark">
                     <tr>
                         <th className='col-1 text-center' scope="col">No</th>
-                        <th className='col-3' scope="col">Nama Item</th>
+                        <th className='col-2' scope="col">Nama Item</th>
                         <th className='col-1' scope="col">Harga</th>
                         <th className='col-2' scope="col">Toko</th>
                         <th className='col-1' scope="col">Stok Awal</th>
                         <th className='col-1' scope="col">Stok Masuk</th>
                         <th className='col-1' scope="col">Stok Toko</th>
-                        <th className='col-1' scope="col">Tanggal</th>
+                        <th className='col-2' scope="col">Tanggal</th>
                     </tr>
                 </thead>
             <tbody>
                 {datumItem.map((item, index)=>{
-                    let dataAwal
-                    if(item.stok_tambah === null){
-                        dataAwal = "-"
-                    } else {
-                        dataAwal = item.stok_tambah
-                    }
+                    let stokUbah
 
-                    let stokToko = +item.stok_awal + +item.stok_tambah
+                    if(item.stok_ubah === "null") {
+                        stokUbah = <td className='text-stok-masuk'>{item.stok_tambah}</td>
+                    } else if(item.stok_tambah === "null") {
+                        stokUbah = <td className='text-stok-ubah'>{item.stok_ubah}</td>
+                    } else {
+                        stokUbah = <td>-</td>
+                    }
 
                     return(
                     <tr key={item.id_riwayat}>
@@ -107,8 +111,8 @@ const PemasukanItemAdmin = () => {
                         <td>{formatUang(item.harga_item).replace(/\,00/g, '')}</td>
                         <td>{item.nama_toko}</td>
                         <td>{item.stok_awal}</td>
-                        <td className='text-stok-masuk'>{dataAwal}</td>
-                        <td>{stokToko}</td>
+                        {stokUbah}
+                        <td className='text-stok-toko'>{item.stok_toko}</td>
                         <td>{item.tanggal}</td>
                     </tr>
                     )

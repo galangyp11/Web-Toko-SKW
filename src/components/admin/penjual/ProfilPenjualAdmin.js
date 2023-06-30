@@ -83,6 +83,8 @@ const ProfilPenjualAdmin = () => {
             <th scope="col">No</th>
             <th scope="col">Email</th>
             <th scope="col">Toko</th>
+            <th scope="col">No Rekening</th>
+            <th scope="col">No telepon</th>
             <th scope="col">Alamat</th>
             <th className="text-center" scope="col">
               Aksi
@@ -96,6 +98,8 @@ const ProfilPenjualAdmin = () => {
                 <td>{index +1}</td>
                 <td>{data.email}</td>
                 <td>{data.nama_toko}</td>
+                <td>{data.no_rek_penjual}</td>
+                <td>{data.whatsapp}</td>
                 <td>{data.alamat_toko}</td>
                 <td style={{ textAlign: "center" }}>
                   <button className="btn btn-danger but-tolak-pesanan" onClick={(e) =>handleDelete(e, data.id_penjual)}>

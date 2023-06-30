@@ -8,7 +8,7 @@ import axios from 'axios';
 import HomeAdmin from './HomeAdmin';
 import apiHost from '../../constants/apiHost';
 
-const PageAdmin = ({dataLogin}) => {
+const PageAdmin = () => {
 
     const navigate = useNavigate();
     const [page, setPage] = useState();
@@ -27,8 +27,8 @@ const PageAdmin = ({dataLogin}) => {
     return ( 
         <div className="page-admin">
             <div className="row" style={{width:"100%", height:"100dvh"}}>
-                <div className="col-2 p-0" >
-                    <div className=' sticky-top'>
+                <div className="col-2 p-0" style={{  backgroundColor: "#2C3333", height:"102vh"}}>
+                    <div className='sticky-top' >
                         <SidebarAdmin setPage={setPage} dataKonfirmasi={dataKonfirmasi}/>
                     </div>
                 </div>

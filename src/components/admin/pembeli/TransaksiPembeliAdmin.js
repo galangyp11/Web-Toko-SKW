@@ -84,10 +84,10 @@ const ProfilPenjualAdmin = () => {
             <th scope="col">Username</th>
             <th scope="col">Item</th>
             <th scope="col">Pembayaran</th>
-            <th scope="col">Nominal Harga</th>
-            <th scope="col">Jumlah</th>
-            <th scope="col">Waktu</th>
-            <th scope="col">Status</th>
+            <th scope="col">Total Harga</th>
+            <th className="col-1" scope="col">Jumlah</th>
+            <th className="col-2" scope="col">Waktu Pemesanan</th>
+            <th scope="col">Status Transaksi</th>
           </tr>
         </thead>
         <tbody>
@@ -97,8 +97,8 @@ const ProfilPenjualAdmin = () => {
                 <td>{data.username}</td>
                 <td>{data.nama_item}</td>
                 <td>{data.nama_mp}</td>
-                <td>{data.harga_item}</td>
-                <td>{data.stok_item}</td>
+                <td>{data.total_harga_transaksi}</td>
+                <td>{data.jumlah_beli}</td>
                 <td>{data.waktu_pesan}</td>
                 <td>{data.status_transaksi}</td>
               </tr>

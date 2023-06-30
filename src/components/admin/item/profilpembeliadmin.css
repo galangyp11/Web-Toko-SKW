@@ -37,18 +37,27 @@
 }
 
 .text-jumlah-beli{
-    font-weight: 600;
+    font-weight: bold;
     color: red;
 }
 
 .text-stok-masuk{
-    font-weight: 600;
+    font-weight: bold;
     color: #0fab55;
+}
+
+.text-stok-ubah{
+    font-weight: bold;
+    color: #F6C90E;
 }
 
 .text-info-admin{
     height: 100%;
     color: grey;
+}
+
+.text-stok-toko{
+    font-weight: bold;
 }
 
 .text-info-admin-data{

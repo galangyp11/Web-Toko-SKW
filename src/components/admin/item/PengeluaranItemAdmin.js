@@ -82,7 +82,7 @@ const ProfilPenjualAdmin = () => {
                    <th className='col-2' scope="col">Nama Item</th>
                    <th className='col-1' scope="col">Jumlah</th>
                    <th className='col-2' scope="col">Toko</th>
-                   <th className='col-1' scope="col">Stok</th>
+                   <th className='col-1' scope="col">Stok Awal</th>
                    <th className='col-1' scope="col">Sisa Stok</th>
                    <th className='col-2' scope="col">Tanggal</th>
                </tr>
