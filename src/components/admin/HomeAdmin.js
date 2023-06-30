@@ -134,6 +134,19 @@ const HomeAdmin = () => {
                                     <input type="password" className="input-text" value={dataAdmin.password} disabled />
                                 </div>
                             </div>
+
+                            <div className="bg-data-info row">
+                                <div className="col-4">
+                                    <p className="text-data-info">Link daftar akun penjual</p>
+                                </div>
+                                <div className="col-1 p-0">
+                                    <p>:</p>
+                                </div>
+                                <div className="col-3">
+                                <a target='blank' href="http://localhost:3000/daftar-penjual"><p className="text-data-info">http://localhost:3000/daftar-penjual</p></a>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                 </div>
