@@ -4,17 +4,16 @@ import axios from 'axios';
 import apiHost from '../../constants/apiHost';
 import Cookies from 'js-cookie';
 import { BsDash } from 'react-icons/bs';
+import MetodePembayaran from './InfoAdmin/MetodePembayaran';
+import DataAdmin from './InfoAdmin/DataAdmin';
 
 const HomeAdmin = () => {
 
     const [dataPembeli, setDataPembeli] = useState([]);
     const [dataPenjual, setDataPenjual] = useState([]);
     const [dataItem, setDataItem] = useState([]);
-    const [dataMetodePembayaran, setDataMetodePembayaran] = useState([]);
     const [dataAdmin, setDataAdmin] = useState({});
     const id = Cookies.get("id");
-
-    const [isTambahMP, setIsTambahMP] = useState(false)
 
     useEffect(()=>{
         const getPembeli = async () => {
@@ -34,43 +33,15 @@ const HomeAdmin = () => {
             setDataItem(response.data)
         }
         getItem()
-
-        const getAdmin = async() => {
-            const response = await axios.get(`${apiHost}admin/${id}`)
-            setDataAdmin(response.data);
-        }
-        getAdmin()
-
-        const getMp = async() => {
-            const response = await axios.get(`${apiHost}metode_pembayaran`)
-            setDataMetodePembayaran(response.data);
-        }
-        getMp()
     },[])
 
-    const handleTambahMP = (e) => {
-        e.preventDefault()
-
-        setIsTambahMP(true)
-    }
-
-    const handleSimpanMP = (e) => {
-
-    }
-
-    const handleBatalMP = (e) => {
-        e.preventDefault()
-
-        setIsTambahMP(false)
-    }
-
+   
     // useEffect(()=>{
     //     setUsername(dataAdmin[0].username)
     // },[dataAdmin])
 
     console.log({
         dataAdmin,
-        dataMetodePembayaran
     })
 
     return ( 
@@ -94,114 +65,12 @@ const HomeAdmin = () => {
 
             <div className="row ">
                 <div className="col ">
-                    <div className="bg-info-data-admin my-3 p-3">
-                        <p className="text-judul-data-admin">Data Admin</p>
-                        <hr />
-
-                        <div className="row">                            
-                            <div className="bg-data-info row">
-                                <div className="col-4">
-                                    <p className="text-data-info">Email</p>
-                                </div>
-                                <div className="col-1 p-0">
-                                    <p>:</p>
-                                </div>
-                                <div className="col-3">
-                                    <input type="text" className="input-text" value={dataAdmin.email} disabled />
-                                </div>
-                            </div>
-
-                            <div className="bg-data-info row">
-                                <div className="col-4">
-                                    <p className="text-data-info">Username</p>
-                                </div>
-                                <div className="col-1 p-0">
-                                    <p>:</p>
-                                </div>
-                                <div className="col-3">
-                                    <input type="text" className="input-text" value={dataAdmin.username} disabled />
-                                </div>
-                            </div>
-
-                            <div className="bg-data-info row">
-                                <div className="col-4">
-                                    <p className="text-data-info">Password</p>
-                                </div>
-                                <div className="col-1 p-0">
-                                    <p>:</p>
-                                </div>
-                                <div className="col-3">
-                                    <input type="password" className="input-text" value={dataAdmin.password} disabled />
-                                </div>
-                            </div>
-
-                            <div className="bg-data-info row">
-                                <div className="col-4">
-                                    <p className="text-data-info">Link daftar akun penjual</p>
-                                </div>
-                                <div className="col-1 p-0">
-                                    <p>:</p>
-                                </div>
-                                <div className="col-3">
-                                <a target='blank' href="http://localhost:3000/daftar-penjual"><p className="text-data-info">http://localhost:3000/daftar-penjual</p></a>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
+                    <DataAdmin/>
                 </div>
 
                 <div className="col">
-                    <div className="row bg-info-data-admin my-3 p-3">
-                        <p className="text-judul-data-admin">Metode Pembayaran</p>
-                        <hr />
-
-                        {dataMetodePembayaran?.map((data)=>{
-                            return(
-                            <div className="bg-data-info row">
-                                <div className="col-4">
-                                    <p className="text-data-info">{data.nama_mp}</p>
-                                </div>
-                                <div className="col-1 p-0">
-                                    <p>:</p>
-                                </div>
-                                <div className="col-3">
-                                    <input type="text" className="input-text" placeholder={data.no_mp} disabled />
-                                </div>
-                            </div>
-                            )
-                        })}                
-
-                        {isTambahMP ?
-                            <div>
-                            <p className="text-mp-data-admin">Tambah Metode Pembayaran</p>
-                            <div className="bg-data-info row">
-                                <div className="col-4">
-                                    <input type="text" className='input-text' placeholder='Nama metode pembayaran' style={{width:"10em"}}/>
-                                </div>
-                                <div className="col-1 p-0">
-                                    <p>:</p>
-                                </div>
-                                <div className="col-3">
-                                    <input type="text" className="input-text" placeholder="Nomor metode pembayaran"/>
-                                </div>
-                            </div>
-                            </div>
-                            : <></>}       
-                             <div className="row my-2">
-                        <div className="col d-flex justify-content-center">
-                            {isTambahMP? <button className='btn btn-outline-danger but-tolak-pesanan' onClick={handleBatalMP}>Batal</button>
-                            : <button className='btn btn-warning but-tolak-pesanan'>Edit</button>}
-                        </div>
-                        <div className="col d-flex justify-content-center">
-                            {isTambahMP? <button className='but-input-item-penjual' onClick={handleSimpanMP} style={{width:"11em"}}>Simpan</button>
-                            : <button className='but-input-item-penjual' onClick={handleTambahMP} style={{width:"11em"}}>Tambah Metode</button> }
-                        </div>
-                    </div> 
-                    </div>
-                   
+                    <MetodePembayaran/>
                 </div>
-            
             </div>
         </div>
      );
