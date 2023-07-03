@@ -33,6 +33,12 @@ const HomeAdmin = () => {
             setDataItem(response.data)
         }
         getItem()
+
+        const getAdmin = async() => {
+            const response = await axios.get(`${apiHost}admin/${id}`)
+            setDataAdmin(response.data);
+        }
+        getAdmin()
     },[])
 
    

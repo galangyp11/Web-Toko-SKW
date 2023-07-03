@@ -1,24 +1,23 @@
 import "./itemskeranjang.css";
-import kura from "../../image/kuraplongo.jpg";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { MdOutlineCancel } from "react-icons/md";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import Cookies from "js-cookie";
 import apiHost from "../../../constants/apiHost";
 
-const ItemsKeranjang = ({ datum, setDatum, setDataInput, disable, dataDB}) => {
+const ItemsKeranjang = ({ item, datum, setDatum, setDataInput, dataDB}) => {
 
-  // const [isUkuran, setIsUkuran] = useState(false)
-  
+  const refJumlah = useRef(1)
+  const [disable, setDisable] = useState(true)
 
-  // useEffect(()=>{
-  //   if(datum.ukuran === " "){
-  //     setIsUkuran(false)
+  // useState(()=>{
+  //   if(item.jumlah === 1){
+  //     setDisable(true)
   //   } else {
-  //     setIsUkuran(true)
+  //     setDisable(false)
   //   }
-  // },[])
+  // },[disable])
 
   const handleDelete = async (e, id) => {
     e.preventDefault();
@@ -35,10 +34,10 @@ const ItemsKeranjang = ({ datum, setDatum, setDataInput, disable, dataDB}) => {
     }).format(number);
   };
 
-  
   const handleTambah = (ijumlah, ikeranjang, ihargaitem, e) => {
     e.preventDefault()
-    
+
+    setDisable(false)
     setDataInput((data)=>({...data,
       jumlah : +ijumlah + 1,
       id_keranjang : ikeranjang,
@@ -50,7 +49,13 @@ const ItemsKeranjang = ({ datum, setDatum, setDataInput, disable, dataDB}) => {
 
   const handleKurang = (ijumlah, ikeranjang, ihargaitem, e) => {
     e.preventDefault()
-    
+
+    if(item.jumlah === 2) {
+      setDisable(true)
+    } else (
+      setDisable(false)
+    )
+
     setDataInput((data)=>({...data,
       jumlah : +ijumlah - 1,
       id_keranjang : ikeranjang,
@@ -60,7 +65,8 @@ const ItemsKeranjang = ({ datum, setDatum, setDataInput, disable, dataDB}) => {
     dataDB()
   }
 
-  return datum?.map((item) => {
+  console.log({refJumlah})
+
     // const foto = btoa(String.fromCharCode(...new Uint8Array(item.foto_item.data)))
     return (
       <div className="items-keranjang my-3" key={item.id_keranjang}>
@@ -111,13 +117,15 @@ const ItemsKeranjang = ({ datum, setDatum, setDataInput, disable, dataDB}) => {
             </div>
             <div className="row ">
               <div className="col  d-flex justify-content-center align-items-center">
+                {!disable ? 
                 <button
                   className="but-jumlah-keranjang "
                   onClick={(e)=> handleKurang(item.jumlah, item.id_keranjang, item.harga_item, e)}
-                  disabled={disable}
+                  // disabled={disable}
                 >
                   -
                 </button>
+                : <></>}
                 <p className="text-jumlah-keranjang px-3 py-2" >
                   {item.jumlah}
                 </p>
@@ -145,6 +153,5 @@ const ItemsKeranjang = ({ datum, setDatum, setDataInput, disable, dataDB}) => {
         </div>
       </div>
     );
-  });
 };
 export default ItemsKeranjang;

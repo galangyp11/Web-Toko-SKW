@@ -1,5 +1,5 @@
 import './keranjang.css'
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect} from 'react';
 import apiHost from '../../../constants/apiHost'
 import axios from 'axios';
 import Cookies from 'js-cookie';
@@ -21,7 +21,6 @@ const Keranjang = () => {
       })
     const [totalHarga, setTotalHarga] = useState();
     const [isKosong, setIsKosong] = useState(true)
-    const [disable, setDisable] = useState(true)
     const id = Cookies.get('id')
     const navigate = useNavigate()
     const [isAlert, setIsAlert] = useState(false)
@@ -48,14 +47,8 @@ const Keranjang = () => {
         datum?.forEach((data)=>{           
             i += data.total_harga
             setTotalHarga(i)
-
-        if(data.jumlah !== 1){
-            setDisable(false)
-        } else {
-            setDisable(true)
-        }
         })
-    },[datum])
+    },[datum, dataInput])
     
     
     useEffect(() => {
@@ -89,7 +82,25 @@ const Keranjang = () => {
             <div className="keranjang-con container mt-2">
                 <div className="row">
                     <div className="col">
-                        {isKosong? <p className='text-keranjang-kosong d-flex justify-content-center align-items-center'>Keranjang Kosong</p> : <ItemsKeranjang datum={datum} setDatum={setDatum} setDataInput={setDataInput} disable={disable} dataDB={dataDB} />}
+                        {isKosong? <p className='text-keranjang-kosong d-flex justify-content-center align-items-center'>Keranjang Kosong</p> 
+                        : 
+                        <div>
+                        {datum.map((item) => {
+                            return(
+                            <ItemsKeranjang 
+                                item={item} 
+                                datum={datum} 
+                                setDatum={setDatum} 
+                                setDataInput={setDataInput} 
+                                dataDB={dataDB} 
+                            // disable={disable} 
+                                // refJumlah={refJumlah}
+                                // handleTambah={handleTambah}
+                                // handleKurang={handleKurang}    
+                            />
+                            )
+                        })}
+                        </div>}
                     </div>
 
                     <div className="col-4 sticky-top">
