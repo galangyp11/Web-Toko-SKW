@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import apiHost from "../../constants/apiHost";
 import { useSearch } from "../../context";
+import Loading from "../Loading";
 
 const Items = () => {
   const [datum, setDatum] = useState([]);
@@ -33,6 +34,7 @@ const Items = () => {
       className="bg-items my-5 d-flex justify-content-center"
       style={{ width: "100%" }}
     >
+      {datum ? 
       <div className="items p-4 d-flex justify-content-center">
         <div className="row gap-4 d-flex justify-content-center align-items-center row-cols-5">
           {datum.map((item) => {
@@ -77,6 +79,7 @@ const Items = () => {
           })}
         </div>
       </div>
+      : <Loading/>}
     </div>
   );
 };

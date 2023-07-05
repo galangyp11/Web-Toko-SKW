@@ -175,7 +175,7 @@ const DescItem = () => {
 
   return (
     <div className="descitem">
-            {!itemById ? 
+            {itemById ? 
       <div className="desc-item-con container ">
         <div className="row pt-4" style={{ overflow: "hidden" }}>
           <div className="col">
