@@ -12,6 +12,7 @@ import apiHost from "../../constants/apiHost";
 import AlertHijau from "../AlertHijau";
 import AlertMerah from "../AlertMerah";
 import KuraPlongo from "../image/kuraplongo.jpg";
+import Loading from "../Loading";
 
 const DescItem = () => {
   const [itemById, setItemById] = useState({});
@@ -174,6 +175,7 @@ const DescItem = () => {
 
   return (
     <div className="descitem">
+            {!itemById ? 
       <div className="desc-item-con container ">
         <div className="row pt-4" style={{ overflow: "hidden" }}>
           <div className="col">
@@ -187,6 +189,7 @@ const DescItem = () => {
             </div>
           
             <div className="container-sub-gambar row d-flex justify-content-center my-2 gap-2">
+            
                   {itemById &&
                     itemById?.gambar?.map((i) => {
                       return (
@@ -201,6 +204,7 @@ const DescItem = () => {
                           </div>
                       );
                     })}
+                  
             </div>
           </div>
           <div className="col ">
@@ -328,6 +332,7 @@ const DescItem = () => {
           )}
         </div>
       </div>
+        : <Loading/>}
     </div>
   );
 };
