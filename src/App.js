@@ -23,6 +23,7 @@ import { SearchProvider } from "./context";
 import ProfileToko from "./components/penjual/page/ProfileToko";
 import ItemToko from "./components/penjual/page/ItemToko";
 import DisplayToko from "./components/penjual/page/DisplayToko";
+import FormBermasalah from "./components/pembeli/transaksi/FormBermasalah";
 
 function App() {
   return (
@@ -32,7 +33,7 @@ function App() {
           <Route path="/" element={<Homepage />} />
           <Route path="/kategori/:id" element={<DescCategory />} />
           <Route path="/item/:id" element={<DescItem />} />
-          <Route path="/toko/:id" element={<DisplayToko/>}/>
+          <Route path="/toko/:id" element={<DisplayToko />} />
         </Route>
 
         <Route element={<ProtectedRoutes />}>
@@ -40,14 +41,14 @@ function App() {
           <Route path="/keranjang" element={<Keranjang />} />
           <Route path="/checkout" element={<CheckPembeli />} />
           <Route path="/pesanan" element={<TransaksiPembeli />} />
-          <Route path="/penjual" element={<PagePenjual />}/>
-          <Route path="/admin" element={<PageAdmin />}/>
+          <Route path="/pesanan-bermasalah/:id" element={<FormBermasalah />} />
+          <Route path="/penjual" element={<PagePenjual />} />
+          <Route path="/admin" element={<PageAdmin />} />
         </Route>
 
         <Route path="/login" element={<Login />} />
         <Route path="/daftar-pembeli" element={<DaftarPembeli />} />
         <Route path="/daftar-penjual" element={<DaftarPenjual />} />
-
       </Routes>
     </SearchProvider>
   );

@@ -1,0 +1,25 @@
+.form-bermasalah {
+  min-height: 100dvh;
+  height: auto;
+  width: 100dvw;
+}
+
+.bg-form-bermasalah {
+  min-height: 80dvh;
+  height: auto;
+  width: 60em;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
+    rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+  border-radius: 5px;
+}
+
+.teks-form-bermasalah {
+  height: 100%;
+  font-weight: 600;
+  font-size: 2em;
+}
+
+.gambar-item-pesanan-bermasalah {
+  width: 10em;
+  height: 10em;
+}

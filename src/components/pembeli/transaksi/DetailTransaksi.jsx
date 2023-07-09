@@ -2,6 +2,7 @@ import { BsFillCaretRightFill } from "react-icons/bs";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import apiHost from "../../../constants/apiHost";
+import { useNavigate } from "react-router-dom";
 
 const DetailTransaksi = ({ data, index }) => {
   const [isDetail, setIsDetail] = useState(false);
@@ -10,6 +11,7 @@ const DetailTransaksi = ({ data, index }) => {
   const [dataInput, setDataInput] = useState({
     status_transaksi: "Pesanan selesai",
   });
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (data.status_transaksi === "Pesanan sedang dikirim") {
@@ -117,7 +119,14 @@ const DetailTransaksi = ({ data, index }) => {
                   <></>
                 ) : (
                   <div className="d-flex align-items-center">
-                    <button className="but-bermasalah-transaksi mx-1">
+                    <button
+                      className="but-bermasalah-transaksi mx-1"
+                      onClick={() => {
+                        navigate(`/pesanan-bermasalah/${data.id_transaksi}`, {
+                          state: { data },
+                        });
+                      }}
+                    >
                       Bermasalah?
                     </button>
                     {!isDisable ? (

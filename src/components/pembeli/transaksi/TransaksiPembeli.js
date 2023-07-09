@@ -1,6 +1,6 @@
 import NavbarTransaksi from "./NavbarTransaksi";
 
-import './transaksipembeli.css'
+import "./transaksipembeli.css";
 import apiHost from "../../../constants/apiHost";
 import { useState, useEffect } from "react";
 import axios from "axios";
@@ -11,7 +11,7 @@ const TransaksiPembeli = () => {
   const [dataKonfirmasi, setDataKonfirmasi] = useState([]);
   const [dataSelesai, setDataSelesai] = useState([]);
   const [dataGambar, setDataGambar] = useState([]);
-  
+
   const id = Cookies.get("id");
 
   useEffect(() => {
@@ -23,23 +23,14 @@ const TransaksiPembeli = () => {
     getNotif();
 
     const getNotifSelesai = async () => {
-      const response = await axios.get(`${apiHost}transaksi/pembeli-selesai/${id}`);
+      const response = await axios.get(
+        `${apiHost}transaksi/pembeli-selesai/${id}`
+      );
       setDataSelesai(response.data);
       console.log(response.data);
     };
     getNotifSelesai();
   }, []);
-
-  // useEffect(() => {
-  //   const getNotif = async () => {
-  //     const response = await axios.get(`${apiHost}transaksi/pembeli/${id}`);
-  //     setDataKonfirmasi(response.data);
-  //     console.log(response.data);
-  //   };
-  //   getNotif();
-  // },[dataKonfirmasi, dataSelesai])
-
-  // console.log({dataKonfirmasi});
 
   return (
     <div className="transaksi-pembeli">
@@ -53,23 +44,19 @@ const TransaksiPembeli = () => {
         </div>
         <div className="profilepembeli-con container">
           {dataKonfirmasi?.map((data, index) => {
-            return(
-              <DetailTransaksi data={data} index={index} key={index}/>
-          )
+            return <DetailTransaksi data={data} index={index} key={index} />;
           })}
         </div>
       </section>
 
-      <hr className="container"/>
+      <hr className="container" />
       <section id="Selesai">
         <div className="judul-pesananku container  my-2">
           <p className="text-judul-pesananku">Selesai</p>
         </div>
         <div className="profilepembeli-con container">
           {dataSelesai?.map((data, index) => {
-            return(
-              <DetailTransaksi data={data} index={index} key={index}/>
-          )
+            return <DetailTransaksi data={data} index={index} key={index} />;
           })}
         </div>
       </section>

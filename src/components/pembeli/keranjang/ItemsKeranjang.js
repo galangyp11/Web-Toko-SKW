@@ -134,7 +134,13 @@ const ItemsKeranjang = ({ item, datum, setDatum, setDataInput, dataDB }) => {
                   -
                 </button>
               ) : (
-                <></>
+                <button
+                  className="but-jumlah-keranjang"
+                  style={{ backgroundColor: "grey" }}
+                  disabled
+                >
+                  -
+                </button>
               )}
               <p className="text-jumlah-keranjang px-3 py-2">{item.jumlah}</p>
               <button
