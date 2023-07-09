@@ -6,7 +6,7 @@ import { IoLogoWhatsapp } from "react-icons/io";
 import ReactWhatsapp from "react-whatsapp";
 import axios from "axios";
 import Cookies from "js-cookie";
-import fotoKosing from '../image/kuraplongo.jpg'
+import fotoKosing from "../image/kuraplongo.jpg";
 
 import apiHost from "../../constants/apiHost";
 import AlertHijau from "../AlertHijau";
@@ -31,20 +31,28 @@ const DescItem = () => {
     gambar: [],
   });
   const [ukuranItem, setUkuranItem] = useState([]);
-  const [gambarItem, setGambarItem] = useState('');
+  const [gambarItem, setGambarItem] = useState("");
   const [isUkuran, setIsUkuran] = useState(false);
   const [warnaItem, setWarnaItem] = useState([]);
   const [isWarna, setIsWarna] = useState(false);
   const [noWa, setNoWa] = useState();
-  const [messageWa, setMessageWa] = useState('');
+  const [messageWa, setMessageWa] = useState("");
   const [isAlertHijau, setIsAlertHijau] = useState(false);
   const [isAlertMerah, setIsAlertMerah] = useState(false);
   const [textAlert, setTextAlert] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const getItemById = async () => {
       const response = await axios.get(`${apiHost}item/${id}`);
-      setItemById(response.data);
+      if (response.status !== 200) {
+        setIsLoading(true);
+      } else {
+        setTimeout(() => {
+          setIsLoading(false);
+          setItemById(response.data);
+        }, 1000);
+      }
     };
     getItemById();
 
@@ -54,9 +62,9 @@ const DescItem = () => {
     };
     getUkuranItem();
 
-    const getWarnaItem = async()=>{
+    const getWarnaItem = async () => {
       const response = await axios.get(`${apiHost}item-warna/${id}`);
-      setWarnaItem(response.data)
+      setWarnaItem(response.data);
     };
     getWarnaItem();
 
@@ -71,7 +79,7 @@ const DescItem = () => {
     if (id_pembeli !== undefined) {
       getKeranjang();
     }
-  }, []);
+  }, [isAlertHijau]);
 
   const handleInputUkuran = (e) => {
     e.preventDefault();
@@ -96,14 +104,13 @@ const DescItem = () => {
       setIsAlertMerah(true);
       setTextAlert("Silahkan pilih ukuran");
     } else if (warnaItem.length !== 0 && dataItem.warna === "-") {
-      setIsAlertMerah(true)
-      setTextAlert('Silahkan pilih warna')
+      setIsAlertMerah(true);
+      setTextAlert("Silahkan pilih warna");
     } else {
       try {
         await axios.post(`${apiHost}keranjang`, dataItem);
         setIsAlertHijau(true);
         setTextAlert("Item dimasukkan ke keranjang");
-        window.location.reload();
       } catch (error) {
         console.log("eror bang gabisa input");
       }
@@ -121,8 +128,8 @@ const DescItem = () => {
   useEffect(() => {
     setDataItem((data) => ({ ...data, total_harga: itemById.harga_item * 1 }));
 
-    if(itemById.logo_toko === 0 ){
-      setFoto(fotoKosing)
+    if (itemById.logo_toko === 0) {
+      setFoto(fotoKosing);
     } else {
       setTimeout(() => {
         try {
@@ -137,23 +144,31 @@ const DescItem = () => {
       }, 100);
     }
 
-    const nowa = itemById.whatsapp
-    setNoWa(`+62 ${nowa}`)
-    setMessageWa(`Halo ${itemById.nama_toko}, Apakah ${itemById.nama_item} tersedia?`);
-    setGambarItem(`${apiHost}${itemById?.gambar?.[0]?.src}`)
+    const nowa = itemById.whatsapp;
+    setNoWa(`+62 ${nowa}`);
+    setMessageWa(
+      `Halo ${itemById.nama_toko}, Apakah ${itemById.nama_item} tersedia?`
+    );
+    setGambarItem(`${apiHost}${itemById?.gambar?.[0]?.src}`);
+
+    // if (itemById === {}) {
+    //   setIsLoading(true);
+    // } else {
+    //   setIsLoading(false);
+    // }
   }, [itemById]);
 
-  useEffect(()=>{
-    if (ukuranItem.length === 0 ) {
+  useEffect(() => {
+    if (ukuranItem.length === 0) {
       setIsUkuran(false);
     } else setIsUkuran(true);
-  },[ukuranItem])
+  }, [ukuranItem]);
 
-  useEffect(()=>{
-    if (warnaItem.length === 0 ) {
+  useEffect(() => {
+    if (warnaItem.length === 0) {
       setIsWarna(false);
     } else setIsWarna(true);
-  },[warnaItem])
+  }, [warnaItem]);
 
   const formatUang = (number) => {
     return new Intl.NumberFormat("id-ID", {
@@ -163,176 +178,199 @@ const DescItem = () => {
   };
 
   console.log({
-    ukuranItem,
-    warnaItem,
-    dataItem,
+    // ukuranItem,
+    // warnaItem,
+    // dataItem,
     // isWarna,
     // isUkuran,
-    gambarItem,
+    // gambarItem,
     itemById,
     // messageWa
-  })
+  });
 
   return (
     <div className="descitem">
-            {itemById !== {} ?  <Loading/> :
-      <div className="desc-item-con container ">
-        <div className="row pt-4" style={{ overflow: "hidden" }}>
-          <div className="col">
-            <div className="row d-flex justify-content-center" style={{width:"100%"}}>
-                  <div className="bg-gambar-desc d-flex justify-content-center align-items-center">
-                    <img  
-                      src={gambarItem}
-                      className="gambar-item-desc"
-                    />
-                  </div>
-            </div>
-          
-            <div className="container-sub-gambar row d-flex justify-content-center my-2 gap-2">
-            
-                  {itemById &&
-                    itemById?.gambar?.map((i) => {
-                      return (
-                          <div
-                            className="bg-sub-gambar d-flex justify-content-center align-items-center"
-                            onClick={()=>setGambarItem(`${apiHost}${i.src}`)}
-                          >
-                            <img
-                              src={`${apiHost}${i.src}`}
-                              className="gambar-item-desc"
-                            />
-                          </div>
-                      );
-                    })}
-                  
-            </div>
-          </div>
-          <div className="col ">
-            <div className="desc-kanan px-3 ">
-              <div className="py-2 container">
-                <p className="text-item-name-desc">{itemById?.nama_item}</p>
-                <p className="text-item-price-desc">
-                  {formatUang(itemById?.harga_item).replace(/\,00/g, "")}
-                </p>
-                <div className="d-flex" style={{ height: "30px" }}>
-                  <p className="text-item-stok">Stok :</p>
-                  <p className="px-1 text-item-stok">{itemById?.stok_item}</p>
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <div className="desc-item-con container ">
+          <div className="row pt-4" style={{ overflow: "hidden" }}>
+            <div className="col">
+              <div
+                className="row d-flex justify-content-center"
+                style={{ width: "100%" }}
+              >
+                <div className="bg-gambar-desc d-flex justify-content-center align-items-center">
+                  <img src={gambarItem} className="gambar-item-desc" />
                 </div>
               </div>
 
-              <hr />
-              <div className="desc-item ">
-                <p className="text-desc-item-desc">{itemById?.deskripsi_item}</p>
-              </div>
-
-              <hr />
-              <div className="row desc-item-toko ">
-                <div className="col-2 d-flex justify-content-end">
-                  <div className="desc-foto-toko-item">
-                    <img className="photo-profile"  src={ btoa(
-              String.fromCharCode(...new Uint8Array(itemById?.logo_toko))
-            )} />
-                  </div>
-                </div>
-                <div className="col p-1">
-                  <Link
-                    to={`/toko/${itemById?.id_penjual}`}
-                    style={{ textDecoration: "none" }}
-                  >
-                    <p className="text-name-toko-item px-2">
-                      {itemById?.nama_toko}
-                    </p>
-                  </Link>
-                  <p className="text-name-alamt-toko px-2">
-                    {itemById?.alamat_toko}
-                  </p>
-                </div>
-                <div className="col d-flex  align-items-center justify-content-end">
-                    <ReactWhatsapp number={`${noWa}`} message={messageWa} style={{border:'none', backgroundColor:'trasnparent'}}>
-                      <button className="but-chat-penjual d-flex align-items-center justify-content-center gap-2" >
-                          <IoLogoWhatsapp color="white" size="20px" /> 
-                          Chat penjual
-                      </button>
-                    </ReactWhatsapp>
-                </div>
-              </div>
-              <hr />
-              <div className="row pilihan-desc-item">
-                {isUkuran ? <div className="col">{
-                  ukuranItem?.map((data) => {
+              <div className="container-sub-gambar row d-flex justify-content-center my-2 gap-2">
+                {itemById &&
+                  itemById?.gambar?.map((i) => {
                     return (
-                      <div key={data.id_ukuran} className="ukuran-item-input">
-                        <input
-                          type="radio"
-                          name="ukuran"
-                          id={data?.id_ukuran}
-                          value={data?.nama_ukuran}
-                          onChange={handleInputUkuran}
+                      <div
+                        className="bg-sub-gambar d-flex justify-content-center align-items-center"
+                        onClick={() => setGambarItem(`${apiHost}${i.src}`)}
+                      >
+                        <img
+                          src={`${apiHost}${i.src}`}
+                          className="gambar-item-desc"
                         />
-                        <label htmlFor="ukuran" className="px-2">{data?.nama_ukuran}</label>
                       </div>
                     );
-                  })
-                }</div> : 
-                  <></>
-                }
-
-                {isWarna ? <div className="col">{
-                  warnaItem?.map((data) => {
-                    return (
-                      <div key={data?.id_warna} className="col d-flex gap-2">
-                        <input
-                          type="radio"
-                          name="warna"
-                          value={data?.nama_warna}
-                          onChange={handleInputWarna}
-                        />
-                        <label htmlFor="warna">{data?.nama_warna}</label>
-                      </div>
-                  );
-                  })
-                }</div>: 
-                  <></>
-                }
+                  })}
               </div>
-              <div
-                className="d-flex justify-content-center align-items-end"
-                style={{ height: "100px" }}
-              >
-                <button
-                  className="but-cart d-flex align-items-center justify-content-center gap-2"
-                  onClick={handleKeranjang}
+            </div>
+            <div className="col ">
+              <div className="desc-kanan px-3 ">
+                <div className="py-2 container">
+                  <p className="text-item-name-desc">{itemById?.nama_item}</p>
+                  <p className="text-item-price-desc">
+                    {formatUang(itemById?.harga_item).replace(/\,00/g, "")}
+                  </p>
+                  <div className="d-flex" style={{ height: "30px" }}>
+                    <p className="text-item-stok">Stok :</p>
+                    <p className="px-1 text-item-stok">{itemById?.stok_item}</p>
+                  </div>
+                </div>
+
+                <hr />
+                <div className="desc-item ">
+                  <p className="text-desc-item-desc">
+                    {itemById?.deskripsi_item}
+                  </p>
+                </div>
+
+                <hr />
+                <div className="row desc-item-toko ">
+                  <div className="col-2 d-flex justify-content-end">
+                    <div className="desc-foto-toko-item">
+                      <img
+                        className="photo-profile"
+                        src={btoa(
+                          String.fromCharCode(
+                            ...new Uint8Array(itemById?.logo_toko)
+                          )
+                        )}
+                      />
+                    </div>
+                  </div>
+                  <div className="col p-1">
+                    <Link
+                      to={`/toko/${itemById?.id_penjual}`}
+                      style={{ textDecoration: "none" }}
+                    >
+                      <p className="text-name-toko-item px-2">
+                        {itemById?.nama_toko}
+                      </p>
+                    </Link>
+                    <p className="text-name-alamt-toko px-2">
+                      {itemById?.alamat_toko}
+                    </p>
+                  </div>
+                  <div className="col d-flex  align-items-center justify-content-end">
+                    <ReactWhatsapp
+                      number={`${noWa}`}
+                      message={messageWa}
+                      style={{ border: "none", backgroundColor: "trasnparent" }}
+                    >
+                      <button className="but-chat-penjual d-flex align-items-center justify-content-center gap-2">
+                        <IoLogoWhatsapp color="white" size="20px" />
+                        Chat penjual
+                      </button>
+                    </ReactWhatsapp>
+                  </div>
+                </div>
+                <hr />
+                <div className="row pilihan-desc-item">
+                  {isUkuran ? (
+                    <div className="col">
+                      {ukuranItem?.map((data) => {
+                        return (
+                          <div
+                            key={data.id_ukuran}
+                            className="ukuran-item-input"
+                          >
+                            <input
+                              type="radio"
+                              name="ukuran"
+                              id={data?.id_ukuran}
+                              value={data?.nama_ukuran}
+                              onChange={handleInputUkuran}
+                            />
+                            <label htmlFor="ukuran" className="px-2">
+                              {data?.nama_ukuran}
+                            </label>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  ) : (
+                    <></>
+                  )}
+
+                  {isWarna ? (
+                    <div className="col">
+                      {warnaItem?.map((data) => {
+                        return (
+                          <div
+                            key={data?.id_warna}
+                            className="col d-flex gap-2"
+                          >
+                            <input
+                              type="radio"
+                              name="warna"
+                              value={data?.nama_warna}
+                              onChange={handleInputWarna}
+                            />
+                            <label htmlFor="warna">{data?.nama_warna}</label>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  ) : (
+                    <></>
+                  )}
+                </div>
+                <div
+                  className="d-flex justify-content-center align-items-end"
+                  style={{ height: "100px" }}
                 >
-                  <BsFillCartFill color="white" size="20px" />
-                  Tambah ke Keranjang
-                </button>
+                  <button
+                    className="but-cart d-flex align-items-center justify-content-center gap-2"
+                    onClick={handleKeranjang}
+                  >
+                    <BsFillCartFill color="white" size="20px" />
+                    Tambah ke Keranjang
+                  </button>
+                </div>
               </div>
             </div>
           </div>
-        </div>
 
-        <div className="d-flex justify-content-center">
-          {isAlertHijau ? (
-            <AlertHijau
-              textAlert={textAlert}
-              isAlert={isAlertHijau}
-              setIsAlert={setIsAlertHijau}
-            />
-          ) : (
-            <div></div>
-          )}
-          {isAlertMerah ? (
-            <AlertMerah
-              textAlert={textAlert}
-              isAlert={isAlertMerah}
-              setIsAlert={setIsAlertMerah}
-            />
-          ) : (
-            <div></div>
-          )}
+          <div className="d-flex justify-content-center">
+            {isAlertHijau ? (
+              <AlertHijau
+                textAlert={textAlert}
+                isAlert={isAlertHijau}
+                setIsAlert={setIsAlertHijau}
+              />
+            ) : (
+              <div></div>
+            )}
+            {isAlertMerah ? (
+              <AlertMerah
+                textAlert={textAlert}
+                isAlert={isAlertMerah}
+                setIsAlert={setIsAlertMerah}
+              />
+            ) : (
+              <div></div>
+            )}
+          </div>
         </div>
-      </div>
-     }
+      )}
     </div>
   );
 };
