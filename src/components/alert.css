@@ -1,40 +1,36 @@
-.modal-alert{
-    height: 20vh;
-    width: 100dvw;
+.modal-alert {
+  height: 20vh;
+  width: 100dvw;
 }
 
-.bg-alert-merah{
-    background-color: #f15a59;
-    border-radius: 5px;
-    cursor: pointer;
-    height: 35px;
-
+.bg-alert-merah {
+  background-color: #f15a59;
+  border-radius: 5px;
+  cursor: pointer;
+  height: 35px;
 }
 
-.bg-alert-kuning{
-    background-color: #FFCA03;
-    border-radius: 5px;
-    cursor: pointer;
-    height: 35px;
-
+.bg-alert-kuning {
+  background-color: #ffca03;
+  border-radius: 5px;
+  cursor: pointer;
+  height: 35px;
 }
 
-.bg-alert-hijau{
-    background-color: #38E54D;
-    border-radius: 5px;
-    cursor: pointer;
-    height: 35px;
-
+.bg-alert-hijau {
+  background-color: #38e54d;
+  border-radius: 5px;
+  cursor: pointer;
+  height: 35px;
 }
 
-.text-alert-merah{
-    font-weight: 600;
-    height: 100%;
-    color: White;
+.text-alert-merah {
+  font-weight: 600;
+  height: 100%;
+  color: White;
 }
 
-.text-alert-kuning{
-    font-weight: 600;
-    height: 100%;
+.text-alert-kuning {
+  font-weight: 600;
+  height: 100%;
 }
-

@@ -34,8 +34,9 @@ const Items = () => {
       className="bg-items my-5 d-flex justify-content-center"
       style={{ width: "100%" }}
     >
-      {datum ? 
+
       <div className="items p-4 d-flex justify-content-center">
+      {datum !== [] ? 
         <div className="row gap-4 d-flex justify-content-center align-items-center row-cols-5">
           {datum.map((item) => {
             return (
@@ -78,8 +79,8 @@ const Items = () => {
             );
           })}
         </div>
+              : <Loading/>}
       </div>
-      : <Loading/>}
     </div>
   );
 };

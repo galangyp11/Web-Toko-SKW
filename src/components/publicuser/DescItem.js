@@ -175,7 +175,7 @@ const DescItem = () => {
 
   return (
     <div className="descitem">
-            {itemById ? 
+            {itemById !== {} ?  <Loading/> :
       <div className="desc-item-con container ">
         <div className="row pt-4" style={{ overflow: "hidden" }}>
           <div className="col">
@@ -210,19 +210,19 @@ const DescItem = () => {
           <div className="col ">
             <div className="desc-kanan px-3 ">
               <div className="py-2 container">
-                <p className="text-item-name-desc">{itemById.nama_item}</p>
+                <p className="text-item-name-desc">{itemById?.nama_item}</p>
                 <p className="text-item-price-desc">
-                  {formatUang(itemById.harga_item).replace(/\,00/g, "")}
+                  {formatUang(itemById?.harga_item).replace(/\,00/g, "")}
                 </p>
                 <div className="d-flex" style={{ height: "30px" }}>
                   <p className="text-item-stok">Stok :</p>
-                  <p className="px-1 text-item-stok">{itemById.stok_item}</p>
+                  <p className="px-1 text-item-stok">{itemById?.stok_item}</p>
                 </div>
               </div>
 
               <hr />
               <div className="desc-item ">
-                <p className="text-desc-item-desc">{itemById.deskripsi_item}</p>
+                <p className="text-desc-item-desc">{itemById?.deskripsi_item}</p>
               </div>
 
               <hr />
@@ -236,15 +236,15 @@ const DescItem = () => {
                 </div>
                 <div className="col p-1">
                   <Link
-                    to={`/toko/${itemById.id_penjual}`}
+                    to={`/toko/${itemById?.id_penjual}`}
                     style={{ textDecoration: "none" }}
                   >
                     <p className="text-name-toko-item px-2">
-                      {itemById.nama_toko}
+                      {itemById?.nama_toko}
                     </p>
                   </Link>
                   <p className="text-name-alamt-toko px-2">
-                    {itemById.alamat_toko}
+                    {itemById?.alamat_toko}
                   </p>
                 </div>
                 <div className="col d-flex  align-items-center justify-content-end">
@@ -259,17 +259,17 @@ const DescItem = () => {
               <hr />
               <div className="row pilihan-desc-item">
                 {isUkuran ? <div className="col">{
-                  ukuranItem.map((data) => {
+                  ukuranItem?.map((data) => {
                     return (
                       <div key={data.id_ukuran} className="ukuran-item-input">
                         <input
                           type="radio"
                           name="ukuran"
-                          id={data.id_ukuran}
-                          value={data.nama_ukuran}
+                          id={data?.id_ukuran}
+                          value={data?.nama_ukuran}
                           onChange={handleInputUkuran}
                         />
-                        <label htmlFor="ukuran" className="px-2">{data.nama_ukuran}</label>
+                        <label htmlFor="ukuran" className="px-2">{data?.nama_ukuran}</label>
                       </div>
                     );
                   })
@@ -280,14 +280,14 @@ const DescItem = () => {
                 {isWarna ? <div className="col">{
                   warnaItem?.map((data) => {
                     return (
-                      <div key={data.id_warna} className="col d-flex gap-2">
+                      <div key={data?.id_warna} className="col d-flex gap-2">
                         <input
                           type="radio"
                           name="warna"
-                          value={data.nama_warna}
+                          value={data?.nama_warna}
                           onChange={handleInputWarna}
                         />
-                        <label htmlFor="warna">{data.nama_warna}</label>
+                        <label htmlFor="warna">{data?.nama_warna}</label>
                       </div>
                   );
                   })
@@ -332,7 +332,7 @@ const DescItem = () => {
           )}
         </div>
       </div>
-        : <Loading/>}
+     }
     </div>
   );
 };
