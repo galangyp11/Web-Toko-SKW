@@ -2,7 +2,7 @@ import "./login.css";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
-import { BsEyeFill, BsEyeSlashFill } from 'react-icons/bs';
+import { BsEyeFill, BsEyeSlashFill } from "react-icons/bs";
 import Cookies from "js-cookie";
 import apiHost from "../../constants/apiHost";
 import Alert from "../AlertMerah";
@@ -16,11 +16,11 @@ const Login = () => {
   const [dataLoginAdmin, setDataLoginAdmin] = useState([]);
   const [dataLoginPembeli, setDataLoginPembeli] = useState([]);
   const [dataLoginPenjual, setDataLoginPenjual] = useState([]);
-  const [isAlert, setIsAlert] = useState(false)
-  const [textAlert, setTextAlert] = useState('')
+  const [isAlert, setIsAlert] = useState(false);
+  const [textAlert, setTextAlert] = useState("");
   const navigate = useNavigate();
-  const [typePassword, setTypePassword] = useState("password")
-  const [isHiddenPass, setIsHiddenPass] = useState(false)
+  const [typePassword, setTypePassword] = useState("password");
+  const [isHiddenPass, setIsHiddenPass] = useState(false);
 
   useEffect(() => {
     const getAdminById = async () => {
@@ -48,55 +48,56 @@ const Login = () => {
   };
 
   const handleLogin = () => {
-      dataLoginPembeli.map((data) => {
-        if (
-          data.email === inputUser.emailInput &&
-          data.password === inputUser.passwordInput &&
-          data.level === "Pembeli"
-        ) {
-          Cookies.set("id", `${data.id_pembeli}`);
-          navigate(`/`);
-        } else {
-          dataLoginPenjual.map((data) => {
-            if (
-              data.email === inputUser.emailInput &&
-              data.password === inputUser.passwordInput &&
-              data.level === "Penjual"
-            ) {
-              Cookies.set("id", `${data.id_penjual}`);
-              navigate(`/penjual`);
-            } else {
-              dataLoginAdmin.map((data) => {
-                if (
-                  data.email === inputUser.emailInput &&
-                  data.password === inputUser.passwordInput &&
-                  data.level === "Admin"
-                ) {
-                  Cookies.set("id", `${data.id_admin}`);
-                  navigate(`/Admin`);
-                } else {
-                  setIsAlert(true)
-                  setTextAlert('Email atau Password Salah')
-                }
-              });
-            }
-          });
-        }
-      });
-
+    dataLoginPembeli.map((data) => {
+      if (
+        data.email === inputUser.emailInput &&
+        data.password === inputUser.passwordInput &&
+        data.level === "Pembeli"
+      ) {
+        Cookies.set("id", `${data.id_pembeli}`);
+        navigate(`/`);
+      } else {
+        dataLoginPenjual.map((data) => {
+          if (
+            data.email_penjual === inputUser.emailInput &&
+            data.password === inputUser.passwordInput &&
+            data.level === "Penjual"
+          ) {
+            Cookies.set("id", `${data.id_penjual}`);
+            navigate(`/penjual`);
+          } else {
+            dataLoginAdmin.map((data) => {
+              if (
+                data.email === inputUser.emailInput &&
+                data.password === inputUser.passwordInput &&
+                data.level === "Admin"
+              ) {
+                Cookies.set("id", `${data.id_admin}`);
+                navigate(`/Admin`);
+              } else {
+                setIsAlert(true);
+                setTextAlert("Email atau Password Salah");
+              }
+            });
+          }
+        });
+      }
+    });
   };
 
   const handleHiddenPass = (e) => {
-    e.preventDefault()
-    setIsHiddenPass(false)
-   setTypePassword("password")
-  }
+    e.preventDefault();
+    setIsHiddenPass(false);
+    setTypePassword("password");
+  };
 
   const handleShowPass = (e) => {
-    e.preventDefault()
-    setIsHiddenPass(true)
-    setTypePassword("text")
-  }
+    e.preventDefault();
+    setIsHiddenPass(true);
+    setTypePassword("text");
+  };
+
+  console.log({ dataLoginPenjual });
 
   return (
     <div className="login d-flex justify-content-center align-items-center">
@@ -139,21 +140,36 @@ const Login = () => {
                 <div className="row mt-3 d-flex justify-content-center">
                   <input
                     className="input-text mx-2"
-                    type={typePassword} 
+                    type={typePassword}
                     placeholder="Password"
                     id="passwordInput"
                     value={inputUser.passwordInput}
                     onChange={handleInput}
                   />
-                   <div className="lihat-password">
-                        {isHiddenPass ? <BsEyeFill size='1.2em' color='#0E8388' onClick={handleHiddenPass} style={{cursor:"pointer"}}/> 
-                        : <BsEyeSlashFill size='1.2em' color='#0E8388' onClick={handleShowPass} style={{cursor:"pointer"}}/>}
-                    </div>
+                  <div className="lihat-password">
+                    {isHiddenPass ? (
+                      <BsEyeFill
+                        size="1.2em"
+                        color="#0E8388"
+                        onClick={handleHiddenPass}
+                        style={{ cursor: "pointer" }}
+                      />
+                    ) : (
+                      <BsEyeSlashFill
+                        size="1.2em"
+                        color="#0E8388"
+                        onClick={handleShowPass}
+                        style={{ cursor: "pointer" }}
+                      />
+                    )}
+                  </div>
                 </div>
 
                 <div className="row  mt-3">
                   <div className="col d-flex justify-content-center">
-                    <button className="but-login-login" onClick={handleLogin}>Login</button>
+                    <button className="but-login-login" onClick={handleLogin}>
+                      Login
+                    </button>
                   </div>
                 </div>
 
@@ -180,8 +196,16 @@ const Login = () => {
             </div>
           </div>
         </div>
-        <div className="d-flex justify-content-center" >
-          {isAlert ? <Alert textAlert={textAlert} isAlert={isAlert} setIsAlert={setIsAlert}/> : <div></div>}
+        <div className="d-flex justify-content-center">
+          {isAlert ? (
+            <Alert
+              textAlert={textAlert}
+              isAlert={isAlert}
+              setIsAlert={setIsAlert}
+            />
+          ) : (
+            <div></div>
+          )}
         </div>
       </div>
     </div>

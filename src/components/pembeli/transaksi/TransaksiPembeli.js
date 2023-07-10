@@ -6,11 +6,13 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
 import DetailTransaksi from "./DetailTransaksi";
+import { RxDividerVertical } from "react-icons/rx";
 
 const TransaksiPembeli = () => {
   const [dataKonfirmasi, setDataKonfirmasi] = useState([]);
   const [dataSelesai, setDataSelesai] = useState([]);
   const [dataGambar, setDataGambar] = useState([]);
+  const [isActive, setIsActive] = useState(true);
 
   const id = Cookies.get("id");
 
@@ -38,28 +40,53 @@ const TransaksiPembeli = () => {
         <NavbarTransaksi />
       </div>
 
-      <section id="Dikrim">
-        <div className="judul-pesananku container  my-2">
-          <p className="text-judul-pesananku">Dikirim</p>
+      <div className="judul-pesananku container my-2">
+        <div className="row ">
+          <div className="col-1">
+            <p
+              className={
+                !isActive
+                  ? "text-judul-pesananku"
+                  : "text-judul-pesananku-notactive"
+              }
+              onClick={() => setIsActive(false)}
+            >
+              Dikirim
+            </p>
+          </div>
+
+          <div className="col-1 d-flex justify-content-center py-1">
+            <p style={{ color: "grey", fontSize: "1.2em" }}>|</p>
+          </div>
+
+          <div className="col">
+            <p
+              className={
+                isActive
+                  ? "text-judul-pesananku"
+                  : "text-judul-pesananku-notactive"
+              }
+              onClick={() => setIsActive(true)}
+            >
+              Selesai
+            </p>
+          </div>
         </div>
+      </div>
+
+      {!isActive ? (
         <div className="profilepembeli-con container">
           {dataKonfirmasi?.map((data, index) => {
             return <DetailTransaksi data={data} index={index} key={index} />;
           })}
         </div>
-      </section>
-
-      <hr className="container" />
-      <section id="Selesai">
-        <div className="judul-pesananku container  my-2">
-          <p className="text-judul-pesananku">Selesai</p>
-        </div>
+      ) : (
         <div className="profilepembeli-con container">
           {dataSelesai?.map((data, index) => {
             return <DetailTransaksi data={data} index={index} key={index} />;
           })}
         </div>
-      </section>
+      )}
     </div>
   );
 };

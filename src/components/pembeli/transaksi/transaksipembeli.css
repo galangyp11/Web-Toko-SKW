@@ -1,145 +1,160 @@
-.item-transaksi-pembeli-atas{
-    height: 5em;
-    width: 100%;
-    box-shadow: rgba(0,0,0, .6) 0px 0px 1px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: .2s ease;
+.item-transaksi-pembeli-atas {
+  height: 5em;
+  width: 100%;
+  box-shadow: rgba(0, 0, 0, 0.6) 0px 0px 1px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.2s ease;
 }
 
-.judul-pesananku{
-    box-shadow: rgba(33, 35, 38, 0.1) 0px 10px 10px -10px;
-    height: 3em;
+.judul-pesananku {
+  box-shadow: rgba(33, 35, 38, 0.1) 0px 10px 10px -10px;
+  height: 3em;
 }
 
-.text-judul-pesananku{
-    font-size: 1.5em;
-    font-weight: 600;
+.text-judul-pesananku {
+  font-size: 1.5em;
+  font-weight: 600;
+  color: black;
+  cursor: pointer;
+  transition: 0.2s ease;
 }
 
-.item-transaksi-pembeli-atas:hover{
-    backdrop-filter: brightness(90%);
+.text-judul-pesananku-notactive {
+  font-size: 1.5em;
+  font-weight: 600;
+  color: rgb(160, 160, 160);
+  cursor: pointer;
+  transition: 0.2s ease;
 }
 
-.item-transaksi-pembeli-detail{
-    min-height: 12em;
-    width: 100%;
-    box-shadow: rgba(0,0,0, .6) 0px 0px 1px;
-    background-color: #f7f7f7;
-    border-radius: 0px 0px 5px 5px;
+.text-judul-pesananku-notactive:hover {
+  color: black;
 }
 
-.text-item-pesanan-selesai{
-    color: #0E8388;
-    font-weight: 600;
-    font-size: 1.5em;
+.item-transaksi-pembeli-atas:hover {
+  backdrop-filter: brightness(90%);
 }
 
-.arrow-detail{
-    transform: .2 ease;
+.item-transaksi-pembeli-detail {
+  min-height: 12em;
+  width: 100%;
+  box-shadow: rgba(0, 0, 0, 0.6) 0px 0px 1px;
+  background-color: #f7f7f7;
+  border-radius: 0px 0px 5px 5px;
 }
 
-.arrow-detail-active{
-    transform: rotate(90deg);
+.text-item-pesanan-selesai {
+  color: #0e8388;
+  font-weight: 600;
+  font-size: 1.5em;
 }
 
-.text-no-item-transaksi{
-    height: 100%;
-    font-weight: 600;
+.arrow-detail {
+  transform: 0.2 ease;
 }
 
-.bg-img-transaksi-pembeli{
-    height: 4em;
-    width: 4em;
-    background-color: green;
+.arrow-detail-active {
+  transform: rotate(90deg);
 }
 
-.text-nama-item-transaksi{
-    height: 100%;
-    font-family: Poppins;
+.text-no-item-transaksi {
+  height: 100%;
+  font-weight: 600;
 }
 
-.text-total-item-transaksi{
-    height: 100%;
-    font-family: Poppins;
+.bg-img-transaksi-pembeli {
+  height: 4em;
+  width: 4em;
+  background-color: green;
 }
 
-.arrow-transaksi{
-    height: 100%;
+.text-nama-item-transaksi {
+  height: 100%;
+  font-family: Poppins;
 }
 
-.bg-img-transaksi-pembeli-detail{
-    height: 8em;
-    width: 8em;
-    background-color: aquamarine;
+.text-total-item-transaksi {
+  height: 100%;
+  font-family: Poppins;
 }
 
-.but-bermasalah-transaksi{
-    border: 1px solid grey;
-    border-radius: 5px;
-    background-color: #f7f7f7;
-    color: grey;
-    font-weight: 600;
-    height: 2.3em;
-    width: 8em;
-    transition: .2s ease;
+.arrow-transaksi {
+  height: 100%;
 }
 
-.but-bermasalah-transaksi:hover{
-    background-color: black;
-    color: #f7f7f7;
+.bg-img-transaksi-pembeli-detail {
+  height: 8em;
+  width: 8em;
+  background-color: aquamarine;
 }
 
-.but-terima-transaksi{
-    border: none;
-    border-radius: 5px;
-    background-color: #0E8388;
-    color: white;
-    font-weight: 600;
-    height: 2.3em;
-    width: 8em;
-    transition: .2s ease;
+.but-bermasalah-transaksi {
+  border: 1px solid grey;
+  border-radius: 5px;
+  background-color: #f7f7f7;
+  color: grey;
+  font-weight: 600;
+  height: 2.3em;
+  width: 8em;
+  transition: 0.2s ease;
 }
 
-.but-terima-transaksi-disable{
-    border: 1px solid grey;
-    border-radius: 5px;
-    background-color: #f7f7f7;
-    color: grey;
-    font-weight: 600;
-    height: 2.3em;
-    width: 8em;
-    transition: .2s ease;
-    cursor: no-drop;
+.but-bermasalah-transaksi:hover {
+  background-color: black;
+  color: #f7f7f7;
 }
 
-.but-terima-transaksi:hover{
-    filter: brightness(80%);
+.but-terima-transaksi {
+  border: none;
+  border-radius: 5px;
+  background-color: #0e8388;
+  color: white;
+  font-weight: 600;
+  height: 2.3em;
+  width: 8em;
+  transition: 0.2s ease;
 }
 
-.garis-vertical-kanan{
-    height: 80%;
-    border-right: 1px solid rgb(228, 228, 228);
+.but-terima-transaksi-disable {
+  border: 1px solid grey;
+  border-radius: 5px;
+  background-color: #f7f7f7;
+  color: grey;
+  font-weight: 600;
+  height: 2.3em;
+  width: 8em;
+  transition: 0.2s ease;
+  cursor: no-drop;
 }
 
-.garis-vertical-kiri{
-    height: 80%;
-    border-left: 1px solid rgb(228, 228, 228);
+.but-terima-transaksi:hover {
+  filter: brightness(80%);
+}
+
+.garis-vertical-kanan {
+  height: 80%;
+  border-right: 1px solid rgb(228, 228, 228);
+}
+
+.garis-vertical-kiri {
+  height: 80%;
+  border-left: 1px solid rgb(228, 228, 228);
 }
 
 ::-webkit-scrollbar {
-    width: 5px;
+  width: 5px;
 }
 
 ::-webkit-scrollbar-track {
-    background: #f1f1f1; 
+  background: #f1f1f1;
 }
-   
+
 ::-webkit-scrollbar-thumb {
-    background: #888; 
-    cursor: pointer;
+  background: #888;
+  cursor: pointer;
 }
-  
+
 ::-webkit-scrollbar-thumb:hover {
-    background: #555; 
+  background: #555;
 }

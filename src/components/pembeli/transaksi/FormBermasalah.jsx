@@ -18,7 +18,7 @@ const FormBermasalah = () => {
     setDataInput((data) => ({
       ...data,
       tanggal: dataUrl.state.data.waktu_pesan,
-      email: "galangy11@gmail.com",
+      email: dataUrl.state.data.email,
       idTransaksi: dataUrl.state.data.id_transaksi,
     }));
   }, []);
@@ -51,7 +51,7 @@ const FormBermasalah = () => {
   console.log(dataInput);
   return (
     <div className="form-bermasalah container d-flex justify-content-center align-items-center my-5">
-      <div className="bg-form-bermasalah container">
+      <div className="bg-form-bermasalah container px-5">
         <div className="row" style={{ height: "3em" }}>
           <p className="teks-form-bermasalah d-flex justify-content-center  p-2 ">
             Form Pesanan Bermasalah
@@ -59,7 +59,10 @@ const FormBermasalah = () => {
         </div>
         <hr />
 
-        <div className="row border">
+        <div className="row">
+          <div className="col-1">
+            <p>1.</p>
+          </div>
           <div className="col">
             <img
               src={`${apiHost}${dataUrl.state.data.gambar}`}
@@ -69,33 +72,50 @@ const FormBermasalah = () => {
           <div className="col">
             <p>{dataUrl.state.data.nama_item}</p>
           </div>
-          <div className="col-1">
-            <p>{dataUrl.state.data.jumlah_beli}</p>
+          <div className="col-2 d-flex justify-content-end">
+            <div className="d-flex gap-2">
+              <p>Jumlah :</p>
+              <p>{dataUrl.state.data.jumlah_beli}</p>
+            </div>
           </div>
         </div>
+
+        <hr />
 
         <div className="row">
           <div className="col-3">
             <p>Status Transaksi</p>
           </div>
-          <div className="col-1">
+          <div className="col">
             <p>:</p>
           </div>
-          <div className="col">
+          <div className="col d-flex justify-content-end">
             <p>{dataUrl.state.data.status_transaksi}</p>
           </div>
         </div>
 
         <div className="row">
-          <p>Alasan Bermasalah :</p>
+          <div className="col-3">
+            <p>Alasan Bermasalah</p>
+          </div>
+          <div className="col">
+            <p>:</p>
+          </div>
         </div>
 
-        <div className="row container">
-          <textarea
-            className="input-text"
-            style={{ height: "10em", width: "30em", resize: "none" }}
-            onChange={handleInput}
-          />
+        <div className="row">
+          <div className="col">
+            <textarea
+              className="input-text"
+              style={{ height: "10em", width: "30em", resize: "none" }}
+              onChange={handleInput}
+            />
+          </div>
+          <div className="col d-flex justify-content-end">
+            <p style={{ color: "grey" }}>
+              Sertakan penjelasan masalah lengkap agar proses cepat dan mudah.
+            </p>
+          </div>
         </div>
 
         <hr />
