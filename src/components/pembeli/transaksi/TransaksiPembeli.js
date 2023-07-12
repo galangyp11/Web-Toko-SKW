@@ -7,32 +7,91 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import DetailTransaksi from "./DetailTransaksi";
 import { RxDividerVertical } from "react-icons/rx";
+import DetailKonfrimasi from "./DetaliKonfirmasi";
 
 const TransaksiPembeli = () => {
   const [dataKonfirmasi, setDataKonfirmasi] = useState([]);
+  const [dataDikirim, setDataDikirim] = useState([]);
   const [dataSelesai, setDataSelesai] = useState([]);
-  const [dataGambar, setDataGambar] = useState([]);
-  const [isActive, setIsActive] = useState(true);
+  const [isKonfirmasi, setIsKonfirmasi] = useState(true);
+  const [isDikirim, setIsDikirim] = useState(false);
+  const [isSelesai, setIsSelesai] = useState(false);
+  const [listItem, setListItem] = useState();
 
   const id = Cookies.get("id");
 
   useEffect(() => {
-    const getNotif = async () => {
-      const response = await axios.get(`${apiHost}transaksi/pembeli/${id}`);
+    const getDataKonfirmasi = async () => {
+      const response = await axios.get(`${apiHost}konfirmasi/${id}`);
       setDataKonfirmasi(response.data);
-      console.log(response.data);
     };
-    getNotif();
+    getDataKonfirmasi();
+
+    const getDataDikirim = async () => {
+      const response = await axios.get(`${apiHost}transaksi/pembeli/${id}`);
+      setDataDikirim(response.data);
+    };
+    getDataDikirim();
 
     const getNotifSelesai = async () => {
       const response = await axios.get(
         `${apiHost}transaksi/pembeli-selesai/${id}`
       );
       setDataSelesai(response.data);
-      console.log(response.data);
     };
     getNotifSelesai();
-  }, []);
+  }, [isKonfirmasi, isDikirim, isSelesai]);
+
+  useEffect(() => {
+    if (isKonfirmasi === true) {
+      setListItem(
+        dataKonfirmasi.map((data, index) => {
+          return <DetailKonfrimasi data={data} index={index} key={index} />;
+        })
+      );
+    }
+  }, [dataKonfirmasi]);
+
+  const handleKonfirmasi = (e) => {
+    e.preventDefault();
+
+    setIsKonfirmasi(true);
+    setIsDikirim(false);
+    setIsSelesai(false);
+    setListItem(
+      dataKonfirmasi.map((data, index) => {
+        return <DetailKonfrimasi data={data} index={index} key={index} />;
+      })
+    );
+  };
+
+  const handleDikirim = (e) => {
+    e.preventDefault();
+
+    setIsKonfirmasi(false);
+    setIsDikirim(true);
+    setIsSelesai(false);
+    setListItem(
+      dataDikirim?.map((data, index) => {
+        return <DetailTransaksi data={data} index={index} key={index} />;
+      })
+    );
+  };
+
+  const handleSelesai = (e) => {
+    e.preventDefault();
+
+    setIsKonfirmasi(false);
+    setIsDikirim(false);
+    setIsSelesai(true);
+    setListItem(
+      dataSelesai?.map((data, index) => {
+        return <DetailTransaksi data={data} index={index} key={index} />;
+      })
+    );
+  };
+
+  console.log({ dataDikirim, dataKonfirmasi });
 
   return (
     <div className="transaksi-pembeli">
@@ -45,11 +104,28 @@ const TransaksiPembeli = () => {
           <div className="col-1">
             <p
               className={
-                !isActive
+                isKonfirmasi
                   ? "text-judul-pesananku"
                   : "text-judul-pesananku-notactive"
               }
-              onClick={() => setIsActive(false)}
+              onClick={handleKonfirmasi}
+            >
+              Konfirmasi
+            </p>
+          </div>
+
+          <div className="col-1 d-flex justify-content-center py-1">
+            <p style={{ color: "grey", fontSize: "1.2em" }}>|</p>
+          </div>
+
+          <div className="col-1">
+            <p
+              className={
+                isDikirim
+                  ? "text-judul-pesananku"
+                  : "text-judul-pesananku-notactive"
+              }
+              onClick={handleDikirim}
             >
               Dikirim
             </p>
@@ -62,11 +138,11 @@ const TransaksiPembeli = () => {
           <div className="col">
             <p
               className={
-                isActive
+                isSelesai
                   ? "text-judul-pesananku"
                   : "text-judul-pesananku-notactive"
               }
-              onClick={() => setIsActive(true)}
+              onClick={handleSelesai}
             >
               Selesai
             </p>
@@ -74,19 +150,7 @@ const TransaksiPembeli = () => {
         </div>
       </div>
 
-      {!isActive ? (
-        <div className="profilepembeli-con container">
-          {dataKonfirmasi?.map((data, index) => {
-            return <DetailTransaksi data={data} index={index} key={index} />;
-          })}
-        </div>
-      ) : (
-        <div className="profilepembeli-con container">
-          {dataSelesai?.map((data, index) => {
-            return <DetailTransaksi data={data} index={index} key={index} />;
-          })}
-        </div>
-      )}
+      <div className="data-pesananku container">{listItem}</div>
     </div>
   );
 };

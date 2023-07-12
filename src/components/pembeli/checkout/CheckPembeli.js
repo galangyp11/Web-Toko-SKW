@@ -18,11 +18,11 @@ const CheckPembeli = () => {
   const [dataPembeli, setDataPembeli] = useState({});
   const [dataInput, setDataInput] = useState({
     id_pembeli: "",
-    id_penjual: "",
-    id_item: "",
-    id_keranjang: "",
+    // id_penjual: "",
+    // id_item: "",
+    // id_keranjang: "",
     id_mp: undefined,
-    jumlah_beli: "",
+    // jumlah_beli: "",
     waktu_pesan: "",
     total_harga_transaksi: undefined,
     status_transaksi: "Menunggu Konfirmasi",
@@ -92,11 +92,11 @@ const CheckPembeli = () => {
         setDataInput((item) => ({
           ...item,
           id_pembeli: data.id_pembeli,
-          id_penjual: data.id_penjual,
-          id_item: data.id_item,
-          id_keranjang: data.id_keranjang,
+          // id_penjual: data.id_penjual,
+          // id_item: data.id_item,
+          // id_keranjang: data.id_keranjang,
           id_mp: data.id_mp,
-          jumlah_beli: data.jumlah,
+          // jumlah_beli: data.jumlah,
           waktu_pesan:
             tanggal.getHours() +
             ":" +
@@ -150,6 +150,7 @@ const CheckPembeli = () => {
 
   const handleBayar = async (e) => {
     e.preventDefault();
+
     if (alamatPembeli.alamat === "") {
       setIsAlert(true);
       setTextAlert("Silahkan lengkapi alamat rumah anda");
@@ -158,7 +159,38 @@ const CheckPembeli = () => {
       setTextAlert("Silahkan pilih metode pembayaran");
     } else {
       try {
-        await axios.post(`${apiHost}transaksi`, dataInput);
+        let formData = new FormData();
+
+        for (let i = 0; i < dataCheckout.length; i++) {
+          formData.append("id_item", dataCheckout[i].id_item);
+        }
+
+        for (let i = 0; i < dataCheckout.length; i++) {
+          formData.append("id_pembeli", dataCheckout[i].id_pembeli);
+        }
+
+        for (let i = 0; i < dataCheckout.length; i++) {
+          formData.append("id_penjual", dataCheckout[i].id_penjual);
+        }
+
+        for (let i = 0; i < dataCheckout.length; i++) {
+          formData.append("id_keranjang", dataCheckout[i].id_keranjang);
+        }
+
+        for (let i = 0; i < dataCheckout.length; i++) {
+          formData.append("jumlah_beli", dataCheckout[i].jumlah);
+        }
+
+        formData.append("id_mp", dataInput.id_mp);
+        formData.append("status_transaksi", dataInput.status_transaksi);
+        formData.append(
+          "total_harga_transaksi",
+          dataInput.total_harga_transaksi
+        );
+        formData.append("waktu_pesan", dataInput.waktu_pesan);
+
+        // await axios.post(`${apiHost}konfirmasi`, dataInput);
+        await axios.post(`${apiHost}transaksi`, formData);
         await axios.put(`${apiHost}alamat-pembeli`, alamatPembeli);
         await axios.put(`${apiHost}item-stok`, stokItem);
         setShow(true);

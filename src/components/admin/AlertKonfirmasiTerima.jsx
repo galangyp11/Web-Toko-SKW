@@ -12,6 +12,7 @@ const AlertKonfirmasiTerima = ({
 }) => {
   const [dataInput, setDataInput] = useState({
     status_transaksi: "Pesanan diteruskan ke penjual",
+    status_pembayaran: "Pembayaran dikonfirmasi",
   });
 
   const handleKonfirmasi = async () => {

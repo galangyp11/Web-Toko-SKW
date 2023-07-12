@@ -6,6 +6,7 @@ import { BsEyeFill, BsEyeSlashFill } from "react-icons/bs";
 import { useNavigate, Link } from "react-router-dom";
 
 import Alert from "../AlertMerah";
+import AlertHijau from "../AlertHijau";
 
 const DaftarPembeli = () => {
   const navigate = useNavigate();
@@ -19,6 +20,7 @@ const DaftarPembeli = () => {
     level: "Pembeli",
   });
   const [isAlert, setIsAlert] = useState(false);
+  const [isAlertHijau, setIsAlertHijau] = useState(false);
   const [textAlert, setTextAlert] = useState("");
   const [dataPembeli, setDataPembeli] = useState([]);
   const [typePassword, setTypePassword] = useState("password");
@@ -61,7 +63,12 @@ const DaftarPembeli = () => {
     } else {
       try {
         await axios.post(`${apiHost}pembeli`, dataInput);
-        navigate("/login");
+        setIsAlertHijau(true);
+        setTextAlert("Akun berhasil dibuat");
+        setTimeout(() => {
+          navigate("/login");
+        }, 1500);
+
         console.log("bisa kog");
       } catch (error) {
         console.log("eror bang gabisa input");
@@ -185,6 +192,15 @@ const DaftarPembeli = () => {
             textAlert={textAlert}
             isAlert={isAlert}
             setIsAlert={setIsAlert}
+          />
+        ) : (
+          <div></div>
+        )}
+        {isAlertHijau ? (
+          <AlertHijau
+            textAlert={textAlert}
+            isAlert={isAlertHijau}
+            setIsAlert={setIsAlertHijau}
           />
         ) : (
           <div></div>

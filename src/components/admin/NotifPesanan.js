@@ -8,7 +8,7 @@ import apiHost from "../../constants/apiHost";
 const NotifPesanan = () => {
   const [dataKonfirmasi, setDataKonfirmasi] = useState([]);
   const [dataInput, setDataInput] = useState({
-    status_transaksi: "Pesanan diteruskan ke penjual",
+    status_transaksi: "Pesanan diteruskan ke Penjual",
   });
   const [isAlertTolak, setIsAlertTolak] = useState(false);
   const [isAlertKonfirmasi, setIsAlertKonfirmasi] = useState(false);
@@ -17,7 +17,7 @@ const NotifPesanan = () => {
 
   useEffect(() => {
     const getNotif = async () => {
-      const response = await axios.get(`${apiHost}transaksi`);
+      const response = await axios.get(`${apiHost}konfirmasi`);
       setDataKonfirmasi(response.data);
     };
     getNotif();
@@ -96,7 +96,7 @@ const NotifPesanan = () => {
                     <button
                       className="btn btn-danger but-tolak-pesanan"
                       onClick={(e) =>
-                        handleTolak(e, data.id_transaksi, data.username)
+                        handleTolak(e, data.id_konfirmasi, data.username)
                       }
                     >
                       Tolak
@@ -106,7 +106,7 @@ const NotifPesanan = () => {
                     <button
                       className="btn btn-primary but-konfirmasi-pesanan"
                       onClick={(e) =>
-                        handleKonfirmasi(e, data.id_transaksi, data.username)
+                        handleKonfirmasi(e, data.id_konfirmasi, data.username)
                       }
                     >
                       Konfirmasi

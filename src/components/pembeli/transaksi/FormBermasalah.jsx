@@ -50,7 +50,7 @@ const FormBermasalah = () => {
   };
   console.log(dataInput);
   return (
-    <div className="form-bermasalah container d-flex justify-content-center align-items-center my-5">
+    <div className="form-bermasalah container d-flex justify-content-center align-items-center">
       <div className="bg-form-bermasalah container px-5">
         <div className="row" style={{ height: "3em" }}>
           <p className="teks-form-bermasalah d-flex justify-content-center  p-2 ">

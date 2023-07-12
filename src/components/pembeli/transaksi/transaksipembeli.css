@@ -7,6 +7,13 @@
   transition: 0.2s ease;
 }
 
+.item-transaksi-pembeli-konfirmasi {
+  min-height: 3em;
+  background-color: #f7f7f7;
+  box-shadow: rgba(0, 0, 0, 0.6) 0px 0px 1px;
+  border-radius: 0px 0px 5px 5px;
+}
+
 .judul-pesananku {
   box-shadow: rgba(33, 35, 38, 0.1) 0px 10px 10px -10px;
   height: 3em;
@@ -32,6 +39,15 @@
   color: black;
 }
 
+.data-pesananku {
+  background-color: white;
+
+  width: auto;
+  height: 80dvh;
+
+  overflow-x: hidden;
+}
+
 .item-transaksi-pembeli-atas:hover {
   backdrop-filter: brightness(90%);
 }
@@ -40,8 +56,14 @@
   min-height: 12em;
   width: 100%;
   box-shadow: rgba(0, 0, 0, 0.6) 0px 0px 1px;
-  background-color: #f7f7f7;
-  border-radius: 0px 0px 5px 5px;
+  background-color: white;
+  border-radius: 5px;
+  transition: 0.1s ease;
+}
+
+.item-transaksi-pembeli-detail:hover {
+  /* filter: brightness(90%); */
+  box-shadow: rgba(0, 0, 0, 1) 0px 0px 2px;
 }
 
 .text-item-pesanan-selesai {
@@ -50,8 +72,35 @@
   font-size: 1.5em;
 }
 
+.no-list-item {
+  width: 1.5em;
+  height: 1.5em;
+  font-size: 1em;
+  font-weight: 600;
+  border-radius: 5px;
+  text-align: center;
+  color: white;
+  background-color: #888;
+  transition: 0.2s ease;
+}
+
 .arrow-detail {
   transform: 0.2 ease;
+}
+
+.text-nama-item-detail {
+  font-size: 1.5em;
+  font-weight: 600;
+}
+
+.text-harga-item-detail {
+  font-size: 1.2em;
+  font-weight: 600;
+  color: #0e8388;
+}
+
+.text-status-item-detail {
+  font-weight: bold;
 }
 
 .arrow-detail-active {
@@ -72,6 +121,24 @@
 .text-nama-item-transaksi {
   height: 100%;
   font-family: Poppins;
+}
+
+.text-nama-toko-item-detail {
+  height: 1.5em;
+  padding-left: 1em;
+  padding-right: 1em;
+  border-radius: 5px;
+  display: inline-block;
+  font-size: 1em;
+  font-weight: 600;
+  cursor: pointer;
+  color: #0e8388;
+  transition: 0.2s ease;
+}
+
+.text-nama-toko-item-detail:hover {
+  color: white;
+  background-color: #0e8388;
 }
 
 .text-total-item-transaksi {

@@ -64,7 +64,7 @@ const ItemsKeranjang = ({ item, datum, setDatum, setDataInput, dataDB }) => {
     dataDB();
   };
 
-  console.log({ refJumlah });
+  console.log({ datum });
 
   // const foto = btoa(String.fromCharCode(...new Uint8Array(item.foto_item.data)))
   return (
