@@ -13,7 +13,7 @@ const AlertKonfirmasiTolak = ({
   setDataKonfirmasi,
 }) => {
   const [dataInput, setDataInput] = useState({
-    status_transaksi: "Pembayaran ditolak",
+    status_pembayaran: "Pembayaran ditolak",
   });
 
   const [stokAwal, setStokAwal] = useState({
@@ -34,7 +34,8 @@ const AlertKonfirmasiTolak = ({
   console.log(stokAwal);
 
   const handleTolak = async () => {
-    await axios.put(`${apiHost}transaksi/${idTransaksi}`, dataInput);
+    await axios.put(`${apiHost}transaksi-tolak/${idTransaksi}`, dataInput);
+    await axios.delete(`${apiHost}transaksi-delete/${idTransaksi}`);
     await axios.put(`${apiHost}item-stok`, stokAwal);
     setIsAlert(false);
     // window.location.reload()
