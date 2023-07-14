@@ -1,28 +1,40 @@
-.info-pembeli{
-    border-radius: 10px;
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+.info-pembeli {
+  width: 99%;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  min-height: 80dvh;
+  height: 39em;
+
+  background-color: #0e8388;
 }
 
-.bg-foto-profile-pembeli{
-    border-radius: 50%;
-    height: 300px;
-    width: 300px;
-    background-color: #E7F6F2;
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+.profile-card-kanan {
+  height: 100%;
+  width: 100%;
+  border-radius: 0px 10px 10px 0px;
+  background-color: white;
 }
 
-.foto-profile{
-    border-radius: 50%;
-    height: 300px;
-    width: 300px;
-    object-fit: cover;
+.bg-foto-profile-pembeli {
+  border-radius: 50%;
+  height: 300px;
+  width: 300px;
+  background-color: #e7f6f2;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 }
 
-.icon-ubah{
-    cursor: pointer;
-    transition: .2s ease;
+.foto-profile {
+  border-radius: 50%;
+  height: 270px;
+  width: 270px;
+  object-fit: cover;
 }
 
-.icon-ubah:hover{
-    transform: rotate(180deg);
+.icon-ubah {
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.icon-ubah:hover {
+  transform: rotate(180deg);
 }

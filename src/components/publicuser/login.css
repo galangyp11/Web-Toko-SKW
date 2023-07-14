@@ -1,97 +1,100 @@
-.login{
-    width: 100dvw;
-    height: 100dvh;
-    background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='100%25' width='100%25'%3E%3Cdefs%3E%3Cpattern id='doodad' width='26' height='26' viewBox='0 0 40 40' patternUnits='userSpaceOnUse' patternTransform='rotate(141)'%3E%3Crect width='100%25' height='100%25' fill='rgba(247, 250, 252,1)'/%3E%3Ccircle cx='20' cy='20' r='1' fill='%231a202c'/%3E%3Cpath d='M20 20aNaNNaN 0 0 0NaNNaNaNaNNaN 0 0 0NaNNaN' fill='%23ecc94b'/%3E%3C/pattern%3E%3C/defs%3E%3Crect fill='url(%23doodad)' height='200%25' width='200%25'/%3E%3C/svg%3E ")
+.login {
+  width: 100dvw;
+  height: 100dvh;
+  /* background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='100%25' width='100%25'%3E%3Cdefs%3E%3Cpattern id='doodad' width='26' height='26' viewBox='0 0 40 40' patternUnits='userSpaceOnUse' patternTransform='rotate(141)'%3E%3Crect width='100%25' height='100%25' fill='rgba(247, 250, 252,1)'/%3E%3Ccircle cx='20' cy='20' r='1' fill='%231a202c'/%3E%3Cpath d='M20 20aNaNNaN 0 0 0NaNNaNaNaNNaN 0 0 0NaNNaN' fill='%23ecc94b'/%3E%3C/pattern%3E%3C/defs%3E%3Crect fill='url(%23doodad)' height='200%25' width='200%25'/%3E%3C/svg%3E ") */
+  background-image: url(.././image/bg-login.png);
+  background-size: cover;
 }
 
-.text-skw{
-    font-size: 7rem;
-    font-weight: bold;
-    color: #0E8388;
+.text-skw {
+  font-size: 7rem;
+  font-weight: bold;
+  color: #0e8388;
 
-    text-shadow: 7px 7px 1px rgba(100, 100, 111, 0.2) ;
+  text-shadow: 7px 7px 1px rgba(100, 100, 111, 0.2);
 }
 
-.text-tagline{
-    font-size: 2rem;
-    font-weight: 500;
-    color: #0E8388;
+.text-tagline {
+  font-size: 2rem;
+  font-weight: 500;
+  color: #0e8388;
 
-    text-shadow: 1px 1px 5px rgba(100, 100, 111, 0.2) ;
+  text-shadow: 1px 1px 5px rgba(100, 100, 111, 0.2);
 }
 
-.test-form{
-    border-radius: 10px;
-    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-    background-color: white;
-    width: 400px;
-    height: 450px;
+.test-form {
+  border-radius: 10px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  background-color: white;
+  width: 400px;
+  height: 450px;
 }
 
-.content-form{
-    width: 100%;
-    height: 100%;
+.content-form {
+  width: 100%;
+  height: 100%;
 }
 
-.input-text{
-    border: none;
-    border-radius: 5px;
-    width: 300px;
-    height: 35px;
+.input-text {
+  border: none;
+  border-radius: 5px;
+  width: 300px;
+  height: 35px;
 
-    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
-    transition: .2s ease;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
+    rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+  transition: 0.2s ease;
 }
 
-.text-daftar-login{
-    color: grey;
-    height: 100%;
-    width: 100%;
+.text-daftar-login {
+  color: grey;
+  height: 100%;
+  width: 100%;
 }
 
-.but-daftar-login{
-    color: #0E8388;
-    margin-left: -30px;
-    font-weight: bold;
-    cursor: pointer;
-    height: 100%;
-    width: 100%;
+.but-daftar-login {
+  color: #0e8388;
+  margin-left: -30px;
+  font-weight: bold;
+  cursor: pointer;
+  height: 100%;
+  width: 100%;
 }
 
-.but-login-login{
-    width: 300px;
-    height: 35px;
-    background-color: #0E8388;
-    border-radius: 5px;
-    border: none;
-    font-weight: 600;
-    color: white;
+.but-login-login {
+  width: 300px;
+  height: 35px;
+  background-color: #0e8388;
+  border-radius: 5px;
+  border: none;
+  font-weight: 600;
+  color: white;
 }
 
-.but-login-login:hover{
-    background-color: #08595c;
+.but-login-login:hover {
+  background-color: #08595c;
 }
 
-.but-back{
-    width: 200px;
-    height: 40px;
-    border-radius: 5px;
-    background-color: #0E8388;
-    cursor: pointer;
+.but-back {
+  width: 200px;
+  height: 40px;
+  border-radius: 5px;
+  background-color: #0e8388;
+  cursor: pointer;
 
-    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
-    transition: .2s ease;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
+    rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+  transition: 0.2s ease;
 }
 
-.text-but-back{
-    width: 100%;
-    height: 100%;
-    color: white;
-    text-align: center;
-    cursor: pointer;
+.text-but-back {
+  width: 100%;
+  height: 100%;
+  color: white;
+  text-align: center;
+  cursor: pointer;
 }
 
-.but-back:hover{
-    background-color: #08595c;
+.but-back:hover {
+  background-color: #08595c;
 }
-  
