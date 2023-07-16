@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import ppKosong from "../../image/pp-kosong.png";
+import fotoKosing from "../../image/pp-kosong.png";
 import Cookies from "js-cookie";
 import axios from "axios";
 import apiHost from "../../../constants/apiHost";
@@ -92,10 +92,18 @@ const HalamanEdit = ({ setIsEdit }) => {
 
   const handleSimpanPenjual = async (e) => {
     e.preventDefault();
-    await axios.put(`${apiHost}pembeli`, dataInput);
-    setIsAlert(true);
-    setTextAlert("Profile berhasil diubah");
-    window.location.reload();
+
+    if (dataInput.foto_profil.type === "Buffer") {
+      await axios.put(`${apiHost}pembeli-nofoto`, dataInput);
+      setIsAlert(true);
+      setTextAlert("Profile berhasil diubah");
+      window.location.reload();
+    } else {
+      await axios.put(`${apiHost}pembeli`, dataInput);
+      setIsAlert(true);
+      setTextAlert("Profile berhasil diubah");
+      window.location.reload();
+    }
   };
 
   console.log({
@@ -108,16 +116,29 @@ const HalamanEdit = ({ setIsEdit }) => {
         <div className="row" style={{ height: "100%" }}>
           <div className="row d-flex justify-content-center align-items-end">
             <div className="bg-foto-profile-pembeli d-flex justify-content-center align-items-center">
-              {previewImg?.map((data, index) => {
-                return (
-                  <img
-                    className="foto-profile"
-                    src={`${data}`}
-                    key={index}
-                    alt=""
-                  />
-                );
-              })}
+              {previewImg?.length !== 0 ? (
+                previewImg?.map((data, index) => {
+                  return (
+                    <img
+                      className="foto-profile"
+                      src={`${data}`}
+                      key={index}
+                      alt=""
+                    />
+                  );
+                })
+              ) : (
+                <img
+                  className="foto-profile"
+                  style={{ height: "270px", width: "270px" }}
+                  src={
+                    pembeliById.foto_profil?.data.length === 0
+                      ? fotoKosing
+                      : `data:image/png;base64,${foto}`
+                  }
+                  alt=""
+                />
+              )}
             </div>
           </div>
           <div className="row">

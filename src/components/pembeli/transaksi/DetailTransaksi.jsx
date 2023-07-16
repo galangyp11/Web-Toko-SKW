@@ -13,17 +13,6 @@ const DetailTransaksi = ({ data, index }) => {
   });
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   const getNotif = async () => {
-  //     const response = await axios.get(
-  //       `${apiHost}transaksi/pembeli/${data.id_pesananku}`
-  //     );
-  //     setDataDikirimDetail(response.data);
-  //     console.log(response.data);
-  //   };
-  //   getNotif();
-  // }, []);
-
   useEffect(() => {
     if (data.status_transaksi === "Pesanan sedang dikirim") {
       setIsDisable(false);
@@ -37,7 +26,7 @@ const DetailTransaksi = ({ data, index }) => {
       `${apiHost}transaksi-penjual/${data.id_transaksi}`,
       dataInput
     );
-    window.location.reload();
+    // window.location.reload();
     setIsSelesai(true);
   };
 
@@ -50,58 +39,6 @@ const DetailTransaksi = ({ data, index }) => {
 
   return (
     <div className="item-transaksi-pembeli my-3" key={data.id_transaksi}>
-      {/* <div
-        className="item-transaksi-pembeli-atas d-flex justify-content-center"
-        onClick={() => setIsDetail(!isDetail)}
-      >
-        <div
-          className="row  d-flex align-items-center"
-          style={{ width: "100%" }}
-        >
-          <div className="col-1 garis-vertical-kanan">
-            <p className="text-no-item-transaksi d-flex align-items-center justify-content-center">
-              {index + 1}
-            </p>
-          </div>
-          <div className="col-1">
-            <p className="text-nama-item-transaksi">
-              Item ({dataDikirimDetail.length ? dataDikirimDetail.length : 1}) :
-            </p>
-          </div>
-          <div className="col">
-            {dataDikirimDetail.map((item, index) => {
-              return (
-                <p
-                  className="text-nama-item-transaksi"
-                  style={{ margin: "0" }}
-                  key={index}
-                >
-                  - {item.nama_item}
-                </p>
-              );
-            })}
-          </div>
-          <div className="col-2 garis-vertical-kiri">
-            <p className="text-total-item-transaksi d-flex align-items-center">
-              Total Harga : Rp {dataDikirimDetail[0]?.total_harga_transaksi}
-            </p>
-          </div>
-          <div className="col-3 garis-vertical-kiri">
-            <p className="text-total-item-transaksi d-flex align-items-center">
-              Status Pesanan : {dataDikirimDetail[0]?.status_transaksi}
-            </p>
-          </div>
-          <div className="col-1 garis-vertical-kiri">
-            <div className="arrow-transaksi d-flex align-items-center justify-content-center">
-              <BsFillCaretRightFill
-                size="20px"
-                color="black"
-                className={!isDetail ? "arrow-detail" : "arrow-detail-active"}
-              />
-            </div>
-          </div>
-        </div>
-      </div> */}
       {!isDetail ? (
         <div className="item-transaksi-pembeli-detail ">
           <div className="d-flex justify-content-center list-item-transaksi-pembeli-detail">

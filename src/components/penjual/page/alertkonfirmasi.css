@@ -1,0 +1,12 @@
+.text-alert-konfirmasi {
+  color: black;
+  font-weight: 600;
+}
+
+.bg-alert-konfirmasi {
+  height: 5em;
+}
+
+.but-konfirmasi {
+  width: 6em;
+}

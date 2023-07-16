@@ -1,15 +1,21 @@
 import "./notifpesanan.css";
 import { useState, useEffect } from "react";
+import AlertKonfirmasiTolak from "./AlertKonfirmasiTolak";
+import AlertKonfirmasiTerima from "./AlertKonfirmasiTerima";
 import axios from "axios";
 import Cookies from "js-cookie";
 import apiHost from "../../../constants/apiHost";
 
 const NotifPesanan = () => {
   const [dataKonfirmasi, setDataKonfirmasi] = useState([]);
+  const [isAlertTolak, setIsAlertTolak] = useState(false);
+  const [isAlertKonfirmasi, setIsAlertKonfirmasi] = useState(false);
+  const [textAlert, setTextAlert] = useState("");
+  const [idTransaksi, setIdTransaksi] = useState("");
+  const id = Cookies.get("id");
   const [dataInput, setDataInput] = useState({
     status_transaksi: "Pesanan sedang dikemas",
   });
-  const id = Cookies.get("id");
 
   useEffect(() => {
     const getNotif = async () => {
@@ -19,30 +25,37 @@ const NotifPesanan = () => {
       setDataKonfirmasi(response.data);
     };
     getNotif();
-  }, []);
+  }, [isAlertKonfirmasi, isAlertTolak]);
 
-  const handleTolak = () => {
-    alert("nanti status pesanannya ditolak");
-  };
-
-  const handleKonfirmasi = async (id, e) => {
+  const handleTolak = (e, data) => {
     e.preventDefault();
-    try {
-      await axios.put(`${apiHost}transaksi-penjual/${id}`, dataInput);
-      alert("Berhasil di Konfirmasi");
-    } catch (error) {
-      console.log("eror bang gabisa input");
-    }
+    setIdTransaksi(data.id_transaksi);
+    setIsAlertTolak(true);
+    setTextAlert(
+      <div>
+        <p style={{ margin: "0px" }}>
+          Konfirmasi Tolak Pesanan : {data.username}
+        </p>
+        <p style={{ margin: "0px" }}>Item : {data.nama_item}</p>
+        <p>Jumlah : {data.jumlah_beli}</p>
+      </div>
+    );
   };
 
-  const formatUang = (number) => {
-    return new Intl.NumberFormat("id-ID", {
-      style: "currency",
-      currency: "IDR",
-    }).format(number);
+  const handleKonfirmasi = (e, data) => {
+    e.preventDefault();
+    setIdTransaksi(data.id_transaksi);
+    setIsAlertKonfirmasi(true);
+    setTextAlert(
+      <div>
+        <p style={{ margin: "0px" }}>
+          Konfirmasi Terima Pesanan : {data.username}
+        </p>
+        <p style={{ margin: "0px" }}>Item : {data.nama_item}</p>
+        <p>Jumlah : {data.jumlah_beli}</p>
+      </div>
+    );
   };
-
-  console.log(dataKonfirmasi);
 
   return (
     <div className="notif-pesanan container-fluid">
@@ -51,14 +64,14 @@ const NotifPesanan = () => {
       <div className="row">
         <p className="text-alert-notif-pesanan">
           MOHON untuk cek dengan benar-benar teliti sebelum KIRIM pensanan !
-          <p className="text-pemberitahuan-notif-pesanan">
-            Proses pesanan secepatnya
-          </p>
+        </p>
+        <p className="text-pemberitahuan-notif-pesanan">
+          Proses pesanan secepatnya
         </p>
       </div>
 
       <div className="row ">
-        <table class="table my-5 table-bordered">
+        <table className="table my-5 table-bordered">
           <thead className="table-dark table-striped ">
             <tr>
               <th className="col-1" scope="col">
@@ -86,7 +99,7 @@ const NotifPesanan = () => {
             </tr>
           </thead>
           <tbody>
-            {dataKonfirmasi.map((data, index) => {
+            {dataKonfirmasi?.map((data, index) => {
               return (
                 <tr key={data.id_transaksi}>
                   <td>{index + 1}</td>
@@ -98,7 +111,7 @@ const NotifPesanan = () => {
                   <td style={{ textAlign: "center" }}>
                     <button
                       className="btn btn-danger but-tolak-pesanan"
-                      onClick={handleTolak}
+                      onClick={(e) => handleTolak(e, data)}
                     >
                       Tolak
                     </button>
@@ -106,7 +119,7 @@ const NotifPesanan = () => {
                   <td style={{ textAlign: "center" }}>
                     <button
                       className="btn btn-primary but-konfirmasi-pesanan"
-                      onClick={(e) => handleKonfirmasi(data.id_transaksi, e)}
+                      onClick={(e) => handleKonfirmasi(e, data)}
                     >
                       Terima Pesanan
                     </button>
@@ -116,6 +129,30 @@ const NotifPesanan = () => {
             })}
           </tbody>
         </table>
+      </div>
+      <div className="d-flex justify-content-center">
+        {isAlertTolak ? (
+          <AlertKonfirmasiTolak
+            textAlert={textAlert}
+            isAlert={isAlertTolak}
+            setIsAlert={setIsAlertTolak}
+            idTransaksi={idTransaksi}
+            dataKonfirmasi={dataKonfirmasi}
+          />
+        ) : (
+          <div></div>
+        )}
+        {isAlertKonfirmasi ? (
+          <AlertKonfirmasiTerima
+            textAlert={textAlert}
+            isAlert={isAlertKonfirmasi}
+            setIsAlert={setIsAlertKonfirmasi}
+            idTransaksi={idTransaksi}
+            dataInput={dataInput}
+          />
+        ) : (
+          <div></div>
+        )}
       </div>
     </div>
   );
