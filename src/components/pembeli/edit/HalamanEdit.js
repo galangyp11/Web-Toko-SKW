@@ -41,7 +41,7 @@ const HalamanEdit = ({ setIsEdit }) => {
     if (evt.target.files.length > 0) {
       const foto_profil = [];
 
-      Array.from(evt.target.files).forEach((imageFile) => {
+      Array.from(evt.target.files)?.forEach((imageFile) => {
         const fileReader = new FileReader();
         fileReader.onload = () => {
           const srcData = fileReader.result;
@@ -61,18 +61,6 @@ const HalamanEdit = ({ setIsEdit }) => {
     setPreviewImg(images);
   };
 
-  setTimeout(() => {
-    try {
-      setFoto(
-        btoa(
-          String.fromCharCode(...new Uint8Array(pembeliById.foto_profil.data))
-        )
-      );
-    } catch (error) {
-      console.log("sabar bang fotonya lagi loading");
-    }
-  }, 100);
-
   const handleInput = (e) => {
     setDataInput((data) => ({ ...data, [e.target.id]: e.target.value }));
   };
@@ -81,29 +69,35 @@ const HalamanEdit = ({ setIsEdit }) => {
     setDataInput((data) => ({
       ...data,
       id_pembeli: id,
-      email: pembeliById.email,
-      password: pembeliById.password,
-      alamat: pembeliById.alamat,
-      username: pembeliById.username,
-      no_telp: pembeliById.no_telp,
-      foto_profil: pembeliById.foto_profil,
+      email: pembeliById?.email,
+      password: pembeliById?.password,
+      alamat: pembeliById?.alamat,
+      username: pembeliById?.username,
+      no_telp: pembeliById?.no_telp,
+      foto_profil: pembeliById?.foto_profil,
     }));
+
+    setFoto(
+      btoa(
+        String.fromCharCode(...new Uint8Array(pembeliById?.foto_profil?.data))
+      )
+    );
   }, [pembeliById]);
 
-  const handleSimpanPenjual = async (e) => {
+  const handleSimpan = async (e) => {
     e.preventDefault();
 
-    if (dataInput.foto_profil.type === "Buffer") {
-      await axios.put(`${apiHost}pembeli-nofoto`, dataInput);
-      setIsAlert(true);
-      setTextAlert("Profile berhasil diubah");
-      window.location.reload();
-    } else {
-      await axios.put(`${apiHost}pembeli`, dataInput);
-      setIsAlert(true);
-      setTextAlert("Profile berhasil diubah");
-      window.location.reload();
-    }
+    // if (dataInput.foto_profil.length > 0) {
+    await axios.put(`${apiHost}pembeli`, dataInput);
+    setIsAlert(true);
+    setTextAlert("Profile berhasil diubah");
+    window.location.reload();
+    // } else if (dataInput.foto_profil.type === "Buffer") {
+    //   await axios.put(`${apiHost}pembeli-nofoto`, dataInput);
+    //   setIsAlert(true);
+    //   setTextAlert("Profile berhasil diubah");
+    //   window.location.reload();
+    // }
   };
 
   console.log({
@@ -132,7 +126,7 @@ const HalamanEdit = ({ setIsEdit }) => {
                   className="foto-profile"
                   style={{ height: "270px", width: "270px" }}
                   src={
-                    pembeliById.foto_profil?.data.length === 0
+                    pembeliById?.foto_profil?.data.length === 0
                       ? fotoKosing
                       : `data:image/png;base64,${foto}`
                   }
@@ -173,7 +167,7 @@ const HalamanEdit = ({ setIsEdit }) => {
               <div className="col">
                 <input
                   className="input-text d-flex align-items-center"
-                  placeholder={pembeliById.username}
+                  placeholder={pembeliById?.username}
                   id="username"
                   onChange={handleInput}
                 ></input>
@@ -194,7 +188,7 @@ const HalamanEdit = ({ setIsEdit }) => {
               <div className="col">
                 <input
                   className="input-text d-flex align-items-center"
-                  placeholder={pembeliById.email}
+                  placeholder={pembeliById?.email}
                   id="email"
                   onChange={handleInput}
                 ></input>
@@ -215,7 +209,7 @@ const HalamanEdit = ({ setIsEdit }) => {
               <div className="col">
                 <input
                   className="input-text d-flex align-items-center"
-                  placeholder={pembeliById.password}
+                  placeholder={pembeliById?.password}
                   id="password"
                   onChange={handleInput}
                 ></input>
@@ -236,7 +230,7 @@ const HalamanEdit = ({ setIsEdit }) => {
               <div className="col">
                 <input
                   className="input-text d-flex align-items-center"
-                  placeholder={pembeliById.no_telp}
+                  placeholder={pembeliById?.no_telp}
                   id="no_telp"
                   onChange={handleInput}
                 ></input>
@@ -257,7 +251,7 @@ const HalamanEdit = ({ setIsEdit }) => {
               <div className="col">
                 <textarea
                   className="input-text d-flex align-items-center"
-                  placeholder={pembeliById.alamat}
+                  placeholder={pembeliById?.alamat}
                   id="alamat"
                   onChange={handleInput}
                   style={{ height: "5em", resize: "none" }}
@@ -278,7 +272,7 @@ const HalamanEdit = ({ setIsEdit }) => {
               <div className="col-3 d-flex justify-content-end">
                 <button
                   className="but-input-item-penjual"
-                  onClick={handleSimpanPenjual}
+                  onClick={handleSimpan}
                 >
                   Simpan
                 </button>

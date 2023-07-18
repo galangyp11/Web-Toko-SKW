@@ -1,18 +1,34 @@
 import "./infopembeli.css";
-import fotoKosing from "../../image/pp-kosong.png";
+import { useState, useEffect } from "react";
 import { BsArrowRepeat } from "react-icons/bs";
+import Cookies from "js-cookie";
+import axios from "axios";
+import apiHost from "../../../constants/apiHost";
 
-const InfoPembeli = ({
-  pembeliById,
-  foto,
-  isEdit,
-  setIsEdit,
-  setIdPageEdit,
-}) => {
+const InfoPembeli = ({ setIsEdit }) => {
+  const [pembeliById, setPembeliById] = useState({});
+  const [foto, setFoto] = useState();
+  const id = Cookies.get("id");
+
+  useEffect(() => {
+    const getItemById = async () => {
+      const response = await axios.get(`${apiHost}pembeli/${id}`);
+      setPembeliById(response.data);
+      console.log(response.data);
+    };
+    getItemById();
+  }, []);
+
+  useEffect(() => {
+    setFoto(
+      btoa(
+        String.fromCharCode(...new Uint8Array(pembeliById?.foto_profil?.data))
+      )
+    );
+  }, [pembeliById]);
+
   console.log({ pembeliById });
-  // const foto = btoa(
-  //     String.fromCharCode(...new Uint8Array(pembeliById.foto_profil))
-  //   );
+
   return (
     <div className="info-pembeli row my-3">
       <div
@@ -23,12 +39,8 @@ const InfoPembeli = ({
           <div className="bg-foto-profile-pembeli p-3 d-flex align-items-center justify-content-center">
             <img
               className="foto-profile"
-              src={
-                pembeliById.foto_profil?.data.length === 0
-                  ? fotoKosing
-                  : `data:image/png;base64,${foto}`
-              }
-              alt=""
+              src={`data:image/png;base64,${foto}`}
+              alt="foto-profile"
             />
           </div>
         </div>

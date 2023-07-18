@@ -15,22 +15,17 @@ const ProfileToko = () => {
     const getItemById = async () => {
       const response = await axios.get(`${apiHost}penjual/${id}`);
       setPenjualById(response.data);
-      console.log(response.data);
     };
     getItemById();
   }, []);
 
-  setTimeout(() => {
-    try {
-      setFoto(
-        btoa(
-          String.fromCharCode(...new Uint8Array(penjualById.foto_profil.data))
-        )
-      );
-    } catch (error) {
-      console.log("sabar bang fotonya lagi loading");
-    }
-  }, 100);
+  useEffect(() => {
+    setFoto(
+      btoa(
+        String.fromCharCode(...new Uint8Array(penjualById?.foto_profil?.data))
+      )
+    );
+  }, [penjualById]);
 
   console.log(penjualById);
   return (
@@ -65,7 +60,7 @@ const ProfileToko = () => {
 
             <div className="col ">
               <p className="text-profile-bio d-flex align-items-center">
-                {penjualById.nama_toko}
+                {penjualById?.nama_toko}
               </p>
             </div>
           </div>
@@ -86,7 +81,7 @@ const ProfileToko = () => {
 
             <div className="col ">
               <p className="text-profile-bio d-flex align-items-center">
-                {penjualById.email_penjual}
+                {penjualById?.email_penjual}
               </p>
             </div>
           </div>
@@ -107,7 +102,7 @@ const ProfileToko = () => {
 
             <div className="col ">
               <p className="text-profile-bio d-flex align-items-center">
-                {penjualById.password}
+                {penjualById?.password}
               </p>
             </div>
           </div>
@@ -128,7 +123,7 @@ const ProfileToko = () => {
 
             <div className="col ">
               <p className="text-profile-bio d-flex align-items-center">
-                {penjualById.alamat_toko}
+                {penjualById?.alamat_toko}
               </p>
             </div>
           </div>
@@ -149,7 +144,7 @@ const ProfileToko = () => {
 
             <div className="col ">
               <p className="text-profile-bio d-flex align-items-center">
-                {penjualById.whatsapp}
+                {penjualById?.whatsapp}
               </p>
             </div>
           </div>
@@ -170,7 +165,7 @@ const ProfileToko = () => {
 
             <div className="col ">
               <p className="text-profile-bio d-flex align-items-center">
-                {penjualById.no_rek_penjual}
+                {penjualById?.no_rek_penjual}
               </p>
             </div>
           </div>

@@ -4,6 +4,7 @@ import "./daftarpembeli.css";
 import { useEffect, useState } from "react";
 import { BsEyeFill, BsEyeSlashFill } from "react-icons/bs";
 import { useNavigate, Link } from "react-router-dom";
+import fotoKosong from "../image/pp-kosong.png";
 
 import Alert from "../AlertMerah";
 import AlertHijau from "../AlertHijau";
@@ -35,9 +36,11 @@ const DaftarPembeli = () => {
     getDataPembeli();
   }, []);
 
-  console.log(dataPembeli);
   const handleInput = (e) => {
-    setDataInput((data) => ({ ...data, [e.target.id]: e.target.value }));
+    setDataInput((data) => ({
+      ...data,
+      [e.target.id]: e.target.value,
+    }));
   };
 
   const handleDaftarPembeli = async (e) => {
@@ -87,7 +90,7 @@ const DaftarPembeli = () => {
     setIsHiddenPass(true);
     setTypePassword("text");
   };
-
+  console.log(dataInput);
   return (
     <div className="daftar-pembeli">
       <div className="daftar-pembeli-con container d-flex justify-content-center align-items-center">

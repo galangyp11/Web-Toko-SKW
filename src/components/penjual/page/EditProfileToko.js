@@ -31,17 +31,13 @@ const EditProfileToko = ({ setIsEdit }) => {
     getItemById();
   }, [isAlert]);
 
-  setTimeout(() => {
-    try {
-      setFoto(
-        btoa(
-          String.fromCharCode(...new Uint8Array(penjualById.foto_profil.data))
-        )
-      );
-    } catch (error) {
-      console.log("sabar bang fotonya lagi loading");
-    }
-  }, 100);
+  useEffect(() => {
+    setFoto(
+      btoa(
+        String.fromCharCode(...new Uint8Array(penjualById?.foto_profil?.data))
+      )
+    );
+  }, [penjualById]);
 
   const handleInput = (e) => {
     setDataInput((data) => ({ ...data, [e.target.id]: e.target.value }));
@@ -51,12 +47,12 @@ const EditProfileToko = ({ setIsEdit }) => {
     setDataInput((data) => ({
       ...data,
       id_penjual: id,
-      nama_toko: penjualById.nama_toko,
-      email: penjualById.email,
-      password: penjualById.password,
-      alamat: penjualById.alamat,
-      whatsapp: penjualById.whatsapp,
-      no_rek_penjual: penjualById.no_rek_penjual,
+      nama_toko: penjualById?.nama_toko,
+      email: penjualById?.email_penjual,
+      password: penjualById?.password,
+      alamat: penjualById?.alamat,
+      whatsapp: penjualById?.whatsapp,
+      no_rek_penjual: penjualById?.no_rek_penjual,
     }));
   }, [penjualById]);
 
@@ -65,7 +61,6 @@ const EditProfileToko = ({ setIsEdit }) => {
     await axios.put(`${apiHost}penjual`, dataInput);
     setIsAlert(true);
     setTextAlert("Profile berhasil diubah");
-    // window.location.reload()
   };
 
   console.log(dataInput);
@@ -101,7 +96,7 @@ const EditProfileToko = ({ setIsEdit }) => {
           <div className="col ">
             <input
               className="text-profile-bio d-flex align-items-center"
-              placeholder={penjualById.nama_toko}
+              placeholder={penjualById?.nama_toko}
               id="nama_toko"
               // value={dataInput.nama_toko}
               onChange={handleInput}
@@ -124,7 +119,7 @@ const EditProfileToko = ({ setIsEdit }) => {
           <div className="col ">
             <input
               className="text-profile-bio d-flex align-items-center"
-              placeholder={penjualById.email}
+              placeholder={penjualById?.email_penjual}
               id="email"
               // value={dataInput.email}
               onChange={handleInput}
@@ -149,7 +144,7 @@ const EditProfileToko = ({ setIsEdit }) => {
           <div className="col ">
             <input
               className="text-profile-bio d-flex align-items-center"
-              placeholder={penjualById.password}
+              placeholder={penjualById?.password}
               id="password"
               // value={dataInput.password}
               onChange={handleInput}
@@ -172,7 +167,7 @@ const EditProfileToko = ({ setIsEdit }) => {
           <div className="col ">
             <input
               className="text-profile-bio d-flex align-items-center"
-              placeholder={penjualById.alamat_toko}
+              placeholder={penjualById?.alamat_toko}
               id="alamat"
               // value={dataInput.alamat}
               onChange={handleInput}
@@ -197,7 +192,7 @@ const EditProfileToko = ({ setIsEdit }) => {
           <div className="col ">
             <input
               className="text-profile-bio d-flex align-items-center"
-              placeholder={penjualById.whatsapp}
+              placeholder={penjualById?.whatsapp}
               id="whatsapp"
               // value={dataInput.whatsapp}
               onChange={handleInput}
@@ -223,7 +218,7 @@ const EditProfileToko = ({ setIsEdit }) => {
             <input
               type="number"
               className="text-profile-bio d-flex align-items-center"
-              placeholder={penjualById.no_rek_penjual}
+              placeholder={penjualById?.no_rek_penjual}
               id="no_rek_penjual"
               // value={dataInput.no_rek_penjual}
               onChange={handleInput}

@@ -16,12 +16,12 @@ const Navbar = () => {
   const navigate = useNavigate();
   const [foto, setFoto] = useState();
   const id = Cookies.get("id");
-  const [isSearch, setIsSearch] = useState(false)
+  const [isSearch, setIsSearch] = useState(false);
   const [dataSearch, setDataSearch] = useState("");
   const [datum, setDatum] = useState([]);
 
-  const [isAlert, setIsAlert] = useState(false)
-  const [textAlert, setTextAlert] = useState('')
+  const [isAlert, setIsAlert] = useState(false);
+  const [textAlert, setTextAlert] = useState("");
 
   useEffect(() => {
     const getItemById = async () => {
@@ -32,30 +32,19 @@ const Navbar = () => {
     getItemById();
   }, []);
 
-  useEffect(()=>{
-    if(pembeliById.alamat === ""){
-      setIsAlert(true)
-      setTextAlert('Silahkan lengkapi profile')
+  useEffect(() => {
+    if (pembeliById.alamat === "") {
+      setIsAlert(true);
+      setTextAlert("Silahkan lengkapi profile");
     }
 
-    if(pembeliById.foto_profil?.data?.length === 0 ){
-      setFoto(fotoKosing)
-    } else {
-      setTimeout(() => {
-        try {
-          setFoto(
-            btoa(
-              String.fromCharCode(...new Uint8Array(pembeliById.foto_profil.data))
-            )
-          );
-        } catch (error) {
-          console.log("sabar bang fotonya lagi loading");
-        }
-      }, 100);
-    }
-  },[pembeliById])
+    setFoto(
+      btoa(
+        String.fromCharCode(...new Uint8Array(pembeliById?.foto_profil?.data))
+      )
+    );
+  }, [pembeliById]);
 
-  
   const handleLogout = () => {
     Cookies.remove("id");
 
@@ -65,24 +54,24 @@ const Navbar = () => {
     }, 100);
   };
 
-  useEffect(()=>{
-    const onSearchItem = async (e) => {  
-      const response = await axios.get(`${apiHost}item?search=${dataSearch}`)
-      setDatum(response.data)
-    }
-    onSearchItem()
+  useEffect(() => {
+    const onSearchItem = async (e) => {
+      const response = await axios.get(`${apiHost}item?search=${dataSearch}`);
+      setDatum(response.data);
+    };
+    onSearchItem();
 
-    if(dataSearch !== ''){
-      setIsSearch(true)
+    if (dataSearch !== "") {
+      setIsSearch(true);
     } else {
-      setIsSearch(false)
+      setIsSearch(false);
     }
-  },[dataSearch])
+  }, [dataSearch]);
 
   const handleDataSearch = (e) => {
-    e.preventDefault()
-    setDataSearch(`${e.target.value}`)
-  }
+    e.preventDefault();
+    setDataSearch(`${e.target.value}`);
+  };
 
   const formatUang = (number) => {
     return new Intl.NumberFormat("id-ID", {
@@ -91,7 +80,7 @@ const Navbar = () => {
     }).format(number);
   };
 
-  console.log(pembeliById)
+  console.log(pembeliById);
 
   return (
     <div className="navbar d-flex align-items-center justify-content-center">
@@ -150,7 +139,11 @@ const Navbar = () => {
                 <div className="bg-photo-profile-navbar d-flex justify-content-center align-items-center">
                   <img
                     className="photo-profile-navbar"
-                    src={pembeliById.foto_profil?.data.length === 0 ? fotoKosing : `data:image/png;base64,${foto}`}
+                    src={
+                      pembeliById.foto_profil?.data.length === 0
+                        ? fotoKosing
+                        : `data:image/png;base64,${foto}`
+                    }
                     alt="Photo-profile"
                   />
                 </div>
@@ -189,49 +182,67 @@ const Navbar = () => {
           </div>
         </div>
       </div>
-      <div className="row d-flex justify-content-center" style={{width:"50em"}}>
-        {isSearch ? <div className="bg-item-navbar px-4">
-          {datum?.map((data)=>{
-            return(
-              <div className="row d-flex justify-content-center my-2 " key={data.id_item}>
-                <Link
-                  to={`/item/${data.id_item}`}
-                  style={{ textDecoration: "none", color: "black" }}
-              
+      <div
+        className="row d-flex justify-content-center"
+        style={{ width: "50em" }}
+      >
+        {isSearch ? (
+          <div className="bg-item-navbar px-4">
+            {datum?.map((data) => {
+              return (
+                <div
+                  className="row d-flex justify-content-center my-2 "
+                  key={data.id_item}
                 >
-                <div className="row item-navbar d-flex align-items-center" >
-                  <div className="col-2 p-0" style={{height:'90%'}}>
-                    <img
-                        className="item-image"
-                        style={{objectFit:'contain'}}
-                        src={
-                          data.gambar?.length
-                            ? `${apiHost}${data.gambar[0]}`
-                            : "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/2300px-React-icon.svg.png"
-                        }
-                        alt=""
-                      />
-                  </div>
-                  <div className="col">
-                    <p className="text-item-name">{data.nama_item}</p>
-                    <p className="text-item-price">
-                      {formatUang(data.harga_item).replace(/,00/g, "")}
-                    </p>
-                  </div>
-                  <div className="col-4">
-                    <p className="text-item-toko d-flex align-items-end pb-1">
-                      {data.nama_toko}
-                    </p>
-                  </div>
+                  <Link
+                    to={`/item/${data.id_item}`}
+                    style={{ textDecoration: "none", color: "black" }}
+                  >
+                    <div className="row item-navbar d-flex align-items-center">
+                      <div className="col-2 p-0" style={{ height: "90%" }}>
+                        <img
+                          className="item-image"
+                          style={{ objectFit: "contain" }}
+                          src={
+                            data.gambar?.length
+                              ? `${apiHost}${data.gambar[0]}`
+                              : "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/2300px-React-icon.svg.png"
+                          }
+                          alt=""
+                        />
+                      </div>
+                      <div className="col">
+                        <p className="text-item-name">{data.nama_item}</p>
+                        <p className="text-item-price">
+                          {formatUang(data.harga_item).replace(/,00/g, "")}
+                        </p>
+                      </div>
+                      <div className="col-4">
+                        <p className="text-item-toko d-flex align-items-end pb-1">
+                          {data.nama_toko}
+                        </p>
+                      </div>
+                    </div>
+                  </Link>
                 </div>
-                </Link>
-             </div>
-            )
-          })}</div> : <></>}
-        </div>
-        <div className="d-flex justify-content-center">
-          {isAlert ? <Alert textAlert={textAlert} isAlert={isAlert} setIsAlert={setIsAlert}/> : <div></div>}
-        </div>
+              );
+            })}
+          </div>
+        ) : (
+          <></>
+        )}
+      </div>
+      <div className="d-flex justify-content-center">
+        {isAlert ? (
+          <Alert
+            textAlert={textAlert}
+            isAlert={isAlert}
+            setIsAlert={setIsAlert}
+          />
+        ) : (
+          <div></div>
+        )}
+      </div>
     </div>
   );
 };
