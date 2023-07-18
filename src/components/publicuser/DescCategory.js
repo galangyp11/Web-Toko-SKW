@@ -44,6 +44,10 @@ const DescCategory = () => {
     window.scrollTo(0, 0);
   }, []);
 
+  useEffect(() => {
+    setNamaKategori(kategoriById[0].nama_kategori);
+  }, [kategoriById]);
+
   const formatUang = (number) => {
     return new Intl.NumberFormat("id-ID", {
       style: "currency",
@@ -51,15 +55,7 @@ const DescCategory = () => {
     }).format(number);
   };
 
-  setTimeout(() => {
-    try {
-      setNamaKategori(kategoriById[0].nama_kategori);
-    } catch (error) {
-      console.log("bentar bang lagi loading");
-    }
-  }, 100);
-
-  console.log({ kategoriById });
+  // console.log({ kategoriById });
 
   return (
     <div className="desc-category">
@@ -73,18 +69,18 @@ const DescCategory = () => {
               <ul className="list-menu-kategori">
                 {!isLoading ? (
                   <div>
-                    {kategori.map((kategori) => {
+                    {kategori?.map((kategori) => {
                       return (
                         <Link
-                          key={kategori.id_kategori}
-                          to={`/kategori/${kategori.id_kategori}`}
+                          key={kategori?.id_kategori}
+                          to={`/kategori/${kategori?.id_kategori}`}
                           onClick={() => {
                             window.location.href("#");
                           }}
                           style={{ textDecoration: "none", color: "black" }}
                         >
                           <li className="list-kategori d-flex align-items-center">
-                            {kategori.nama_kategori}
+                            {kategori?.nama_kategori}
                           </li>
                         </Link>
                       );
@@ -106,7 +102,7 @@ const DescCategory = () => {
                 <Loading />
               ) : (
                 <div className="row gap-4 d-flex justify-content-center align-items-center row-cols-5">
-                  {kategoriById.map((item) => {
+                  {kategoriById?.map((item) => {
                     return (
                       <div
                         className="item m-3"
