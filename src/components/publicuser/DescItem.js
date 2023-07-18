@@ -51,7 +51,7 @@ const DescItem = () => {
         setTimeout(() => {
           setIsLoading(false);
           setItemById(response.data);
-        }, 1000);
+        }, 500);
       }
     };
     getItemById();

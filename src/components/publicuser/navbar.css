@@ -1,128 +1,139 @@
-.navbar-public{
-    width: 100%;
-    height: 60px;
-    background-color: white;
-    box-shadow: rgba(0, 0, 0, 0.09) 0px 3px 12px;
+.navbar-public {
+  width: 100%;
+  height: 60px;
+  background-color: white;
+  box-shadow: rgba(0, 0, 0, 0.09) 0px 3px 12px;
 }
 
-.logo{
-    height: 70px;
-    object-fit: cover;
-    cursor: pointer;
+.logo {
+  height: 70px;
+  object-fit: cover;
+  cursor: pointer;
 }
 
-.text-logo-skw{
-    font-family: 'Bebas Neue';
-    font-size: 45px;
-    color: #0E8388;
-    height: 100%;
-    width: 60px;
-    cursor: pointer;
-    transition: .2s ease;
+.text-logo-skw {
+  font-family: "Bebas Neue";
+  font-size: 45px;
+  color: #0e8388;
+  height: 100%;
+  width: 60px;
+  cursor: pointer;
+  transition: 0.2s ease;
 }
 
-.text-logo-skw:hover{
-    transform: scale(1.1);
+.text-logo-skw:hover {
+  transform: scale(1.1);
 }
 
-.search{
-    border: none;
-    border-radius: 10px 0px 0px 10px;
-    height: 35px;
-    width: 400px;
-    transition: .2s ease;
+.search {
+  border: none;
+  border-radius: 10px 0px 0px 10px;
+  height: 35px;
+  width: 400px;
+  transition: 0.2s ease;
 }
 
-.logo-search{
-    padding: 7px;
-    border-radius: 0px 10px 10px 0px; 
-    background-color: #E7F6F2;
-    cursor: pointer;
-    transition: .2s ease;
-    height: 35px;
-    width: 35px;
+.logo-search {
+  padding: 7px;
+  border-radius: 0px 10px 10px 0px;
+  background-color: #e7f6f2;
+  cursor: pointer;
+  transition: 0.2s ease;
+  height: 35px;
+  width: 35px;
 }
 
-.bg-search{
-    border-radius: 10px;
-    box-shadow: rgba(231, 246, 242, 1) 0px 1px 3px 0px, rgba(231, 246, 242, 1) 0px 0px 0px 1px;
-    /* box-shadow: rgba(231, 246, 242, 1) 1px 1px 10px; */
+.bg-search {
+  border-radius: 10px;
+  box-shadow: rgba(231, 246, 242, 1) 0px 1px 3px 0px,
+    rgba(231, 246, 242, 1) 0px 0px 0px 1px;
+  /* box-shadow: rgba(231, 246, 242, 1) 1px 1px 10px; */
 }
 
-.search:hover{
-    background-color: #9fd8c9;
+.search:hover {
+  background-color: #9fd8c9;
 }
 
-.logo-search:hover{
-    background-color: #9fd8c9;
+.logo-search:hover {
+  background-color: #9fd8c9;
 }
 
-#button{
-    border-radius: 5px;
-    height: 35px;
-    width: 80px;
-    cursor: pointer;
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-
+.item-tidak-ada {
+  width: 100%;
+  height: 100%;
 }
 
-.but-daftar{
-    background-color: #E7F6F2;
-    transition: .2s ease;
+.text-item-tidak-ada {
+  color: grey;
+  font-weight: 600;
+  font-size: 1.2em;
+  height: 100%;
 }
 
-.text-daftar{
-    font-family: 'Poppins';
-    width: 100%;
-    height: 100%;
-    font-weight: 400;
-    color: #0E8388;
+#button {
+  border-radius: 5px;
+  height: 35px;
+  width: 80px;
+  cursor: pointer;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 }
 
-.text-daftar:hover{
-    color: black;
-    
+.but-daftar {
+  background-color: #e7f6f2;
+  transition: 0.2s ease;
 }
 
-.but-daftar:hover{
-    background-color: #9fd8c9;
+.text-daftar {
+  font-family: "Poppins";
+  width: 100%;
+  height: 100%;
+  font-weight: 400;
+  color: #0e8388;
 }
 
-.but-login{
-    background-color: #0E8388;
-    transition: .2s ease;
+.text-daftar:hover {
+  color: black;
 }
 
-.text-login{
-    font-family: 'Poppins';
-    width: 100%;
-    height: 100%;
-    font-weight: 400;
-    color: #E7F6F2;
+.but-daftar:hover {
+  background-color: #9fd8c9;
 }
 
-.but-login:hover{
-    background-color: #08595c;
+.but-login {
+  background-color: #0e8388;
+  transition: 0.2s ease;
 }
 
-.bg-item-navbar{
-    min-height: 8em;
-    max-height: 40em;
-    width: 42em;
-    background-color: white;
-    border-radius: 0px 0px 10px 10px;
-    box-shadow: rgba(0, 0, 0, 0.09) 0px 3px 12px;
+.text-login {
+  font-family: "Poppins";
+  width: 100%;
+  height: 100%;
+  font-weight: 400;
+  color: #e7f6f2;
 }
 
-.item-navbar{
-    height: 7em;
-    width: 40em;
-    border-radius: 5px;
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-    background-color: white;
-    cursor: pointer;
+.but-login:hover {
+  background-color: #08595c;
 }
 
-.item-navbar:hover{
-    filter: brightness(95%);
+.bg-item-navbar {
+  min-height: 8em;
+  max-height: 40em;
+  width: 42em;
+  background-color: white;
+  border-radius: 0px 0px 10px 10px;
+  box-shadow: rgba(0, 0, 0, 0.09) 0px 3px 12px;
+}
+
+.item-navbar {
+  height: 7em;
+  width: 40em;
+  border-radius: 5px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  background-color: white;
+  cursor: pointer;
+}
+
+.item-navbar:hover {
+  filter: brightness(95%);
 }

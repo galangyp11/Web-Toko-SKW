@@ -1,6 +1,8 @@
 .loading {
-  width: 100dvw;
-  height: 100dvh;
+  min-width: 50%;
+  width: auto;
+  min-height: 50dvh;
+  height: auto;
 }
 
 .custom-loader {

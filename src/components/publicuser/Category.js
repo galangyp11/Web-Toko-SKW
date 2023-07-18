@@ -18,7 +18,7 @@ const Category = () => {
         setTimeout(() => {
           setIsLoading(false);
           setDatum(response.data);
-        }, 1000);
+        }, 500);
       }
     };
     dataDB();

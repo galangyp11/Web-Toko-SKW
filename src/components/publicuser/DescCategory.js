@@ -3,6 +3,7 @@ import imageKosong from "../image/image-kosong.png";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
+import Loading from "../Loading";
 import axios from "axios";
 import apiHost from "../../constants/apiHost";
 
@@ -11,17 +12,32 @@ const DescCategory = () => {
   const [kategori, setKategori] = useState([]);
   const [namaKategori, setNamaKategori] = useState();
   const { id } = useParams();
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const kategoriDB = async () => {
       const response = await axios.get(`${apiHost}kategori`);
-      setKategori(response.data);
+      if (response.status !== 200) {
+        setIsLoading(true);
+      } else {
+        setTimeout(() => {
+          setIsLoading(false);
+          setKategori(response.data);
+        }, 500);
+      }
     };
     kategoriDB();
 
     const getKategoriById = async () => {
       const response = await axios.get(`${apiHost}kategori/${id}`);
-      setKategoriById(response.data);
+      if (response.status !== 200) {
+        setIsLoading(true);
+      } else {
+        setTimeout(() => {
+          setIsLoading(false);
+          setKategoriById(response.data);
+        }, 500);
+      }
     };
     getKategoriById();
 
@@ -55,22 +71,28 @@ const DescCategory = () => {
             </div>
             <div className="row">
               <ul className="list-menu-kategori">
-                {kategori.map((kategori) => {
-                  return (
-                    <Link
-                      key={kategori.id_kategori}
-                      to={`/kategori/${kategori.id_kategori}`}
-                      onClick={() => {
-                        window.location.href("#");
-                      }}
-                      style={{ textDecoration: "none", color: "black" }}
-                    >
-                      <li className="list-kategori d-flex align-items-center">
-                        {kategori.nama_kategori}
-                      </li>
-                    </Link>
-                  );
-                })}
+                {!isLoading ? (
+                  <div>
+                    {kategori.map((kategori) => {
+                      return (
+                        <Link
+                          key={kategori.id_kategori}
+                          to={`/kategori/${kategori.id_kategori}`}
+                          onClick={() => {
+                            window.location.href("#");
+                          }}
+                          style={{ textDecoration: "none", color: "black" }}
+                        >
+                          <li className="list-kategori d-flex align-items-center">
+                            {kategori.nama_kategori}
+                          </li>
+                        </Link>
+                      );
+                    })}
+                  </div>
+                ) : (
+                  <Loading />
+                )}
               </ul>
             </div>
           </div>
@@ -80,43 +102,46 @@ const DescCategory = () => {
             </div>
 
             <div className="items-kategori p-4">
-              <div className="row gap-4 d-flex justify-content-center align-items-center row-cols-5">
-                {kategoriById.map((item) => {
-                  // const foto = btoa(String.fromCharCode(...new Uint8Array(item.foto_item.data)));
-                  return (
-                    <div
-                      className="item m-3"
-                      key={item.id_kategori}
-                      style={{ cursor: "pointer", padding: "0px" }}
-                    >
-                      <Link
-                        to={`/item/${item.id_item}`}
-                        style={{ textDecoration: "none", color: "black" }}
+              {isLoading ? (
+                <Loading />
+              ) : (
+                <div className="row gap-4 d-flex justify-content-center align-items-center row-cols-5">
+                  {kategoriById.map((item) => {
+                    return (
+                      <div
+                        className="item m-3"
+                        key={item.id_kategori}
+                        style={{ cursor: "pointer", padding: "0px" }}
                       >
-                        <div className="img-thumbnail-item ">
-                          <img
-                            className="item-image"
-                            src={
-                              item.gambar?.length
-                                ? `${apiHost}${item.gambar}`
-                                : imageKosong
-                            }
-                            alt=""
-                          />
-                        </div>
-                        <div className="item-name py-1 px-2">
-                          <p>{item.nama_item}</p>
-                        </div>
-                        <div className="item-price px-2">
-                          <h5>
-                            {formatUang(item.harga_item).replace(/\,00/g, "")}
-                          </h5>
-                        </div>
-                      </Link>
-                    </div>
-                  );
-                })}
-              </div>
+                        <Link
+                          to={`/item/${item.id_item}`}
+                          style={{ textDecoration: "none", color: "black" }}
+                        >
+                          <div className="img-thumbnail-item ">
+                            <img
+                              className="item-image"
+                              src={
+                                item.gambar?.length
+                                  ? `${apiHost}${item.gambar}`
+                                  : imageKosong
+                              }
+                              alt=""
+                            />
+                          </div>
+                          <div className="item-name py-1 px-2">
+                            <p>{item.nama_item}</p>
+                          </div>
+                          <div className="item-price px-2">
+                            <h5>
+                              {formatUang(item.harga_item).replace(/\,00/g, "")}
+                            </h5>
+                          </div>
+                        </Link>
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
             </div>
           </div>
         </div>

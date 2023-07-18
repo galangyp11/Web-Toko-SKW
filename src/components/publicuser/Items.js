@@ -21,7 +21,7 @@ const Items = () => {
         setTimeout(() => {
           setIsLoading(false);
           setDatum(response.data);
-        }, 1000);
+        }, 500);
       }
     };
     dataDB();
