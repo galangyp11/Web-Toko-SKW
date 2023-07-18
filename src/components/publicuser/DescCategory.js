@@ -45,7 +45,7 @@ const DescCategory = () => {
   }, []);
 
   useEffect(() => {
-    setNamaKategori(kategoriById[0].nama_kategori);
+    setNamaKategori(kategoriById[0]?.nama_kategori);
   }, [kategoriById]);
 
   const formatUang = (number) => {
