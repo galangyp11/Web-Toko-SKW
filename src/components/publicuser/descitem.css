@@ -1,168 +1,173 @@
-.descitem{
-    max-width: 100dvw;
-    height: 100%;
-    min-height: 100dvh;
+.descitem {
+  max-width: 100dvw;
+  height: 100%;
+  min-height: 100dvh;
 
-    background-color: white;
-    margin: 0;
+  background-color: white;
+  margin: 0;
 }
 
-
-hr{
-    color: gray;
+hr {
+  color: gray;
 }
 
-.container-sub-gambar{
-    width: 100%;
-    height: 10em;
+.container-sub-gambar {
+  width: 100%;
+  height: 10em;
 }
 
-.bg-gambar-desc{
-    width: 26em;
-    height: 26em;
-    background-color: #f7f7f7;
+.bg-gambar-desc {
+  width: 26em;
+  height: 26em;
+  background-color: #f7f7f7;
 }
 
-.bg-sub-gambar{
-    height: 8em;
-    width: 8em;
-    background-color: #f7f7f7;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: .2s ease;
+.bg-sub-gambar {
+  height: 8em;
+  width: 8em;
+  background-color: #f7f7f7;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.2s ease;
 }
 
-.bg-sub-gambar:hover{
-    filter: brightness(80%);
+.bg-sub-gambar:hover {
+  filter: brightness(80%);
 }
 
-.gambar-item-desc{
-    width: 90%;
-    height: 90%;
-    object-fit: cover;
+.gambar-item-desc {
+  width: 90%;
+  height: 90%;
+  object-fit: cover;
 }
 
-.desc-item-con{
-    background-color: white;
+.desc-item-con {
+  background-color: white;
 
-    width: auto;
-    height: 100%;
-    min-height: 90dvh;
+  width: auto;
+  height: 100%;
+  min-height: 90dvh;
 
-    overflow-x: hidden;
+  overflow-x: hidden;
 }
 
-.desc-kiri{
-    width: 400px;
-    height: 400px;
-    border-radius: 5px;
-    background-color: white;
+.desc-kiri {
+  width: 400px;
+  height: 400px;
+  border-radius: 5px;
+  background-color: white;
 }
 
-.item-desc-image{
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+.item-desc-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
-.desc-kanan{
-    width: 100%;
-    min-height: 600px;
-    height: auto;
-    border-radius: 5px;
-    background-color: whitesmoke;
+.desc-kanan {
+  width: 100%;
+  min-height: 600px;
+  height: auto;
+  border-radius: 5px;
+  background-color: whitesmoke;
 }
 
-.text-item-name-desc{
-    font-family: "Poppins";
-    color: black;
-    font-weight: 600;
-    font-size: 2em;
-    margin: 0;
+.text-item-name-desc {
+  font-family: "Poppins";
+  color: black;
+  font-weight: 600;
+  font-size: 2em;
+  margin: 0;
 }
 
-.text-item-price-desc{
-    color: #0E8388;
-    font-weight: 600;
-    font-size: 1.7em;
-    margin: 0;
+.text-item-price-desc {
+  color: #0e8388;
+  font-weight: 600;
+  font-size: 1.7em;
+  margin: 0;
 }
 
-.text-item-stok{
-    font-weight: 600;
-    font-size: 1em;
-    margin: 0;
-    color: grey;
+.text-item-stok {
+  font-weight: 600;
+  font-size: 1em;
+  margin: 0;
+  color: grey;
 }
 
-.desc-item{
-    height: 200px;
+.desc-item {
+  height: 200px;
 }
 
-.text-desc-item-desc{
-
+.text-desc-item-desc {
 }
 
-.desc-item-toko{
-    height: 50px;
+.desc-item-toko {
+  height: 50px;
 }
 
-.desc-foto-toko-item{
-    border-radius: 50%;
-    border: 1px;
-    background-color: black;
-    height: 50px;
-    width: 50px;
+.bg-desc-foto-toko-item {
+  border-radius: 50%;
+  background-color: #0e8388;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  height: 50px;
+  width: 50px;
 }
 
-.text-name-toko-item{
-    font-size: 1em;
-    font-weight: bold;
-    margin: 0;
-    cursor: pointer;
-    transition: .2s ease;
-    display: inline-block;
-    border-radius: 5px;
-    color: #0E8388;
-}
-.text-name-toko-item:hover{
-    background-color: #0E8388;
-    color: white;
+.desc-foto-toko-item {
+  border-radius: 50%;
+  height: 45px;
+  width: 45px;
+  object-fit: cover;
 }
 
-.text-name-alamt-toko{
-    font-size: 1em;
-    font-weight: 400;
-    color: grey;
-    margin: 0;
+.text-name-toko-item {
+  font-size: 1em;
+  font-weight: bold;
+  margin: 0;
+  cursor: pointer;
+  transition: 0.2s ease;
+  display: inline-block;
+  border-radius: 5px;
+  color: #0e8388;
+}
+.text-name-toko-item:hover {
+  background-color: #0e8388;
+  color: white;
 }
 
-.but-chat-penjual{
-    width: 150px;
-    height: 40px;
-    border-radius: 5px;
-    border: none;
-    transition: .2s ease;
-
-    background-color: #0E8388;
-    color:white ;
+.text-name-alamt-toko {
+  font-size: 1em;
+  font-weight: 400;
+  color: grey;
+  margin: 0;
 }
 
-.but-chat-penjual:hover{
-    background-color: #08595c;
+.but-chat-penjual {
+  width: 150px;
+  height: 40px;
+  border-radius: 5px;
+  border: none;
+  transition: 0.2s ease;
+
+  background-color: #0e8388;
+  color: white;
 }
 
-.but-cart{
-    width: 250px;
-    height: 40px;
-    border-radius: 5px;
-    border: none;
-    transition: .2s ease;
-
-    background-color: #0E8388;
-    color: white;
+.but-chat-penjual:hover {
+  background-color: #08595c;
 }
 
-.but-cart:hover{
-    background-color: #08595c;
+.but-cart {
+  width: 250px;
+  height: 40px;
+  border-radius: 5px;
+  border: none;
+  transition: 0.2s ease;
+
+  background-color: #0e8388;
+  color: white;
+}
+
+.but-cart:hover {
+  background-color: #08595c;
 }

@@ -128,21 +128,9 @@ const DescItem = () => {
   useEffect(() => {
     setDataItem((data) => ({ ...data, total_harga: itemById.harga_item * 1 }));
 
-    if (itemById.logo_toko === 0) {
-      setFoto(fotoKosing);
-    } else {
-      setTimeout(() => {
-        try {
-          setFoto(
-            btoa(
-              String.fromCharCode(...new Uint8Array(itemById.logo_toko.data))
-            )
-          );
-        } catch (error) {
-          console.log("sabar bang fotonya lagi loading");
-        }
-      }, 100);
-    }
+    setFoto(
+      btoa(String.fromCharCode(...new Uint8Array(itemById?.logo_toko?.data)))
+    );
 
     const nowa = itemById.whatsapp;
     setNoWa(`+62 ${nowa}`);
@@ -150,12 +138,6 @@ const DescItem = () => {
       `Halo ${itemById.nama_toko}, Apakah ${itemById.nama_item} tersedia?`
     );
     setGambarItem(`${apiHost}${itemById?.gambar?.[0]?.src}`);
-
-    // if (itemById === {}) {
-    //   setIsLoading(true);
-    // } else {
-    //   setIsLoading(false);
-    // }
   }, [itemById]);
 
   useEffect(() => {
@@ -245,14 +227,11 @@ const DescItem = () => {
                 <hr />
                 <div className="row desc-item-toko ">
                   <div className="col-2 d-flex justify-content-end">
-                    <div className="desc-foto-toko-item">
+                    <div className="bg-desc-foto-toko-item d-flex align-items-center justify-content-center">
                       <img
-                        className="photo-profile"
-                        src={btoa(
-                          String.fromCharCode(
-                            ...new Uint8Array(itemById?.logo_toko)
-                          )
-                        )}
+                        className="desc-foto-toko-item"
+                        src={`data:image/png;base64,${foto}`}
+                        alt=""
                       />
                     </div>
                   </div>
