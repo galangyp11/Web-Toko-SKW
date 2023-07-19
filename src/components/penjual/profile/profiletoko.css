@@ -1,0 +1,28 @@
+.profile-toko {
+  background-color: white;
+}
+
+.bg-foto-profile-penjual {
+  width: 200px;
+  height: 200px;
+  background-color: #e7f6f2;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  border-radius: 50%;
+}
+
+.foto-profile-penjual {
+  border-radius: 50%;
+  height: 180px;
+  width: 180px;
+  object-fit: cover;
+}
+
+.text-profile-bio {
+  height: 100%;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}

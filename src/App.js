@@ -20,7 +20,7 @@ import PagePenjual from "./components/penjual/PagePenjual";
 import DaftarPenjual from "./components/penjual/daftar/DaftarPenjual";
 
 import { SearchProvider } from "./context";
-import ProfileToko from "./components/penjual/page/ProfileToko";
+import ProfileToko from "./components/penjual/profile/ProfileToko";
 import ItemToko from "./components/penjual/page/ItemToko";
 import DisplayToko from "./components/penjual/page/DisplayToko";
 import FormBermasalah from "./components/pembeli/transaksi/FormBermasalah";

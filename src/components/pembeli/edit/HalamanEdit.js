@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
-import fotoKosing from "../../image/pp-kosong.png";
 import Cookies from "js-cookie";
 import axios from "axios";
 import apiHost from "../../../constants/apiHost";
 import Alert from "../../AlertHijau";
+import AlertMerah from "../../AlertMerah";
 
 const HalamanEdit = ({ setIsEdit }) => {
   const [pembeliById, setPembeliById] = useState({});
@@ -15,10 +15,11 @@ const HalamanEdit = ({ setIsEdit }) => {
     password: "",
     alamat: "",
     no_telp: "",
-    foto_profil: "",
+    foto_profil: [],
   });
   const [previewImg, setPreviewImg] = useState([]);
   const [isAlert, setIsAlert] = useState(false);
+  const [isAlertMerah, setIsAlertMerah] = useState(false);
   const [textAlert, setTextAlert] = useState("");
 
   useEffect(() => {
@@ -66,6 +67,13 @@ const HalamanEdit = ({ setIsEdit }) => {
   };
 
   useEffect(() => {
+    // const fotoInput = [];
+
+    // // const image64 = `data:image/png;base64,`;
+    // const fotoBuffer = pembeliById?.foto_profil?.data?.toString("base64");
+    // // fotoInput.push(image64 + btoa(fotoBuffer));
+    // fotoInput.push(bufferToDataUrl("image/png", fotoBuffer));
+
     setDataInput((data) => ({
       ...data,
       id_pembeli: id,
@@ -74,7 +82,7 @@ const HalamanEdit = ({ setIsEdit }) => {
       alamat: pembeliById?.alamat,
       username: pembeliById?.username,
       no_telp: pembeliById?.no_telp,
-      foto_profil: pembeliById?.foto_profil,
+      foto_profil: pembeliById?.foto_profil?.data,
     }));
 
     setFoto(
@@ -87,22 +95,40 @@ const HalamanEdit = ({ setIsEdit }) => {
   const handleSimpan = async (e) => {
     e.preventDefault();
 
-    // if (dataInput.foto_profil.length > 0) {
-    await axios.put(`${apiHost}pembeli`, dataInput);
-    setIsAlert(true);
-    setTextAlert("Profile berhasil diubah");
-    window.location.reload();
-    // } else if (dataInput.foto_profil.type === "Buffer") {
-    //   await axios.put(`${apiHost}pembeli-nofoto`, dataInput);
-    //   setIsAlert(true);
-    //   setTextAlert("Profile berhasil diubah");
-    //   window.location.reload();
-    // }
+    if (dataInput.username === "") {
+      setIsAlertMerah(true);
+      setTextAlert("Username Tidak Boleh Kosong");
+    } else if (dataInput.email === "") {
+      setIsAlertMerah(true);
+      setTextAlert("Email Tidak Boleh Kosong");
+    } else if (dataInput.password === "") {
+      setIsAlertMerah(true);
+      setTextAlert("Password Tidak Boleh Kosong");
+    } else if (dataInput.no_telp === "") {
+      setIsAlertMerah(true);
+      setTextAlert("Nomor Telepon Tidak Boleh Kosong");
+    } else if (dataInput.alamat === "") {
+      setIsAlertMerah(true);
+      setTextAlert("Alamat Tidak Boleh Kosong");
+    } else {
+      if (dataInput.foto_profil.length > 5) {
+        await axios.put(`${apiHost}pembeli-nofoto`, dataInput);
+        setIsAlert(true);
+        setTextAlert("Profile berhasil diubah");
+        window.location.reload();
+      } else if (dataInput.foto_profil.length === 1) {
+        await axios.put(`${apiHost}pembeli`, dataInput);
+        setIsAlert(true);
+        setTextAlert("Profile berhasil diubah");
+        window.location.reload();
+      }
+    }
   };
 
   console.log({
     previewImg,
     dataInput,
+    pembeliById,
   });
   return (
     <div className="info-pembeli row my-3">
@@ -125,11 +151,7 @@ const HalamanEdit = ({ setIsEdit }) => {
                 <img
                   className="foto-profile"
                   style={{ height: "270px", width: "270px" }}
-                  src={
-                    pembeliById?.foto_profil?.data.length === 0
-                      ? fotoKosing
-                      : `data:image/png;base64,${foto}`
-                  }
+                  src={`data:image/png;base64,${foto}`}
                   alt=""
                 />
               )}
@@ -141,9 +163,8 @@ const HalamanEdit = ({ setIsEdit }) => {
                 id="imageFile"
                 type="file"
                 style={{ color: "transparent" }}
-                multiple
                 onChange={onChangeFile}
-                accept="image/png"
+                accept="jpg/png/jpeg"
               />
             </div>
           </div>
@@ -279,7 +300,15 @@ const HalamanEdit = ({ setIsEdit }) => {
               </div>
             </div>
           </div>
-
+          {isAlertMerah ? (
+            <AlertMerah
+              textAlert={textAlert}
+              isAlert={isAlertMerah}
+              setIsAlert={setIsAlertMerah}
+            />
+          ) : (
+            <div></div>
+          )}
           {isAlert ? (
             <Alert
               textAlert={textAlert}

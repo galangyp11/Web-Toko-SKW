@@ -16,7 +16,7 @@ const DaftarPembeli = () => {
     username: "",
     password: "",
     alamat: "",
-    foto_profil: "",
+    foto_profil: [],
     no_rek_pembeli: null,
     level: "Pembeli",
   });
@@ -34,12 +34,21 @@ const DaftarPembeli = () => {
     };
 
     getDataPembeli();
+
+    // const fotoProfil = () => {
+    //   const foto_profil = [];
+    //   foto_profil.push(URL.createObjectURL(fotoKosong));
+
+    //   setDataInput((data) => ({ ...data, foto_profil }));
+    // };
+    // fotoProfil();
   }, []);
 
   const handleInput = (e) => {
     setDataInput((data) => ({
       ...data,
       [e.target.id]: e.target.value,
+      foto_profil: fotoKosong,
     }));
   };
 
@@ -90,7 +99,7 @@ const DaftarPembeli = () => {
     setIsHiddenPass(true);
     setTypePassword("text");
   };
-  console.log(dataInput);
+  console.log({ dataInput });
   return (
     <div className="daftar-pembeli">
       <div className="daftar-pembeli-con container d-flex justify-content-center align-items-center">

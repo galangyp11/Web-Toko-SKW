@@ -21,9 +21,7 @@ const ProfileToko = () => {
 
   useEffect(() => {
     setFoto(
-      btoa(
-        String.fromCharCode(...new Uint8Array(penjualById?.foto_profil?.data))
-      )
+      btoa(String.fromCharCode(...new Uint8Array(penjualById?.logo_toko?.data)))
     );
   }, [penjualById]);
 
@@ -36,9 +34,9 @@ const ProfileToko = () => {
       {!isEdit ? (
         <div className="row profile-toko container d-flex justify-content-center">
           <div className="col-4 ">
-            <div className="bg-foto-profile-penjual">
+            <div className="bg-foto-profile-penjual d-flex align-items-center justify-content-center">
               <img
-                className="foto-profile"
+                className="foto-profile-penjual"
                 src={`data:image/png;base64,${foto}`}
                 alt=""
               />
@@ -122,7 +120,10 @@ const ProfileToko = () => {
             </div>
 
             <div className="col ">
-              <p className="text-profile-bio d-flex align-items-center">
+              <p
+                className="text-profile-bio d-flex align-items-center"
+                style={{ height: "5em", resize: "none" }}
+              >
                 {penjualById?.alamat_toko}
               </p>
             </div>
