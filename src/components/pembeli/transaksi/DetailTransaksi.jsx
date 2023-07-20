@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import apiHost from "../../../constants/apiHost";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 const DetailTransaksi = ({ data, index }) => {
   // const [dataDikirimDetail, setDataDikirimDetail] = useState([]);
@@ -100,7 +100,12 @@ const DetailTransaksi = ({ data, index }) => {
                 </div>
               </div>
               <div className="col-3 garis-vertical-kiri">
-                <p className="text-nama-toko-item-detail">{data.nama_toko}</p>
+                <Link
+                  to={`/toko/${data?.id_penjual}`}
+                  style={{ textDecoration: "none" }}
+                >
+                  <p className="text-nama-toko-item-detail">{data.nama_toko}</p>
+                </Link>
               </div>
             </div>
           </div>

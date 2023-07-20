@@ -91,7 +91,7 @@ const TransaksiPembeli = () => {
     );
   };
 
-  console.log({ dataDikirim, dataKonfirmasi });
+  console.log({ dataDikirim, dataKonfirmasi, dataSelesai });
 
   return (
     <div className="transaksi-pembeli">

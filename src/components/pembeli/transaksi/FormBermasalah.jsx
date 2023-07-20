@@ -3,15 +3,22 @@ import "./FormBermasalah.css";
 import emailjs from "@emailjs/browser";
 import apiHost from "../../../constants/apiHost";
 import { useEffect, useState } from "react";
+import Alert from "../../AlertMerah";
+import AlertHijau from "../../AlertHijau";
 
 const FormBermasalah = () => {
   const dataUrl = useLocation();
   const [dataInput, setDataInput] = useState({
     email: "",
+    item: "",
+    statusTransaksi: "",
     pesan: "",
     idTransaksi: "",
     tanggal: "",
   });
+  const [isAlert, setIsAlert] = useState(false);
+  const [isAlertHijau, setIsAlertHijau] = useState(false);
+  const [textAlert, setTextAlert] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -19,6 +26,8 @@ const FormBermasalah = () => {
       ...data,
       tanggal: dataUrl.state.data.waktu_pesan,
       email: dataUrl.state.data.email,
+      item: dataUrl.state.data.nama_item,
+      statusTransaksi: dataUrl.state.data.status_transaksi,
       idTransaksi: dataUrl.state.data.id_transaksi,
     }));
   }, []);
@@ -31,22 +40,31 @@ const FormBermasalah = () => {
 
   const handleKirim = (e) => {
     e.preventDefault();
-
-    emailjs
-      .send(
-        "service_66ojacq",
-        "template_3qd2vde",
-        dataInput,
-        "w3RTvXknr0E_40EQG"
-      )
-      .then(
-        (result) => {
-          console.log(result.text);
-        },
-        (error) => {
-          console.log(error.text);
-        }
-      );
+    if (dataInput.pesan === "") {
+      setIsAlert(true);
+      setTextAlert("Alasan Bermasalah Tidak Boleh Kosong");
+    } else {
+      emailjs
+        .send(
+          "service_66ojacq",
+          "template_3qd2vde",
+          dataInput,
+          "w3RTvXknr0E_40EQG"
+        )
+        .then(
+          (result) => {
+            console.log(result.text);
+          },
+          (error) => {
+            console.log(error.text);
+          }
+        );
+      setIsAlertHijau(true);
+      setTextAlert("Form Berhasil Dikirim");
+      setTimeout(() => {
+        navigate("/pesanan");
+      }, 1500);
+    }
   };
   console.log(dataInput);
   return (
@@ -140,6 +158,24 @@ const FormBermasalah = () => {
           </div>
         </div>
       </div>
+      {isAlert ? (
+        <Alert
+          textAlert={textAlert}
+          isAlert={isAlert}
+          setIsAlert={setIsAlert}
+        />
+      ) : (
+        <div></div>
+      )}
+      {isAlertHijau ? (
+        <AlertHijau
+          textAlert={textAlert}
+          isAlert={isAlertHijau}
+          setIsAlert={setIsAlertHijau}
+        />
+      ) : (
+        <div></div>
+      )}
     </div>
   );
 };

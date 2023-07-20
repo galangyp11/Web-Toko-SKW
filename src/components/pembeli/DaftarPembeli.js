@@ -34,14 +34,6 @@ const DaftarPembeli = () => {
     };
 
     getDataPembeli();
-
-    // const fotoProfil = () => {
-    //   const foto_profil = [];
-    //   foto_profil.push(URL.createObjectURL(fotoKosong));
-
-    //   setDataInput((data) => ({ ...data, foto_profil }));
-    // };
-    // fotoProfil();
   }, []);
 
   const handleInput = (e) => {
@@ -58,12 +50,7 @@ const DaftarPembeli = () => {
     if (dataInput.email === "") {
       setIsAlert(true);
       setTextAlert("Email tidak boleh kosong!");
-    }
-    // else if(dataPembeli.map((data)=>{return(dataInput.email === data.email)})){
-    //     setIsAlert(true)
-    //     setTextAlert('Email sudah terdaftar!')
-    // }
-    else if (dataInput.password === "") {
+    } else if (dataInput.password === "") {
       setIsAlert(true);
       setTextAlert("Password tidak boleh kosong!");
     } else if (dataInput.password.length < 8) {
