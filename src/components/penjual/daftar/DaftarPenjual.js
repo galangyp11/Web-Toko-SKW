@@ -11,9 +11,9 @@ const Daftarpenjual1 = () => {
   const navigate = useNavigate();
   const [dataInput, setDataInput] = useState({
     level: "Penjual",
-    email: "",
+    email_penjual: "",
     nama_toko: "",
-    logo_toko: "",
+    logo_toko: [],
     password: "",
     alamat: "",
     whatsapp: "",
@@ -75,7 +75,9 @@ const Daftarpenjual1 = () => {
       await axios.post(`${apiHost}penjual`, dataInput);
       setIsAlertHijau(true);
       setTextAlert("Akun berhasil didaftarkan!");
-      navigate("/login");
+      setTimeout(() => {
+        navigate("/login");
+      }, 1500);
     }
   };
 
@@ -146,28 +148,28 @@ const Daftarpenjual1 = () => {
               </label>
             </div>
             <div className="row my-2 d-flex justify-content-start px-5 py-2">
-              <div className="bg-foto-daftar-penjual border mx-5 d-flex justify-content-center align-items-center">
-                {previewImg?.map((data, index) => {
-                  return (
-                    <img
-                      className="foto-daftar-penjual"
-                      src={`${data}`}
-                      key={index}
-                      alt=""
-                    />
-                  );
-                })}
+              <div className="col-4">
+                <div className="bg-foto-daftar-penjual mx-5 d-flex justify-content-center align-items-center">
+                  {previewImg?.map((data, index) => {
+                    return (
+                      <img
+                        className="foto-daftar-penjual"
+                        src={`${data}`}
+                        key={index}
+                        alt=""
+                      />
+                    );
+                  })}
+                </div>
               </div>
-            </div>
-            <div className="row my-2 d-flex align-items-center">
-              <div className="col px-5">
+              <div className="col-4 px-5">
                 <input
                   id="imageFile"
                   type="file"
                   style={{ color: "transparent" }}
                   multiple
                   onChange={onChangeFile}
-                  accept="image/png"
+                  accept="jpg/jpeg/png"
                   className="mx-5"
                 />
               </div>
@@ -181,7 +183,7 @@ const Daftarpenjual1 = () => {
                 className="input-text"
                 type="text"
                 placeholder="Masukan email anda..."
-                id="email"
+                id="email_penjual"
                 value={dataInput.email}
                 onChange={handleInput}
               />

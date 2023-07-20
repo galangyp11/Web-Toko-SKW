@@ -65,9 +65,10 @@
 
 .bg-foto-daftar-penjual {
   border-radius: 50%;
-  height: 8em;
-  width: 8em;
+  height: 9em;
+  width: 9em;
   background-color: #e7f6f2;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 }
 
 .foto-daftar-penjual {
