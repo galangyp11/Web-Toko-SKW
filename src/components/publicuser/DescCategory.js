@@ -117,7 +117,7 @@ const DescCategory = () => {
                 <Loading />
               ) : (
                 <div className="row gap-4 d-flex justify-content-center align-items-center row-cols-5">
-                  {kategoriById ? (
+                  {kategoriById.length ? (
                     kategoriById?.map((item) => {
                       return (
                         <div
