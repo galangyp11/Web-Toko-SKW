@@ -8,13 +8,13 @@ import axios from "axios";
 import apiHost from "../../constants/apiHost";
 
 const DescCategory = () => {
-  const dataUrl = useLocation();
+  // const dataUrl = useLocation();
   const [kategoriById, setKategoriById] = useState([]);
   const [kategori, setKategori] = useState([]);
   const [namaKategori, setNamaKategori] = useState();
-  const [id, setId] = useState(2);
+  const { id } = useParams();
+  const [idKategori, setId] = useState(id);
   const [isLoading, setIsLoading] = useState(true);
-  const idParams = useParams();
 
   useEffect(() => {
     const kategoriDB = async () => {
@@ -30,30 +30,32 @@ const DescCategory = () => {
     };
     kategoriDB();
 
-    if (dataUrl.state === null) {
-      setId(idParams);
-    } else {
-      setId(dataUrl?.state?.kategori?.id_kategori);
-    }
+    // if (dataUrl.state === null) {
+    setId(id);
+    // } else {
+    //   setId(dataUrl?.state?.kategori?.id_kategori);
+    // }
 
     window.scrollTo(0, 0);
   }, []);
 
   useEffect(() => {
     const getKategoriById = async () => {
-      const response = await axios.get(`${apiHost}kategori/${id}`);
+      const response = await axios.get(`${apiHost}kategori/${idKategori}`);
       console.log(response);
       if (response.status !== 200) {
         setIsLoading(true);
       } else {
         setTimeout(() => {
           setIsLoading(false);
-          setKategoriById(response?.data);
+          setKategoriById(response.data);
         }, 500);
       }
     };
     getKategoriById();
-  }, [id]);
+
+    console.log("berubah datanya fus");
+  }, [idKategori]);
 
   useEffect(() => {
     setNamaKategori(kategoriById[0]?.nama_kategori);
@@ -66,7 +68,7 @@ const DescCategory = () => {
     }).format(number);
   };
 
-  console.log({ kategoriById, dataUrl, id });
+  console.log({ kategoriById, idKategori, id });
 
   return (
     <div className="desc-category">
@@ -120,7 +122,7 @@ const DescCategory = () => {
                       return (
                         <div
                           className="item m-3"
-                          key={item?.id_kategori}
+                          key={item?.id_item}
                           style={{ cursor: "pointer", padding: "0px" }}
                         >
                           <Link
