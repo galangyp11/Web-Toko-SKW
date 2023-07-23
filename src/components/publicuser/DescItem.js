@@ -128,9 +128,13 @@ const DescItem = () => {
   useEffect(() => {
     setDataItem((data) => ({ ...data, total_harga: itemById.harga_item * 1 }));
 
-    setFoto(
-      btoa(String.fromCharCode(...new Uint8Array(itemById?.logo_toko?.data)))
-    );
+    try {
+      setFoto(
+        btoa(String.fromCharCode(...new Uint8Array(itemById?.logo_toko?.data)))
+      );
+    } catch (error) {
+      console.log("load image...");
+    }
 
     const nowa = itemById.whatsapp;
     setNoWa(`+62 ${nowa}`);

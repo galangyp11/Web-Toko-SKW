@@ -1,13 +1,14 @@
 import "./category.css";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import apiHost from "../../constants/apiHost";
 import Loading from "../Loading";
 
 const Category = () => {
   const [datum, setDatum] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const dataDB = async () => {
@@ -44,25 +45,35 @@ const Category = () => {
                 className="item-recomend mx-1 mb-5"
                 key={kategori.id_kategori}
               >
-                <Link
+                {/* <Link
                   to={`/kategori/${kategori.id_kategori}`}
                   style={{ textDecoration: "none", color: "black" }}
-                >
-                  <div className="row">
-                    <div className="recomend-thumbnail ">
-                      <img
-                        className="img-thumbnail"
-                        src={`data:image/png;base64,${foto}`}
-                        alt=""
-                      />
-                    </div>
+                > */}
+                <div className="row">
+                  <div
+                    className="recomend-thumbnail"
+                    onClick={() => {
+                      navigate(`/kategori/${kategori.id_kategori}`, {
+                        state: { kategori },
+                      });
+                    }}
+                  >
+                    <img
+                      className="img-thumbnail"
+                      src={`data:image/png;base64,${foto}`}
+                      alt=""
+                    />
                   </div>
-                  <div className="row">
-                    <p className="text-thumbnail text-center">
-                      {kategori.nama_kategori}
-                    </p>
-                  </div>
-                </Link>
+                </div>
+                <div className="row">
+                  <p
+                    className="text-thumbnail text-center"
+                    style={{ color: "black" }}
+                  >
+                    {kategori.nama_kategori}
+                  </p>
+                </div>
+                {/* </Link> */}
               </div>
             );
           })}

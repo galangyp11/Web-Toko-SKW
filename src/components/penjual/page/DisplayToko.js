@@ -30,9 +30,15 @@ const DisplayToko = () => {
   }, []);
 
   useEffect(() => {
-    setFoto(
-      btoa(String.fromCharCode(...new Uint8Array(dataPenjual?.logo_toko?.data)))
-    );
+    try {
+      setFoto(
+        btoa(
+          String.fromCharCode(...new Uint8Array(dataPenjual?.logo_toko?.data))
+        )
+      );
+    } catch (error) {
+      console.log("load image...");
+    }
   }, [dataPenjual]);
 
   const formatUang = (number) => {

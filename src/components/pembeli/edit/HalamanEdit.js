@@ -85,11 +85,15 @@ const HalamanEdit = ({ setIsEdit }) => {
       foto_profil: pembeliById?.foto_profil?.data,
     }));
 
-    setFoto(
-      btoa(
-        String.fromCharCode(...new Uint8Array(pembeliById?.foto_profil?.data))
-      )
-    );
+    try {
+      setFoto(
+        btoa(
+          String.fromCharCode(...new Uint8Array(pembeliById?.foto_profil?.data))
+        )
+      );
+    } catch (error) {
+      console.log("load image...");
+    }
   }, [pembeliById]);
 
   const handleSimpan = async (e) => {

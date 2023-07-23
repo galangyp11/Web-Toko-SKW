@@ -20,11 +20,15 @@ const InfoPembeli = ({ setIsEdit }) => {
   }, []);
 
   useEffect(() => {
-    setFoto(
-      btoa(
-        String.fromCharCode(...new Uint8Array(pembeliById?.foto_profil?.data))
-      )
-    );
+    try {
+      setFoto(
+        btoa(
+          String.fromCharCode(...new Uint8Array(pembeliById?.foto_profil?.data))
+        )
+      );
+    } catch (error) {
+      console.log("load iamge...");
+    }
   }, [pembeliById]);
 
   console.log({ pembeliById });

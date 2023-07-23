@@ -38,11 +38,15 @@ const Navbar = () => {
       setTextAlert("Silahkan lengkapi profile");
     }
 
-    setFoto(
-      btoa(
-        String.fromCharCode(...new Uint8Array(pembeliById?.foto_profil?.data))
-      )
-    );
+    try {
+      setFoto(
+        btoa(
+          String.fromCharCode(...new Uint8Array(pembeliById?.foto_profil?.data))
+        )
+      );
+    } catch (error) {
+      console.log("Load image...");
+    }
   }, [pembeliById]);
 
   const handleLogout = () => {

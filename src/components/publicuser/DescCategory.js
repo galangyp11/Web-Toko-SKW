@@ -1,18 +1,20 @@
 import "./desccategory.css";
 import imageKosong from "../image/image-kosong.png";
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import Loading from "../Loading";
 import axios from "axios";
 import apiHost from "../../constants/apiHost";
 
 const DescCategory = () => {
+  const dataUrl = useLocation();
   const [kategoriById, setKategoriById] = useState([]);
   const [kategori, setKategori] = useState([]);
   const [namaKategori, setNamaKategori] = useState();
-  const { id } = useParams();
+  const [id, setId] = useState(2);
   const [isLoading, setIsLoading] = useState(true);
+  const idParams = useParams();
 
   useEffect(() => {
     const kategoriDB = async () => {
@@ -28,21 +30,30 @@ const DescCategory = () => {
     };
     kategoriDB();
 
+    if (dataUrl.state === null) {
+      setId(idParams);
+    } else {
+      setId(dataUrl?.state?.kategori?.id_kategori);
+    }
+
+    window.scrollTo(0, 0);
+  }, []);
+
+  useEffect(() => {
     const getKategoriById = async () => {
       const response = await axios.get(`${apiHost}kategori/${id}`);
+      console.log(response);
       if (response.status !== 200) {
         setIsLoading(true);
       } else {
         setTimeout(() => {
           setIsLoading(false);
-          setKategoriById(response.data);
+          setKategoriById(response?.data);
         }, 500);
       }
     };
     getKategoriById();
-
-    window.scrollTo(0, 0);
-  }, []);
+  }, [id]);
 
   useEffect(() => {
     setNamaKategori(kategoriById[0]?.nama_kategori);
@@ -55,7 +66,7 @@ const DescCategory = () => {
     }).format(number);
   };
 
-  // console.log({ kategoriById });
+  console.log({ kategoriById, dataUrl, id });
 
   return (
     <div className="desc-category">
@@ -74,12 +85,14 @@ const DescCategory = () => {
                         <Link
                           key={kategori?.id_kategori}
                           to={`/kategori/${kategori?.id_kategori}`}
-                          onClick={() => {
-                            window.location.href("#");
-                          }}
                           style={{ textDecoration: "none", color: "black" }}
                         >
-                          <li className="list-kategori d-flex align-items-center">
+                          <li
+                            className="list-kategori d-flex align-items-center"
+                            onClick={() => {
+                              setId(kategori?.id_kategori);
+                            }}
+                          >
                             {kategori?.nama_kategori}
                           </li>
                         </Link>
@@ -102,40 +115,47 @@ const DescCategory = () => {
                 <Loading />
               ) : (
                 <div className="row gap-4 d-flex justify-content-center align-items-center row-cols-5">
-                  {kategoriById?.map((item) => {
-                    return (
-                      <div
-                        className="item m-3"
-                        key={item.id_kategori}
-                        style={{ cursor: "pointer", padding: "0px" }}
-                      >
-                        <Link
-                          to={`/item/${item.id_item}`}
-                          style={{ textDecoration: "none", color: "black" }}
+                  {kategoriById ? (
+                    kategoriById?.map((item) => {
+                      return (
+                        <div
+                          className="item m-3"
+                          key={item?.id_kategori}
+                          style={{ cursor: "pointer", padding: "0px" }}
                         >
-                          <div className="img-thumbnail-item ">
-                            <img
-                              className="item-image"
-                              src={
-                                item.gambar?.length
-                                  ? `${apiHost}${item.gambar}`
-                                  : imageKosong
-                              }
-                              alt=""
-                            />
-                          </div>
-                          <div className="item-name py-1 px-2">
-                            <p>{item.nama_item}</p>
-                          </div>
-                          <div className="item-price px-2">
-                            <h5>
-                              {formatUang(item.harga_item).replace(/\,00/g, "")}
-                            </h5>
-                          </div>
-                        </Link>
-                      </div>
-                    );
-                  })}
+                          <Link
+                            to={`/item/${item?.id_item}`}
+                            style={{ textDecoration: "none", color: "black" }}
+                          >
+                            <div className="img-thumbnail-item ">
+                              <img
+                                className="item-image"
+                                src={
+                                  item?.gambar?.length
+                                    ? `${apiHost}${item?.gambar}`
+                                    : imageKosong
+                                }
+                                alt=""
+                              />
+                            </div>
+                            <div className="item-name py-1 px-2">
+                              <p>{item?.nama_item}</p>
+                            </div>
+                            <div className="item-price px-2">
+                              <h5>
+                                {formatUang(item?.harga_item).replace(
+                                  /\,00/g,
+                                  ""
+                                )}
+                              </h5>
+                            </div>
+                          </Link>
+                        </div>
+                      );
+                    })
+                  ) : (
+                    <p>item tidak ada</p>
+                  )}
                 </div>
               )}
             </div>

@@ -20,9 +20,15 @@ const ProfileToko = () => {
   }, []);
 
   useEffect(() => {
-    setFoto(
-      btoa(String.fromCharCode(...new Uint8Array(penjualById?.logo_toko?.data)))
-    );
+    try {
+      setFoto(
+        btoa(
+          String.fromCharCode(...new Uint8Array(penjualById?.logo_toko?.data))
+        )
+      );
+    } catch (error) {
+      console.log("load image...");
+    }
   }, [penjualById]);
 
   console.log(penjualById);
