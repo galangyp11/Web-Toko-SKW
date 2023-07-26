@@ -21,12 +21,12 @@ const ProfilPenjualAdmin = () => {
     getDatumItem();
   }, [currentPage]);
 
-  const handleDelete = async(e, id) =>{
-    e.preventDefault()
+  const handleDelete = async (e, id) => {
+    e.preventDefault();
     await axios.delete(`${apiHost}penjual/${id}`);
     const dataFillter = datumPenjual.filter((item) => item.id_penjual !== id);
     setDatumPenjual(dataFillter);
-  }
+  };
 
   function prePage() {
     if (currentPage !== firstIndex) {
@@ -48,7 +48,7 @@ const ProfilPenjualAdmin = () => {
     setDatumPenjual(response.data);
   };
 
-  console.log(datumPenjual)
+  console.log(datumPenjual);
   return (
     <div className="container-fluid">
       <div className="row">
@@ -60,12 +60,12 @@ const ProfilPenjualAdmin = () => {
           className="col-3 d-flex justify-content-center align-items-center"
           style={{ height: "100%" }}
         >
-            <input
-              className="search-admin p-2 "
-              type="text"
-              placeholder="Search"
-              onChange={onSearchItem}
-            />
+          <input
+            className="search-admin p-2 "
+            type="text"
+            placeholder="Search"
+            onChange={onSearchItem}
+          />
           <div
             className="col-1 d-flex justify-content-center align-items-center"
             style={{ height: "100%" }}
@@ -95,31 +95,38 @@ const ProfilPenjualAdmin = () => {
           {datumPenjual?.map((data, index) => {
             return (
               <tr key={data.id_penjual}>
-                <td>{index +1}</td>
-                <td>{data.email}</td>
+                <td>{index + 1}</td>
+                <td>{data.email_penjual}</td>
                 <td>{data.nama_toko}</td>
                 <td>{data.no_rek_penjual}</td>
                 <td>{data.whatsapp}</td>
                 <td>{data.alamat_toko}</td>
                 <td style={{ textAlign: "center" }}>
-                  <button className="btn btn-danger but-tolak-pesanan" onClick={(e) =>handleDelete(e, data.id_penjual)}>
+                  <button
+                    className="btn btn-danger but-tolak-pesanan"
+                    onClick={(e) => handleDelete(e, data.id_penjual)}
+                  >
                     Hapus
                   </button>
                 </td>
               </tr>
-            )
-          }) }
+            );
+          })}
         </tbody>
       </table>
 
-      <ul className='pagination d-flex justify-content-center'>
-          <li className='page-item'>
-            <a href="#" className='page-link' onClick={prePage}>Prev</a>
-          </li>
-                  
-          <li className="page-item">
-            <a href="#" className="page-link" onClick={nextPage}>Next</a>
-          </li>
+      <ul className="pagination d-flex justify-content-center">
+        <li className="page-item">
+          <a href="#" className="page-link" onClick={prePage}>
+            Prev
+          </a>
+        </li>
+
+        <li className="page-item">
+          <a href="#" className="page-link" onClick={nextPage}>
+            Next
+          </a>
+        </li>
       </ul>
     </div>
   );
