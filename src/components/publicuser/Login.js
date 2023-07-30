@@ -50,7 +50,8 @@ const Login = () => {
   const handleLogin = () => {
     dataLoginPembeli.map((data) => {
       if (
-        data.email === inputUser.emailInput &&
+        (data.email === inputUser.emailInput ||
+          data.username === inputUser.emailInput) &&
         data.password === inputUser.passwordInput &&
         data.level === "Pembeli"
       ) {
@@ -59,7 +60,8 @@ const Login = () => {
       } else {
         dataLoginPenjual.map((data) => {
           if (
-            data.email_penjual === inputUser.emailInput &&
+            (data.email_penjual === inputUser.emailInput ||
+              data.nama_toko === inputUser.emailInput) &&
             data.password === inputUser.passwordInput &&
             data.level === "Penjual"
           ) {
@@ -68,7 +70,8 @@ const Login = () => {
           } else {
             dataLoginAdmin.map((data) => {
               if (
-                data.email === inputUser.emailInput &&
+                (data.email === inputUser.emailInput ||
+                  data.username === inputUser.emailInput) &&
                 data.password === inputUser.passwordInput &&
                 data.level === "Admin"
               ) {
@@ -130,7 +133,7 @@ const Login = () => {
                   <input
                     className="input-text"
                     type="text"
-                    placeholder="Email"
+                    placeholder="Email / Username"
                     id="emailInput"
                     value={inputUser.emailInput}
                     onChange={handleInput}

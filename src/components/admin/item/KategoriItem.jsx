@@ -4,12 +4,15 @@ import search from "../../image/search.png";
 import axios from "axios";
 import apiHost from "../../../constants/apiHost";
 import { RxCross2 } from "react-icons/rx";
+import AlertHijau from "../../AlertHijau";
 
 const KategoriItem = () => {
   const [datumKategori, setDatumKategori] = useState([]);
   const [isTambah, setIsTambah] = useState(false);
   const [isButTambah, setIsButTambah] = useState(true);
   const [isEdit, setIsEdit] = useState(false);
+  const [isAlertHijau, setIsAlertHijau] = useState(false);
+  const [textAlert, setTextAlert] = useState("");
   const [inputKategori, setInputKategori] = useState({
     id_kategori: "",
     nama_kategori: "",
@@ -49,6 +52,8 @@ const KategoriItem = () => {
     await axios.delete(`${apiHost}kategori/${id}`);
     const dataDelete = datumKategori.filter((data) => data.id_kategori !== id);
     setDatumKategori(dataDelete);
+    setIsAlertHijau(true);
+    setTextAlert("Data berhasil dihapus");
   };
 
   const handleInputKategori = (e) => {
@@ -420,6 +425,15 @@ const KategoriItem = () => {
           })}
         </tbody>
       </table>
+      {isAlertHijau ? (
+        <AlertHijau
+          textAlert={textAlert}
+          isAlert={isAlertHijau}
+          setIsAlert={setIsAlertHijau}
+        />
+      ) : (
+        <div></div>
+      )}
     </div>
   );
 };

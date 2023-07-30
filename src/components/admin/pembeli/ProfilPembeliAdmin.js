@@ -4,10 +4,13 @@ import "./profilpembeliadmin.css";
 import search from "../../image/search.png";
 import axios from "axios";
 import apiHost from "../../../constants/apiHost";
+import AlertHijau from "../../AlertHijau";
 
 const ProfilPenjualAdmin = () => {
   const [datum, setDatum] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const [isAlertHijau, setIsAlertHijau] = useState(false);
+  const [textAlert, setTextAlert] = useState("");
   const recordsPerPage = 10;
   const lastIndex = currentPage * recordsPerPage;
   const firstIndex = currentPage - recordsPerPage;
@@ -25,12 +28,14 @@ const ProfilPenjualAdmin = () => {
     getDatumItem();
   }, []);
 
-  const handleDelete = async(e, id) =>{
-    e.preventDefault()
+  const handleDelete = async (e, id) => {
+    e.preventDefault();
     await axios.delete(`${apiHost}pembeli/${id}`);
     const dataFillter = datum.filter((item) => item.id_pembeli !== id);
     setDatum(dataFillter);
-  }
+    setIsAlertHijau(true);
+    setTextAlert("Data berhasil dihapus");
+  };
 
   function prePage() {
     if (currentPage !== firstIndex) {
@@ -46,29 +51,40 @@ const ProfilPenjualAdmin = () => {
     }
   }
 
-  const onSearchItem = async ({  target: { value } }) => {
-    console.log('val', value)
-    const response = await axios.get(`${apiHost}pembeli?search=${value}`)
-    setDatum(response.data)
-  }
+  const onSearchItem = async ({ target: { value } }) => {
+    console.log("val", value);
+    const response = await axios.get(`${apiHost}pembeli?search=${value}`);
+    setDatum(response.data);
+  };
 
-  console.log(datum)
-  return ( 
-        <div className="profil-pembeli-admin container-fluid">
-            <div className="row">
-                <p className='text-title-halaman'>Profil Pembeli</p>
-            </div>
+  console.log(datum);
+  return (
+    <div className="profil-pembeli-admin container-fluid">
+      <div className="row">
+        <p className="text-title-halaman">Profil Pembeli</p>
+      </div>
 
-            <div className="row">
-                <div className="col-3 d-flex justify-content-center align-items-center" style={{ height:'100%'}}>
-                    <input className='search-admin p-2 ' type="text" placeholder='Search' onChange={onSearchItem}/>    
-                        <div className="col-1 d-flex justify-content-center align-items-center" style={{ height:'100%'}}>
-                            <div className="logo-search-admin d-flex justify-content-center">
-                                <img className='p-1' src={search} alt=""/>
-                            </div>
-                        </div>                     
-                </div>
+      <div className="row">
+        <div
+          className="col-3 d-flex justify-content-center align-items-center"
+          style={{ height: "100%" }}
+        >
+          <input
+            className="search-admin p-2 "
+            type="text"
+            placeholder="Search"
+            onChange={onSearchItem}
+          />
+          <div
+            className="col-1 d-flex justify-content-center align-items-center"
+            style={{ height: "100%" }}
+          >
+            <div className="logo-search-admin d-flex justify-content-center">
+              <img className="p-1" src={search} alt="" />
             </div>
+          </div>
+        </div>
+      </div>
 
       <table className="table my-5 table-bordered">
         <thead className="table-dark">
@@ -78,7 +94,9 @@ const ProfilPenjualAdmin = () => {
             <th scope="col">Username</th>
             <th scope="col">No Telepon</th>
             <th scope="col">Alamat</th>
-            <th className='col-1' scope="col">Aksi</th>
+            <th className="col-1" scope="col">
+              Aksi
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -91,13 +109,16 @@ const ProfilPenjualAdmin = () => {
                 <td>{data.no_telp}</td>
                 <td>{data.alamat}</td>
                 <td className="p-1" style={{ textAlign: "center" }}>
-                  <button className="btn btn-danger but-tolak-pesanan" onClick={(e) =>handleDelete(e, data.id_pembeli)}>
+                  <button
+                    className="btn btn-danger but-tolak-pesanan"
+                    onClick={(e) => handleDelete(e, data.id_pembeli)}
+                  >
                     Hapus
                   </button>
                 </td>
               </tr>
             );
-          }) }
+          })}
         </tbody>
       </table>
 
@@ -117,6 +138,15 @@ const ProfilPenjualAdmin = () => {
           </a>
         </li>
       </ul>
+      {isAlertHijau ? (
+        <AlertHijau
+          textAlert={textAlert}
+          isAlert={isAlertHijau}
+          setIsAlert={setIsAlertHijau}
+        />
+      ) : (
+        <div></div>
+      )}
     </div>
   );
 };

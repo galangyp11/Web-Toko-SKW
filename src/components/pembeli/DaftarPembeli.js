@@ -23,18 +23,10 @@ const DaftarPembeli = () => {
   const [isAlert, setIsAlert] = useState(false);
   const [isAlertHijau, setIsAlertHijau] = useState(false);
   const [textAlert, setTextAlert] = useState("");
-  const [dataPembeli, setDataPembeli] = useState([]);
+  const [dataPembeliEmail, setDataPembeliEmail] = useState({});
+  const [dataPembeliUsername, setDataPembeliUsername] = useState({});
   const [typePassword, setTypePassword] = useState("password");
   const [isHiddenPass, setIsHiddenPass] = useState(false);
-
-  useEffect(() => {
-    const getDataPembeli = async () => {
-      const response = await axios.get(`${apiHost}pembeli`);
-      setDataPembeli(response.data);
-    };
-
-    getDataPembeli();
-  }, []);
 
   const handleInput = (e) => {
     setDataInput((data) => ({
@@ -47,9 +39,22 @@ const DaftarPembeli = () => {
   const handleDaftarPembeli = async (e) => {
     e.preventDefault();
 
+    const responseEmail = await axios.get(
+      `${apiHost}pembeli-email?search=${dataInput.email}`
+    );
+    setDataPembeliEmail(responseEmail.data);
+
+    const responseUsername = await axios.get(
+      `${apiHost}pembeli-username?search=${dataInput.username}`
+    );
+    setDataPembeliUsername(responseUsername.data);
+
     if (dataInput.email === "") {
       setIsAlert(true);
       setTextAlert("Email tidak boleh kosong!");
+    } else if (dataInput.email === dataPembeliEmail[0].email) {
+      setIsAlert(true);
+      setTextAlert("Email sudah terdaftar!");
     } else if (dataInput.password === "") {
       setIsAlert(true);
       setTextAlert("Password tidak boleh kosong!");
@@ -59,14 +64,17 @@ const DaftarPembeli = () => {
     } else if (dataInput.username === "") {
       setIsAlert(true);
       setTextAlert("Username tidak boleh kosong!");
+    } else if (dataInput.username === dataPembeliUsername[0].username) {
+      setIsAlert(true);
+      setTextAlert("Username sudah terdaftar!");
     } else {
       try {
         await axios.post(`${apiHost}pembeli`, dataInput);
         setIsAlertHijau(true);
         setTextAlert("Akun berhasil dibuat");
-        setTimeout(() => {
-          navigate("/login");
-        }, 1500);
+        // setTimeout(() => {
+        //   navigate("/login");
+        // }, 1500);
 
         console.log("bisa kog");
       } catch (error) {
@@ -86,7 +94,7 @@ const DaftarPembeli = () => {
     setIsHiddenPass(true);
     setTypePassword("text");
   };
-  console.log({ dataInput });
+  console.log({ dataInput, dataPembeliEmail });
   return (
     <div className="daftar-pembeli">
       <div className="daftar-pembeli-con container d-flex justify-content-center align-items-center">
