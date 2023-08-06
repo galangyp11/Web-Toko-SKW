@@ -8,7 +8,7 @@ import axios from "axios";
 import { BsFillCartFill } from "react-icons/bs";
 import { BsSearch } from "react-icons/bs";
 import { useSearch } from "../../context";
-import Alert from "../AlertKuning";
+import Alert from "../Alert/AlertKuning";
 import apiHost from "../../constants/apiHost";
 
 const Navbar = () => {

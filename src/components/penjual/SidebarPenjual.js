@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 import NotifPesanan from "./page/NotifPesanan";
 import ProfileToko from "./profile/ProfileToko";
-import ItemToko from "./page/ItemToko";
+import ItemToko from "./page/Item/ItemToko";
 import PageItemToko from "./page/PageItemToko";
 import ProsesPesanan from "./page/ProsesPesanan";
 

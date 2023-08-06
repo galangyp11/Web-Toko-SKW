@@ -9,8 +9,8 @@ import Cookies from "js-cookie";
 import fotoKosing from "../image/kuraplongo.jpg";
 
 import apiHost from "../../constants/apiHost";
-import AlertHijau from "../AlertHijau";
-import AlertMerah from "../AlertMerah";
+import AlertHijau from "../Alert/AlertHijau";
+import AlertMerah from "../Alert/AlertMerah";
 import KuraPlongo from "../image/kuraplongo.jpg";
 import Loading from "../Loading";
 

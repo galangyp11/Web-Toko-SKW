@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import apiHost from "../../../constants/apiHost";
 import { BsEyeFill, BsEyeSlashFill } from "react-icons/bs";
-import AlertHijau from "../../AlertHijau";
-import AlertMerah from "../../AlertMerah";
+import AlertHijau from "../../Alert/AlertHijau";
+import AlertMerah from "../../Alert/AlertMerah";
 import Cookies from "js-cookie";
 
 const DataAdmin = () => {

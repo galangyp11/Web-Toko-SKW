@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 import FooterKeranjang from "./FooterKeranjang";
 import ItemsKeranjang from "./ItemsKeranjang";
 import NavbarKeranjang from "./NavbarKeranjang";
-import Alert from "../../AlertMerah";
+import Alert from "../../Alert/AlertMerah";
 
 const Keranjang = () => {
   const [datum, setDatum] = useState([]);

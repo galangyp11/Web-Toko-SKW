@@ -2,8 +2,8 @@ import { useState, useEffect } from "react";
 import Cookies from "js-cookie";
 import axios from "axios";
 import apiHost from "../../../constants/apiHost";
-import Alert from "../../AlertHijau";
-import AlertMerah from "../../AlertMerah";
+import Alert from "../../Alert/AlertHijau";
+import AlertMerah from "../../Alert/AlertMerah";
 
 const HalamanEdit = ({ setIsEdit }) => {
   const [pembeliById, setPembeliById] = useState({});

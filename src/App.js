@@ -21,7 +21,7 @@ import DaftarPenjual from "./components/penjual/daftar/DaftarPenjual";
 
 import { SearchProvider } from "./context";
 import ProfileToko from "./components/penjual/profile/ProfileToko";
-import ItemToko from "./components/penjual/page/ItemToko";
+import ItemToko from "./components/penjual/page/Item/ItemToko";
 import DisplayToko from "./components/penjual/page/DisplayToko";
 import FormBermasalah from "./components/pembeli/transaksi/FormBermasalah";
 

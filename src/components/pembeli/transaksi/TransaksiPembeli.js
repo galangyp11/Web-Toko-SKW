@@ -59,7 +59,7 @@ const TransaksiPembeli = () => {
     setIsDikirim(false);
     setIsSelesai(false);
     setListItem(
-      dataKonfirmasi.map((data, index) => {
+      dataKonfirmasi?.map((data, index) => {
         return <DetailKonfrimasi data={data} index={index} key={index} />;
       })
     );

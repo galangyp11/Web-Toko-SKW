@@ -3,8 +3,8 @@ import "./daftarpenjual.css";
 import { BsEyeFill, BsEyeSlashFill } from "react-icons/bs";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import AlertMerah from "../../AlertMerah";
-import AlertHijau from "../../AlertHijau";
+import AlertMerah from "../../Alert/AlertMerah";
+import AlertHijau from "../../Alert/AlertHijau";
 import apiHost from "../../../constants/apiHost";
 
 const Daftarpenjual1 = () => {

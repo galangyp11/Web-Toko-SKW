@@ -5,7 +5,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { BsEyeFill, BsEyeSlashFill } from "react-icons/bs";
 import Cookies from "js-cookie";
 import apiHost from "../../constants/apiHost";
-import Alert from "../AlertMerah";
+import Alert from "../Alert/AlertMerah";
 
 const Login = () => {
   const [inputUser, setInputUser] = useState({

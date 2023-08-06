@@ -8,7 +8,7 @@ import Cookies from "js-cookie";
 import NavbarPenjual from "./NavbarPenjual";
 import SidebarPenjual from "./SidebarPenjual";
 import ProfileToko from "./profile/ProfileToko";
-import InputItem from "./page/InputItem";
+import InputItem from "./page/Item/InputItem";
 
 const PagePenjual = () => {
   const navigate = useNavigate();

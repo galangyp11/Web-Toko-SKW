@@ -6,8 +6,8 @@ import { BsEyeFill, BsEyeSlashFill } from "react-icons/bs";
 import { useNavigate, Link } from "react-router-dom";
 import fotoKosong from "../image/pp-kosong.png";
 
-import Alert from "../AlertMerah";
-import AlertHijau from "../AlertHijau";
+import Alert from "../Alert/AlertMerah";
+import AlertHijau from "../Alert/AlertHijau";
 
 const DaftarPembeli = () => {
   const navigate = useNavigate();
@@ -94,7 +94,7 @@ const DaftarPembeli = () => {
     setIsHiddenPass(true);
     setTypePassword("text");
   };
-  console.log({ dataInput, dataPembeliEmail });
+  console.log({ dataInput, dataPembeliEmail, dataPembeliUsername });
   return (
     <div className="daftar-pembeli">
       <div className="daftar-pembeli-con container d-flex justify-content-center align-items-center">

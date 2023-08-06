@@ -8,7 +8,7 @@ import ItemsCheck from "./ItemsCheck";
 import ModalCheck from "./ModalCheck";
 import Cookies from "js-cookie";
 import apiHost from "../../../constants/apiHost";
-import Alert from "../../AlertMerah";
+import Alert from "../../Alert/AlertMerah";
 
 const CheckPembeli = () => {
   const id = Cookies.get("id");

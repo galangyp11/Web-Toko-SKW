@@ -3,8 +3,8 @@ import "./FormBermasalah.css";
 import emailjs from "@emailjs/browser";
 import apiHost from "../../../constants/apiHost";
 import { useEffect, useState } from "react";
-import Alert from "../../AlertMerah";
-import AlertHijau from "../../AlertHijau";
+import Alert from "../../Alert/AlertMerah";
+import AlertHijau from "../../Alert/AlertHijau";
 
 const FormBermasalah = () => {
   const dataUrl = useLocation();

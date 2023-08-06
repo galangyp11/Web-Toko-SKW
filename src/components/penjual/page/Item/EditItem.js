@@ -4,12 +4,12 @@ import axios from "axios";
 import Cookies from "js-cookie";
 
 import { GoFileMedia } from "react-icons/go";
-import apiHost from "../../../constants/apiHost";
+import apiHost from "../../../../constants/apiHost";
 import ItemToko from "./ItemToko";
 import { BsFillPlusSquareFill, BsDash } from "react-icons/bs";
 import { RxCross2 } from "react-icons/rx";
-import Alert from "../../AlertHijau";
-import AlertMerah from "../../AlertMerah";
+import Alert from "../../../Alert/AlertHijau";
+import AlertMerah from "../../../Alert/AlertMerah";
 
 const EditItem = ({ id_item, setIsUbah, setPageItem }) => {
   const [itemById, setItemById] = useState({});

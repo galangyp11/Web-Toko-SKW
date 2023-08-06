@@ -2,37 +2,31 @@ import { useEffect, useState } from "react";
 import "./alertkonfirmasi.css";
 import { Modal } from "react-bootstrap";
 import axios from "axios";
-import apiHost from "../../constants/apiHost";
+import apiHost from "../../../../constants/apiHost";
 
-const AlertKonfirmasiTerima = ({
+const AlertKonfirmasiTolak = ({
   textAlert,
   isAlert,
   setIsAlert,
-  idTransaksi,
+  setDatum,
+  datum,
 }) => {
-  const [dataInput, setDataInput] = useState({
-    status_transaksi: "Pesanan diteruskan ke penjual",
-    status_pembayaran: "Pembayaran dikonfirmasi",
-  });
-
-  const handleKonfirmasi = async () => {
-    await axios.put(`${apiHost}transaksi/${idTransaksi}`, dataInput);
+  const handleTolak = async (e) => {
+    e.preventDefault();
+    await axios.delete(`${apiHost}item/${textAlert.id_item}`);
+    const dataFillter = datum.filter(
+      (item) => item.id_item !== textAlert.id_item
+    );
+    setDatum(dataFillter);
     setIsAlert(false);
-    // window.location.reload()
   };
 
   const handleBatal = () => {
     setIsAlert(false);
   };
 
-  const formatUang = (number) => {
-    return new Intl.NumberFormat("id-ID", {
-      style: "currency",
-      currency: "IDR",
-    }).format(number);
-  };
-
   console.log(textAlert);
+
   return (
     <Modal
       className="modal-md"
@@ -45,36 +39,26 @@ const AlertKonfirmasiTerima = ({
     >
       <div className="modal-body px-5 py-3">
         <p className="text-alert-konfirmasi d-flex justify-content-center align-items-center ">
-          Konfirmasi Pesanan
+          Hapus Item
         </p>
         <hr />
         <div className="data-table d-flex align-items-center justify-content-center">
           <table style={{ width: "70%" }}>
             <thead>
               <tr>
-                <td className="col-3 table-head-konfirmasi">Username</td>
+                <td className="col-3 table-head-konfirmasi">Nama Item</td>
                 <td className="col-1">:</td>
-                <td className="col-4">{textAlert.username}</td>
+                <td className="col-4">{textAlert.nama_item}</td>
               </tr>
               <tr>
-                <td className="col-3 table-head-konfirmasi">Pembayaran</td>
+                <td className="col-3 table-head-konfirmasi">Harga</td>
                 <td className="col-1">:</td>
-                <td className="col-4">{textAlert.nama_mp}</td>
+                <td className="col-4">{textAlert.harga_item}</td>
               </tr>
               <tr>
-                <td className="col-3 table-head-konfirmasi">Nominal</td>
+                <td className="col-3 table-head-konfirmasi">Stok</td>
                 <td className="col-1">:</td>
-                <td className="col-4">
-                  {formatUang(textAlert.total_harga_transaksi).replace(
-                    /\,00/g,
-                    ""
-                  )}
-                </td>
-              </tr>
-              <tr>
-                <td className="col-3 table-head-konfirmasi">Waktu</td>
-                <td className="col-1">:</td>
-                <td className="col-4">{textAlert.waktu_pesan}</td>
+                <td className="col-4">{textAlert.stok_item}</td>
               </tr>
             </thead>
           </table>
@@ -91,10 +75,10 @@ const AlertKonfirmasiTerima = ({
         </div>
         <div className="col d-flex justify-content-end">
           <button
-            className="but-konfirmasi btn btn-primary"
-            onClick={handleKonfirmasi}
+            className="but-konfirmasi btn btn-danger"
+            onClick={handleTolak}
           >
-            Konfirmasi
+            Hapus
           </button>
         </div>
       </div>
@@ -102,4 +86,4 @@ const AlertKonfirmasiTerima = ({
   );
 };
 
-export default AlertKonfirmasiTerima;
+export default AlertKonfirmasiTolak;

@@ -1,22 +1,20 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import "./profilpembeliadmin.css";
+import AlertKonfirmasiTolak from "./AlertKonfirmasiTolak";
 import search from "../../image/search.png";
 import axios from "axios";
 import apiHost from "../../../constants/apiHost";
-import AlertHijau from "../../AlertHijau";
 
 const ProfilPenjualAdmin = () => {
   const [datum, setDatum] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [isAlertHijau, setIsAlertHijau] = useState(false);
-  const [textAlert, setTextAlert] = useState("");
   const recordsPerPage = 10;
   const lastIndex = currentPage * recordsPerPage;
   const firstIndex = currentPage - recordsPerPage;
-  // const records = Data.slice(firstIndex, lastIndex);
-  // const npage = Math.ceil(Data.length / recordsPerPage)
-  // const numbers = [...Array(npage + 1).keys()].slice(1)
+  const [isAlertTolak, setIsAlertTolak] = useState(false);
+  const [textAlert, setTextAlert] = useState();
+  const [idTransaksi, setIdTransaksi] = useState("");
 
   useEffect(() => {
     const getDatumItem = async () => {
@@ -26,15 +24,13 @@ const ProfilPenjualAdmin = () => {
       setDatum(response.data);
     };
     getDatumItem();
-  }, []);
+  }, [isAlertTolak]);
 
-  const handleDelete = async (e, id) => {
+  const handleDelete = async (e, data) => {
     e.preventDefault();
-    await axios.delete(`${apiHost}pembeli/${id}`);
-    const dataFillter = datum.filter((item) => item.id_pembeli !== id);
-    setDatum(dataFillter);
-    setIsAlertHijau(true);
-    setTextAlert("Data berhasil dihapus");
+    setIdTransaksi(data.id_pembeli);
+    setIsAlertTolak(true);
+    setTextAlert(data);
   };
 
   function prePage() {
@@ -111,7 +107,7 @@ const ProfilPenjualAdmin = () => {
                 <td className="p-1" style={{ textAlign: "center" }}>
                   <button
                     className="btn btn-danger but-tolak-pesanan"
-                    onClick={(e) => handleDelete(e, data.id_pembeli)}
+                    onClick={(e) => handleDelete(e, data)}
                   >
                     Hapus
                   </button>
@@ -138,11 +134,14 @@ const ProfilPenjualAdmin = () => {
           </a>
         </li>
       </ul>
-      {isAlertHijau ? (
-        <AlertHijau
+      {isAlertTolak ? (
+        <AlertKonfirmasiTolak
           textAlert={textAlert}
-          isAlert={isAlertHijau}
-          setIsAlert={setIsAlertHijau}
+          isAlert={isAlertTolak}
+          setIsAlert={setIsAlertTolak}
+          idTransaksi={idTransaksi}
+          setDatum={setDatum}
+          datum={datum}
         />
       ) : (
         <div></div>

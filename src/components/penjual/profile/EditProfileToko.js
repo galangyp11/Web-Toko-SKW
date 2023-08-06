@@ -5,8 +5,8 @@ import fotoKosing from "../../image/pp-kosong.png";
 import axios from "axios";
 import ProfileToko from "./ProfileToko";
 import apiHost from "../../../constants/apiHost";
-import Alert from "../../AlertHijau";
-import AlertMerah from "../../AlertMerah";
+import Alert from "../../Alert/AlertHijau";
+import AlertMerah from "../../Alert/AlertMerah";
 
 const EditProfileToko = ({ setIsEdit }) => {
   const [penjualById, setPenjualById] = useState({});

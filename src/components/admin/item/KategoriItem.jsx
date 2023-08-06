@@ -4,21 +4,22 @@ import search from "../../image/search.png";
 import axios from "axios";
 import apiHost from "../../../constants/apiHost";
 import { RxCross2 } from "react-icons/rx";
-import AlertHijau from "../../AlertHijau";
+import AlertKonfirmasiTolak from "./AlertKonfirmasiTolak";
 
 const KategoriItem = () => {
   const [datumKategori, setDatumKategori] = useState([]);
   const [isTambah, setIsTambah] = useState(false);
   const [isButTambah, setIsButTambah] = useState(true);
   const [isEdit, setIsEdit] = useState(false);
-  const [isAlertHijau, setIsAlertHijau] = useState(false);
-  const [textAlert, setTextAlert] = useState("");
   const [inputKategori, setInputKategori] = useState({
     id_kategori: "",
     nama_kategori: "",
     foto_kategori: "",
   });
   const [previewImg, setPreviewImg] = useState([]);
+  const [isAlertTolak, setIsAlertTolak] = useState(false);
+  const [textAlert, setTextAlert] = useState();
+  const [idTransaksi, setIdTransaksi] = useState("");
 
   useEffect(() => {
     const getData = async () => {
@@ -26,7 +27,7 @@ const KategoriItem = () => {
       setDatumKategori(response.data);
     };
     getData();
-  }, [isTambah, isEdit]);
+  }, [isTambah, isEdit, isAlertTolak]);
 
   const handleTambah = (e) => {
     e.preventDefault();
@@ -47,13 +48,11 @@ const KategoriItem = () => {
     }));
   };
 
-  const handleDelete = async (e, id) => {
+  const handleDelete = async (e, data) => {
     e.preventDefault();
-    await axios.delete(`${apiHost}kategori/${id}`);
-    const dataDelete = datumKategori.filter((data) => data.id_kategori !== id);
-    setDatumKategori(dataDelete);
-    setIsAlertHijau(true);
-    setTextAlert("Data berhasil dihapus");
+    setIdTransaksi(data.id_kategori);
+    setIsAlertTolak(true);
+    setTextAlert(data);
   };
 
   const handleInputKategori = (e) => {
@@ -415,7 +414,7 @@ const KategoriItem = () => {
                 <td className="p-1" style={{ textAlign: "center" }}>
                   <button
                     className="btn btn-danger but-tolak-pesanan"
-                    onClick={(e) => handleDelete(e, item.id_kategori)}
+                    onClick={(e) => handleDelete(e, item)}
                   >
                     Hapus
                   </button>
@@ -425,11 +424,14 @@ const KategoriItem = () => {
           })}
         </tbody>
       </table>
-      {isAlertHijau ? (
-        <AlertHijau
+      {isAlertTolak ? (
+        <AlertKonfirmasiTolak
           textAlert={textAlert}
-          isAlert={isAlertHijau}
-          setIsAlert={setIsAlertHijau}
+          isAlert={isAlertTolak}
+          setIsAlert={setIsAlertTolak}
+          idTransaksi={idTransaksi}
+          setDatum={setDatumKategori}
+          datum={datumKategori}
         />
       ) : (
         <div></div>

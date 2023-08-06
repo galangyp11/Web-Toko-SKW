@@ -12,7 +12,7 @@ const NotifPesanan = () => {
   });
   const [isAlertTolak, setIsAlertTolak] = useState(false);
   const [isAlertKonfirmasi, setIsAlertKonfirmasi] = useState(false);
-  const [textAlert, setTextAlert] = useState("");
+  const [textAlert, setTextAlert] = useState();
   const [idTransaksi, setIdTransaksi] = useState("");
 
   useEffect(() => {
@@ -23,18 +23,18 @@ const NotifPesanan = () => {
     getNotif();
   }, [isAlertKonfirmasi, isAlertTolak]);
 
-  const handleTolak = (e, id, username) => {
+  const handleTolak = (e, data) => {
     e.preventDefault();
-    setIdTransaksi(id);
+    setIdTransaksi(data.id_konfirmasi);
     setIsAlertTolak(true);
-    setTextAlert(`Konfirmasi Tolak Pesanan : ${username}`);
+    setTextAlert(data);
   };
 
-  const handleKonfirmasi = (e, id, username) => {
+  const handleKonfirmasi = (e, data) => {
     e.preventDefault();
-    setIdTransaksi(id);
+    setIdTransaksi(data.id_konfirmasi);
     setIsAlertKonfirmasi(true);
-    setTextAlert(`Konfirmasi Pembayaran Pesanan : ${username}`);
+    setTextAlert(data);
   };
 
   const formatUang = (number) => {
@@ -95,9 +95,7 @@ const NotifPesanan = () => {
                   <td style={{ textAlign: "center" }}>
                     <button
                       className="btn btn-danger but-tolak-pesanan"
-                      onClick={(e) =>
-                        handleTolak(e, data.id_konfirmasi, data.username)
-                      }
+                      onClick={(e) => handleTolak(e, data)}
                     >
                       Tolak
                     </button>
@@ -105,9 +103,7 @@ const NotifPesanan = () => {
                   <td style={{ textAlign: "center" }}>
                     <button
                       className="btn btn-primary but-konfirmasi-pesanan"
-                      onClick={(e) =>
-                        handleKonfirmasi(e, data.id_konfirmasi, data.username)
-                      }
+                      onClick={(e) => handleKonfirmasi(e, data)}
                     >
                       Konfirmasi
                     </button>
