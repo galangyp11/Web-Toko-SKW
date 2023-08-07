@@ -1,0 +1,21 @@
+.page-not-found {
+  height: 100dvh;
+  width: 100dvw;
+  overflow: hidden;
+  background-image: url(./image/bg-login.webp);
+  background-size: cover;
+}
+
+.halaman-tidak-ada {
+  height: 100%;
+  width: 100%;
+}
+
+.teks-halaman-tidak-ada {
+  height: 100%;
+
+  color: rgb(182, 182, 182);
+  font-weight: 400;
+  font-size: 3em;
+  font-family: hind Siliguri;
+}

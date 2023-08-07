@@ -52,7 +52,7 @@ const DaftarPembeli = () => {
     if (dataInput.email === "") {
       setIsAlert(true);
       setTextAlert("Email tidak boleh kosong!");
-    } else if (dataInput.email === dataPembeliEmail[0].email) {
+    } else if (dataInput.email === dataPembeliEmail[0]?.email) {
       setIsAlert(true);
       setTextAlert("Email sudah terdaftar!");
     } else if (dataInput.password === "") {
@@ -64,7 +64,7 @@ const DaftarPembeli = () => {
     } else if (dataInput.username === "") {
       setIsAlert(true);
       setTextAlert("Username tidak boleh kosong!");
-    } else if (dataInput.username === dataPembeliUsername[0].username) {
+    } else if (dataInput.username === dataPembeliUsername[0]?.username) {
       setIsAlert(true);
       setTextAlert("Username sudah terdaftar!");
     } else {
@@ -72,9 +72,9 @@ const DaftarPembeli = () => {
         await axios.post(`${apiHost}pembeli`, dataInput);
         setIsAlertHijau(true);
         setTextAlert("Akun berhasil dibuat");
-        // setTimeout(() => {
-        //   navigate("/login");
-        // }, 1500);
+        setTimeout(() => {
+          navigate("/login");
+        }, 1500);
 
         console.log("bisa kog");
       } catch (error) {
