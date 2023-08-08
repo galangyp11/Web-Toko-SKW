@@ -19,21 +19,16 @@ const Daftarpenjual1 = () => {
     whatsapp: "",
     no_rek_penjual: "",
   });
-  const [dataPenjual, setDataPenjual] = useState([]);
+  const [dataPenjualEmail, setDataPenjualEmail] = useState([]);
+  const [dataPenjualNamaToko, setDataPenjualNamaToko] = useState([]);
+  const [dataPenjualNoRek, setDataPenjualNoRek] = useState([]);
+  const [dataPenjualNoWa, setDataPenjualNoWa] = useState([]);
   const [typePassword, setTypePassword] = useState("password");
   const [isHiddenPass, setIsHiddenPass] = useState(false);
   const [previewImg, setPreviewImg] = useState([]);
   const [isAlertMerah, setIsAlertMerah] = useState(false);
   const [isAlertHijau, setIsAlertHijau] = useState(false);
   const [textAlert, setTextAlert] = useState("");
-
-  useEffect(() => {
-    const getDataPenjual = async () => {
-      const response = await axios.get(`${apiHost}penjual`);
-      setDataPenjual(response.data);
-    };
-    getDataPenjual();
-  }, []);
 
   const handleInput = (e) => {
     setDataInput((data) => ({ ...data, [e.target.id]: e.target.value }));
@@ -42,15 +37,30 @@ const Daftarpenjual1 = () => {
   const handleDaftarPenjual = async (e) => {
     e.preventDefault();
 
-    if (dataInput.email === "") {
+    const responseEmail = await axios.get(
+      `${apiHost}penjual-email?search=${dataInput.email_penjual}`
+    );
+    setDataPenjualEmail(responseEmail.data);
+
+    const responseNamaToko = await axios.get(
+      `${apiHost}penjual-toko?search=${dataInput.nama_toko}`
+    );
+    setDataPenjualNamaToko(responseNamaToko.data);
+
+    const responseNoWa = await axios.get(
+      `${apiHost}penjual-no-wa?search=${dataInput.whatsapp}`
+    );
+    setDataPenjualNoWa(responseNoWa.data);
+
+    const responseNoRek = await axios.get(
+      `${apiHost}penjual-no-rek?search=${dataInput.no_rek_penjual}`
+    );
+    setDataPenjualNoRek(responseNoRek.data);
+
+    if (dataInput.email_penjual === "") {
       setIsAlertMerah(true);
       setTextAlert("Email tidak boleh kosong!");
-    }
-    //  else if(dataPenjual.map((data) => { return(dataInput.email === data.email) })){
-    //     setIsAlertMerah(true)
-    //     setTextAlert('Email sudah terdaftar!')
-    // }
-    else if (dataInput.password === "") {
+    } else if (dataInput.password === "") {
       setIsAlertMerah(true);
       setTextAlert("Password tidak boleh kosong!");
     } else if (dataInput.password.length < 8) {
@@ -71,6 +81,20 @@ const Daftarpenjual1 = () => {
     } else if (dataInput.whatsapp === "") {
       setIsAlertMerah(true);
       setTextAlert("Whatsapp tidak boleh kosong!");
+    } else if (dataInput.email_penjual === dataPenjualEmail[0]?.email_penjual) {
+      setIsAlertMerah(true);
+      setTextAlert("Email sudah terdaftar!");
+    } else if (dataInput.nama_toko === dataPenjualNamaToko[0]?.nama_toko) {
+      setIsAlertMerah(true);
+      setTextAlert("Nama Toko sudah terdaftar!");
+    } else if (
+      dataInput.no_rek_penjual === dataPenjualNoRek[0]?.no_rek_penjual
+    ) {
+      setIsAlertMerah(true);
+      setTextAlert("Nomor Rekening sudah terdaftar!");
+    } else if (dataInput.whatsapp === dataPenjualNoWa[0]?.whatsapp) {
+      setIsAlertMerah(true);
+      setTextAlert("Nomor Whatsapp sudah terdaftar!");
     } else {
       await axios.post(`${apiHost}penjual`, dataInput);
       setIsAlertHijau(true);
@@ -127,7 +151,7 @@ const Daftarpenjual1 = () => {
 
   console.log({
     dataInput,
-    dataPenjual,
+    dataPenjualEmail,
     // noHalaman
   });
 
@@ -184,7 +208,7 @@ const Daftarpenjual1 = () => {
                 type="text"
                 placeholder="Masukan email anda..."
                 id="email_penjual"
-                value={dataInput.email}
+                value={dataInput.email_penjual}
                 onChange={handleInput}
               />
             </div>

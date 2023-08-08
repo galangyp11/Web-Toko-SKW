@@ -132,16 +132,20 @@ const DetailTransaksi = ({ data, index }) => {
                   <></>
                 ) : (
                   <div className="d-flex align-items-center">
-                    <button
-                      className="but-bermasalah-transaksi mx-1"
-                      onClick={() => {
-                        navigate(`/pesanan-bermasalah/${data.id_transaksi}`, {
-                          state: { data },
-                        });
-                      }}
-                    >
-                      Bermasalah?
-                    </button>
+                    {data.status_transaksi !== "Pesanan sedang dikemas" ? (
+                      <></>
+                    ) : (
+                      <button
+                        className="but-bermasalah-transaksi mx-1"
+                        onClick={() => {
+                          navigate(`/pesanan-bermasalah/${data.id_transaksi}`, {
+                            state: { data },
+                          });
+                        }}
+                      >
+                        Bermasalah?
+                      </button>
+                    )}
                     {!isDisable ? (
                       <button
                         className="but-terima-transaksi"
