@@ -7,9 +7,6 @@ import apiHost from "../../constants/apiHost";
 
 const NotifPesanan = () => {
   const [dataKonfirmasi, setDataKonfirmasi] = useState([]);
-  const [dataInput, setDataInput] = useState({
-    status_transaksi: "Pesanan diteruskan ke Penjual",
-  });
   const [isAlertTolak, setIsAlertTolak] = useState(false);
   const [isAlertKonfirmasi, setIsAlertKonfirmasi] = useState(false);
   const [textAlert, setTextAlert] = useState();
@@ -121,8 +118,6 @@ const NotifPesanan = () => {
             isAlert={isAlertTolak}
             setIsAlert={setIsAlertTolak}
             idTransaksi={idTransaksi}
-            dataInput={dataInput}
-            setDataInput={setDataInput}
             dataKonfirmasi={dataKonfirmasi}
             setDataKonfirmasi={setDataKonfirmasi}
           />
@@ -135,8 +130,6 @@ const NotifPesanan = () => {
             isAlert={isAlertKonfirmasi}
             setIsAlert={setIsAlertKonfirmasi}
             idTransaksi={idTransaksi}
-            dataInput={dataInput}
-            setDataInput={setDataInput}
           />
         ) : (
           <div></div>

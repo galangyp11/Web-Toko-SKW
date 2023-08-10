@@ -32,8 +32,8 @@ const CheckPembeli = () => {
     stok_item: "",
   });
   const [dataMp, setDataMp] = useState({});
+  const [dataMpList, setDataMpList] = useState([]);
   const [dataAdmin, setDataAdmin] = useState([]);
-  const [mpModal, setMpModal] = useState("");
   const [show, setShow] = useState(false);
   const [alamatPembeli, setAlamatPembeli] = useState({
     id_pembeli: "",
@@ -56,6 +56,12 @@ const CheckPembeli = () => {
       setDataPembeli(response.data);
     };
     getPembeliById();
+
+    const getMpList = async () => {
+      const response = await axios.get(`${apiHost}metode_pembayaran`);
+      setDataMpList(response.data);
+    };
+    getMpList();
   }, []);
 
   const handleInput = (e) => {
@@ -71,19 +77,14 @@ const CheckPembeli = () => {
   };
 
   useEffect(() => {
-    if (dataInput.id_mp === "1") {
-      setMpModal("Bank");
-    } else if (dataInput.id_mp === "2") {
-      setMpModal("DANA");
-    } else if (dataInput.id_mp === "3") {
-      setMpModal("GoPay");
-    } else if (dataInput.id_mp === "4") {
-      setMpModal("ShopeePay");
-    } else if (dataInput.id_mp === "5") {
-      setMpModal("OVO");
-    } else {
-      setMpModal("-");
-    }
+    const getMpById = async () => {
+      const response = await axios.get(
+        `${apiHost}metode_pembayaran/${dataInput.id_mp}`
+      );
+      console.log("data mp", response.data);
+      setDataMp(response.data);
+    };
+    getMpById();
   }, [dataInput.id_mp]);
 
   useEffect(() => {
@@ -118,7 +119,7 @@ const CheckPembeli = () => {
       });
     };
     dataObj();
-  }, [dataCheckout]);
+  }, [isAlert, dataCheckout]);
 
   useEffect(() => {
     setAlamatPembeli((data) => ({ ...data, alamat: dataPembeli.alamat }));
@@ -166,10 +167,6 @@ const CheckPembeli = () => {
         }
 
         for (let i = 0; i < dataCheckout.length; i++) {
-          formData.append("id_pembeli", dataCheckout[i].id_pembeli);
-        }
-
-        for (let i = 0; i < dataCheckout.length; i++) {
           formData.append("id_penjual", dataCheckout[i].id_penjual);
         }
 
@@ -181,6 +178,7 @@ const CheckPembeli = () => {
           formData.append("jumlah_beli", dataCheckout[i].jumlah);
         }
 
+        formData.append("id_pembeli", dataCheckout[0].id_pembeli);
         formData.append("id_mp", dataInput.id_mp);
         formData.append("status_transaksi", dataInput.status_transaksi);
         formData.append(
@@ -189,19 +187,18 @@ const CheckPembeli = () => {
         );
         formData.append("waktu_pesan", dataInput.waktu_pesan);
 
-        // await axios.post(`${apiHost}konfirmasi`, dataInput);
         await axios.post(`${apiHost}transaksi`, formData);
         await axios.put(`${apiHost}alamat-pembeli`, alamatPembeli);
         await axios.put(`${apiHost}item-stok`, stokItem);
         setShow(true);
 
-        const getDataMp = async () => {
-          const response = await axios.get(
-            `${apiHost}metode_pembayaran/${dataInput.id_mp}`
-          );
-          setDataMp(response.data);
-        };
-        getDataMp();
+        // const getDataMp = async () => {
+        //   const response = await axios.get(
+        //     `${apiHost}metode_pembayaran/${dataInput.id_mp}`
+        //   );
+        //   setDataMp(response.data);
+        // };
+        // getDataMp();
 
         const getAdmin = async () => {
           const response = await axios.get(`${apiHost}admin/6`);
@@ -215,13 +212,14 @@ const CheckPembeli = () => {
   };
 
   console.log({
-    dataCheckout,
+    // dataCheckout,
     dataInput,
-    alamatPembeli,
-    stokItem,
-    dataAdmin,
+    // alamatPembeli,
+    // stokItem,
+    // dataAdmin,
     dataMp,
-    mpModal,
+    // mpModal,
+    // dataMpList,
   });
   return (
     <div className="check-pembeli">
@@ -258,15 +256,17 @@ const CheckPembeli = () => {
               name="mp"
               id="id_mp"
               className="input-text"
-              value={dataInput.id_mp}
+              // value={dataInput.id_mp}
               onChange={handleInputMP}
             >
               <option value="undefined">-Pilih Metode Pembayaran-</option>
-              <option value="1">Bank</option>
-              <option value="2">DANA</option>
-              <option value="3">GoPay</option>
-              <option value="4">ShopeePay</option>
-              <option value="5">OVO</option>
+              {dataMpList?.map((data) => {
+                return (
+                  <option value={data.id_mp} key={data.id_mp}>
+                    {data.nama_mp}
+                  </option>
+                );
+              })}
             </select>
           </div>
           <div className="col">
@@ -307,7 +307,7 @@ const CheckPembeli = () => {
             </div>
             <div className="col-1">:</div>
             <div className="col">
-              <p>{mpModal}</p>
+              <p>{dataMp.nama_mp}</p>
             </div>
           </div>
           <p className="text-info-checkout" style={{ color: "red" }}>
