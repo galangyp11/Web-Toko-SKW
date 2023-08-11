@@ -16,6 +16,7 @@ const AlertKonfirmasiTerima = ({
 
   const handleKonfirmasi = async () => {
     await axios.put(`${apiHost}transaksi-penjual/${idTransaksi}`, dataInput);
+    await axios.post(`${apiHost}riwayat-item-keluar`, textAlert);
     setIsAlert(false);
     // window.location.reload()
   };

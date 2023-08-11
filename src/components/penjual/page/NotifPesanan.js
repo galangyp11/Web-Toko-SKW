@@ -14,6 +14,11 @@ const NotifPesanan = () => {
     username: "",
     nama_item: "",
     jumlah_beli: "",
+    id_pembeli: "",
+    id_penjual: "",
+    id_item: "",
+    id_transaksi: "",
+    tanggal: "",
   });
   const [idTransaksi, setIdTransaksi] = useState("");
   const id = Cookies.get("id");
@@ -49,9 +54,15 @@ const NotifPesanan = () => {
       username: data.username,
       nama_item: data.nama_item,
       jumlah_beli: data.jumlah_beli,
+      id_pembeli: data.id_pembeli,
+      id_penjual: data.id_penjual,
+      id_item: data.id_item,
+      id_transaksi: data.id_transaksi,
+      tanggal: data.waktu_pesan,
     }));
   };
 
+  console.log({ dataKonfirmasi });
   return (
     <div className="notif-pesanan container-fluid">
       <p className="text-title-halaman">Konfirmasi Proses Pesanan</p>
