@@ -3,13 +3,11 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
 import apiHost from "../../../constants/apiHost";
-import AlertKonfirmasiTerima from "./AlertKonfirmasiTerima";
+import AlertKonfirmasiKirim from "./AlertKonfirmasiKirim";
 
 const ProsesPesanan = () => {
   const [dataKonfirmasi, setDataKonfirmasi] = useState([]);
-  const [dataInput, setDataInput] = useState({
-    status_transaksi: "Pesanan sedang dikirim",
-  });
+
   const [dataRiwayatKeluar, setDataRiwayatKeluar] = useState({
     id_pembeli: "",
     id_penjual: "",
@@ -61,15 +59,12 @@ const ProsesPesanan = () => {
     e.preventDefault();
     setIdTransaksi(data.id_transaksi);
     setIsAlertKonfirmasi(true);
-    setTextAlert(
-      <div>
-        <p style={{ margin: "0px" }}>
-          Konfirmasi Kirim Pesanan : {data.username}
-        </p>
-        <p style={{ margin: "0px" }}>Item : {data.nama_item}</p>
-        <p>Jumlah : {data.jumlah_beli}</p>
-      </div>
-    );
+    setTextAlert((item) => ({
+      ...item,
+      username: data.username,
+      nama_item: data.nama_item,
+      jumlah_beli: data.jumlah_beli,
+    }));
   };
 
   return (
@@ -129,12 +124,11 @@ const ProsesPesanan = () => {
       </div>
       <div className="d-flex justify-content-center">
         {isAlertKonfirmasi ? (
-          <AlertKonfirmasiTerima
+          <AlertKonfirmasiKirim
             textAlert={textAlert}
             isAlert={isAlertKonfirmasi}
             setIsAlert={setIsAlertKonfirmasi}
             idTransaksi={idTransaksi}
-            dataInput={dataInput}
           />
         ) : (
           <div></div>

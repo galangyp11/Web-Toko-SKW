@@ -248,9 +248,9 @@ const DescItem = () => {
                         {itemById?.nama_toko}
                       </p>
                     </Link>
-                    <p className="text-name-alamt-toko px-2 text-break">
+                    {/* <p className="text-name-alamt-toko px-2 text-break">
                       {itemById?.alamat_toko}
-                    </p>
+                    </p> */}
                   </div>
                   <div className="col d-flex  align-items-center justify-content-end">
                     <ReactWhatsapp

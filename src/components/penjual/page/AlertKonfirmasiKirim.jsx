@@ -4,38 +4,18 @@ import { Modal } from "react-bootstrap";
 import axios from "axios";
 import apiHost from "../../../constants/apiHost";
 
-const AlertKonfirmasiTolak = ({
+const AlertKonfirmasiTerima = ({
   textAlert,
   isAlert,
   setIsAlert,
   idTransaksi,
-  dataKonfirmasi,
-  setDataKonfirmasi,
 }) => {
   const [dataInput, setDataInput] = useState({
-    status_transaksi: "Pesanan ditolak",
+    status_transaksi: "Pesanan sedang dikirim",
   });
 
-  const [stokAwal, setStokAwal] = useState({
-    id_item: "",
-    stok_item: "",
-  });
-
-  useEffect(() => {
-    dataKonfirmasi.map((data) => {
-      setStokAwal((stok) => ({
-        ...stok,
-        id_item: data.id_item,
-        stok_item: +data.jumlah_beli + +data.stok_item,
-      }));
-    });
-  }, []);
-
-  console.log(stokAwal);
-
-  const handleTolak = async () => {
+  const handleKonfirmasi = async () => {
     await axios.put(`${apiHost}transaksi-penjual/${idTransaksi}`, dataInput);
-    await axios.put(`${apiHost}item-stok`, stokAwal);
     setIsAlert(false);
     // window.location.reload()
   };
@@ -43,6 +23,8 @@ const AlertKonfirmasiTolak = ({
   const handleBatal = () => {
     setIsAlert(false);
   };
+
+  console.log({ dataInput, textAlert });
 
   return (
     <Modal
@@ -56,7 +38,7 @@ const AlertKonfirmasiTolak = ({
     >
       <div className="modal-body px-5 py-3">
         <p className="text-alert-konfirmasi d-flex justify-content-center align-items-center ">
-          Tolak Pesanan
+          Konfirmasi Kirim Pesanan
         </p>
         <hr />
         <div className="data-table d-flex align-items-center justify-content-center">
@@ -93,9 +75,9 @@ const AlertKonfirmasiTolak = ({
         <div className="col d-flex justify-content-end">
           <button
             className="but-konfirmasi btn btn-primary"
-            onClick={handleTolak}
+            onClick={handleKonfirmasi}
           >
-            Tolak
+            Konfirmasi
           </button>
         </div>
       </div>
@@ -103,4 +85,4 @@ const AlertKonfirmasiTolak = ({
   );
 };
 
-export default AlertKonfirmasiTolak;
+export default AlertKonfirmasiTerima;

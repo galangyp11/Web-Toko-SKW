@@ -10,12 +10,13 @@ const NotifPesanan = () => {
   const [dataKonfirmasi, setDataKonfirmasi] = useState([]);
   const [isAlertTolak, setIsAlertTolak] = useState(false);
   const [isAlertKonfirmasi, setIsAlertKonfirmasi] = useState(false);
-  const [textAlert, setTextAlert] = useState("");
+  const [textAlert, setTextAlert] = useState({
+    username: "",
+    nama_item: "",
+    jumlah_beli: "",
+  });
   const [idTransaksi, setIdTransaksi] = useState("");
   const id = Cookies.get("id");
-  const [dataInput, setDataInput] = useState({
-    status_transaksi: "Pesanan sedang dikemas",
-  });
 
   useEffect(() => {
     const getNotif = async () => {
@@ -31,30 +32,24 @@ const NotifPesanan = () => {
     e.preventDefault();
     setIdTransaksi(data.id_transaksi);
     setIsAlertTolak(true);
-    setTextAlert(
-      <div>
-        <p style={{ margin: "0px" }}>
-          Konfirmasi Tolak Pesanan : {data.username}
-        </p>
-        <p style={{ margin: "0px" }}>Item : {data.nama_item}</p>
-        <p>Jumlah : {data.jumlah_beli}</p>
-      </div>
-    );
+    setTextAlert((item) => ({
+      ...item,
+      username: data.username,
+      nama_item: data.nama_item,
+      jumlah_beli: data.jumlah_beli,
+    }));
   };
 
   const handleKonfirmasi = (e, data) => {
     e.preventDefault();
     setIdTransaksi(data.id_transaksi);
     setIsAlertKonfirmasi(true);
-    setTextAlert(
-      <div>
-        <p style={{ margin: "0px" }}>
-          Konfirmasi Terima Pesanan : {data.username}
-        </p>
-        <p style={{ margin: "0px" }}>Item : {data.nama_item}</p>
-        <p>Jumlah : {data.jumlah_beli}</p>
-      </div>
-    );
+    setTextAlert((item) => ({
+      ...item,
+      username: data.username,
+      nama_item: data.nama_item,
+      jumlah_beli: data.jumlah_beli,
+    }));
   };
 
   return (
@@ -148,7 +143,6 @@ const NotifPesanan = () => {
             isAlert={isAlertKonfirmasi}
             setIsAlert={setIsAlertKonfirmasi}
             idTransaksi={idTransaksi}
-            dataInput={dataInput}
           />
         ) : (
           <div></div>
