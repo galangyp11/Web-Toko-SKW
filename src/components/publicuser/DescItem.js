@@ -229,7 +229,7 @@ const DescItem = () => {
                 </div>
 
                 <hr />
-                <div className="row desc-item-toko ">
+                <div className="row desc-item-toko">
                   <div className="col-2 d-flex justify-content-end">
                     <div className="bg-desc-foto-toko-item d-flex align-items-center justify-content-center">
                       <img
@@ -248,7 +248,7 @@ const DescItem = () => {
                         {itemById?.nama_toko}
                       </p>
                     </Link>
-                    <p className="text-name-alamt-toko px-2">
+                    <p className="text-name-alamt-toko px-2 text-break">
                       {itemById?.alamat_toko}
                     </p>
                   </div>

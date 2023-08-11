@@ -156,7 +156,7 @@ const DescCategory = () => {
                       );
                     })
                   ) : (
-                    <p>item tidak ada</p>
+                    <p className="text-item-tidak-ada">item tidak ada</p>
                   )}
                 </div>
               )}

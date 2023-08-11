@@ -14,7 +14,7 @@ const Items = () => {
 
   useEffect(() => {
     const dataDB = async () => {
-      const response = await axios.get(`${apiHost}item`);
+      const response = await axios.get(`${apiHost}item-homepage`);
       if (response.status !== 200) {
         setIsLoading(true);
       } else {
