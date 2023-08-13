@@ -88,6 +88,13 @@ const Login = () => {
     });
   };
 
+  const handleKeypress = (e) => {
+    //it triggers by pressing the enter key
+    if (e.keyCode === 13) {
+      handleLogin();
+    }
+  };
+
   const handleHiddenPass = (e) => {
     e.preventDefault();
     setIsHiddenPass(false);
@@ -125,76 +132,84 @@ const Login = () => {
           <div className="col d-flex justify-content-end">
             <div className="test-form d-flex align-items-center">
               <div className="content-form pt-5 ">
-                <div className="row mb-5 ">
-                  <h3 className="text-center">Login</h3>
-                </div>
-
-                <div className="row mt-3 d-flex justify-content-center">
-                  <input
-                    className="input-text"
-                    type="text"
-                    placeholder="Email / Username"
-                    id="emailInput"
-                    value={inputUser.emailInput}
-                    onChange={handleInput}
-                  />
-                </div>
-
-                <div className="row mt-3 d-flex justify-content-center">
-                  <input
-                    className="input-text mx-2"
-                    type={typePassword}
-                    placeholder="Password"
-                    id="passwordInput"
-                    value={inputUser.passwordInput}
-                    onChange={handleInput}
-                  />
-                  <div className="lihat-password">
-                    {isHiddenPass ? (
-                      <BsEyeFill
-                        size="1.2em"
-                        color="#0E8388"
-                        onClick={handleHiddenPass}
-                        style={{ cursor: "pointer" }}
-                      />
-                    ) : (
-                      <BsEyeSlashFill
-                        size="1.2em"
-                        color="#0E8388"
-                        onClick={handleShowPass}
-                        style={{ cursor: "pointer" }}
-                      />
-                    )}
+                <form>
+                  <div className="row mb-5 ">
+                    <h3 className="text-center">Login</h3>
                   </div>
-                </div>
 
-                <div className="row  mt-3">
-                  <div className="col d-flex justify-content-center">
-                    <button className="but-login-login" onClick={handleLogin}>
-                      Login
-                    </button>
+                  <div className="row mt-3 d-flex justify-content-center">
+                    <input
+                      className="input-text"
+                      type="text"
+                      placeholder="Email / Username"
+                      id="emailInput"
+                      value={inputUser.emailInput}
+                      onKeyDown={handleKeypress}
+                      onChange={handleInput}
+                    />
                   </div>
-                </div>
 
-                <div className="row mt-5 px-4 d-flex justify-content-center">
-                  <div className="row" style={{ height: "30px" }}>
-                    <div className="col d-flex justify-content-start align-items-center">
-                      <p className="text-daftar-login d-flex justify-content-start align-items-center">
-                        Belum punya akun?
-                      </p>
+                  <div className="row mt-3 d-flex justify-content-center">
+                    <input
+                      className="input-text mx-2"
+                      type={typePassword}
+                      placeholder="Password"
+                      id="passwordInput"
+                      value={inputUser.passwordInput}
+                      onKeyDown={handleKeypress}
+                      onChange={handleInput}
+                    />
+                    <div className="lihat-password">
+                      {isHiddenPass ? (
+                        <BsEyeFill
+                          size="1.2em"
+                          color="#0E8388"
+                          onClick={handleHiddenPass}
+                          style={{ cursor: "pointer" }}
+                        />
+                      ) : (
+                        <BsEyeSlashFill
+                          size="1.2em"
+                          color="#0E8388"
+                          onClick={handleShowPass}
+                          style={{ cursor: "pointer" }}
+                        />
+                      )}
                     </div>
-                    <div className="col p-0 d-flex justify-content-start align-items-center">
-                      <Link
-                        to={"/daftar-pembeli"}
-                        style={{ textDecoration: "none" }}
+                  </div>
+
+                  <div className="row  mt-3">
+                    <div className="col d-flex justify-content-center">
+                      <button
+                        className="but-login-login"
+                        onClick={handleLogin}
+                        // type="submit"
                       >
-                        <p className="but-daftar-login d-flex justify-content-start align-items-center">
-                          Daftar
-                        </p>
-                      </Link>
+                        Login
+                      </button>
                     </div>
                   </div>
-                </div>
+
+                  <div className="row mt-5 px-4 d-flex justify-content-center">
+                    <div className="row" style={{ height: "30px" }}>
+                      <div className="col d-flex justify-content-start align-items-center">
+                        <p className="text-daftar-login d-flex justify-content-start align-items-center">
+                          Belum punya akun?
+                        </p>
+                      </div>
+                      <div className="col p-0 d-flex justify-content-start align-items-center">
+                        <Link
+                          to={"/daftar-pembeli"}
+                          style={{ textDecoration: "none" }}
+                        >
+                          <p className="but-daftar-login d-flex justify-content-start align-items-center">
+                            Daftar
+                          </p>
+                        </Link>
+                      </div>
+                    </div>
+                  </div>
+                </form>
               </div>
             </div>
           </div>
