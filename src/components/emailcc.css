@@ -1,67 +1,77 @@
 .email-cc {
-    width: 20em;
-    min-height: 2.5em;
-    transition: .2s ease;   
+  width: 20em;
+  min-height: 2.5em;
+  transition: 0.2s ease;
 }
 
 .arrow {
-    transform: rotate(180deg);
+  transform: rotate(180deg);
 }
 
-.arrow{
-    transition: .2s ease;
+.arrow {
+  transition: 0.2s ease;
 }
 
-.head-email{
-    height: 2.5em;
-    background-color: #0E8388;
-    border-radius: 5px 5px 0px 0px;
-    cursor: pointer;
+.head-email {
+  height: 2.5em;
+  background-color: #0e8388;
+  border-radius: 5px 5px 0px 0px;
+  cursor: pointer;
 }
 
-.text-head-email{
-    height: 100%;
-    color: #E7F6F2;
-    font-weight: 600;
+.text-head-email {
+  height: 100%;
+  color: #e7f6f2;
+  font-weight: 600;
 }
 
-.body-email{
-    height: auto;
-    background-color: white;
-    box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+.body-email {
+  height: auto;
+  background-color: white;
+  box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px,
+    rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
 }
 
-.text-body-email{
-    width: 100%;
-    height: 100%;
-    font-weight: 400;
+.text-body-email {
+  width: 100%;
+  height: 100%;
+  font-weight: 400;
 }
 
-.text-info-email{
-    width: 100%;
-    height: 100%;
-    font-weight: 400;
-    font-size: .9em;
-    color: gray;
+.text-info-email {
+  width: 100%;
+  height: 100%;
+  font-weight: 400;
+  font-size: 0.9em;
+  color: gray;
 }
 
-.but-kirim-email{
-    height: 35px;
-    width: 105px;
-    border: none;
-    border-radius: 5px;
-    background-color: #0E8388;
-    transition: .2s ease;
-    font-weight: 600;
-    color: white;
+.but-kirim-email {
+  height: 35px;
+  width: 105px;
+  border: none;
+  border-radius: 5px;
+  background-color: #0e8388;
+  transition: 0.2s ease;
+  font-weight: 600;
+  color: white;
 }
 
-.bg-pesan-terkirim{
-    height: 35px;
-    border-radius: 5px;
-    background-color: aquamarine;
+.bg-pesan-terkirim {
+  height: 35px;
+  border-radius: 5px;
+  background-color: rgb(0, 255, 170);
 }
 
-.text-pesan-terkirim{
-    height: 100%;
+.bg-pesan-terkirim-merah {
+  height: 35px;
+  border-radius: 5px;
+  background-color: rgb(254, 94, 94);
+}
+
+.text-pesan-terkirim {
+  height: 100%;
+  color: black;
+  font-weight: 600;
+  font-size: 0.9em;
 }

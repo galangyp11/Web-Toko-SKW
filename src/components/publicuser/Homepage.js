@@ -19,10 +19,6 @@ const Homepage = () => {
       <div className="row d-flex justify-content-center">
         <Items />
       </div>
-
-      {/* <div className="row d-flex justify-content-center">
-                <Loading />    
-            </div> */}
     </div>
   );
 };

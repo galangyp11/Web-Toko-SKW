@@ -5,7 +5,7 @@ import banner3 from "../image/School-Fundraising2.png";
 
 const Banner = () => {
   return (
-    <div className="banner my-4 d-flex justify-content-center">
+    <div className="banner d-flex justify-content-center">
       <div
         id="carouselExample"
         className="carousel carousel-dark slide"
@@ -48,22 +48,22 @@ const Banner = () => {
           </div>
         </div>
         {/* <button
-          className="carousel-control-prev"
+          class="carousel-control-prev"
           type="button"
-          data-bs-target="#carouselExampleIndicators"
+          data-bs-target="#carouselExample"
           data-bs-slide="prev"
         >
-          <span className="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span className="visually-hidden">Previous</span>
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
         </button>
         <button
-          className="carousel-control-next"
+          class="carousel-control-next"
           type="button"
-          data-bs-target="#carouselExampleIndicators"
+          data-bs-target="#carouselExample"
           data-bs-slide="next"
         >
-          <span className="carousel-control-next-icon" aria-hidden="true"></span>
-          <span className="visually-hidden">Next</span>
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
         </button> */}
       </div>
     </div>

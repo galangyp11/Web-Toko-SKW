@@ -45,10 +45,6 @@ const Category = () => {
                 className="item-recomend mx-1 mb-5"
                 key={kategori.id_kategori}
               >
-                {/* <Link
-                  to={`/kategori/${kategori.id_kategori}`}
-                  style={{ textDecoration: "none", color: "black" }}
-                > */}
                 <div className="row">
                   <div
                     className="recomend-thumbnail"
@@ -73,7 +69,6 @@ const Category = () => {
                     {kategori.nama_kategori}
                   </p>
                 </div>
-                {/* </Link> */}
               </div>
             );
           })}

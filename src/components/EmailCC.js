@@ -7,6 +7,7 @@ import { BsCheck } from "react-icons/bs";
 const EmailCC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isPesanTerkirm, setIsPesanTerkirim] = useState(false);
+  const [textNotifPesan, setTextNotifPesan] = useState("");
   const [dataPesan, setDataPesan] = useState({
     email: "",
     pesan: "",
@@ -23,39 +24,50 @@ const EmailCC = () => {
   const handleKirim = (e) => {
     e.preventDefault();
 
-    const tgl_input =
-      tanggal.getDate() +
-      "/" +
-      (+tanggal.getMonth() + 1) +
-      "/" +
-      tanggal.getFullYear();
-    setDataPesan((data) => ({ ...data, tanggal: tgl_input }));
+    if (dataPesan.pesan === "" && dataPesan.email === "") {
+      setIsPesanTerkirim(false);
+    } else if (dataPesan.email === "") {
+      setIsPesanTerkirim(true);
+      setTextNotifPesan("Email tidak boleh kosong!");
+    } else if (dataPesan.pesan === "") {
+      setIsPesanTerkirim(true);
+      setTextNotifPesan("Pesan tidak boleh kosong!");
+    } else {
+      const tgl_input =
+        tanggal.getDate() +
+        "/" +
+        (+tanggal.getMonth() + 1) +
+        "/" +
+        tanggal.getFullYear();
+      setDataPesan((data) => ({ ...data, tanggal: tgl_input }));
 
-    emailjs
-      .send(
-        "service_66ojacq",
-        "template_kglw8uv",
-        dataPesan,
-        "w3RTvXknr0E_40EQG"
-      )
-      .then(
-        (result) => {
-          console.log(result.text);
-        },
-        (error) => {
-          console.log(error.text);
-        }
-      );
+      emailjs
+        .send(
+          "service_66ojacq",
+          "template_kglw8uv",
+          dataPesan,
+          "w3RTvXknr0E_40EQG"
+        )
+        .then(
+          (result) => {
+            console.log(result.text);
+          },
+          (error) => {
+            console.log(error.text);
+          }
+        );
 
-    setIsPesanTerkirim(true);
-    setDataPesan((data) => ({ ...data, email: "", pesan: "", tanggal: "" }));
+      setIsPesanTerkirim(true);
+      setTextNotifPesan("Pesan Terkirim");
+      setDataPesan((data) => ({ ...data, email: "", pesan: "", tanggal: "" }));
+    }
   };
 
   useEffect(() => {
     setTimeout(() => {
       setIsPesanTerkirim(false);
-    }, 4000);
-  }, [handleKirim]);
+    }, 1500);
+  }, [isPesanTerkirm]);
 
   return (
     <div className="email-cc">
@@ -115,9 +127,15 @@ const EmailCC = () => {
           >
             <div className="col">
               {isPesanTerkirm ? (
-                <div className="bg-pesan-terkirim">
-                  <p className="text-pesan-terkirim d-flex align-items-center justify-content-center">
-                    Pesan Terkirim <BsCheck size={20} />
+                <div
+                  className={`${
+                    textNotifPesan === "Pesan Terkirim"
+                      ? "bg-pesan-terkirim"
+                      : "bg-pesan-terkirim-merah"
+                  }`}
+                >
+                  <p className="text-pesan-terkirim d-flex align-items-center justify-content-center lh-1 px-3 my-2">
+                    {textNotifPesan}
                   </p>
                 </div>
               ) : (
