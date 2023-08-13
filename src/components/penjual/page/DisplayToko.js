@@ -3,6 +3,7 @@ import { useParams, Link } from "react-router-dom";
 import imageKosong from "../../image/image-kosong.png";
 import axios from "axios";
 import "./displaytoko.css";
+import { MdKeyboardArrowRight } from "react-icons/md";
 import apiHost from "../../../constants/apiHost";
 
 import { HiOutlineLocationMarker } from "react-icons/hi";
@@ -50,6 +51,15 @@ const DisplayToko = () => {
   console.log({ dataPenjual, itemsPenjual });
   return (
     <div className="display-toko container">
+      <div className="breadcrumbs mt-2 d-flex">
+        <Link className="breadcrumbs-not-active" to="/">
+          Beranda
+        </Link>
+        <p className="breadcrumbs-active">
+          <MdKeyboardArrowRight />
+          Profile Toko
+        </p>
+      </div>
       <div className="row my-3">
         <div className="col-2">
           <div className="bg-foto-profil-toko-display d-flex align-items-center justify-content-center">

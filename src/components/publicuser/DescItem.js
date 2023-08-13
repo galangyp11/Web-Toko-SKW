@@ -1,17 +1,16 @@
 import "./descitem.css";
 import { useState, useEffect } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useLocation } from "react-router-dom";
 import { BsFillCartFill } from "react-icons/bs";
+import { MdKeyboardArrowRight } from "react-icons/md";
 import { IoLogoWhatsapp } from "react-icons/io";
 import ReactWhatsapp from "react-whatsapp";
 import axios from "axios";
 import Cookies from "js-cookie";
-import fotoKosing from "../image/kuraplongo.jpg";
 
 import apiHost from "../../constants/apiHost";
 import AlertHijau from "../Alert/AlertHijau";
 import AlertMerah from "../Alert/AlertMerah";
-import KuraPlongo from "../image/kuraplongo.jpg";
 import Loading from "../Loading";
 
 const DescItem = () => {
@@ -163,6 +162,8 @@ const DescItem = () => {
     }).format(number);
   };
 
+  const location = useLocation();
+
   console.log({
     // ukuranItem,
     // warnaItem,
@@ -171,16 +172,34 @@ const DescItem = () => {
     // isUkuran,
     // gambarItem,
     itemById,
+    location,
     // messageWa
   });
 
   return (
     <div className="descitem">
+      <div className="breadcrumbs mt-2 d-flex">
+        <Link className="breadcrumbs-not-active" to="/">
+          Beranda
+        </Link>
+        <Link
+          className="breadcrumbs-not-active"
+          to={`/kategori/${itemById.id_kategori}`}
+        >
+          <MdKeyboardArrowRight />
+          Kategori
+        </Link>
+        <p className="breadcrumbs-active">
+          <MdKeyboardArrowRight />
+          Detail Produk
+        </p>
+      </div>
+
       {isLoading ? (
         <Loading />
       ) : (
         <div className="desc-item-con container ">
-          <div className="row pt-4" style={{ overflow: "hidden" }}>
+          <div className="row pt-2" style={{ overflow: "hidden" }}>
             <div className="col">
               <div
                 className="row d-flex justify-content-center"

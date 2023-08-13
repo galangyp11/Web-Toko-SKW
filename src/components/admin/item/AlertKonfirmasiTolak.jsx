@@ -13,9 +13,9 @@ const AlertKonfirmasiTolak = ({
 }) => {
   const handleTolak = async (e) => {
     e.preventDefault();
-    await axios.delete(`${apiHost}item/${textAlert.id_item}`);
+    await axios.delete(`${apiHost}kategori/${textAlert.id_kategori}`);
     const dataFillter = datum.filter(
-      (item) => item.id_item !== textAlert.id_item
+      (kategori) => kategori.id_kategori !== textAlert.id_kategori
     );
     setDatum(dataFillter);
     setIsAlert(false);
@@ -39,26 +39,16 @@ const AlertKonfirmasiTolak = ({
     >
       <div className="modal-body px-5 py-3">
         <p className="text-alert-konfirmasi d-flex justify-content-center align-items-center ">
-          Hapus Item
+          Hapus kategori
         </p>
         <hr />
         <div className="data-table d-flex align-items-center justify-content-center">
           <table style={{ width: "70%" }}>
             <thead>
               <tr>
-                <td className="col-3 table-head-konfirmasi">Nama Item</td>
+                <td className="col-3 table-head-konfirmasi">Kategori</td>
                 <td className="col-1">:</td>
-                <td className="col-4">{textAlert.nama_item}</td>
-              </tr>
-              <tr>
-                <td className="col-3 table-head-konfirmasi">Toko</td>
-                <td className="col-1">:</td>
-                <td className="col-4">{textAlert.nama_toko}</td>
-              </tr>
-              <tr>
-                <td className="col-3 table-head-konfirmasi">Stok</td>
-                <td className="col-1">:</td>
-                <td className="col-4">{textAlert.stok_item}</td>
+                <td className="col-4">{textAlert.nama_kategori}</td>
               </tr>
             </thead>
           </table>

@@ -2,8 +2,9 @@ import "./keranjang.css";
 import { useState, useEffect } from "react";
 import apiHost from "../../../constants/apiHost";
 import axios from "axios";
+import { MdKeyboardArrowRight } from "react-icons/md";
 import Cookies from "js-cookie";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import FooterKeranjang from "./FooterKeranjang";
 import ItemsKeranjang from "./ItemsKeranjang";
@@ -76,6 +77,15 @@ const Keranjang = () => {
       </div>
 
       <div className="keranjang-con container mt-2">
+        <div className="breadcrumbs d-flex">
+          <Link className="breadcrumbs-not-active" to="/">
+            Beranda
+          </Link>
+          <p className="breadcrumbs-active">
+            <MdKeyboardArrowRight />
+            Keranjang
+          </p>
+        </div>
         <div className="row">
           <div className="col">
             {isKosong ? (

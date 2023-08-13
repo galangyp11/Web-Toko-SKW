@@ -5,6 +5,7 @@ import axios from "axios";
 import apiHost from "../../../constants/apiHost";
 import { RxCross2 } from "react-icons/rx";
 import AlertKonfirmasiTolak from "./AlertKonfirmasiTolak";
+import AlertHijau from "../../Alert/AlertHijau";
 
 const KategoriItem = () => {
   const [datumKategori, setDatumKategori] = useState([]);
@@ -19,6 +20,8 @@ const KategoriItem = () => {
   const [previewImg, setPreviewImg] = useState([]);
   const [isAlertTolak, setIsAlertTolak] = useState(false);
   const [textAlert, setTextAlert] = useState();
+  const [isAlertHijau, setIsAlertHijau] = useState(false);
+  const [textAlertHijau, setTextAlertHijau] = useState();
   const [idTransaksi, setIdTransaksi] = useState("");
 
   useEffect(() => {
@@ -74,6 +77,8 @@ const KategoriItem = () => {
       nama_kategori: "",
       foto_kategori: "",
     });
+    setIsAlertHijau(true);
+    setTextAlertHijau("Kategori berhasil ditambah");
   };
 
   const handleSimpanEdit = async (e) => {
@@ -87,6 +92,8 @@ const KategoriItem = () => {
       nama_kategori: "",
       foto_kategori: "",
     });
+    setIsAlertHijau(true);
+    setTextAlertHijau("Kategori berhasil diubah");
   };
 
   const handleBatal = () => {
@@ -214,7 +221,7 @@ const KategoriItem = () => {
       </div>
 
       {isTambah ? (
-        <div className="container bg-input-kategori my-3">
+        <div className="container bg-input-kategori my-3 p-3">
           <p className="text-judul-kategori">Tambah Kategori</p>
 
           <hr />
@@ -231,7 +238,7 @@ const KategoriItem = () => {
             </div>
           </div>
 
-          <div className="row d-flex align-items-center">
+          <div className="row my-2 d-flex align-items-center">
             <div className="col-4">
               {previewImg?.map((item, index) => {
                 return (
@@ -296,11 +303,11 @@ const KategoriItem = () => {
       )}
 
       {isEdit ? (
-        <div className="container bg-input-kategori my-3">
+        <div className="container bg-input-kategori my-3 p-3">
           <p className="text-judul-kategori">Edit Kategori</p>
 
           <hr />
-          <div className="row d-flex align-items-center">
+          <div className="row d-flex align-items-center my-1">
             <div className="col mx-5 px-4 ">
               <input
                 id="imageFile"
@@ -411,7 +418,7 @@ const KategoriItem = () => {
                     Edit
                   </button>
                 </td>
-                <td className="p-1" style={{ textAlign: "center" }}>
+                <td style={{ textAlign: "center" }}>
                   <button
                     className="btn btn-danger but-tolak-pesanan"
                     onClick={(e) => handleDelete(e, item)}
@@ -432,6 +439,15 @@ const KategoriItem = () => {
           idTransaksi={idTransaksi}
           setDatum={setDatumKategori}
           datum={datumKategori}
+        />
+      ) : (
+        <div></div>
+      )}
+      {isAlertHijau ? (
+        <AlertHijau
+          textAlert={textAlertHijau}
+          isAlert={isAlertHijau}
+          setIsAlert={setIsAlertHijau}
         />
       ) : (
         <div></div>

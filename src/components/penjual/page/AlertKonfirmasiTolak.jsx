@@ -92,7 +92,7 @@ const AlertKonfirmasiTolak = ({
         </div>
         <div className="col d-flex justify-content-end">
           <button
-            className="but-konfirmasi btn btn-primary"
+            className="but-konfirmasi btn btn-danger"
             onClick={handleTolak}
           >
             Tolak

@@ -4,7 +4,6 @@ import apiHost from "../../constants/apiHost";
 import { BsSearch } from "react-icons/bs";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import BreadCrumbs from "../BreadCrumbs";
 
 const Navbar = () => {
   const navigate = useNavigate();

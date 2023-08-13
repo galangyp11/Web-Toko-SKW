@@ -7,6 +7,26 @@
   margin: 0;
 }
 
+.breadcrumbs-not-active {
+  text-decoration: none;
+  color: rgb(179, 179, 179);
+  font-family: poppins;
+  font-weight: 500;
+  font-size: 1.1em;
+}
+
+.breadcrumbs-not-active:hover {
+  color: black;
+}
+
+.breadcrumbs-active {
+  text-decoration: none;
+  color: black;
+  font-family: poppins;
+  font-weight: 500;
+  font-size: 1.1em;
+}
+
 hr {
   color: gray;
 }

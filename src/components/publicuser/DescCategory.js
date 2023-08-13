@@ -1,6 +1,7 @@
 import "./desccategory.css";
 import imageKosong from "../image/image-kosong.png";
 import { useState, useEffect } from "react";
+import { MdKeyboardArrowRight } from "react-icons/md";
 import { Link, useLocation } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import Loading from "../Loading";
@@ -72,8 +73,17 @@ const DescCategory = () => {
 
   return (
     <div className="desc-category">
+      <div className="breadcrumbs mt-2 d-flex">
+        <Link className="breadcrumbs-not-active" to="/">
+          Beranda
+        </Link>
+        <p className="breadcrumbs-active">
+          <MdKeyboardArrowRight />
+          Kategori
+        </p>
+      </div>
       <div className="desc-category-con container d-flex justify-content-center py-2">
-        <div className="row mt-4" style={{ width: "100%" }}>
+        <div className="row mt-2" style={{ width: "100%" }}>
           <div className="desc-kategory-kiri col-2 py-2">
             <div className="row">
               <h3>Kategori</h3>

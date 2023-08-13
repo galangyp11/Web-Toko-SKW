@@ -1,5 +1,5 @@
 import "./pagepenjual.css";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import apiHost from "../../constants/apiHost";
 import axios from "axios";

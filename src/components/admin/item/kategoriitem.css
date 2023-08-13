@@ -1,31 +1,32 @@
-.bg-kategori-item-admin{
-    background-color: #f7f7f7;
-    border-radius: 5px;
-    height: 2.8em;
-    width: 50%;
+.bg-kategori-item-admin {
+  background-color: #f7f7f7;
+  border-radius: 5px;
+  height: 2.8em;
+  width: 50%;
 }
 
-.text-kategori-item-admin{
-    font-size: 1.2em;
-    font-weight: 500;
-    height: 100%;
+.text-kategori-item-admin {
+  font-size: 1.2em;
+  font-weight: 500;
+  height: 100%;
 }
 
-.bg-input-kategori{
-    border: 1px solid gray;
-    border-radius: 5px;
-    width: 100%;
-    height: 10.5em;
-    background-color: #f7f7f7;
+.bg-input-kategori {
+  border: 1px solid gray;
+  border-radius: 5px;
+  width: 100%;
+  min-height: 10.5em;
+  height: auto;
+  background-color: #f7f7f7;
 }
 
-.text-judul-kategori{
-    height: 1em;
-    font-size: 1.2em;
-    font-weight: 600;
+.text-judul-kategori {
+  height: 1em;
+  font-size: 1.2em;
+  font-weight: 600;
 }
 
-.text-input-kategori{
-    height: 100%;
-    font-weight: 600;
+.text-input-kategori {
+  height: 100%;
+  font-weight: 600;
 }

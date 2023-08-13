@@ -1,6 +1,7 @@
 import "./checkout.css";
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { MdKeyboardArrowRight } from "react-icons/md";
 import axios from "axios";
 
 import NavbarCheck from "./NavbarCheck";
@@ -145,7 +146,7 @@ const CheckPembeli = () => {
   };
 
   const handleBatal = async () => {
-    await axios.delete(`${apiHost}checkout`);
+    // await axios.delete(`${apiHost}checkout`);
     navigate("/");
   };
 
@@ -226,7 +227,21 @@ const CheckPembeli = () => {
       <div className="sticky-top">
         <NavbarCheck />
       </div>
-
+      <div className="container">
+        <div className="breadcrumbs mt-2 d-flex">
+          <Link className="breadcrumbs-not-active" to="/">
+            Beranda
+          </Link>
+          <Link className="breadcrumbs-not-active" to={`/keranjang`}>
+            <MdKeyboardArrowRight />
+            Keranjang
+          </Link>
+          <p className="breadcrumbs-active">
+            <MdKeyboardArrowRight />
+            Checkout
+          </p>
+        </div>
+      </div>
       <div className="check-con container py-1 px-5">
         <div className="row">
           <ItemsCheck dataCheckout={dataCheckout} />

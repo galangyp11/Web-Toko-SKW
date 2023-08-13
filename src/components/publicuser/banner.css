@@ -1,12 +1,30 @@
-.carousel-banner{
-    width: 90%;
-    min-height: 300px;
-    max-height: 100%;
-    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-    
-    border-radius: 10px;
+.banner {
+  width: 80%;
+  height: 450px;
+  max-height: 100%;
+
+  border-radius: 10px;
 }
 
-.img-carousel-banner{
-    border-radius: 10px;
+.img-carousel-banner {
+  border-radius: 10px;
+  height: 85%;
+  width: 100%;
+}
+
+.carousel-indicators .indicator {
+  width: 13px;
+  height: 13px;
+  border-radius: 100%;
+}
+
+.carousel-indicators button .active {
+  background-color: #0e8388;
+}
+
+.banner-img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
