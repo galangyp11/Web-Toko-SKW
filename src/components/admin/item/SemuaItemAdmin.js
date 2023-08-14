@@ -3,7 +3,7 @@ import "./profilpembeliadmin.css";
 import search from "../../image/search.png";
 import axios from "axios";
 import apiHost from "../../../constants/apiHost";
-import AlertKonfirmasiTolak from "./AlertKonfirmasiTolak";
+import AlertKonfirmasiTolak from "./AlertKonfirmasiTolakItem";
 
 const SemuaItemAdmin = () => {
   const [datumItem, setDatumItem] = useState([]);
