@@ -28,6 +28,24 @@ const DaftarPembeli = () => {
   const [typePassword, setTypePassword] = useState("password");
   const [isHiddenPass, setIsHiddenPass] = useState(false);
 
+  useEffect(() => {
+    const getEmail = async () => {
+      const responseEmail = await axios.get(
+        `${apiHost}pembeli-email?search=${dataInput.email}`
+      );
+      setDataPembeliEmail(responseEmail.data);
+    };
+    getEmail();
+
+    const getUsername = async () => {
+      const responseUsername = await axios.get(
+        `${apiHost}pembeli-username?search=${dataInput.username}`
+      );
+      setDataPembeliUsername(responseUsername.data);
+    };
+    getUsername();
+  }, [dataInput]);
+
   const handleInput = (e) => {
     setDataInput((data) => ({
       ...data,
@@ -38,16 +56,6 @@ const DaftarPembeli = () => {
 
   const handleDaftarPembeli = async (e) => {
     e.preventDefault();
-
-    const responseEmail = await axios.get(
-      `${apiHost}pembeli-email?search=${dataInput.email}`
-    );
-    setDataPembeliEmail(responseEmail.data);
-
-    const responseUsername = await axios.get(
-      `${apiHost}pembeli-username?search=${dataInput.username}`
-    );
-    setDataPembeliUsername(responseUsername.data);
 
     if (dataInput.email === "") {
       setIsAlert(true);
@@ -75,10 +83,8 @@ const DaftarPembeli = () => {
         setTimeout(() => {
           navigate("/login");
         }, 1500);
-
-        console.log("bisa kog");
       } catch (error) {
-        console.log("eror bang gabisa input");
+        console.log("error login");
       }
     }
   };

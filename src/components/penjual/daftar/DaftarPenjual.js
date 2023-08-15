@@ -30,32 +30,46 @@ const Daftarpenjual1 = () => {
   const [isAlertHijau, setIsAlertHijau] = useState(false);
   const [textAlert, setTextAlert] = useState("");
 
+  useEffect(() => {
+    const getEmail = async () => {
+      const responseEmail = await axios.get(
+        `${apiHost}penjual-email?search=${dataInput.email_penjual}`
+      );
+      setDataPenjualEmail(responseEmail.data);
+    };
+    getEmail();
+
+    const getNamaToko = async () => {
+      const responseNamaToko = await axios.get(
+        `${apiHost}penjual-toko?search=${dataInput.nama_toko}`
+      );
+      setDataPenjualNamaToko(responseNamaToko.data);
+    };
+    getNamaToko();
+
+    const getNoWA = async () => {
+      const responseNoWa = await axios.get(
+        `${apiHost}penjual-no-wa?search=${dataInput.whatsapp}`
+      );
+      setDataPenjualNoWa(responseNoWa.data);
+    };
+    getNoWA();
+
+    const getNoRek = async () => {
+      const responseNoRek = await axios.get(
+        `${apiHost}penjual-no-rek?search=${dataInput.no_rek_penjual}`
+      );
+      setDataPenjualNoRek(responseNoRek.data);
+    };
+    getNoRek();
+  }, [dataInput]);
+
   const handleInput = (e) => {
     setDataInput((data) => ({ ...data, [e.target.id]: e.target.value }));
   };
 
   const handleDaftarPenjual = async (e) => {
     e.preventDefault();
-
-    const responseEmail = await axios.get(
-      `${apiHost}penjual-email?search=${dataInput.email_penjual}`
-    );
-    setDataPenjualEmail(responseEmail.data);
-
-    const responseNamaToko = await axios.get(
-      `${apiHost}penjual-toko?search=${dataInput.nama_toko}`
-    );
-    setDataPenjualNamaToko(responseNamaToko.data);
-
-    const responseNoWa = await axios.get(
-      `${apiHost}penjual-no-wa?search=${dataInput.whatsapp}`
-    );
-    setDataPenjualNoWa(responseNoWa.data);
-
-    const responseNoRek = await axios.get(
-      `${apiHost}penjual-no-rek?search=${dataInput.no_rek_penjual}`
-    );
-    setDataPenjualNoRek(responseNoRek.data);
 
     if (dataInput.email_penjual === "") {
       setIsAlertMerah(true);
